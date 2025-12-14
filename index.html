@@ -1,352 +1,1221 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yoghesh | Operations & Data Intelligence</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        bg: '#0f172a',      // Deep Slate
-                        card: '#1e293b',    // Lighter Slate
-                        primary: '#38bdf8', // Sky Blue
-                        secondary: '#818cf8', // Indigo
-                    }
-                }
+    <title>Yoghesh | Data Analyst & Automation Engineer</title>
+    <meta name="description" content="Yoghesh - Data Analyst and Automation Engineer specializing in supply chain optimization, Power BI dashboards, and workflow automation with 13+ years of experience.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0a0e1a;
+            --color-surface: #111827;
+            --color-surface-elevated: #1a2332;
+            --color-primary: #3b82f6;
+            --color-primary-dim: #1e40af;
+            --color-accent: #06b6d4;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-text: #f3f4f6;
+            --color-text-muted: #d1d5db;
+            --color-text-dim: #9ca3af;
+            --color-border: #1f2937;
+            --color-code: #8b5cf6;
+            
+            --font-display: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+            
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-display);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.75;
+            font-size: 17px;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+        
+        .bg-gradient {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+            z-index: -2;
+            animation: gradientShift 15s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-5%, -5%) scale(1.1); }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 26, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            animation: slideDown 0.6s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--color-primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color var(--transition-fast);
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width var(--transition-base);
+        }
+        
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 6rem 0;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-    </script>
-    <style>
-        /* Custom Scrollbar for sleek look */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         
-        /* User Action Highlight Class */
-        .user-action {
-            background: rgba(234, 179, 8, 0.1);
-            border-left: 3px solid #eab308;
-            color: #fefce8;
-            padding: 1rem;
-            margin-top: 1rem;
+        section:nth-child(2) { animation-delay: 0.1s; }
+        section:nth-child(3) { animation-delay: 0.2s; }
+        section:nth-child(4) { animation-delay: 0.3s; }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+        }
+        
+        .hero-subtitle {
+            font-family: var(--font-mono);
             font-size: 0.9rem;
-            border-radius: 0 0.5rem 0.5rem 0;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #d1d5db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeIn 0.8s ease-out 0.3s both;
+        }
+        
+        .hero-description {
+            font-size: 1.35rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-weight: 400;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+        
+        .hero-domains {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: var(--color-text-dim);
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--color-primary);
+            animation: fadeIn 0.8s ease-out 0.5s both;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeIn 0.8s ease-out 0.6s both;
+        }
+        
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all var(--transition-base);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            background: var(--color-surface-elevated);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+        
+        .btn-secondary:hover {
+            background: #243447;
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Section Headers */
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 3rem;
+            max-width: 700px;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all var(--transition-base);
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-primary);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+        }
+        
+        /* Experience Section */
+        .experience-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .experience-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--color-primary), var(--color-accent));
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+        
+        .experience-card:hover::before {
+            opacity: 1;
+        }
+        
+        .experience-card:hover {
+            transform: translateX(8px);
+            border-color: var(--color-primary);
+        }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .experience-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 0.3rem;
+        }
+        
+        .experience-company {
+            font-size: 1.1rem;
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-period {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--color-text-dim);
+            background: var(--color-surface-elevated);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        
+        .experience-description {
+            color: var(--color-text-muted);
+            line-height: 1.8;
+        }
+        
+        .experience-description ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .experience-description li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+        
+        .experience-description li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+        
+        .placeholder-note {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid var(--color-warning);
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            font-style: italic;
+        }
+        
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-category h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        
+        .skill-category h3::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--color-accent);
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-item {
+            padding: 0.7rem 0;
+            color: var(--color-text-muted);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        
+        .skill-item:hover {
+            color: var(--color-text);
+            padding-left: 0.5rem;
+        }
+        
+        .skill-item::before {
+            content: '→';
+            color: var(--color-primary);
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+        
+        .skill-item:hover::before {
+            opacity: 1;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 0;
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--color-primary);
+            box-shadow: 0 16px 48px rgba(59, 130, 246, 0.2);
+        }
+        
+        .project-header {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2));
+            padding: 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-type {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .project-content {
+            padding: 2rem;
+        }
+        
+        .project-description {
+            color: var(--color-text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tag {
+            background: var(--color-surface-elevated);
+            color: var(--color-text-muted);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            border: 1px solid var(--color-border);
+        }
+        
+        /* Certifications */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .cert-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 1.8rem;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+        
+        .cert-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--color-success);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+        }
+        
+        .cert-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--color-success), var(--color-accent));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .cert-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.3rem;
+        }
+        
+        .cert-issuer {
+            font-size: 0.9rem;
+            color: var(--color-text-dim);
+        }
+        
+        /* Tool Stack */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .tool-category {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all var(--transition-base);
+        }
+        
+        .tool-category:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+        }
+        
+        .tool-category h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .tool-list {
+            color: var(--color-text-muted);
+            line-height: 2;
+        }
+        
+        /* Contact Section */
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all var(--transition-base);
+            text-decoration: none;
+            color: var(--color-text);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-primary);
+            box-shadow: 0 12px 32px rgba(59, 130, 246, 0.2);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-label {
+            font-size: 0.9rem;
+            color: var(--color-text-dim);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--font-mono);
+        }
+        
+        .contact-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--color-border);
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--color-text-dim);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+            
+            section {
+                padding: 4rem 0;
+            }
+            
+            .hero {
+                padding-top: 100px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .experience-header {
+                flex-direction: column;
+            }
+            
+            .projects-grid,
+            .skills-grid,
+            .tools-grid,
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Smooth reveal on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Code styling */
+        code {
+            font-family: var(--font-mono);
+            background: var(--color-surface-elevated);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--color-code);
+            font-size: 0.9em;
+        }
+        
+        /* Accent lines */
+        .accent-line {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            margin: 2rem 0;
+            border-radius: 2px;
         }
     </style>
 </head>
-<body class="bg-bg text-slate-300 font-sans selection:bg-primary selection:text-bg">
-
-    <div class="lg:flex min-h-screen">
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">&lt;YV /&gt;</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-subtitle">Data Analyst | Automation Engineer | Operations Optimization Specialist</div>
+                <h1>Yoghesh</h1>
+                <p class="hero-description">I build data systems, dashboards, and automation workflows that turn complex operations into clear, actionable decisions.</p>
+                <div class="hero-domains">Core Domains: Supply Chain • Operations Analytics • Business Automation</div>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch →</a>
+                    <a href="#projects" class="btn btn-secondary">View Projects</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="accent-line"></div>
+            <div class="card" style="max-width: 900px;">
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--color-text-muted);">
+                    Data Analyst and Automation Engineer with <strong style="color: var(--color-primary);">13+ years of professional experience</strong>, including <strong style="color: var(--color-primary);">7+ years in large-scale supply chain and warehouse operations</strong>. 
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--color-text-muted); margin-top: 1.5rem;">
+                    Strong expertise in data analytics, inventory optimization, dashboarding, and workflow automation. Currently working as a <strong style="color: var(--color-accent);">freelance Data Analyst and Automation Specialist</strong>, delivering data-driven insights, automation solutions, and lightweight productivity tools for businesses.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2>Professional Experience</h2>
+            <div class="accent-line"></div>
+            <div class="experience-grid">
+                <!-- Freelance Experience -->
+                <div class="experience-card reveal">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-company">Freelance</div>
+                            <div class="experience-title">Data Analyst & Automation Specialist</div>
+                        </div>
+                        <div class="experience-period">2025 – Present</div>
+                    </div>
+                    <div class="experience-description">
+                        <ul>
+                            <li>Deliver data analysis, reporting, and dashboard solutions for business use cases</li>
+                            <li>Build SQL- and Excel-based ETL pipelines for structured data extraction and transformation</li>
+                            <li>Design Power BI dashboards for KPI tracking and decision support</li>
+                            <li>Develop Windows automation using AutoHotkey v2 and Python to eliminate manual workflows</li>
+                            <li>Implement n8n cloud workflows for API integrations, data sync, and process automation</li>
+                            <li>Create SOPs and reusable templates for scalable operations</li>
+                        </ul>
+                        <div class="placeholder-note">
+                            <strong>📝 To Add:</strong> Client types served • Example problems solved • Quantified outcomes (time saved, errors reduced, efficiency gained)
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Jio Experience -->
+                <div class="experience-card reveal">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-company">Jio (Reliance)</div>
+                            <div class="experience-title">Data Analyst (Assistant Manager)</div>
+                            <div style="font-size: 0.95rem; color: var(--color-text-dim); margin-top: 0.5rem;">Supply Chain Optimization Specialist</div>
+                        </div>
+                        <div class="experience-period">2016 – 2024</div>
+                    </div>
+                    <div class="experience-description">
+                        <ul>
+                            <li>Led data analysis for supply chain and warehouse operations supporting <strong style="color: var(--color-success);">600+ retail outlets</strong></li>
+                            <li>Inventory planning, stock distribution, and demand alignment using operational data</li>
+                            <li>Built Excel-based ETL systems using Power Query, advanced formulas, VBA, and automation</li>
+                            <li>Designed recurring MIS reports and performance dashboards for management</li>
+                            <li>Identified inefficiencies and implemented data-backed optimization initiatives</li>
+                            <li>Automated operational workflows using AutoHotkey and Python scripts</li>
+                        </ul>
+                        <div class="placeholder-note">
+                            <strong>📝 To Add:</strong> Key KPIs handled • Scale of data (rows, frequency) • Business impact metrics
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lucas TVS Experience -->
+                <div class="experience-card reveal">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-company">Lucas TVS</div>
+                            <div class="experience-title">Data Analyst</div>
+                        </div>
+                        <div class="experience-period">July 2010 – June 2012</div>
+                    </div>
+                    <div class="experience-description">
+                        <ul>
+                            <li>Analyzed operational and production data to support planning and reporting</li>
+                            <li>Prepared structured reports and business data summaries</li>
+                            <li>Supported cross-functional teams with accurate and timely insights</li>
+                        </ul>
+                        <div class="placeholder-note">
+                            <strong>📝 To Add:</strong> Tools used • Nature of datasets • Reporting frequency or stakeholders
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2>Core Skills</h2>
+            <div class="accent-line"></div>
+            <div class="skills-grid">
+                <div class="card skill-category reveal">
+                    <h3>Data & Analytics</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">SQL: data extraction, joins, aggregations, ETL logic</li>
+                        <li class="skill-item">Data cleaning, transformation, and validation</li>
+                        <li class="skill-item">Power BI: interactive dashboards, KPI reporting</li>
+                        <li class="skill-item">Excel: Power Query, advanced formulas, VBA automation</li>
+                    </ul>
+                </div>
+                
+                <div class="card skill-category reveal">
+                    <h3>Automation & Optimization</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">Windows automation using AutoHotkey v2 and Python</li>
+                        <li class="skill-item">GUI-based lightweight standalone tool development</li>
+                        <li class="skill-item">Task scheduling and workflow orchestration</li>
+                        <li class="skill-item">SOP creation and process documentation</li>
+                    </ul>
+                </div>
+                
+                <div class="card skill-category reveal">
+                    <h3>n8n Cloud Automation</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">n8n low-code workflow automation</li>
+                        <li class="skill-item">API integrations and webhooks</li>
+                        <li class="skill-item">Scheduled workflows and data synchronization</li>
+                        <li class="skill-item">Lead automation and communication flows</li>
+                    </ul>
+                </div>
+                
+                <div class="card skill-category reveal">
+                    <h3>Communication & Storytelling</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">Convert complex datasets into actionable insights</li>
+                        <li class="skill-item">Build decision-focused dashboards</li>
+                        <li class="skill-item">Communicate with technical and non-technical stakeholders</li>
+                        <li class="skill-item">Data visualization and presentation design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2>Featured Projects</h2>
+            <p class="section-subtitle">Showcase of data analysis, dashboards, and automation solutions</p>
+            <div class="accent-line"></div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card reveal">
+                    <div class="project-header">
+                        <div class="project-type">SQL / Data Analysis</div>
+                        <div class="project-title">Project 1</div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-description">
+                            <div class="placeholder-note" style="background: rgba(59, 130, 246, 0.1); border-left-color: var(--color-primary);">
+                                <strong>📝 Content Needed:</strong>
+                                <ul style="margin-top: 0.8rem; margin-left: 1.5rem;">
+                                    <li>Problem statement</li>
+                                    <li>Dataset source</li>
+                                    <li>SQL techniques used</li>
+                                    <li>Output / insights</li>
+                                    <li>Screenshots or query snippets</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">SQL</span>
+                            <span class="tag">Data Analysis</span>
+                            <span class="tag">ETL</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card reveal">
+                    <div class="project-header">
+                        <div class="project-type">Power BI Dashboard</div>
+                        <div class="project-title">Project 2</div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-description">
+                            <div class="placeholder-note" style="background: rgba(59, 130, 246, 0.1); border-left-color: var(--color-primary);">
+                                <strong>📝 Content Needed:</strong>
+                                <ul style="margin-top: 0.8rem; margin-left: 1.5rem;">
+                                    <li>Business use case</li>
+                                    <li>KPIs tracked</li>
+                                    <li>Data model overview</li>
+                                    <li>Dashboard screenshots</li>
+                                    <li>Outcome</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Power BI</span>
+                            <span class="tag">Dashboard</span>
+                            <span class="tag">Visualization</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card reveal">
+                    <div class="project-header">
+                        <div class="project-type">Automation Tool</div>
+                        <div class="project-title">Project 3</div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-description">
+                            <div class="placeholder-note" style="background: rgba(59, 130, 246, 0.1); border-left-color: var(--color-primary);">
+                                <strong>📝 Content Needed:</strong>
+                                <ul style="margin-top: 0.8rem; margin-left: 1.5rem;">
+                                    <li>Manual process description</li>
+                                    <li>Automation logic</li>
+                                    <li>Tool screenshots / GIF</li>
+                                    <li>Time saved / error reduction</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">AutoHotkey</span>
+                            <span class="tag">n8n</span>
+                            <span class="tag">Automation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Tool Stack -->
+    <section>
+        <div class="container">
+            <h2>Tool Stack</h2>
+            <div class="accent-line"></div>
+            <div class="tools-grid">
+                <div class="tool-category reveal">
+                    <h3>Databases</h3>
+                    <div class="tool-list">
+                        <div class="placeholder-note" style="background: rgba(59, 130, 246, 0.1); border-left-color: var(--color-primary); margin-top: 0;">
+                            <strong>📝 Add:</strong> MySQL / PostgreSQL / Others
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tool-category reveal">
+                    <h3>BI & Analytics</h3>
+                    <div class="tool-list">
+                        Microsoft Excel<br>
+                        Power BI<br>
+                        Power Query
+                    </div>
+                </div>
+                
+                <div class="tool-category reveal">
+                    <h3>Automation</h3>
+                    <div class="tool-list">
+                        AutoHotkey v2<br>
+                        Python<br>
+                        n8n Cloud<br>
+                        VBA
+                    </div>
+                </div>
+                
+                <div class="tool-category reveal">
+                    <h3>Platforms</h3>
+                    <div class="tool-list">
+                        <div class="placeholder-note" style="background: rgba(59, 130, 246, 0.1); border-left-color: var(--color-primary); margin-top: 0;">
+                            <strong>📝 Add:</strong> Windows / Cloud services used
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Certifications -->
+    <section>
+        <div class="container">
+            <h2>Certifications</h2>
+            <div class="accent-line"></div>
+            <div class="cert-grid">
+                <div class="cert-card reveal">
+                    <div class="cert-icon">📊</div>
+                    <div class="cert-content">
+                        <h4>Intermediate SQL Certification</h4>
+                        <div class="cert-issuer">DataCamp</div>
+                    </div>
+                </div>
+                
+                <div class="cert-card reveal">
+                    <div class="cert-icon">📈</div>
+                    <div class="cert-content">
+                        <h4>Preparing Data for Analysis with Microsoft Excel</h4>
+                        <div class="cert-issuer">Microsoft (Coursera)</div>
+                    </div>
+                </div>
+                
+                <div class="cert-card reveal">
+                    <div class="cert-icon">⚡</div>
+                    <div class="cert-content">
+                        <h4>Harnessing the Power of Data with Power BI</h4>
+                        <div class="cert-issuer">Microsoft (Coursera)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Hobbies & Creative Work -->
+    <section>
+        <div class="container">
+            <h2>Hobbies & Creative Projects</h2>
+            <div class="accent-line"></div>
+            <div class="card reveal" style="max-width: 900px;">
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--color-text-muted);">
+                    Design and build lightweight standalone productivity tools using AutoHotkey v2 for Windows automation and workflow efficiency. Passionate about creating custom utilities that solve real-world productivity challenges.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--color-text-muted); margin-top: 1.5rem;">
+                    Social media content creation including design, captions, branding, digital posters, flyers, and visiting card creation. Successfully delivered freelance projects for <strong style="color: var(--color-success);">100+ customers</strong>.
+                </p>
+                <div class="placeholder-note">
+                    <strong>📝 To Add:</strong> Sample designs • Portfolio links • Before/after visuals
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2>Let's Connect</h2>
+                <p class="section-subtitle" style="margin: 1rem auto 3rem;">Open to freelance projects, consulting opportunities, and collaboration</p>
+                <div class="accent-line" style="margin: 2rem auto;"></div>
+                
+                <div class="contact-grid">
+                    <div class="contact-card reveal">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value" style="font-size: 0.9rem;">
+                            <div class="placeholder-note" style="margin-top: 1rem; text-align: left;">
+                                📝 Add your email
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card reveal">
+                        <div class="contact-icon">💼</div>
+                        <div class="contact-label">LinkedIn</div>
+                        <div class="contact-value" style="font-size: 0.9rem;">
+                            <div class="placeholder-note" style="margin-top: 1rem; text-align: left;">
+                                📝 Add LinkedIn URL
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card reveal">
+                        <div class="contact-icon">💻</div>
+                        <div class="contact-label">GitHub</div>
+                        <div class="contact-value" style="font-size: 0.9rem;">
+                            <div class="placeholder-note" style="margin-top: 1rem; text-align: left;">
+                                📝 Add GitHub URL
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card reveal">
+                        <div class="contact-icon">📅</div>
+                        <div class="contact-label">Schedule</div>
+                        <div class="contact-value" style="font-size: 0.9rem;">
+                            <div class="placeholder-note" style="margin-top: 1rem; text-align: left;">
+                                📝 Add booking link
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yoghesh. Built with precision and purpose.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Data Analyst • Automation Engineer • Problem Solver</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Smooth scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
         
-        <header class="lg:w-1/3 xl:w-1/4 lg:fixed lg:h-screen p-8 flex flex-col justify-between bg-bg border-r border-slate-800 z-10 relative">
-            <div class="absolute top-0 left-0 w-full h-64 bg-primary/10 blur-[100px] pointer-events-none"></div>
-
-            <div>
-                <h1 class="font-display text-5xl font-bold text-white tracking-tight mb-2">Yoghesh<span class="text-primary">.</span></h1>
-                <h2 class="text-xl text-primary font-medium mb-6">Data Analyst &<br>Automation Engineer</h2>
-                
-                <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
-                    I build data systems, dashboards, and automation workflows that turn complex operations into clear, actionable decisions.
-                </p>
-
-                <nav class="hidden lg:block space-y-4 font-display text-sm font-bold tracking-widest uppercase text-slate-500">
-                    <a href="#about" class="block hover:text-white hover:translate-x-2 transition-all group flex items-center">
-                        <span class="w-8 h-[1px] bg-slate-600 mr-3 group-hover:w-12 group-hover:bg-primary transition-all"></span> About
-                    </a>
-                    <a href="#experience" class="block hover:text-white hover:translate-x-2 transition-all group flex items-center">
-                        <span class="w-8 h-[1px] bg-slate-600 mr-3 group-hover:w-12 group-hover:bg-primary transition-all"></span> Experience
-                    </a>
-                    <a href="#projects" class="block hover:text-white hover:translate-x-2 transition-all group flex items-center">
-                        <span class="w-8 h-[1px] bg-slate-600 mr-3 group-hover:w-12 group-hover:bg-primary transition-all"></span> Projects
-                    </a>
-                    <a href="#freelance" class="block hover:text-white hover:translate-x-2 transition-all group flex items-center">
-                        <span class="w-8 h-[1px] bg-slate-600 mr-3 group-hover:w-12 group-hover:bg-primary transition-all"></span> Freelance & Hobbies
-                    </a>
-                </nav>
-            </div>
-
-            <div class="mt-12 lg:mt-0">
-                <div class="flex gap-4 mb-6">
-                    <a href="LINKEDIN_URL" class="text-2xl text-slate-400 hover:text-white transition"><i class="fab fa-linkedin"></i></a>
-                    <a href="GITHUB_URL" class="text-2xl text-slate-400 hover:text-white transition"><i class="fab fa-github"></i></a>
-                    <a href="mailto:EMAIL_ADDRESS" class="text-2xl text-slate-400 hover:text-white transition"><i class="fas fa-envelope"></i></a>
-                </div>
-                <p class="text-xs text-slate-600 max-w-[200px]">
-                    Based in India.<br>Available for global remote work.
-                </p>
-            </div>
-        </header>
-
-        <main class="lg:w-2/3 xl:w-3/4 lg:ml-auto p-8 md:p-16 lg:p-24 space-y-24">
-
-            <section id="about">
-                <h3 class="text-primary font-display font-bold uppercase tracking-widest mb-6">01. The Overview</h3>
-                <div class="prose prose-invert max-w-3xl text-lg leading-relaxed text-slate-300">
-                    <p class="mb-4">
-                        Data Analyst and Automation Engineer with <strong class="text-white">13+ years of professional experience</strong>, including 7+ years in large-scale supply chain and warehouse operations.
-                    </p>
-                    <p>
-                        I possess strong expertise in data analytics, inventory optimization, dashboarding, and workflow automation. Currently working as a freelance Data Analyst and Automation Specialist, delivering data-driven insights, automation solutions, and lightweight productivity tools for businesses.
-                    </p>
-                </div>
-                
-                <div class="flex flex-wrap gap-3 mt-8">
-                    <span class="px-4 py-2 rounded-full bg-card border border-slate-700 text-sm text-primary">Supply Chain Analytics</span>
-                    <span class="px-4 py-2 rounded-full bg-card border border-slate-700 text-sm text-primary">Operations Optimization</span>
-                    <span class="px-4 py-2 rounded-full bg-card border border-slate-700 text-sm text-primary">Business Automation</span>
-                </div>
-            </section>
-
-
-            <section id="experience">
-                <h3 class="text-primary font-display font-bold uppercase tracking-widest mb-12">02. Career Timeline</h3>
-
-                <div class="relative border-l border-slate-800 ml-3 space-y-16">
-                    
-                    <div class="relative pl-12 group">
-                        <div class="absolute -left-[5px] top-2 w-3 h-3 rounded-full bg-primary shadow-[0_0_10px_#38bdf8]"></div>
-                        
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-                            <h4 class="text-2xl font-bold text-white group-hover:text-primary transition">Freelance Data & Automation Specialist</h4>
-                            <span class="text-sm font-mono text-slate-500">2025 – Present</span>
-                        </div>
-                        
-                        <ul class="list-disc ml-5 space-y-3 text-slate-400 mb-6">
-                            <li>Deliver data analysis, reporting, and dashboard solutions for business use cases.</li>
-                            <li>Build SQL- and Excel-based ETL pipelines for structured data extraction and transformation.</li>
-                            <li>Develop Windows automation using <strong>AutoHotkey v2 and Python</strong> to eliminate manual workflows.</li>
-                            <li>Implement <strong>n8n cloud workflows</strong> for API integrations and data sync.</li>
-                            <li>Create SOPs and reusable templates for scalable operations.</li>
-                        </ul>
-
-                        <div class="user-action">
-                            <strong class="text-yellow-400 block mb-1">Update This:</strong>
-                            <ul class="list-disc ml-4">
-                                <li>Client types served (e.g., E-commerce, Logistics)</li>
-                                <li>Example problems solved</li>
-                                <li>Quantified outcomes (e.g., Reduced processing time by 40%)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="relative pl-12 group">
-                        <div class="absolute -left-[5px] top-2 w-3 h-3 rounded-full bg-slate-600 group-hover:bg-secondary transition"></div>
-                        
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-                            <div>
-                                <h4 class="text-2xl font-bold text-white group-hover:text-secondary transition">Jio — Assistant Manager (Data)</h4>
-                                <p class="text-sm text-slate-500">Supply Chain Optimization Specialist</p>
-                            </div>
-                            <span class="text-sm font-mono text-slate-500">2016 – 2024</span>
-                        </div>
-                        
-                        <ul class="list-disc ml-5 space-y-3 text-slate-400 mb-6">
-                            <li>Led data analysis for supply chain operations supporting <strong>600+ retail outlets</strong>.</li>
-                            <li>Managed inventory planning, stock distribution, and demand alignment.</li>
-                            <li>Built Excel-based ETL systems using Power Query, VBA, and automation.</li>
-                            <li>Designed recurring MIS reports and performance dashboards.</li>
-                            <li>Automated operational workflows using AutoHotkey and Python scripts.</li>
-                        </ul>
-
-                        <div class="user-action">
-                            <strong class="text-yellow-400 block mb-1">Update This:</strong>
-                            <ul class="list-disc ml-4">
-                                <li>Key KPIs handled</li>
-                                <li>Scale of data (rows, frequency)</li>
-                                <li>Business impact metrics</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="relative pl-12 group">
-                        <div class="absolute -left-[5px] top-2 w-3 h-3 rounded-full bg-slate-600 group-hover:bg-secondary transition"></div>
-                        
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-                            <h4 class="text-2xl font-bold text-white group-hover:text-secondary transition">Lucas TVS — Data Analyst</h4>
-                            <span class="text-sm font-mono text-slate-500">2010 – 2012</span>
-                        </div>
-                        
-                        <ul class="list-disc ml-5 space-y-3 text-slate-400 mb-6">
-                            <li>Analyzed operational and production data to support planning and reporting.</li>
-                            <li>Prepared structured reports and business data summaries.</li>
-                        </ul>
-
-                         <div class="user-action">
-                            <strong class="text-yellow-400 block mb-1">Update This:</strong>
-                            Tools used & Nature of datasets.
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-
-            <section id="projects">
-                <h3 class="text-primary font-display font-bold uppercase tracking-widest mb-12">03. Key Projects</h3>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    
-                    <div class="bg-card p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 border border-slate-800 hover:border-primary/50 group">
-                        <div class="flex justify-between items-start mb-6">
-                            <i class="fas fa-database text-4xl text-slate-600 group-hover:text-primary transition"></i>
-                            <a href="#" class="text-slate-400 hover:text-white"><i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                        <h4 class="text-xl font-bold text-white mb-2">SQL Data Analysis & ETL</h4>
-                        <p class="text-slate-400 text-sm mb-4">A comprehensive project demonstrating complex joins, aggregations, and data cleaning.</p>
-                        
-                        <div class="user-action text-xs">
-                            ADD: Problem statement, Dataset source, Output/Insights.
-                        </div>
-                        
-                        <div class="mt-6 flex gap-2 font-mono text-xs text-primary">
-                            <span>SQL</span> <span>ETL</span> <span>Cleaning</span>
-                        </div>
-                    </div>
-
-                    <div class="bg-card p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 border border-slate-800 hover:border-primary/50 group">
-                        <div class="flex justify-between items-start mb-6">
-                            <i class="fas fa-chart-pie text-4xl text-slate-600 group-hover:text-primary transition"></i>
-                            <a href="#" class="text-slate-400 hover:text-white"><i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                        <h4 class="text-xl font-bold text-white mb-2">Power BI Dashboard</h4>
-                        <p class="text-slate-400 text-sm mb-4">Interactive business intelligence dashboard for tracking KPIs and decision support.</p>
-                        
-                        <div class="user-action text-xs">
-                            ADD: Business use case, KPIs tracked, Dashboard outcome.
-                        </div>
-                        
-                        <div class="mt-6 flex gap-2 font-mono text-xs text-primary">
-                            <span>Power BI</span> <span>DAX</span> <span>Viz</span>
-                        </div>
-                    </div>
-
-                    <div class="md:col-span-2 bg-card p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 border border-slate-800 hover:border-primary/50 group">
-                        <div class="flex justify-between items-start mb-6">
-                            <i class="fas fa-robot text-4xl text-slate-600 group-hover:text-primary transition"></i>
-                            <a href="#" class="text-slate-400 hover:text-white"><i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                        <h4 class="text-xl font-bold text-white mb-2">Workflow Automation Suite</h4>
-                        <p class="text-slate-400 text-sm mb-4">A combination of AutoHotkey v2 scripts and n8n workflows to eliminate manual data entry.</p>
-                        
-                        <div class="user-action text-xs">
-                            ADD: Manual process description, Automation logic, Time saved.
-                        </div>
-                        
-                        <div class="mt-6 flex gap-2 font-mono text-xs text-primary">
-                            <span>AHK v2</span> <span>Python</span> <span>n8n</span> <span>API</span>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <section id="freelance">
-                <h3 class="text-primary font-display font-bold uppercase tracking-widest mb-12">04. Creative & Freelance</h3>
-                
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <h4 class="text-white font-bold text-lg mb-4 flex items-center">
-                            <i class="fas fa-tools text-secondary mr-3"></i> Lightweight Tools
-                        </h4>
-                        <p class="text-slate-400 leading-relaxed mb-4">
-                            I design and build standalone productivity tools using AutoHotkey v2. These are custom Windows utilities specifically capable of automating repetitive clicking, typing, and data movement tasks.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="text-white font-bold text-lg mb-4 flex items-center">
-                            <i class="fas fa-paint-brush text-secondary mr-3"></i> Digital Design
-                        </h4>
-                        <p class="text-slate-400 leading-relaxed mb-4">
-                            Social media content creation including branding, digital posters, flyers, and visiting cards.
-                        </p>
-                        <p class="text-primary font-bold">Successfully delivered projects for 100+ customers.</p>
-                    </div>
-                </div>
-
-                <div class="user-action mt-8">
-                    <strong class="text-yellow-400">Add Portfolio Proof:</strong>
-                    Include links to sample designs, Before/After visuals, or anonymized success statements here.
-                </div>
-            </section>
-
-            <section class="border-t border-slate-800 pt-12">
-                <div class="grid md:grid-cols-2 gap-12">
-                    
-                    <div>
-                        <h4 class="text-white font-bold mb-6">Technical Skills</h4>
-                        <div class="space-y-4">
-                            <div>
-                                <span class="text-xs text-slate-500 uppercase tracking-wider block mb-2">Analytics</span>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-slate-800 rounded text-sm text-slate-300">SQL</span>
-                                    <span class="px-3 py-1 bg-slate-800 rounded text-sm text-slate-300">Power BI</span>
-                                    <span class="px-3 py-1 bg-slate-800 rounded text-sm text-slate-300">Excel Power Query</span>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="text-xs text-slate-500 uppercase tracking-wider block mb-2">Automation</span>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-slate-800 rounded text-sm text-slate-300">AutoHotkey v2</span>
-                                    <span class="px-3 py-1 bg-slate-800 rounded text-sm text-slate-300">Python</span>
-                                    <span class="px-3 py-1 bg-slate-800 rounded text-sm text-slate-300">n8n</span>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="text-xs text-slate-500 uppercase tracking-wider block mb-2">Database</span>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-slate-800 border border-yellow-500/30 text-yellow-200 rounded text-sm">ADD: MySQL / PostgreSQL</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="text-white font-bold mb-6">Certifications</h4>
-                        <ul class="space-y-4 text-sm text-slate-400">
-                            <li class="flex items-start">
-                                <i class="fas fa-certificate text-primary mt-1 mr-3"></i>
-                                <div>
-                                    <strong class="text-white block">Intermediate SQL</strong>
-                                    DataCamp
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-certificate text-primary mt-1 mr-3"></i>
-                                <div>
-                                    <strong class="text-white block">Preparing Data for Analysis with Excel</strong>
-                                    Microsoft (Coursera)
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-certificate text-primary mt-1 mr-3"></i>
-                                <div>
-                                    <strong class="text-white block">Harnessing the Power of Data with Power BI</strong>
-                                    Microsoft (Coursera)
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </section>
-
-            <footer class="pt-24 pb-12 text-center text-slate-600 text-sm">
-                <p>&copy; 2025 Yoghesh. Built with HTML & Tailwind CSS.</p>
-            </footer>
-
-        </main>
-    </div>
-
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+        
+        // Mobile menu toggle (if needed in future)
+        // Add mobile hamburger menu functionality here if navigation grows
+    </script>
 </body>
 </html>
