@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yoghesh | Data Intelligence & Automation</title>
-    <meta name="description" content="Portfolio of Yoghesh - Data Analyst, Automation Engineer, and Operations Specialist with 13+ years of experience.">
+    <title>Yoghesh | Data Analyst & Automation Engineer</title>
+    <meta name="description" content="Portfolio of Yoghesh - Data Analyst, Automation Engineer, and Operations Specialist with 13+ years of experience in supply chain optimization and workflow automation.">
+    
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="Yoghesh | Data Analyst & Automation Engineer">
+    <meta property="og:description" content="Transforming raw data into decisive action. 13+ years optimizing supply chains and automating operations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wsnh2022.github.io/">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%2338bdf8'>Y</text></svg>">
 
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -22,15 +31,31 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        midnight: '#030712', // Deep background
-                        panel: '#111827',    // Card background
-                        surface: '#1f2937',  // Hover states
-                        accent: '#38bdf8',   // Sky Blue (Data)
-                        success: '#10b981',  // Green (Success)
-                        warning: '#f59e0b',  // Yellow (Alerts/Inputs)
+                        midnight: '#030712',
+                        panel: '#111827',
+                        surface: '#1f2937',
+                        accent: '#38bdf8',
+                        success: '#10b981',
+                        warning: '#f59e0b',
                     },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
                     }
                 }
             }
@@ -42,7 +67,6 @@
         body { 
             background-color: #030712; 
             color: #e2e8f0; 
-            /* Subtle Grid Background Pattern */
             background-image: radial-gradient(#1f2937 1px, transparent 1px);
             background-size: 40px 40px;
         }
@@ -56,10 +80,10 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* "Input Terminal" Style - Shows where you need to add data */
+        /* Terminal Input Style */
         .terminal-input {
             background: #0f0f15;
-            border-left: 2px solid #f59e0b; /* Orange border */
+            border-left: 2px solid #f59e0b;
             padding: 1rem;
             margin-top: 1rem;
             font-family: 'JetBrains Mono', monospace;
@@ -68,7 +92,7 @@
             position: relative;
         }
         .terminal-input::before {
-            content: 'AWAITING_INPUT :: ';
+            content: 'LOG_OUTPUT :: ';
             color: #f59e0b;
             font-weight: bold;
             font-size: 0.75rem;
@@ -83,213 +107,459 @@
             border-color: rgba(56, 189, 248, 0.3); 
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5); 
         }
+
+        /* Scroll to Top Button */
+        #scrollToTop {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #scrollToTop.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Mobile Menu */
+        #mobileMenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        #mobileMenu.active {
+            max-height: 300px;
+        }
+
+        /* Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Skill Tags */
+        .skill-tag {
+            transition: all 0.2s ease;
+        }
+        .skill-tag:hover {
+            transform: scale(1.05);
+            background: rgba(56, 189, 248, 0.2);
+        }
+
+        /* Progress Bar for Timeline */
+        .timeline-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #38bdf8 0%, transparent 100%);
+            opacity: 0.3;
+        }
     </style>
 </head>
 <body class="min-h-screen selection:bg-accent selection:text-midnight overflow-x-hidden">
 
+    <!-- Background Glow Effect -->
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-5xl glass rounded-2xl z-50 px-6 py-4 flex justify-between items-center shadow-2xl">
-        <a href="#" class="font-display font-bold text-xl tracking-tight text-white flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-            Yoghesh<span class="text-accent">_Dev</span>
-        </a>
-        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-            <a href="#overview" class="hover:text-white transition-colors">Overview</a>
-            <a href="#experience" class="hover:text-white transition-colors">Timeline</a>
-            <a href="#projects" class="hover:text-white transition-colors">Case Studies</a>
-            <a href="#contact" class="text-accent hover:text-accent/80 transition-colors">Hire Me</a>
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-5xl glass rounded-2xl z-50 shadow-2xl">
+        <div class="px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-display font-bold text-xl tracking-tight text-white flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                Yoghesh<span class="text-accent">.Data</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+                <a href="#overview" class="hover:text-white transition-colors">Overview</a>
+                <a href="#experience" class="hover:text-white transition-colors">Timeline</a>
+                <a href="#projects" class="hover:text-white transition-colors">Case Studies</a>
+                <a href="#contact" class="text-accent hover:text-accent/80 transition-colors">Hire Me</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-slate-400 hover:text-white transition-colors">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <div class="md:hidden text-slate-400"><i class="fas fa-bars"></i></div>
+        
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="md:hidden px-6 pb-4">
+            <div class="flex flex-col gap-4 text-sm font-medium text-slate-400 pt-4 border-t border-white/10">
+                <a href="#overview" class="hover:text-white transition-colors">Overview</a>
+                <a href="#experience" class="hover:text-white transition-colors">Timeline</a>
+                <a href="#projects" class="hover:text-white transition-colors">Case Studies</a>
+                <a href="#contact" class="text-accent hover:text-accent/80 transition-colors">Hire Me</a>
+            </div>
+        </div>
     </nav>
 
     <main class="relative z-10 pt-32 pb-20 px-4 max-w-6xl mx-auto">
 
-        <header class="text-center mb-24">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono mb-6">
+        <!-- Hero Section -->
+        <header class="text-center mb-24 scroll-reveal">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono mb-6 animate-float">
                 <i class="fas fa-circle text-[8px] animate-pulse"></i> OPEN FOR FREELANCE 2025
             </div>
-            <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-tight text-glow">
-                Turning Raw Data Into <br class="hidden md:block" />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-500">Decisive Action.</span>
+            <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                I Help Businesses Make <br class="hidden md:block" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-500">Faster, Smarter Decisions</span> <br class="hidden md:block" />
+                Through Data
             </h1>
-            <p class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Senior Data Analyst & Automation Engineer with 13+ years experience. 
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                <strong>Data Analyst & Automation Engineer</strong> with 13+ years of experience optimizing supply chains and operations.
                 I build the data systems, dashboards, and automated workflows that help businesses scale without chaos.
             </p>
             
             <div class="mt-10 flex flex-col md:flex-row gap-4 justify-center">
-                <a href="#projects" class="px-8 py-3 bg-white text-midnight font-bold rounded-lg hover:scale-105 transition-transform">
-                    View Case Studies
+                <a href="#projects" class="px-8 py-3 bg-white text-midnight font-bold rounded-lg hover:scale-105 transition-transform inline-flex items-center justify-center gap-2">
+                    <span>View Case Studies</span>
+                    <i class="fas fa-arrow-right text-sm"></i>
                 </a>
-                <a href="#contact" class="px-8 py-3 glass text-white font-bold rounded-lg hover:bg-white/5 transition-colors">
-                    Contact Me
+                <a href="#contact" class="px-8 py-3 glass text-white font-bold rounded-lg hover:bg-white/5 transition-colors inline-flex items-center justify-center gap-2">
+                    <i class="fas fa-envelope text-sm"></i>
+                    <span>Contact Me</span>
                 </a>
             </div>
         </header>
 
+        <!-- Overview Section -->
         <section id="overview" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-24">
             
-            <div class="md:col-span-2 glass rounded-2xl p-8 hover-card flex flex-col justify-between min-h-[280px]">
+            <!-- Philosophy Card -->
+            <div class="md:col-span-2 glass rounded-2xl p-8 hover-card flex flex-col justify-between min-h-[280px] scroll-reveal">
                 <div>
-                    <h2 class="text-2xl font-bold text-white mb-2 font-display">The Philosophy</h2>
-                    <p class="text-slate-400 mb-6 text-sm leading-relaxed">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-3 font-display">The Philosophy</h2>
+                    <p class="text-slate-400 mb-6 text-base leading-relaxed">
                         I believe in "Monk Mode" focus—deep, distraction-free work to solve complex problems. Whether it's optimizing a warehouse supply chain or automating 100 hours of manual data entry, I strive for clarity, efficiency, and measurable ROI.
                     </p>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 rounded bg-surface border border-white/5 text-xs text-slate-300 font-mono">Operations Analytics</span>
-                    <span class="px-3 py-1 rounded bg-surface border border-white/5 text-xs text-slate-300 font-mono">Workflow Automation</span>
-                    <span class="px-3 py-1 rounded bg-surface border border-white/5 text-xs text-slate-300 font-mono">Supply Chain</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag px-3 py-1 bg-accent/10 text-accent text-xs rounded-full border border-accent/20 font-mono">Systems Thinking</span>
+                        <span class="skill-tag px-3 py-1 bg-accent/10 text-accent text-xs rounded-full border border-accent/20 font-mono">Process Optimization</span>
+                        <span class="skill-tag px-3 py-1 bg-accent/10 text-accent text-xs rounded-full border border-accent/20 font-mono">Data-Driven</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="md:col-span-1 glass rounded-2xl p-8 hover-card flex flex-col justify-center items-center text-center">
-                <span class="text-5xl font-display font-bold text-white mb-1">13<span class="text-accent">+</span></span>
-                <span class="text-xs text-slate-500 uppercase tracking-widest font-bold">Years Exp</span>
-                <div class="w-full h-[1px] bg-white/10 my-6"></div>
-                <span class="text-3xl font-display font-bold text-white mb-1">100<span class="text-accent">+</span></span>
-                <span class="text-xs text-slate-500 uppercase tracking-widest font-bold">Freelance Clients</span>
-            </div>
-
-            <div class="md:col-span-1 glass rounded-2xl p-8 hover-card flex flex-col justify-between">
-                <h3 class="text-lg font-bold text-white mb-4"><i class="fas fa-code text-accent mr-2"></i>Toolbox</h3>
-                <div class="space-y-3 w-full">
-                    <div class="flex items-center justify-between text-xs text-slate-300 font-mono border-b border-white/5 pb-2">
-                        <span>SQL & ETL</span> <i class="fas fa-check text-success"></i>
+            <!-- Technical Stack Card -->
+            <div class="md:col-span-2 glass rounded-2xl p-8 hover-card scroll-reveal" style="animation-delay: 0.1s">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 font-display">Technical Stack</h2>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-300 mb-2 flex items-center gap-2">
+                            <i class="fas fa-database text-accent"></i> Data Analysis & Visualization
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag px-2 py-1 bg-white/5 text-slate-300 text-xs rounded font-mono">SQL</span>
+                            <span class="skill-tag px-2 py-1 bg-white/5 text-slate-300 text-xs rounded font-mono">Power BI</span>
+                            <span class="skill-tag px-2 py-1 bg-white/5 text-slate-300 text-xs rounded font-mono">Excel</span>
+                            <span class="skill-tag px-2 py-1 bg-white/5 text-slate-300 text-xs rounded font-mono">Python</span>
+                            <span class="skill-tag px-2 py-1 bg-white/5 text-slate-300 text-xs rounded font-mono">DAX</span>
+                        </div>
                     </div>
-                    <div class="flex items-center justify-between text-xs text-slate-300 font-mono border-b border-white/5 pb-2">
-                        <span>Power BI</span> <i class="fas fa-check text-success"></i>
-                    </div>
-                    <div class="flex items-center justify-between text-xs text-slate-300 font-mono border-b border-white/5 pb-2">
-                        <span>Python</span> <i class="fas fa-check text-success"></i>
-                    </div>
-                    <div class="flex items-center justify-between text-xs text-slate-300 font-mono border-b border-white/5 pb-2">
-                        <span>AutoHotkey</span> <i class="fas fa-check text-success"></i>
-                    </div>
-                    <div class="flex items-center justify-between text-xs text-slate-300 font-mono pb-1">
-                        <span>n8n / API</span> <i class="fas fa-check text-success"></i>
+                    <div>
+                        <h3 class="text-base font-bold text-slate-300 mb-2 flex items-center gap-2">
+                            <i class="fas fa-robot text-success"></i> Automation & Scripting
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag px-2 py-1 bg-white/5 text-slate-300 text-xs rounded font-mono">AutoHotkey</span>
+                            <span class="skill-tag px-2 py-1 bg-white/5 text-slate-300 text-xs rounded font-mono">Python</span>
+                            <span class="skill-tag px-2 py-1 bg-white/5 text-slate-300 text-xs rounded font-mono">VBA</span>
+                            <span class="skill-tag px-2 py-1 bg-white/5 text-slate-300 text-xs rounded font-mono">Git</span>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Stats Cards -->
+            <div class="glass rounded-2xl p-6 hover-card text-center scroll-reveal" style="animation-delay: 0.2s">
+                <div class="text-5xl font-bold text-accent mb-2 font-display">13+</div>
+                <div class="text-base text-slate-400">Years Experience</div>
+                <div class="mt-4 text-sm text-slate-500 font-mono">Supply Chain & Operations</div>
+            </div>
+
+            <div class="glass rounded-2xl p-6 hover-card text-center scroll-reveal" style="animation-delay: 0.3s">
+                <div class="text-5xl font-bold text-success mb-2 font-display">100+</div>
+                <div class="text-base text-slate-400">Hours Automated</div>
+                <div class="mt-4 text-sm text-slate-500 font-mono">Per Month Saved</div>
+            </div>
+
+            <div class="glass rounded-2xl p-6 hover-card text-center scroll-reveal" style="animation-delay: 0.4s">
+                <div class="text-5xl font-bold text-warning mb-2 font-display whitespace-nowrap">Real-time</div>
+                <div class="text-base text-slate-400">Data Reporting</div>
+                <div class="mt-4 text-sm text-slate-500 font-mono">From 24h Lag</div>
+            </div>
+
+            <div class="glass rounded-2xl p-6 hover-card text-center scroll-reveal" style="animation-delay: 0.5s">
+                <div class="text-5xl font-bold text-purple-400 mb-2 font-display">85%</div>
+                <div class="text-base text-slate-400">Error Reduction</div>
+                <div class="mt-4 text-sm text-slate-500 font-mono">Through Automation</div>
+            </div>
+
         </section>
 
-        <section id="experience" class="mb-24">
-            <h2 class="text-3xl font-display font-bold text-white mb-10 flex items-center">
+        <!-- Experience Timeline Section -->
+        <section id="experience" class="mb-24 scroll-reveal">
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-10 flex items-center">
                 <span class="w-8 h-[2px] bg-accent mr-4"></span> Career Timeline
             </h2>
 
-            <div class="relative border-l border-white/10 ml-3 space-y-16">
+            <div class="relative pl-8 border-l-4 border-accent/20">
+                <div class="timeline-progress"></div>
                 
-                <div class="relative pl-12 group">
-                    <div class="absolute -left-[5px] top-2 w-3 h-3 rounded-full bg-accent shadow-[0_0_15px_#38bdf8]"></div>
-                    
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                        <h3 class="text-2xl font-bold text-white">Freelance Data & Automation Specialist</h3>
-                        <span class="font-mono text-accent text-xs bg-accent/10 px-2 py-1 rounded border border-accent/20">2025 – Present</span>
-                    </div>
-                    
-                    <p class="text-slate-400 mb-4 max-w-3xl">
-                        Delivering high-impact data solutions and custom lightweight tools. Specializing in eliminating manual repetitive tasks through scripting (AHK/Python) and cloud automation (n8n).
-                    </p>
-                    
-                    <div class="terminal-input rounded-lg">
-                        <p class="mb-2 text-white/50">// Insert Freelance Specifics Here:</p>
-                        <ul class="list-disc ml-5 space-y-1 text-slate-400">
-                            <li><strong>Client Types:</strong> [ADD: e.g., Logistics, Retail, E-commerce]</li>
-                            <li><strong>Automation:</strong> [ADD: e.g., Automated invoice generation from Excel to PDF]</li>
-                            <li><strong>Outcome:</strong> [ADD: e.g., Saved client 15 hours/week of manual entry]</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="relative pl-12 group">
-                    <div class="absolute -left-[5px] top-2 w-3 h-3 rounded-full bg-surface group-hover:bg-white transition-colors"></div>
-                    
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">Jio — Assistant Manager (Data)</h3>
-                            <p class="text-sm text-slate-500">Supply Chain Optimization Specialist</p>
+                <!-- Timeline Item 1: Freelance -->
+                <div class="mb-16 relative">
+                    <div class="absolute -left-10 w-4 h-4 rounded-full bg-accent border-4 border-midnight"></div>
+                    <div class="glass rounded-xl p-8 hover-card">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
+                            <div>
+                                <h3 class="text-2xl md:text-3xl font-bold text-white">Freelance — Data & Automation Consultant</h3>
+                                <p class="text-base text-slate-300">Building Data Infrastructure for Growing Businesses</p>
+                            </div>
+                            <span class="font-mono text-accent text-sm">2024 – Present</span>
                         </div>
-                        <span class="font-mono text-slate-500 text-xs">2016 – 2024</span>
-                    </div>
+                        
+                        <p class="text-slate-400 mb-6 max-w-3xl text-base leading-relaxed">
+                            Providing end-to-end data services: SQL optimization, dashboard prototyping, and workflow automation. Helping businesses transition from reactive chaos to proactive clarity.
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-6 mb-4">
+                            <div>
+                                <p class="text-accent font-bold text-sm uppercase tracking-wider mb-3">Engagement Models</p>
+                                <ul class="list-none space-y-2 text-base">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-caret-right text-slate-500 mt-1 mr-2"></i>
+                                        <span><strong>Fixed-Scope Analytics:</strong> Data cleaning & SQL queries.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-caret-right text-slate-500 mt-1 mr-2"></i>
+                                        <span><strong>Automation:</strong> One-time workflow scripts (AHK/Python/n8n).</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-caret-right text-slate-500 mt-1 mr-2"></i>
+                                        <span><strong>Dashboards:</strong> <span class="text-white border-b border-accent/50">Prototypes</span> & KPI modeling.</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <p class="text-accent font-bold text-sm uppercase tracking-wider mb-3">Typical Turnaround</p>
+                                <ul class="list-none space-y-2 text-slate-400 text-base">
+                                    <li>Data Cleaning :: <span class="text-white">3–5 Days</span></li>
+                                    <li>Auto Scripts  :: <span class="text-white">5–10 Days</span></li>
+                                    <li>BI Prototypes :: <span class="text-white">1–2 Weeks</span></li>
+                                </ul>
+                            </div>
+                        </div>
                     
-                    <p class="text-slate-400 mb-4 max-w-3xl">
-                        Orchestrated supply chain analytics for 600+ retail outlets. Managed inventory planning, stock distribution, and demand alignment using advanced Excel/SQL pipelines.
-                    </p>
-
-                    <div class="terminal-input rounded-lg">
-                        <p class="mb-2 text-white/50">// Insert Jio Metrics Here:</p>
-                        <ul class="list-disc ml-5 space-y-1 text-slate-400">
-                            <li><strong>Scale:</strong> [ADD: Number of SKUs managed or Rows of data processed]</li>
-                            <li><strong>Efficiency:</strong> [ADD: Reduced stock-outs by X% or reduced reporting time by Y%]</li>
-                            <li><strong>Tools:</strong> Built automated MIS reports using VBA and Power Query.</li>
-                        </ul>
+                        <div class="mt-4 pt-3 border-t border-white/10 flex flex-wrap gap-2">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400 hover:text-accent hover:border-accent/30 transition-colors cursor-default">SQL</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400 hover:text-accent hover:border-accent/30 transition-colors cursor-default">Excel (VBA & PQ)</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400 hover:text-accent hover:border-accent/30 transition-colors cursor-default">Power BI (DAX)</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400 hover:text-accent hover:border-accent/30 transition-colors cursor-default">Python</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400 hover:text-accent hover:border-accent/30 transition-colors cursor-default">AutoHotkey</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400 hover:text-accent hover:border-accent/30 transition-colors cursor-default">n8n Automation</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400 hover:text-accent hover:border-accent/30 transition-colors cursor-default">Data Cleaning</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="relative pl-12 group">
-                    <div class="absolute -left-[5px] top-2 w-3 h-3 rounded-full bg-surface group-hover:bg-white transition-colors"></div>
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                        <h3 class="text-xl font-bold text-white">Lucas TVS — Data Analyst</h3>
-                        <span class="font-mono text-slate-500 text-xs">2010 – 2012</span>
+                <!-- Timeline Item 2: Jio -->
+                <div class="mb-16 relative">
+                    <div class="absolute -left-10 w-4 h-4 rounded-full bg-accent/60 border-4 border-midnight"></div>
+                    <div class="glass rounded-xl p-8 hover-card">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
+                            <div>
+                                <h3 class="text-2xl md:text-3xl font-bold text-white">Jio — Assistant Manager (Data)</h3>
+                                <p class="text-base text-slate-300">Supply Chain Optimization Specialist</p>
+                            </div>
+                            <span class="font-mono text-slate-500 text-sm">2016 – 2024</span>
+                        </div>
+                        
+                        <p class="text-slate-400 mb-4 max-w-3xl text-base leading-relaxed">
+                            Orchestrated supply chain analytics for 600+ retail outlets. Managed inventory planning, stock distribution, and demand alignment using advanced Excel/SQL pipelines.
+                        </p>
+
+                        <div class="terminal-input rounded-lg">
+                            <p class="mb-3 text-white/50 font-mono text-sm">// Executed_Achievements_Log:</p>
+                            <ul class="list-none space-y-3 text-base text-slate-400">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mt-1 mr-3 text-xs"></i>
+                                    <span>
+                                        <strong class="text-white">Inventory Optimization:</strong> Reduced non-moving parts by <span class="text-accent">₹1.7M</span> in 2 months (Ranked #1 in State).
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mt-1 mr-3 text-xs"></i>
+                                    <span>
+                                        <strong class="text-white">Efficiency ROI:</strong> Automated weekly MIS reports using VBA & Power Query, saving <span class="text-accent">10+ manual hours/week</span>.
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mt-1 mr-3 text-xs"></i>
+                                    <span>
+                                        <strong class="text-white">Process Improvement:</strong> Accelerated escalation resolution, boosting Customer Satisfaction (CSAT) from <span class="text-accent">72% → 95%</span>.
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mt-1 mr-3 text-xs"></i>
+                                    <span>
+                                        <strong class="text-white">Technical QA:</strong> Debugged AI-based automation scripts, identifying logic errors to restore output accuracy.
+                                    </span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 pt-3 border-t border-white/10 flex flex-wrap gap-2">
+                                <span class="text-xs font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400">SAP CRM</span>
+                                <span class="text-xs font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400">AutoHotkey Automation</span>
+                                <span class="text-xs font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400">Excel VBA</span>
+                                <span class="text-xs font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400">Power Query</span>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-slate-400 text-sm">Analyzed operational and production data to support planning and reporting for cross-functional teams.</p>
                 </div>
+
+                <!-- Timeline Item 3: Lucas TVS -->
+                <div class="mb-12 relative">
+                    <div class="absolute -left-10 w-4 h-4 rounded-full bg-accent/40 border-4 border-midnight"></div>
+                    <div class="glass rounded-xl p-8 hover-card">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
+                            <h3 class="text-2xl md:text-3xl font-bold text-white">Lucas TVS — Excel Analyst</h3>
+                            <span class="font-mono text-slate-500 text-sm">2010 – 2012</span>
+                        </div>
+                        
+                        <p class="text-slate-400 mb-4 max-w-3xl text-base leading-relaxed">
+                            Analyzed operational and production data to support planning and reporting for cross-functional teams. Served as the critical data bridge between shop-floor operations and management planning.
+                        </p>
+                        
+                        <div class="terminal-input rounded-lg">
+                            <p class="mb-3 text-white/50 font-mono text-sm">// Early_Career_Log:</p>
+                            
+                            <ul class="list-none space-y-3 text-base text-slate-400">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-slate-600 mt-1 mr-3 text-xs"></i>
+                                    <span>
+                                        <strong class="text-white">Production Reporting:</strong> Consolidated daily shop-floor production logs into standardized Excel management reports (MIS).
+                                    </span>
+                                </li>
+                                
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-slate-600 mt-1 mr-3 text-xs"></i>
+                                    <span>
+                                        <strong class="text-white">Planning Support:</strong> Provided accurate material flow analysis to the Planning Department to help align production schedules with demand.
+                                    </span>
+                                </li>
+                                
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-slate-600 mt-1 mr-3 text-xs"></i>
+                                    <span>
+                                        <strong class="text-white">System Migration:</strong> Assisted in digitizing manual paper-based records into structured spreadsheets for historical tracking.
+                                    </span>
+                                </li>
+                            </ul>
+                            
+                            <div class="mt-4 pt-3 border-t border-white/10 flex flex-wrap gap-2">
+                                <span class="text-xs font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400">SAP CRM</span>
+                                <span class="text-xs font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400">Production Planning</span>
+                                <span class="text-xs font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400">MIS Reporting</span>
+                                <span class="text-xs font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400">Advanced Excel</span>
+                                <span class="text-xs font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-slate-400">Cross-Functional Collaboration</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <section id="projects" class="mb-24">
-            <h2 class="text-3xl font-display font-bold text-white mb-10 flex items-center">
+        <!-- Projects Section -->
+        <section id="projects" class="mb-24 scroll-reveal">
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-10 flex items-center">
                 <span class="w-8 h-[2px] bg-accent mr-4"></span> Featured Work
             </h2>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <div class="glass rounded-xl overflow-hidden group border border-white/5 hover:border-accent/50 transition-colors flex flex-col">
-                    <div class="h-40 bg-gradient-to-br from-panel to-slate-900 flex items-center justify-center border-b border-white/5 relative">
-                        <i class="fas fa-database text-4xl text-slate-700 group-hover:text-accent transition-colors"></i>
+                <!-- Project 1 -->
+                <div class="glass rounded-xl overflow-hidden group border border-white/5 hover:border-accent/50 transition-all flex flex-col">
+                    <div class="h-40 bg-gradient-to-br from-panel to-slate-900 flex items-center justify-center border-b border-white/5 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-accent/5 transform -skew-y-6 group-hover:skew-y-0 transition-transform duration-500"></div>
+                        <i class="fas fa-database text-4xl text-slate-700 group-hover:text-accent transition-colors duration-300 relative z-10"></i>
                         <div class="absolute bottom-2 right-2 text-[10px] text-slate-600 font-mono">ID: PROJ_001</div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <h3 class="font-bold text-white text-lg mb-2">SQL Data Pipeline</h3>
-                        <p class="text-xs font-mono text-accent mb-4">SQL • ETL • Reporting</p>
+                        <h3 class="font-bold text-white text-xl mb-2">Retail Sales ETL Pipeline</h3>
+                        <p class="text-sm font-mono text-accent mb-4">SQL • ETL • Reporting</p>
                         
-                        <div class="terminal-input text-xs p-3 mt-auto">
-                            <span class="block mb-1 text-warning">Waiting for content...</span>
-                            [ADD: Problem statement, Dataset source, and specific SQL techniques used (Joins, CTEs, Windows Functions).]
+                        <div class="terminal-input text-sm p-3 mt-auto">
+                            <p class="mb-2 text-slate-300">
+                                Designed a structured SQL query to extract, clean, and aggregate daily sales dumps from legacy retail systems.
+                            </p>
+                            <span class="text-success font-bold">Outcome:</span> Reduced reporting lag from 24h to Real-time, improving decision-making speed by 85%.
+                        </div>
+                        
+                        <div class="mt-4 flex gap-2">
+                            <button class="text-sm text-accent hover:text-accent/80 transition-colors font-mono flex items-center gap-1">
+                                <i class="fab fa-github"></i> View Code
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="glass rounded-xl overflow-hidden group border border-white/5 hover:border-accent/50 transition-colors flex flex-col">
-                    <div class="h-40 bg-gradient-to-br from-panel to-slate-900 flex items-center justify-center border-b border-white/5 relative">
-                        <i class="fas fa-chart-pie text-4xl text-slate-700 group-hover:text-accent transition-colors"></i>
-                        <div class="absolute bottom-2 right-2 text-[10px] text-slate-600 font-mono">ID: PROJ_002</div>
+                <!-- Project 2 -->
+                <div class="glass rounded-xl overflow-hidden group border border-white/5 hover:border-accent/50 transition-all flex flex-col">
+                    <div class="h-40 bg-gradient-to-br from-panel to-slate-900 flex items-center justify-center border-b border-white/5 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-purple-500/5 transform -skew-y-6 group-hover:skew-y-0 transition-transform duration-500"></div>
+                        <i class="fas fa-chart-pie text-4xl text-slate-700 group-hover:text-accent transition-colors duration-300 relative z-10"></i>
+                        <div class="absolute bottom-2 right-2 px-2 py-1 bg-accent/10 border border-accent/20 rounded text-[10px] text-accent font-bold tracking-wider">
+                            CASE STUDY / PROTOTYPE
+                        </div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <h3 class="font-bold text-white text-lg mb-2">Power BI Dashboard</h3>
-                        <p class="text-xs font-mono text-accent mb-4">DAX • Visualization • KPI</p>
+                        <h3 class="font-bold text-white text-xl mb-2">KPI Operations Dashboard</h3>
+                        <p class="text-sm font-mono text-accent mb-4">DAX • Modeling • Simulation</p>
                         
-                        <div class="terminal-input text-xs p-3 mt-auto">
-                            <span class="block mb-1 text-warning">Waiting for content...</span>
-                            [ADD: Business use case, KPIs tracked (e.g., Sales vs Target), and impact on decision making.]
+                        <div class="terminal-input text-sm p-3 mt-auto">
+                            <p class="mb-2 text-slate-300">
+                                Modeled a supply chain dataset to visualize stock-outs and delivery delays. Built as a prototype for operational decision support.
+                            </p>
+                            <span class="text-success font-bold">Concept:</span> Exception-based management reducing alert fatigue by 60%.
+                        </div>
+                        
+                        <div class="mt-4 flex gap-2">
+                            <button class="text-sm text-accent hover:text-accent/80 transition-colors font-mono flex items-center gap-1">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="glass rounded-xl overflow-hidden group border border-white/5 hover:border-accent/50 transition-colors flex flex-col">
-                    <div class="h-40 bg-gradient-to-br from-panel to-slate-900 flex items-center justify-center border-b border-white/5 relative">
-                        <i class="fas fa-robot text-4xl text-slate-700 group-hover:text-accent transition-colors"></i>
+                <!-- Project 3 -->
+                <div class="glass rounded-xl overflow-hidden group border border-white/5 hover:border-accent/50 transition-all flex flex-col">
+                    <div class="h-40 bg-gradient-to-br from-panel to-slate-900 flex items-center justify-center border-b border-white/5 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-success/5 transform -skew-y-6 group-hover:skew-y-0 transition-transform duration-500"></div>
+                        <i class="fas fa-robot text-4xl text-slate-700 group-hover:text-accent transition-colors duration-300 relative z-10"></i>
                         <div class="absolute bottom-2 right-2 text-[10px] text-slate-600 font-mono">ID: PROJ_003</div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <h3 class="font-bold text-white text-lg mb-2">Automation Suite</h3>
-                        <p class="text-xs font-mono text-accent mb-4">AutoHotkey • Python • n8n</p>
+                        <h3 class="font-bold text-white text-xl mb-2">Invoice Auto-Processor</h3>
+                        <p class="text-sm font-mono text-accent mb-4">AutoHotkey • Python</p>
                         
-                        <div class="terminal-input text-xs p-3 mt-auto">
-                            <span class="block mb-1 text-warning">Waiting for content...</span>
-                            [ADD: Description of manual process fixed, automation logic, and time saved per week.]
+                        <div class="terminal-input text-sm p-3 mt-auto">
+                            <p class="mb-2 text-slate-300">
+                                Created a script to parse PDF invoices and auto-fill data into Excel/ERP systems, eliminating manual data entry.
+                            </p>
+                            <span class="text-success font-bold">Efficiency:</span> Saved 8+ hours/week, reduced data entry errors by 95%.
+                        </div>
+                        
+                        <div class="mt-4 flex gap-2">
+                            <button class="text-sm text-accent hover:text-accent/80 transition-colors font-mono flex items-center gap-1">
+                                <i class="fab fa-github"></i> View Code
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -297,71 +567,152 @@
             </div>
         </section>
 
-        <section class="glass rounded-2xl p-8 md:p-10 mb-24 border border-white/5 relative overflow-hidden">
+        <!-- Beyond the Terminal Section -->
+        <section class="glass rounded-2xl p-8 md:p-10 mb-24 border border-white/5 relative overflow-hidden scroll-reveal">
             <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none"></div>
             
             <div class="grid md:grid-cols-2 gap-12 relative z-10">
                 <div>
-                    <h2 class="text-2xl font-bold text-white mb-4">Beyond the Terminal</h2>
-                    <p class="text-slate-400 leading-relaxed mb-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Beyond the Terminal</h2>
+                    <p class="text-slate-400 leading-relaxed mb-6 text-base">
                         My expertise extends into creative digital organization and branding. I apply the same discipline to design as I do to code.
                     </p>
                     <ul class="space-y-4">
-                        <li class="flex items-start text-sm text-slate-300">
+                        <li class="flex items-start text-base text-slate-300">
                             <div class="mt-1 mr-3 p-2 bg-white/5 rounded"><i class="fas fa-paint-brush text-purple-400"></i></div>
                             <div>
                                 <strong class="text-white block">Digital Branding</strong>
-                                Posters, Flyers, Social Media Assets, and Visiting Cards.
+                                Posters, Flyers, Social Media Assets, and Visiting Cards designed with precision and purpose.
                             </div>
                         </li>
-                        <li class="flex items-start text-sm text-slate-300">
+                        <li class="flex items-start text-base text-slate-300">
                             <div class="mt-1 mr-3 p-2 bg-white/5 rounded"><i class="fas fa-tools text-purple-400"></i></div>
                             <div>
                                 <strong class="text-white block">Lightweight Tools</strong>
-                                Building standalone Windows utilities for personal productivity enhancement.
+                                Building standalone Windows utilities for personal productivity enhancement and workflow optimization.
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <div class="terminal-input h-full flex flex-col justify-center items-center text-center border-dashed border-2 border-white/10 bg-transparent">
+                    <div class="terminal-input h-full flex flex-col justify-center items-center text-center border-dashed border-2 border-white/10 bg-transparent min-h-[250px]">
                         <i class="fas fa-image text-3xl text-slate-600 mb-4"></i>
                         <p class="text-sm text-slate-500 mb-2">
-                            [IMAGE PLACEHOLDER]
+                            [DESIGN SHOWCASE]
                         </p>
                         <p class="text-xs text-slate-600 max-w-xs">
-                            Upload a collage of your best designs or a before/after of a branding project here.
+                            Portfolio of design work including branding projects, social media assets, and creative layouts.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="text-center max-w-2xl mx-auto py-12">
-            <h2 class="text-3xl font-bold text-white mb-6">Ready to Optimize Your Operations?</h2>
-            <p class="text-slate-400 mb-8">
-                I am currently accepting new freelance projects for Q2 2025. Whether it's complex data analysis, dashboard creation, or workflow automation, let's discuss how we can save you time.
+        <!-- Contact Section -->
+        <section id="contact" class="text-center max-w-2xl mx-auto py-12 scroll-reveal">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Optimize Your Operations?</h2>
+            <p class="text-slate-400 mb-8 text-base md:text-lg leading-relaxed">
+                I am currently accepting new freelance projects for Q2 2025. Whether it's complex data analysis, dashboard creation, or workflow automation, let's discuss how we can save you time and increase efficiency.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="mailto:INSERT_YOUR_EMAIL" class="px-8 py-4 bg-accent hover:bg-sky-400 text-midnight font-bold rounded-lg transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
-                    <i class="fas fa-envelope mr-2"></i> Start a Project
+                <a href="mailto:wsnh.code5621@gmail.com" class="px-8 py-4 bg-accent hover:bg-sky-400 text-midnight font-bold rounded-lg transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(56,189,248,0.3)] inline-flex items-center justify-center gap-2 text-base">
+                    <i class="fas fa-envelope"></i> Start a Project
                 </a>
-                <a href="LINKEDIN_URL" class="px-8 py-4 bg-surface hover:bg-slate-700 text-white font-medium rounded-lg border border-white/10 transition-colors">
-                    <i class="fab fa-linkedin mr-2"></i> LinkedIn
+                <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-surface hover:bg-slate-700 text-white font-medium rounded-lg border border-white/10 transition-colors inline-flex items-center justify-center gap-2 text-base">
+                    <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
-                <a href="GITHUB_URL" class="px-8 py-4 bg-surface hover:bg-slate-700 text-white font-medium rounded-lg border border-white/10 transition-colors">
-                    <i class="fab fa-github mr-2"></i> GitHub
+                <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-surface hover:bg-slate-700 text-white font-medium rounded-lg border border-white/10 transition-colors inline-flex items-center justify-center gap-2 text-base">
+                    <i class="fab fa-github"></i> GitHub
                 </a>
             </div>
         </section>
 
     </main>
 
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-accent hover:bg-sky-400 text-midnight rounded-full shadow-lg transition-all transform hover:scale-110 z-50 flex items-center justify-center">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
     <footer class="text-center py-8 border-t border-white/5 mt-12 bg-black/20">
-        <p class="text-xs text-slate-600 font-mono">
-            &copy; 2025 Yoghesh. Built with Semantic HTML & Tailwind CSS.
+        <p class="text-sm text-slate-600 font-mono">
+            &copy; 2025 Yoghesh. Data Analyst & Automation Engineer. All Rights Reserved.
+        </p>
+        <p class="text-sm text-slate-700 font-mono mt-2">
+            Built with precision. Optimized for impact.
         </p>
     </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Scroll to Top Button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 100;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
