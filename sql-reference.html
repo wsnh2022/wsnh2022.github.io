@@ -1,0 +1,2262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Master Reference Notes (Full Unabridged)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        body { background-color: #f4f6f9; padding: 20px; font-family: 'Segoe UI', system-ui, sans-serif; }
+        h1 { color: #2c3e50; font-weight: 700; margin-bottom: 0.5rem; }
+        
+        /* Accordion Styling */
+        .accordion-item { border: none; margin-bottom: 10px; border-radius: 8px !important; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .accordion-button { background-color: #ffffff; font-weight: 600; color: #34495e; padding: 15px 20px; }
+        .accordion-button:not(.collapsed) { background-color: #e3f2fd; color: #0d6efd; box-shadow: none; }
+        .accordion-button:focus { box-shadow: none; border-color: rgba(0,0,0,0.125); }
+        .accordion-body { background-color: #fff; padding: 25px; }
+        
+        /* Content Typography */
+        h4 { border-bottom: 2px solid #eee; padding-bottom: 8px; margin-top: 35px; margin-bottom: 15px; font-size: 1.3rem; color: #2c3e50; font-weight: 700; }
+        h5 { font-size: 1.1rem; color: #0d6efd; margin-top: 25px; font-weight: 600; }
+        h4:first-child { margin-top: 0; }
+        
+        /* Code Blocks */
+        pre { border-radius: 6px; margin: 15px 0 25px 0 !important; background: #2d2d2d; }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 0.9em; }
+        
+        /* Lists & Tables */
+        ul { padding-left: 20px; color: #555; }
+        li { margin-bottom: 5px; }
+        .table-sm th { background-color: #f8f9fa; }
+        
+        /* Search Bar */
+        .search-container { position: sticky; top: 0; z-index: 1000; background: #f4f6f9; padding: 15px 0; }
+        .search-box { border-radius: 50px; padding: 12px 25px; border: 1px solid #ced4da; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="text-center mb-4">
+        <h1>SQL Master Reference Notes</h1>
+        <p class="text-muted">Complete Unabridged Guide</p>
+    </div>
+
+    <div class="search-container">
+        <div class="row g-2 align-items-center">
+            <div class="col-md-8">
+                <input type="text" id="searchBar" class="form-control search-box" placeholder="Search for commands, syntax, or concepts (e.g., 'ALTER', 'JSON', 'PIVOT')...">
+            </div>
+            <div class="col-md-4 text-end">
+                <button class="btn btn-primary btn-sm rounded-pill px-3" onclick="expandAll()">Expand All</button>
+                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3" onclick="collapseAll()">Collapse All</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion" id="sqlAccordion">
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c1">
+                    1. DATA QUERY LANGUAGE (DQL)
+                </button>
+            </h2>
+            <div id="c1" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>SELECT Statement</h4>
+                    <pre><code class="language-sql">SELECT [DISTINCT | ALL] 
+    column_list | * | expression
+FROM table_name
+[WHERE condition]
+[GROUP BY column_list]
+[HAVING condition]
+[ORDER BY column_list [ASC | DESC]]
+[LIMIT number]
+[OFFSET number]</code></pre>
+
+                    <h5>SELECT Components:</h5>
+                    <ul>
+                        <li><strong>DISTINCT</strong>: Remove duplicate rows</li>
+                        <li><strong>ALL</strong>: Include all rows (default)</li>
+                        <li><strong>Column Selection</strong>: <code>*</code>, <code>column_name</code>, <code>table.column</code>, <code>expression</code>, <code>column AS alias</code></li>
+                    </ul>
+
+                    <h5>FROM Clause:</h5>
+                    <ul>
+                        <li>Single table: <code>FROM table_name</code></li>
+                        <li>Multiple tables: <code>FROM table1, table2</code></li>
+                        <li>Table alias: <code>FROM table_name AS alias</code></li>
+                        <li>Subquery: <code>FROM (SELECT ...) AS alias</code></li>
+                    </ul>
+
+                    <h5>WHERE Clause (Row Filtering):</h5>
+                    <p><strong>Comparison Operators:</strong> <code>=</code>, <code>!=</code>, <code>&lt;&gt;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></p>
+                    <p><strong>Logical Operators:</strong> <code>AND</code>, <code>OR</code>, <code>NOT</code></p>
+                    <p><strong>Pattern Matching:</strong> 
+                        <ul>
+                            <li><code>LIKE</code> (<code>%</code> - Zero or more chars, <code>_</code> - Single char)</li>
+                            <li><code>NOT LIKE</code></li>
+                        </ul>
+                    </p>
+                    <p><strong>Range & Set Operations:</strong> <code>BETWEEN x AND y</code>, <code>NOT BETWEEN</code>, <code>IN (a, b)</code>, <code>NOT IN</code>, <code>IS NULL</code>, <code>IS NOT NULL</code></p>
+                    <p><strong>Exists:</strong> <code>EXISTS (subquery)</code>, <code>NOT EXISTS (subquery)</code></p>
+
+                    <h5>GROUP BY Clause:</h5>
+                    <pre><code class="language-sql">GROUP BY column1, column2, ...</code></pre>
+                    <p><strong>Aggregate Functions:</strong></p>
+                    <ul>
+                        <li><code>COUNT(*)</code>, <code>COUNT(column)</code>, <code>COUNT(DISTINCT column)</code></li>
+                        <li><code>SUM(column)</code>, <code>AVG(column)</code></li>
+                        <li><code>MIN(column)</code>, <code>MAX(column)</code></li>
+                        <li><code>STDDEV(column)</code>, <code>VARIANCE(column)</code></li>
+                    </ul>
+
+                    <h5>HAVING Clause:</h5>
+                    <p>Filter groups (used with GROUP BY)</p>
+                    <pre><code class="language-sql">HAVING aggregate_condition</code></pre>
+
+                    <h5>ORDER BY Clause:</h5>
+                    <pre><code class="language-sql">ORDER BY column1 [ASC|DESC], column2 [ASC|DESC]</code></pre>
+                    <p>Options: <code>NULLS FIRST</code>, <code>NULLS LAST</code></p>
+
+                    <h5>LIMIT & OFFSET:</h5>
+                    <pre><code class="language-sql">LIMIT number        -- Restrict number of rows
+OFFSET number       -- Skip number of rows</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c2">
+                    2. JOINS
+                </button>
+            </h2>
+            <div id="c2" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Types of Joins:</h4>
+
+                    <h5>INNER JOIN:</h5>
+                    <p>Returns matching rows from both tables</p>
+                    <pre><code class="language-sql">SELECT columns
+FROM table1
+INNER JOIN table2 ON table1.column = table2.column</code></pre>
+
+                    <h5>LEFT JOIN (LEFT OUTER JOIN):</h5>
+                    <p>Returns all rows from left table, matching rows from right</p>
+                    <pre><code class="language-sql">SELECT columns
+FROM table1
+LEFT JOIN table2 ON table1.column = table2.column</code></pre>
+
+                    <h5>RIGHT JOIN (RIGHT OUTER JOIN):</h5>
+                    <p>Returns all rows from right table, matching rows from left</p>
+                    <pre><code class="language-sql">SELECT columns
+FROM table1
+RIGHT JOIN table2 ON table1.column = table2.column</code></pre>
+
+                    <h5>FULL JOIN (FULL OUTER JOIN):</h5>
+                    <p>Returns all rows when match in either table</p>
+                    <pre><code class="language-sql">SELECT columns
+FROM table1
+FULL OUTER JOIN table2 ON table1.column = table2.column</code></pre>
+
+                    <h5>CROSS JOIN:</h5>
+                    <p>Cartesian product of both tables</p>
+                    <pre><code class="language-sql">SELECT columns
+FROM table1
+CROSS JOIN table2</code></pre>
+
+                    <h5>SELF JOIN:</h5>
+                    <p>Join table to itself</p>
+                    <pre><code class="language-sql">SELECT columns
+FROM table1 t1
+JOIN table1 t2 ON t1.column = t2.column</code></pre>
+
+                    <h5>NATURAL JOIN:</h5>
+                    <p>Automatic join based on columns with same names</p>
+                    <pre><code class="language-sql">SELECT columns
+FROM table1
+NATURAL JOIN table2</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c3">
+                    3. SUBQUERIES
+                </button>
+            </h2>
+            <div id="c3" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Subquery Types:</h4>
+
+                    <h5>Scalar Subquery:</h5>
+                    <p>Returns single value</p>
+                    <pre><code class="language-sql">SELECT column
+FROM table
+WHERE column = (SELECT MAX(column) FROM table)</code></pre>
+
+                    <h5>Row Subquery:</h5>
+                    <p>Returns single row</p>
+                    <pre><code class="language-sql">SELECT *
+FROM table
+WHERE (column1, column2) = (SELECT col1, col2 FROM table WHERE ...)</code></pre>
+
+                    <h5>Table Subquery:</h5>
+                    <p>Returns multiple rows/columns</p>
+                    <pre><code class="language-sql">SELECT *
+FROM table
+WHERE column IN (SELECT column FROM other_table)</code></pre>
+
+                    <h5>Correlated Subquery:</h5>
+                    <p>References outer query</p>
+                    <pre><code class="language-sql">SELECT t1.column
+FROM table1 t1
+WHERE EXISTS (SELECT 1 FROM table2 t2 WHERE t2.id = t1.id)</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c4">
+                    4. DATA MANIPULATION LANGUAGE (DML)
+                </button>
+            </h2>
+            <div id="c4" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>INSERT Statement:</h4>
+                    <h5>Insert Single Row:</h5>
+                    <pre><code class="language-sql">INSERT INTO table_name (column1, column2, ...)
+VALUES (value1, value2, ...);</code></pre>
+
+                    <h5>Insert Multiple Rows:</h5>
+                    <pre><code class="language-sql">INSERT INTO table_name (column1, column2, ...)
+VALUES 
+    (value1a, value2a, ...),
+    (value1b, value2b, ...);</code></pre>
+
+                    <h5>Insert from SELECT:</h5>
+                    <pre><code class="language-sql">INSERT INTO table_name (column1, column2, ...)
+SELECT column1, column2, ...
+FROM other_table
+WHERE condition;</code></pre>
+
+                    <h5>Insert with DEFAULT values:</h5>
+                    <pre><code class="language-sql">INSERT INTO table_name (column1, column2)
+VALUES (value1, DEFAULT);</code></pre>
+
+                    <h4>UPDATE Statement:</h4>
+                    <h5>Basic Update:</h5>
+                    <pre><code class="language-sql">UPDATE table_name
+SET column1 = value1, column2 = value2
+WHERE condition;</code></pre>
+
+                    <h5>Update with Expression:</h5>
+                    <pre><code class="language-sql">UPDATE table_name
+SET column = column + 10
+WHERE condition;</code></pre>
+
+                    <h5>Update with Subquery:</h5>
+                    <pre><code class="language-sql">UPDATE table_name
+SET column = (SELECT column FROM other_table WHERE ...)
+WHERE condition;</code></pre>
+
+                    <h5>Update with JOIN:</h5>
+                    <pre><code class="language-sql">UPDATE table1
+SET table1.column = table2.column
+FROM table1
+JOIN table2 ON table1.id = table2.id
+WHERE condition;</code></pre>
+
+                    <h4>DELETE Statement:</h4>
+                    <h5>Delete with Condition:</h5>
+                    <pre><code class="language-sql">DELETE FROM table_name
+WHERE condition;</code></pre>
+
+                    <h5>Delete All Rows:</h5>
+                    <pre><code class="language-sql">DELETE FROM table_name;</code></pre>
+
+                    <h5>Delete with Subquery:</h5>
+                    <pre><code class="language-sql">DELETE FROM table_name
+WHERE column IN (SELECT column FROM other_table WHERE ...);</code></pre>
+
+                    <h4>MERGE Statement (UPSERT):</h4>
+                    <pre><code class="language-sql">MERGE INTO target_table
+USING source_table
+ON target_table.id = source_table.id
+WHEN MATCHED THEN
+    UPDATE SET column = source_table.column
+WHEN NOT MATCHED THEN
+    INSERT (column1, column2) VALUES (source.col1, source.col2);</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c5">
+                    5. DATA DEFINITION LANGUAGE (DDL)
+                </button>
+            </h2>
+            <div id="c5" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>CREATE Statements:</h4>
+
+                    <h5>CREATE DATABASE:</h5>
+                    <pre><code class="language-sql">CREATE DATABASE database_name
+[CHARACTER SET charset_name]
+[COLLATE collation_name];</code></pre>
+
+                    <h5>CREATE TABLE:</h5>
+                    <pre><code class="language-sql">CREATE TABLE table_name (
+    column1 datatype [constraints],
+    column2 datatype [constraints],
+    ...,
+    [table_constraints]
+);</code></pre>
+                    <p><strong>Common Data Types:</strong></p>
+<ul>
+<li><strong>Numeric</strong>: INT, SMALLINT, BIGINT, DECIMAL(p,s), NUMERIC(p,s), FLOAT, DOUBLE</li>
+<li><strong>String</strong>: CHAR(n), VARCHAR(n), TEXT, BLOB</li>
+<li><strong>Date/Time</strong>: DATE, TIME, DATETIME, TIMESTAMP, YEAR</li>
+<li><strong>Boolean</strong>: BOOLEAN, BOOL</li>
+<li><strong>Binary</strong>: BINARY, VARBINARY, BLOB</li>
+<li><strong>JSON</strong>: JSON</li>
+<li><strong>UUID</strong>: UUID</li>
+</ul>
+<p><strong>Column Constraints:</strong></p>
+<ul>
+<li><code>NOT NULL</code> - Cannot be null</li>
+<li><code>NULL</code> - Can be null (default)</li>
+<li><code>DEFAULT value</code> - Default value</li>
+<li><code>UNIQUE</code> - All values must be unique</li>
+<li><code>PRIMARY KEY</code> - Unique identifier</li>
+<li><code>FOREIGN KEY</code> - References another table</li>
+<li><code>CHECK (condition)</code> - Value must satisfy condition</li>
+<li><code>AUTO_INCREMENT</code> - Automatically increment (MySQL)</li>
+<li><code>IDENTITY</code> - Auto-increment (SQL Server)</li>
+<li><code>SERIAL</code> - Auto-increment (PostgreSQL)</li>
+</ul>
+                    <p><strong>Table Constraints Example:</strong></p>
+                    <pre><code class="language-sql">PRIMARY KEY (column1, column2),
+FOREIGN KEY (column) REFERENCES other_table(column),
+UNIQUE (column1, column2),
+CHECK (condition),
+CONSTRAINT constraint_name ...</code></pre>
+
+                    <h5>CREATE TABLE AS SELECT:</h5>
+                    <pre><code class="language-sql">CREATE TABLE new_table AS
+SELECT columns
+FROM existing_table
+WHERE condition;</code></pre>
+
+                    <h5>CREATE TEMPORARY TABLE:</h5>
+                    <pre><code class="language-sql">CREATE TEMPORARY TABLE temp_table (
+    column1 datatype,
+    column2 datatype
+);</code></pre>
+
+                    <h5>CREATE INDEX:</h5>
+                    <pre><code class="language-sql">CREATE [UNIQUE] INDEX index_name
+ON table_name (column1 [ASC|DESC], column2, ...);</code></pre>
+
+                    <h5>CREATE VIEW:</h5>
+                    <pre><code class="language-sql">CREATE [OR REPLACE] VIEW view_name AS
+SELECT columns
+FROM tables
+WHERE condition;</code></pre>
+
+                    <h5>CREATE PROCEDURE:</h5>
+                    <pre><code class="language-sql">CREATE PROCEDURE procedure_name (parameters)
+BEGIN
+    -- SQL statements
+END;</code></pre>
+
+                    <h5>CREATE FUNCTION:</h5>
+                    <pre><code class="language-sql">CREATE FUNCTION function_name (parameters)
+RETURNS return_type
+BEGIN
+    -- SQL statements
+    RETURN value;
+END;</code></pre>
+
+                    <h5>CREATE TRIGGER:</h5>
+                    <pre><code class="language-sql">CREATE TRIGGER trigger_name
+{BEFORE | AFTER} {INSERT | UPDATE | DELETE}
+ON table_name
+FOR EACH ROW
+BEGIN
+    -- SQL statements
+END;</code></pre>
+
+                    <h5>CREATE SCHEMA:</h5>
+                    <pre><code class="language-sql">CREATE SCHEMA schema_name
+[AUTHORIZATION user_name];</code></pre>
+
+                    <h4>ALTER Statements:</h4>
+
+                    <h5>ALTER TABLE - Add Column:</h5>
+                    <pre><code class="language-sql">ALTER TABLE table_name
+ADD column_name datatype [constraints];</code></pre>
+
+                    <h5>ALTER TABLE - Drop Column:</h5>
+                    <pre><code class="language-sql">ALTER TABLE table_name
+DROP COLUMN column_name;</code></pre>
+
+                    <h5>ALTER TABLE - Modify Column:</h5>
+                    <pre><code class="language-sql">ALTER TABLE table_name
+MODIFY COLUMN column_name new_datatype;
+
+-- Or (PostgreSQL)
+ALTER TABLE table_name
+ALTER COLUMN column_name TYPE new_datatype;</code></pre>
+
+                    <h5>ALTER TABLE - Rename Column:</h5>
+                    <pre><code class="language-sql">ALTER TABLE table_name
+RENAME COLUMN old_name TO new_name;</code></pre>
+
+                    <h5>ALTER TABLE - Add Constraint:</h5>
+                    <pre><code class="language-sql">ALTER TABLE table_name
+ADD CONSTRAINT constraint_name PRIMARY KEY (column);
+
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name FOREIGN KEY (column)
+    REFERENCES other_table(column);
+
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name UNIQUE (column);
+
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name CHECK (condition);</code></pre>
+
+                    <h5>ALTER TABLE - Drop Constraint:</h5>
+                    <pre><code class="language-sql">ALTER TABLE table_name
+DROP CONSTRAINT constraint_name;</code></pre>
+
+                    <h5>ALTER TABLE - Rename Table:</h5>
+                    <pre><code class="language-sql">ALTER TABLE old_table_name
+RENAME TO new_table_name;</code></pre>
+
+                    <h4>DROP Statements:</h4>
+                    <h5>DROP DATABASE:</h5>
+                    <pre><code class="language-sql">DROP DATABASE [IF EXISTS] database_name;</code></pre>
+
+                    <h5>DROP TABLE:</h5>
+                    <pre><code class="language-sql">DROP TABLE [IF EXISTS] table_name [CASCADE | RESTRICT];</code></pre>
+
+                    <h5>DROP INDEX:</h5>
+                    <pre><code class="language-sql">DROP INDEX [IF EXISTS] index_name ON table_name;</code></pre>
+
+                    <h5>DROP VIEW:</h5>
+                    <pre><code class="language-sql">DROP VIEW [IF EXISTS] view_name;</code></pre>
+
+                    <h5>DROP PROCEDURE / FUNCTION / TRIGGER:</h5>
+                    <pre><code class="language-sql">DROP PROCEDURE [IF EXISTS] procedure_name;
+DROP FUNCTION [IF EXISTS] function_name;
+DROP TRIGGER [IF EXISTS] trigger_name;</code></pre>
+
+                    <h4>TRUNCATE Statement:</h4>
+                    <pre><code class="language-sql">TRUNCATE TABLE table_name;</code></pre>
+                    <p><em>Removes all rows, resets auto-increment, faster than DELETE</em></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c6">
+                    6. DATA CONTROL LANGUAGE (DCL)
+                </button>
+            </h2>
+            <div id="c6" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>GRANT Statement:</h4>
+                    <pre><code class="language-sql">GRANT privilege_list
+ON object
+TO user [WITH GRANT OPTION];</code></pre>
+                    <p><strong>Privileges:</strong></p>
+                    <ul>
+                    <li><code><strong>SELECT</strong></code> - Read data</li>
+                    <li><code><strong>INSERT</strong></code> - Insert data</li>
+                    <li><code><strong>UPDATE</strong></code> - Update data</li>
+                    <li><code><strong>DELETE</strong></code> - Delete data</li>
+                    <li><code><strong>EXECUTE</strong></code> - Execute procedures/functions</li>
+                    <li><code><strong>REFERENCES</strong></code> - Create foreign keys</li>
+                    <li><code><strong>ALL PRIVILEGES</strong></code> - All available privileges</li>
+                    </ul>
+                    <p><strong>Examples:</strong></p>
+                    <pre><code class="language-sql">GRANT SELECT, INSERT ON database.table TO 'user'@'host';
+GRANT ALL PRIVILEGES ON database.* TO 'user'@'host';
+GRANT EXECUTE ON PROCEDURE procedure_name TO user;</code></pre>
+
+                    <h4>REVOKE Statement:</h4>
+                    <pre><code class="language-sql">REVOKE privilege_list
+ON object
+FROM user;</code></pre>
+                    <p><strong>Example:</strong></p>
+                    <pre><code class="language-sql">REVOKE INSERT, UPDATE ON database.table FROM 'user'@'host';
+REVOKE ALL PRIVILEGES ON database.* FROM 'user'@'host';</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c7">
+                    7. TRANSACTION CONTROL LANGUAGE (TCL)
+                </button>
+            </h2>
+            <div id="c7" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>BEGIN TRANSACTION:</h4>
+                    <pre><code class="language-sql">BEGIN TRANSACTION;
+-- or
+START TRANSACTION;
+-- or
+BEGIN;</code></pre>
+
+                    <h4>COMMIT:</h4>
+                    <pre><code class="language-sql">COMMIT;</code></pre>
+                    <p><em>Saves all changes made in current transaction</em></p>
+
+                    <h4>ROLLBACK:</h4>
+                    <pre><code class="language-sql">ROLLBACK;</code></pre>
+                    <p><em>Undoes all changes made in current transaction</em></p>
+
+                    <h4>SAVEPOINT:</h4>
+                    <pre><code class="language-sql">SAVEPOINT savepoint_name;</code></pre>
+
+                    <h4>ROLLBACK TO SAVEPOINT:</h4>
+                    <pre><code class="language-sql">ROLLBACK TO SAVEPOINT savepoint_name;</code></pre>
+
+                    <h4>RELEASE SAVEPOINT:</h4>
+                    <pre><code class="language-sql">RELEASE SAVEPOINT savepoint_name;</code></pre>
+
+                    <h4>SET TRANSACTION:</h4>
+                    <pre><code class="language-sql">SET TRANSACTION 
+[READ WRITE | READ ONLY]
+[ISOLATION LEVEL {READ UNCOMMITTED | READ COMMITTED | REPEATABLE READ | SERIALIZABLE}];</code></pre>
+                    <p><strong>Isolation Levels:</strong></p>
+                    <ul>
+                        <li><code>READ UNCOMMITTED</code> - Dirty reads possible</li>
+                        <li><code>READ COMMITTED</code> - No dirty reads</li>
+                        <li><code>REPEATABLE READ</code> - Consistent reads within transaction</li>
+                        <li><code>SERIALIZABLE</code> - Fully isolated transactions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c8">
+                    8. SET OPERATIONS
+                </button>
+            </h2>
+            <div id="c8" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>UNION:</h4>
+                    <p>Combines results, removes duplicates</p>
+                    <pre><code class="language-sql">SELECT columns FROM table1
+UNION
+SELECT columns FROM table2;</code></pre>
+
+                    <h4>UNION ALL:</h4>
+                    <p>Combines results, keeps duplicates</p>
+                    <pre><code class="language-sql">SELECT columns FROM table1
+UNION ALL
+SELECT columns FROM table2;</code></pre>
+
+                    <h4>INTERSECT:</h4>
+                    <p>Returns common rows</p>
+                    <pre><code class="language-sql">SELECT columns FROM table1
+INTERSECT
+SELECT columns FROM table2;</code></pre>
+
+                    <h4>EXCEPT (MINUS):</h4>
+                    <p>Returns rows in first query but not in second</p>
+                    <pre><code class="language-sql">SELECT columns FROM table1
+EXCEPT
+SELECT columns FROM table2;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c9">
+                    9. COMMON TABLE EXPRESSIONS (CTE)
+                </button>
+            </h2>
+            <div id="c9" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Basic CTE:</h4>
+                    <pre><code class="language-sql">WITH cte_name AS (
+    SELECT columns
+    FROM table
+    WHERE condition
+)
+SELECT *
+FROM cte_name;</code></pre>
+
+                    <h4>Multiple CTEs:</h4>
+                    <pre><code class="language-sql">WITH 
+    cte1 AS (SELECT ...),
+    cte2 AS (SELECT ...),
+    cte3 AS (SELECT ...)
+SELECT *
+FROM cte1
+JOIN cte2 ON ...
+JOIN cte3 ON ...;</code></pre>
+
+                    <h4>Recursive CTE:</h4>
+                    <pre><code class="language-sql">WITH RECURSIVE cte_name AS (
+    -- Anchor member
+    SELECT columns FROM table WHERE condition
+    
+    UNION ALL
+    
+    -- Recursive member
+    SELECT columns FROM table
+    JOIN cte_name ON condition
+)
+SELECT * FROM cte_name;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c10">
+                    10. WINDOW FUNCTIONS
+                </button>
+            </h2>
+            <div id="c10" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Syntax:</h4>
+                    <pre><code class="language-sql">function_name([arguments]) 
+OVER (
+    [PARTITION BY partition_expression]
+    [ORDER BY sort_expression [ASC | DESC]]
+    [frame_clause]
+)</code></pre>
+
+                    <h4>Ranking Functions:</h4>
+                    <ul>
+                        <li><code>ROW_NUMBER()</code> - Sequential number for each row</li>
+                        <li><code>RANK()</code> - Rank with gaps for ties</li>
+                        <li><code>DENSE_RANK()</code> - Rank without gaps</li>
+                        <li><code>NTILE(n)</code> - Divide rows into n groups</li>
+                        <li><code>PERCENT_RANK()</code> - Relative rank (0-1)</li>
+                        <li><code>CUME_DIST()</code> - Cumulative distribution</li>
+                    </ul>
+
+                    <h4>Aggregate Window Functions:</h4>
+                    <ul>
+                        <li><code>SUM(column) OVER (...)</code></li>
+                        <li><code>AVG(column) OVER (...)</code></li>
+                        <li><code>COUNT(column) OVER (...)</code></li>
+                        <li><code>MIN(column) OVER (...)</code></li>
+                        <li><code>MAX(column) OVER (...)</code></li>
+                    </ul>
+
+                    <h4>Value Functions:</h4>
+                    <ul>
+                        <li><code>FIRST_VALUE(column)</code> - First value in window</li>
+                        <li><code>LAST_VALUE(column)</code> - Last value in window</li>
+                        <li><code>NTH_VALUE(column, n)</code> - Nth value in window</li>
+                        <li><code>LAG(column, offset)</code> - Value from previous row</li>
+                        <li><code>LEAD(column, offset)</code> - Value from next row</li>
+                    </ul>
+
+                    <h4>Frame Clause:</h4>
+                    <pre><code class="language-sql">{ROWS | RANGE} BETWEEN frame_start AND frame_end</code></pre>
+                    <p><strong>Frame Options:</strong></p>
+                        <ul>
+                            <li><code>UNBOUNDED PRECEDING</code> - Start of partition</li>
+                            <li><code>n PRECEDING</code> - n rows before current</li>
+                            <li><code>CURRENT ROW</code> - Current row</li>
+                            <li><code>n FOLLOWING</code> - n rows after current</li>
+                            <li><code>UNBOUNDED FOLLOWING</code> - End of partition</li>
+                        </ul>
+                    <p><strong>Example:</strong></p>
+                    <pre><code class="language-sql">SELECT 
+    column,
+    SUM(amount) OVER (
+        PARTITION BY category 
+        ORDER BY date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) as running_total
+FROM table;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c11">
+                    11. ADVANCED SQL FEATURES
+                </button>
+            </h2>
+            <div id="c11" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>CASE Expression:</h4>
+                    <h5>Simple CASE:</h5>
+                    <pre><code class="language-sql">CASE column
+    WHEN value1 THEN result1
+    WHEN value2 THEN result2
+    ELSE default_result
+END</code></pre>
+                    <h5>Searched CASE:</h5>
+                    <pre><code class="language-sql">CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    ELSE default_result
+END</code></pre>
+
+                    <h4>COALESCE:</h4>
+                    <p>Returns first non-NULL value</p>
+                    <pre><code class="language-sql">COALESCE(column1, column2, default_value)</code></pre>
+
+                    <h4>NULLIF:</h4>
+                    <p>Returns NULL if two values are equal</p>
+                    <pre><code class="language-sql">NULLIF(expression1, expression2)</code></pre>
+
+                    <h4>CAST and CONVERT:</h4>
+                    <pre><code class="language-sql">CAST(expression AS datatype)
+CONVERT(datatype, expression)</code></pre>
+
+                    <h4>String Functions:</h4>
+                    <ul>
+                    <li><code>CONCAT(str1, str2, ...)</code> - Concatenate strings</li>
+                    <li><code>SUBSTRING(str, start, length)</code> - Extract substring</li>
+                    <li><code>LENGTH(str)</code> or <code>LEN(str)</code> - String length</li>
+                    <li><code>UPPER(str)</code> - Convert to uppercase</li>
+                    <li><code>LOWER(str)</code> - Convert to lowercase</li>
+                    <li><code>TRIM(str)</code> - Remove leading/trailing spaces</li>
+                    <li><code>LTRIM(str)</code> - Remove leading spaces</li>
+                    <li><code>RTRIM(str)</code> - Remove trailing spaces</li>
+                    <li><code>REPLACE(str, find, replace)</code> - Replace substring</li>
+                    <li><code>LEFT(str, n)</code> - Get leftmost n characters</li>
+                    <li><code>RIGHT(str, n)</code> - Get rightmost n characters</li>
+                    <li><code>REVERSE(str)</code> - Reverse string</li>
+                    <li><code>CHARINDEX(find, str)</code> or <code>INSTR(str, find)</code> - Find position</li>
+                    <li><code>STUFF(str, start, length, new)</code> - Insert/replace</li>
+                    </ul>
+
+                    <h4>Numeric Functions:</h4>
+                    <ul>
+                    <li><code>ABS(n)</code> - Absolute value</li>
+                    <li><code>ROUND(n, decimals)</code> - Round number</li>
+                    <li><code>CEILING(n)</code> or <code>CEIL(n)</code> - Round up</li>
+                    <li><code>FLOOR(n)</code> - Round down</li>
+                    <li><code>POWER(base, exp)</code> or <code>POW(base, exp)</code> - Power</li>
+                    <li><code>SQRT(n)</code> - Square root</li>
+                    <li><code>MOD(n, divisor)</code> - Modulo</li>
+                    <li><code>SIGN(n)</code> - Sign of number</li>
+                    <li><code>RAND()</code> or <code>RANDOM()</code> - Random number</li>
+                    <li><code>PI()</code> - Pi constant</li>
+                    <li><code>EXP(n)</code> - e raised to power</li>
+                    <li><code>LOG(n)</code> - Natural logarithm</li>
+                    <li><code>LOG10(n)</code> - Base-10 logarithm</li>
+                    </ul>
+
+                    <h4>Date/Time Functions:</h4>
+                        <ul>
+                        <li><code>NOW()</code> or <code>GETDATE()</code> - Current date/time</li>
+                        <li><code>CURDATE()</code> or <code>CURRENT_DATE</code> - Current date</li>
+                        <li><code>CURTIME()</code> or <code>CURRENT_TIME</code> - Current time</li>
+                        <li><code>DATE(datetime)</code> - Extract date</li>
+                        <li><code>TIME(datetime)</code> - Extract time</li>
+                        <li><code>YEAR(date)</code> - Extract year</li>
+                        <li><code>MONTH(date)</code> - Extract month</li>
+                        <li><code>DAY(date)</code> - Extract day</li>
+                        <li><code>HOUR(time)</code> - Extract hour</li>
+                        <li><code>MINUTE(time)</code> - Extract minute</li>
+                        <li><code>SECOND(time)</code> - Extract second</li>
+                        <li><code>DAYNAME(date)</code> - Day name</li>
+                        <li><code>MONTHNAME(date)</code> - Month name</li>
+                        <li><code>DAYOFWEEK(date)</code> - Day of week number</li>
+                        <li><code>DAYOFYEAR(date)</code> - Day of year</li>
+                        <li><code>WEEK(date)</code> - Week number</li>
+                        <li><code>QUARTER(date)</code> - Quarter number</li>
+                        <li><code>DATEDIFF(date1, date2)</code> - Difference in days</li>
+                        <li><code>DATE_ADD(date, INTERVAL value unit)</code> - Add interval</li>
+                        <li><code>DATE_SUB(date, INTERVAL value unit)</code> - Subtract interval</li>
+                        <li><code>DATEADD(unit, value, date)</code> - Add to date</li>
+                        <li><code>DATEPART(unit, date)</code> - Extract date part</li>
+                        <li><code>LAST_DAY(date)</code> - Last day of month</li>
+                        </ul>
+
+                    <h4>Conditional Functions:</h4>
+                    <ul>
+                    <li><code>IF(condition, true_value, false_value)</code> - MySQL</li>
+                    <li><code>IIF(condition, true_value, false_value)</code> - SQL Server</li>
+                    <li><code>GREATEST(val1, val2, ...)</code> - Maximum value</li>
+                    <li><code>LEAST(val1, val2, ...)</code> - Minimum value</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c12">
+                    12. INDEXES
+                </button>
+            </h2>
+            <div id="c12" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Types of Indexes:</h4>
+                    
+                    <h5>B-Tree Index (Default):</h5>
+                    <pre><code class="language-sql">CREATE INDEX idx_name ON table_name(column);</code></pre>
+
+                    <h5>Unique Index:</h5>
+                    <pre><code class="language-sql">CREATE UNIQUE INDEX idx_name ON table_name(column);</code></pre>
+
+                    <h5>Composite Index:</h5>
+                    <pre><code class="language-sql">CREATE INDEX idx_name ON table_name(column1, column2, column3);</code></pre>
+
+                    <h5>Partial Index:</h5>
+                    <pre><code class="language-sql">CREATE INDEX idx_name ON table_name(column) WHERE condition;</code></pre>
+
+                    <h5>Full-Text Index:</h5>
+                    <pre><code class="language-sql">CREATE FULLTEXT INDEX idx_name ON table_name(column);</code></pre>
+
+                    <h5>Spatial Index:</h5>
+                    <pre><code class="language-sql">CREATE SPATIAL INDEX idx_name ON table_name(geometry_column);</code></pre>
+
+                    <h5>Covering Index:</h5>
+                    <pre><code class="language-sql">CREATE INDEX idx_name ON table_name(column1) INCLUDE (column2, column3);</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c13">
+                    13. CONSTRAINTS
+                </button>
+            </h2>
+            <div id="c13" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>PRIMARY KEY:</h4>
+                    <pre><code class="language-sql">-- Column level
+CREATE TABLE table_name (id INT PRIMARY KEY);
+
+-- Table level
+CREATE TABLE table_name (id INT, PRIMARY KEY (id));
+
+-- Composite
+PRIMARY KEY (column1, column2)</code></pre>
+
+                    <h4>FOREIGN KEY:</h4>
+                    <pre><code class="language-sql">FOREIGN KEY (column) REFERENCES parent_table(parent_column)
+    [ON DELETE {CASCADE | SET NULL | SET DEFAULT | RESTRICT | NO ACTION}]
+    [ON UPDATE {CASCADE | SET NULL | SET DEFAULT | RESTRICT | NO ACTION}]</code></pre>
+                    <p><strong>Referential Actions:</strong></p>
+                    <ul>
+                        <li><code>CASCADE</code> - Delete/update related rows</li>
+                        <li><code>SET NULL</code> - Set foreign key to NULL</li>
+                        <li><code>SET DEFAULT</code> - Set to default value</li>
+                        <li><code>RESTRICT</code> - Prevent operation</li>
+                        <li><code>NO ACTION</code> - Same as RESTRICT</li>
+                    </ul>
+                    <h4>UNIQUE:</h4>
+                    <pre><code class="language-sql">-- Column level
+column_name datatype UNIQUE
+
+-- Table level
+UNIQUE (column1, column2)</code></pre>
+
+                    <h4>CHECK:</h4>
+                    <pre><code class="language-sql">CHECK (condition)
+CONSTRAINT chk_name CHECK (condition)</code></pre>
+
+                    <h4>DEFAULT:</h4>
+                    <pre><code class="language-sql">column_name datatype DEFAULT default_value</code></pre>
+
+                    <h4>NOT NULL:</h4>
+                    <pre><code class="language-sql">column_name datatype NOT NULL</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c14">
+                    14. VIEWS
+                </button>
+            </h2>
+            <div id="c14" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Create View:</h4>
+                    <pre><code class="language-sql">CREATE VIEW view_name AS
+SELECT columns
+FROM tables
+WHERE condition;</code></pre>
+
+                    <h4>Create or Replace View:</h4>
+                    <pre><code class="language-sql">CREATE OR REPLACE VIEW view_name AS
+SELECT columns
+FROM tables
+WHERE condition;</code></pre>
+
+                    <h4>Updatable Views:</h4>
+                    <p>Views are updatable if they meet criteria: Single table, No aggregate functions, No DISTINCT, GROUP BY, HAVING, No UNION.</p>
+
+                    <h4>Materialized View:</h4>
+                    <pre><code class="language-sql">CREATE MATERIALIZED VIEW view_name AS
+SELECT columns
+FROM tables
+WHERE condition;
+
+-- Refresh
+REFRESH MATERIALIZED VIEW view_name;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c15">
+                    15. STORED PROCEDURES & FUNCTIONS
+                </button>
+            </h2>
+            <div id="c15" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Stored Procedure:</h4>
+                    <pre><code class="language-sql">CREATE PROCEDURE procedure_name (
+    IN param1 datatype,
+    OUT param2 datatype,
+    INOUT param3 datatype
+)
+BEGIN
+    DECLARE variable datatype;
+    
+    -- SQL statements
+    SELECT column INTO variable FROM table;
+    
+    IF condition THEN
+        -- statements
+    ELSEIF condition THEN
+        -- statements
+    ELSE
+        -- statements
+    END IF;
+    
+    WHILE condition DO
+        -- statements
+    END WHILE;
+    
+    REPEAT
+        -- statements
+    UNTIL condition
+    END REPEAT;
+    
+    LOOP
+        -- statements
+        IF condition THEN
+            LEAVE loop_label;
+        END IF;
+    END LOOP;
+    
+    SET param2 = value;
+END;</code></pre>
+
+                    <h4>Call Procedure:</h4>
+                    <pre><code class="language-sql">CALL procedure_name(arg1, @out_var, arg3);</code></pre>
+
+                    <h4>User-Defined Function:</h4>
+                    <pre><code class="language-sql">CREATE FUNCTION function_name (param1 datatype, param2 datatype)
+RETURNS return_datatype
+[DETERMINISTIC | NOT DETERMINISTIC]
+BEGIN
+    DECLARE result datatype;
+    
+    -- Logic
+    SET result = calculation;
+    
+    RETURN result;
+END;</code></pre>
+
+                    <h4>Call Function:</h4>
+                    <pre><code class="language-sql">SELECT function_name(value1, value2);</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c16">
+                    16. TRIGGERS
+                </button>
+            </h2>
+            <div id="c16" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Create Trigger:</h4>
+                    <pre><code class="language-sql">CREATE TRIGGER trigger_name
+{BEFORE | AFTER} {INSERT | UPDATE | DELETE}
+ON table_name
+FOR EACH ROW
+BEGIN
+    -- Access OLD values: OLD.column_name
+    -- Access NEW values: NEW.column_name
+    
+    IF condition THEN
+        -- statements
+    END IF;
+END;</code></pre>
+                    <p><strong>Trigger Events:</strong>
+                        <ul>
+                        <li><code>BEFORE INSERT</code> - Before row inserted</li>
+                        <li><code>AFTER INSERT</code> - After row inserted</li>
+                        <li><code>BEFORE UPDATE</code> - Before row updated</li>
+                        <li><code>AFTER UPDATE</code> - After row updated</li>
+                        <li><code>BEFORE DELETE</code> - Before row deleted</li>
+                        <li><code>AFTER DELETE</code> - After row deleted</li>
+                        </ul>
+                    <h4>Drop Trigger:</h4>
+                    <pre><code class="language-sql">DROP TRIGGER [IF EXISTS] trigger_name;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c17">
+                    17. CURSORS
+                </button>
+            </h2>
+            <div id="c17" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Declare Cursor:</h4>
+                    <pre><code class="language-sql">DECLARE cursor_name CURSOR FOR
+SELECT columns FROM table WHERE condition;</code></pre>
+
+                    <h4>Open Cursor:</h4>
+                    <pre><code class="language-sql">OPEN cursor_name;</code></pre>
+
+                    <h4>Fetch from Cursor:</h4>
+                    <pre><code class="language-sql">FETCH cursor_name INTO variable1, variable2, ...;</code></pre>
+
+                    <h4>Close Cursor:</h4>
+                    <pre><code class="language-sql">CLOSE cursor_name;</code></pre>
+
+                    <h4>Deallocate Cursor:</h4>
+                    <pre><code class="language-sql">DEALLOCATE cursor_name;</code></pre>
+
+                    <h4>Complete Example:</h4>
+                    <pre><code class="language-sql">DECLARE @var1 datatype, @var2 datatype;
+DECLARE cursor_name CURSOR FOR
+    SELECT column1, column2 FROM table WHERE condition;
+
+OPEN cursor_name;
+
+FETCH NEXT FROM cursor_name INTO @var1, @var2;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    -- Process row
+    FETCH NEXT FROM cursor_name INTO @var1, @var2;
+END;
+
+CLOSE cursor_name;
+DEALLOCATE cursor_name;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c18">
+                    18. EXCEPTION HANDLING
+                </button>
+            </h2>
+            <div id="c18" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Try-Catch (SQL Server):</h4>
+                    <pre><code class="language-sql">BEGIN TRY
+    -- SQL statements
+END TRY
+BEGIN CATCH
+    SELECT 
+        ERROR_NUMBER() AS ErrorNumber,
+        ERROR_MESSAGE() AS ErrorMessage,
+        ERROR_SEVERITY() AS ErrorSeverity,
+        ERROR_STATE() AS ErrorState,
+        ERROR_PROCEDURE() AS ErrorProcedure,
+        ERROR_LINE() AS ErrorLine;
+    
+    -- Handle error
+    ROLLBACK TRANSACTION;
+END CATCH;</code></pre>
+
+                    <h4>Handler (MySQL):</h4>
+                    <pre><code class="language-sql">DECLARE exit_handler BOOLEAN DEFAULT FALSE;
+
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+BEGIN
+    SET exit_handler = TRUE;
+    -- Handle error
+END;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND
+BEGIN
+    -- Handle not found
+END;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c19">
+                    19. PERFORMANCE & OPTIMIZATION
+                </button>
+            </h2>
+            <div id="c19" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>EXPLAIN / EXPLAIN ANALYZE:</h4>
+                    <pre><code class="language-sql">EXPLAIN SELECT * FROM table WHERE condition;
+EXPLAIN ANALYZE SELECT * FROM table WHERE condition;</code></pre>
+
+                    <h4>Query Hints:</h4>
+                    <pre><code class="language-sql">-- Index hint
+SELECT * FROM table USE INDEX (index_name) WHERE condition;
+SELECT * FROM table FORCE INDEX (index_name) WHERE condition;
+SELECT * FROM table IGNORE INDEX (index_name) WHERE condition;
+
+-- Join hints (SQL Server)
+SELECT * FROM table1 
+INNER LOOP JOIN table2 ON ...;  -- Nested loop
+INNER HASH JOIN table2 ON ...;  -- Hash join
+INNER MERGE JOIN table2 ON ...; -- Merge join</code></pre>
+
+                    <h4>Statistics:</h4>
+                    <pre><code class="language-sql">-- Analyze table
+ANALYZE TABLE table_name;
+
+-- Update statistics
+UPDATE STATISTICS table_name;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c20">
+                    20. SYSTEM & METADATA QUERIES
+                </button>
+            </h2>
+            <div id="c20" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Show Databases:</h4>
+                    <pre><code class="language-sql">SHOW DATABASES;
+-- or
+SELECT schema_name FROM information_schema.schemata;</code></pre>
+
+                    <h4>Show Tables:</h4>
+                    <pre><code class="language-sql">SHOW TABLES;
+-- or
+SELECT table_name FROM information_schema.tables 
+WHERE table_schema = 'database_name';</code></pre>
+
+                    <h4>Show Columns:</h4>
+                    <pre><code class="language-sql">SHOW COLUMNS FROM table_name;
+-- or
+DESCRIBE table_name;
+-- or
+SELECT column_name, data_type, is_nullable
+FROM information_schema.columns
+WHERE table_name = 'table_name';</code></pre>
+
+                    <h4>Show Indexes:</h4>
+                    <pre><code class="language-sql">SHOW INDEXES FROM table_name;
+-- or
+SELECT * FROM information_schema.statistics
+WHERE table_name = 'table_name';</code></pre>
+
+                    <h4>Show Create Table:</h4>
+                    <pre><code class="language-sql">SHOW CREATE TABLE table_name;</code></pre>
+
+                    <h4>Information Schema Tables:</h4>
+                    <ul>
+                    <li><code>information_schema.tables</code> - Table metadata</li>
+                    <li><code>information_schema.columns</code> - Column metadata</li>
+                    <li><code>information_schema.constraints</code> - Constraint metadata</li>
+                    <li><code>information_schema.key_column_usage</code> - Key column info</li>
+                    <li><code>information_schema.table_constraints</code> - Table constraints</li>
+                    <li><code>information_schema.referential_constraints</code> - Foreign keys</li>
+                    <li><code>information_schema.views</code> - View definitions</li>
+                    <li><code>information_schema.routines</code> - Stored procedures/functions</li>
+                    <li><code>information_schema.triggers</code> - Trigger definitions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c21">
+                    21. BACKUP & RESTORE
+                </button>
+            </h2>
+            <div id="c21" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Backup (MySQL):</h4>
+                    <pre><code class="language-bash">mysqldump -u username -p database_name > backup.sql
+mysqldump -u username -p --all-databases > all_backup.sql</code></pre>
+
+                    <h4>Restore (MySQL):</h4>
+                    <pre><code class="language-bash">mysql -u username -p database_name < backup.sql</code></pre>
+
+                    <h4>Backup (PostgreSQL):</h4>
+                    <pre><code class="language-bash">pg_dump database_name > backup.sql
+pg_dumpall > all_backup.sql</code></pre>
+
+                    <h4>Restore (PostgreSQL):</h4>
+                    <pre><code class="language-bash">psql database_name < backup.sql</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c22">
+                    22. USER & SECURITY MANAGEMENT
+                </button>
+            </h2>
+            <div id="c22" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Create User:</h4>
+                    <pre><code class="language-sql">CREATE USER 'username'@'host' IDENTIFIED BY 'password';</code></pre>
+
+                    <h4>Drop User:</h4>
+                    <pre><code class="language-sql">DROP USER 'username'@'host';</code></pre>
+
+                    <h4>Change Password:</h4>
+                    <pre><code class="language-sql">ALTER USER 'username'@'host' IDENTIFIED BY 'new_password';
+SET PASSWORD FOR 'username'@'host' = PASSWORD('new_password');</code></pre>
+
+                    <h4>Show Users:</h4>
+                    <pre><code class="language-sql">SELECT user, host FROM mysql.user;</code></pre>
+
+                    <h4>Show Grants:</h4>
+                    <pre><code class="language-sql">SHOW GRANTS FOR 'username'@'host';</code></pre>
+
+                    <h4>Roles:</h4>
+                    <pre><code class="language-sql">-- Create role
+CREATE ROLE role_name;
+
+-- Grant privileges to role
+GRANT SELECT, INSERT ON database.* TO role_name;
+
+-- Assign role to user
+GRANT role_name TO 'username'@'host';
+
+-- Set default role
+SET DEFAULT ROLE role_name TO 'username'@'host';
+
+-- Drop role
+DROP ROLE role_name;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c23">
+                    23. ADVANCED QUERY TECHNIQUES
+                </button>
+            </h2>
+            <div id="c23" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>PIVOT (Transform rows to columns):</h4>
+                    <pre><code class="language-sql">-- SQL Server
+SELECT *
+FROM (
+    SELECT category, year, sales
+    FROM sales_data
+) AS source
+PIVOT (
+    SUM(sales)
+    FOR year IN ([2021], [2022], [2023])
+) AS pivot_table;
+
+-- MySQL/PostgreSQL (using CASE)
+SELECT 
+    category,
+    SUM(CASE WHEN year = 2021 THEN sales ELSE 0 END) AS '2021',
+    SUM(CASE WHEN year = 2022 THEN sales ELSE 0 END) AS '2022',
+    SUM(CASE WHEN year = 2023 THEN sales ELSE 0 END) AS '2023'
+FROM sales_data
+GROUP BY category;</code></pre>
+
+                    <h4>UNPIVOT (Transform columns to rows):</h4>
+                    <pre><code class="language-sql">-- SQL Server
+SELECT category, year, sales
+FROM sales_data
+UNPIVOT (
+    sales FOR year IN (Y2021, Y2022, Y2023)
+) AS unpivot_table;
+
+-- MySQL/PostgreSQL (using UNION)
+SELECT category, '2021' AS year, Y2021 AS sales FROM sales_data
+UNION ALL
+SELECT category, '2022' AS year, Y2022 AS sales FROM sales_data
+UNION ALL
+SELECT category, '2023' AS year, Y2023 AS sales FROM sales_data;</code></pre>
+
+                    <h4>Dynamic SQL:</h4>
+                    <pre><code class="language-sql">-- SQL Server
+DECLARE @sql NVARCHAR(MAX);
+SET @sql = 'SELECT * FROM ' + @table_name + ' WHERE id = ' + CAST(@id AS VARCHAR);
+EXEC sp_executesql @sql;
+
+-- MySQL
+SET @sql = CONCAT('SELECT * FROM ', table_name, ' WHERE id = ', id);
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+-- PostgreSQL
+EXECUTE 'SELECT * FROM ' || table_name || ' WHERE id = ' || id;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c24">
+                    24. JSON OPERATIONS
+                </button>
+            </h2>
+            <div id="c24" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>JSON Functions (MySQL/PostgreSQL):</h4>
+
+                    <h5>Extract JSON Value:</h5>
+                    <pre><code class="language-sql">-- MySQL
+JSON_EXTRACT(json_column, '$.path.to.value')
+json_column->>'$.path'
+
+-- PostgreSQL
+json_column->>'key'
+json_column#>>'{key,nested}'
+jsonb_column @> '{"key": "value"}'</code></pre>
+
+                    <h5>Create JSON:</h5>
+                    <pre><code class="language-sql">-- MySQL
+JSON_OBJECT('key1', value1, 'key2', value2)
+JSON_ARRAY(value1, value2, value3)
+
+-- PostgreSQL
+json_build_object('key1', value1, 'key2', value2)
+json_build_array(value1, value2, value3)</code></pre>
+
+                    <h5>Modify JSON:</h5>
+                    <pre><code class="language-sql">-- MySQL
+JSON_SET(json_column, '$.path', new_value)
+JSON_INSERT(json_column, '$.path', new_value)
+JSON_REPLACE(json_column, '$.path', new_value)
+JSON_REMOVE(json_column, '$.path')
+
+-- PostgreSQL
+jsonb_set(json_column, '{path}', new_value)
+json_column || '{"new_key": "value"}'</code></pre>
+
+                    <h5>Query JSON Arrays:</h5>
+                    <pre><code class="language-sql">-- MySQL
+SELECT * FROM table 
+WHERE JSON_CONTAINS(json_array_column, '"value"');
+
+-- PostgreSQL
+SELECT * FROM table
+WHERE json_column @> '[{"key": "value"}]';</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c25">
+                    25. FULL-TEXT SEARCH
+                </button>
+            </h2>
+            <div id="c25" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>MySQL Full-Text Search:</h4>
+                    <h5>Create Full-Text Index:</h5>
+                    <pre><code class="language-sql">CREATE FULLTEXT INDEX idx_fulltext ON table_name(column1, column2);</code></pre>
+
+                    <h5>Natural Language Search:</h5>
+                    <pre><code class="language-sql">SELECT * FROM table_name
+WHERE MATCH(column1, column2) AGAINST('search terms');</code></pre>
+
+                    <h5>Boolean Mode Search:</h5>
+                    <pre><code class="language-sql">SELECT * FROM table_name
+WHERE MATCH(column1, column2) 
+AGAINST('+required -excluded "exact phrase"' IN BOOLEAN MODE);</code></pre>
+                    <p><strong>Boolean Operators:</strong> <code>+word</code> (Must contain), <code>-word</code> (Must not), <code>"phrase"</code>, <code>word*</code> (Wildcard), <code>word1 word2</code> (At least one).</p>
+
+                    <h5>Query Expansion:</h5>
+                    <pre><code class="language-sql">SELECT * FROM table_name
+WHERE MATCH(column1, column2) 
+AGAINST('search terms' WITH QUERY EXPANSION);</code></pre>
+
+                    <h4>PostgreSQL Full-Text Search:</h4>
+                    <h5>Create Text Search Vector:</h5>
+                    <pre><code class="language-sql">ALTER TABLE table_name 
+ADD COLUMN tsv tsvector;
+
+UPDATE table_name 
+SET tsv = to_tsvector('english', column1 || ' ' || column2);
+
+CREATE INDEX idx_tsv ON table_name USING GIN(tsv);</code></pre>
+
+                    <h5>Search:</h5>
+                    <pre><code class="language-sql">SELECT * FROM table_name
+WHERE tsv @@ to_tsquery('english', 'word1 & word2');
+
+SELECT * FROM table_name
+WHERE tsv @@ plainto_tsquery('english', 'search terms');</code></pre>
+
+                    <h5>Ranking:</h5>
+                    <pre><code class="language-sql">SELECT *, ts_rank(tsv, query) AS rank
+FROM table_name, to_tsquery('search') query
+WHERE tsv @@ query
+ORDER BY rank DESC;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c26">
+                    26. PARTITIONING
+                </button>
+            </h2>
+            <div id="c26" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Range Partitioning:</h4>
+                    <pre><code class="language-sql">CREATE TABLE sales (
+    id INT,
+    sale_date DATE,
+    amount DECIMAL(10,2)
+)
+PARTITION BY RANGE (YEAR(sale_date)) (
+    PARTITION p2020 VALUES LESS THAN (2021),
+    PARTITION p2021 VALUES LESS THAN (2022),
+    PARTITION p2022 VALUES LESS THAN (2023),
+    PARTITION p2023 VALUES LESS THAN (2024),
+    PARTITION p_future VALUES LESS THAN MAXVALUE
+);</code></pre>
+
+                    <h4>List Partitioning:</h4>
+                    <pre><code class="language-sql">CREATE TABLE customers (
+    id INT,
+    name VARCHAR(100),
+    country VARCHAR(50)
+)
+PARTITION BY LIST (country) (
+    PARTITION p_usa VALUES IN ('USA'),
+    PARTITION p_europe VALUES IN ('UK', 'France', 'Germany'),
+    PARTITION p_asia VALUES IN ('China', 'Japan', 'India')
+);</code></pre>
+
+                    <h4>Hash Partitioning:</h4>
+                    <pre><code class="language-sql">CREATE TABLE orders (
+    id INT,
+    customer_id INT,
+    order_date DATE
+)
+PARTITION BY HASH(customer_id)
+PARTITIONS 4;</code></pre>
+
+                    <h4>Key Partitioning:</h4>
+                    <pre><code class="language-sql">CREATE TABLE users (
+    id INT,
+    username VARCHAR(50),
+    email VARCHAR(100)
+)
+PARTITION BY KEY(id)
+PARTITIONS 8;</code></pre>
+
+                    <h4>Subpartitioning:</h4>
+                    <pre><code class="language-sql">CREATE TABLE logs (
+    id INT,
+    log_date DATE,
+    server_id INT
+)
+PARTITION BY RANGE (YEAR(log_date))
+SUBPARTITION BY HASH(server_id)
+SUBPARTITIONS 4 (
+    PARTITION p2023 VALUES LESS THAN (2024),
+    PARTITION p2024 VALUES LESS THAN (2025)
+);</code></pre>
+
+                    <h4>Partition Management:</h4>
+                    <pre><code class="language-sql">-- Add partition
+ALTER TABLE table_name ADD PARTITION (
+    PARTITION p2024 VALUES LESS THAN (2025)
+);
+
+-- Drop partition
+ALTER TABLE table_name DROP PARTITION p2020;
+
+-- Truncate partition
+ALTER TABLE table_name TRUNCATE PARTITION p2020;
+
+-- Reorganize partition
+ALTER TABLE table_name REORGANIZE PARTITION p_future INTO (
+    PARTITION p2024 VALUES LESS THAN (2025),
+    PARTITION p_future VALUES LESS THAN MAXVALUE
+);</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c27">
+                    27. SEQUENCES & IDENTITY
+                </button>
+            </h2>
+            <div id="c27" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>PostgreSQL Sequences:</h4>
+                    <pre><code class="language-sql">-- Create sequence
+CREATE SEQUENCE sequence_name
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1
+    MAXVALUE 999999
+    CACHE 20;
+
+-- Use sequence
+INSERT INTO table_name (id, name)
+VALUES (nextval('sequence_name'), 'value');
+
+-- Get current value
+SELECT currval('sequence_name');
+
+-- Set sequence value
+SELECT setval('sequence_name', 100);
+
+-- Drop sequence
+DROP SEQUENCE sequence_name;</code></pre>
+
+                    <h4>MySQL AUTO_INCREMENT:</h4>
+                    <pre><code class="language-sql">-- Create table with auto-increment
+CREATE TABLE table_name (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+-- Set auto-increment value
+ALTER TABLE table_name AUTO_INCREMENT = 1000;
+
+-- Get last inserted ID
+SELECT LAST_INSERT_ID();</code></pre>
+
+                    <h4>SQL Server IDENTITY:</h4>
+                    <pre><code class="language-sql">-- Create table with identity
+CREATE TABLE table_name (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+-- Get last inserted ID
+SELECT SCOPE_IDENTITY();
+SELECT @@IDENTITY;
+
+-- Reseed identity
+DBCC CHECKIDENT ('table_name', RESEED, 1000);</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c28">
+                    28. SPATIAL DATA (GIS)
+                </button>
+            </h2>
+            <div id="c28" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Spatial Data Types:</h4>
+                    <ul>
+                        <li><code>POINT</code> - Single location</li>
+                        <li><code>LINESTRING</code> - Sequence of points</li>
+                        <li><code>POLYGON</code> - Closed area</li>
+                        <li><code>MULTIPOINT</code>, <code>MULTILINESTRING</code>, <code>MULTIPOLYGON</code></li>
+                        <li><code>GEOMETRYCOLLECTION</code></li>
+                    </ul>
+
+                    <h4>Create Spatial Column:</h4>
+                    <pre><code class="language-sql">CREATE TABLE locations (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    coordinates POINT NOT NULL,
+    SPATIAL INDEX(coordinates)
+);</code></pre>
+
+                    <h4>Insert Spatial Data:</h4>
+                    <pre><code class="language-sql">-- MySQL
+INSERT INTO locations (id, name, coordinates)
+VALUES (1, 'Store A', ST_GeomFromText('POINT(40.7128 -74.0060)'));
+
+-- PostgreSQL (PostGIS)
+INSERT INTO locations (id, name, coordinates)
+VALUES (1, 'Store A', ST_SetSRID(ST_MakePoint(-74.0060, 40.7128), 4326));</code></pre>
+
+                    <h4>Spatial Queries:</h4>
+                    <h5>Distance:</h5>
+                    <pre><code class="language-sql">SELECT name, 
+    ST_Distance(coordinates, ST_GeomFromText('POINT(40.7128 -74.0060)')) AS distance
+FROM locations
+ORDER BY distance;</code></pre>
+
+                    <h5>Within Distance:</h5>
+                    <pre><code class="language-sql">SELECT * FROM locations
+WHERE ST_Distance_Sphere(
+    coordinates,
+    ST_GeomFromText('POINT(40.7128 -74.0060)')
+) <= 5000; -- 5km</code></pre>
+
+                    <h5>Contains:</h5>
+                    <pre><code class="language-sql">SELECT * FROM locations
+WHERE ST_Contains(
+    polygon_column,
+    ST_GeomFromText('POINT(40.7128 -74.0060)')
+);</code></pre>
+
+                    <h5>Intersects:</h5>
+                    <pre><code class="language-sql">SELECT * FROM locations
+WHERE ST_Intersects(geometry1, geometry2);</code></pre>
+
+                    <h5>Buffer:</h5>
+                    <pre><code class="language-sql">SELECT ST_Buffer(coordinates, 0.01) AS buffer_zone
+FROM locations;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c29">
+                    29. TEMPORAL TABLES (System-Versioned)
+                </button>
+            </h2>
+            <div id="c29" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>SQL Server Temporal Tables:</h4>
+                    <pre><code class="language-sql">-- Create temporal table
+CREATE TABLE Employee (
+    EmployeeID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Position VARCHAR(100),
+    Department VARCHAR(100),
+    ValidFrom DATETIME2 GENERATED ALWAYS AS ROW START,
+    ValidTo DATETIME2 GENERATED ALWAYS AS ROW END,
+    PERIOD FOR SYSTEM_TIME (ValidFrom, ValidTo)
+)
+WITH (SYSTEM_VERSIONING = ON (HISTORY_TABLE = dbo.EmployeeHistory));
+
+-- Query current data
+SELECT * FROM Employee;
+
+-- Query historical data
+SELECT * FROM Employee 
+FOR SYSTEM_TIME AS OF '2023-01-01';
+
+-- Query all versions
+SELECT * FROM Employee 
+FOR SYSTEM_TIME ALL
+WHERE EmployeeID = 1;
+
+-- Query between dates
+SELECT * FROM Employee 
+FOR SYSTEM_TIME BETWEEN '2023-01-01' AND '2023-12-31'
+WHERE EmployeeID = 1;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c30">
+                    30. COMMON DESIGN PATTERNS
+                </button>
+            </h2>
+            <div id="c30" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Audit Trail Pattern:</h4>
+                    <pre><code class="language-sql">CREATE TABLE audit_log (
+    audit_id INT AUTO_INCREMENT PRIMARY KEY,
+    table_name VARCHAR(50),
+    operation VARCHAR(10),
+    old_values JSON,
+    new_values JSON,
+    user_id INT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Trigger for audit
+CREATE TRIGGER audit_employee_update
+AFTER UPDATE ON employee
+FOR EACH ROW
+BEGIN
+    INSERT INTO audit_log (table_name, operation, old_values, new_values, user_id)
+    VALUES (
+        'employee',
+        'UPDATE',
+        JSON_OBJECT('name', OLD.name, 'salary', OLD.salary),
+        JSON_OBJECT('name', NEW.name, 'salary', NEW.salary),
+        CURRENT_USER()
+    );
+END;</code></pre>
+
+                    <h4>Soft Delete Pattern:</h4>
+                    <pre><code class="language-sql">CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    price DECIMAL(10,2),
+    deleted_at TIMESTAMP NULL,
+    deleted_by INT NULL
+);
+
+-- Soft delete
+UPDATE products 
+SET deleted_at = NOW(), deleted_by = @user_id 
+WHERE id = 1;
+
+-- Query active records
+SELECT * FROM products WHERE deleted_at IS NULL;
+
+-- Restore
+UPDATE products 
+SET deleted_at = NULL, deleted_by = NULL 
+WHERE id = 1;</code></pre>
+
+                    <h4>Hierarchical Data (Adjacency List):</h4>
+                    <pre><code class="language-sql">CREATE TABLE categories (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    parent_id INT,
+    FOREIGN KEY (parent_id) REFERENCES categories(id)
+);
+
+-- Get all children
+WITH RECURSIVE category_tree AS (
+    SELECT id, name, parent_id, 0 AS level
+    FROM categories
+    WHERE id = 1
+    
+    UNION ALL
+    
+    SELECT c.id, c.name, c.parent_id, ct.level + 1
+    FROM categories c
+    JOIN category_tree ct ON c.parent_id = ct.id
+)
+SELECT * FROM category_tree;</code></pre>
+
+                    <h4>Nested Set Model:</h4>
+                    <pre><code class="language-sql">CREATE TABLE categories (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    lft INT NOT NULL,
+    rgt INT NOT NULL
+);
+
+-- Get entire subtree
+SELECT * FROM categories
+WHERE lft >= @node_lft AND rgt <= @node_rgt
+ORDER BY lft;
+
+-- Get path to node
+SELECT * FROM categories
+WHERE lft <= @node_lft AND rgt >= @node_rgt
+ORDER BY lft;</code></pre>
+
+                    <h4>Polymorphic Associations:</h4>
+                    <pre><code class="language-sql">CREATE TABLE comments (
+    id INT PRIMARY KEY,
+    commentable_type VARCHAR(50),
+    commentable_id INT,
+    content TEXT,
+    INDEX (commentable_type, commentable_id)
+);
+
+-- Query comments for specific entity
+SELECT * FROM comments
+WHERE commentable_type = 'Post' AND commentable_id = 123;</code></pre>
+
+                    <h4>Many-to-Many with Attributes:</h4>
+                    <pre><code class="language-sql">CREATE TABLE student_courses (
+    student_id INT,
+    course_id INT,
+    enrollment_date DATE,
+    grade VARCHAR(2),
+    credits INT,
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c31">
+                    31. OPTIMIZATION BEST PRACTICES
+                </button>
+            </h2>
+            <div id="c31" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Indexing Guidelines:</h4>
+                    <ol>
+                        <li>Index foreign keys</li>
+                        <li>Index columns in WHERE, JOIN, ORDER BY</li>
+                        <li>Use composite indexes for multiple columns</li>
+                        <li>Index selectivity matters (high cardinality better)</li>
+                        <li>Don't over-index (slows writes)</li>
+                        <li>Consider covering indexes</li>
+                        <li>Use prefix indexes for long strings</li>
+                        <li>Avoid functions on indexed columns</li>
+                    </ol>
+
+                    <h4>Query Optimization:</h4>
+                    <pre><code class="language-sql">-- Bad: Function on indexed column
+SELECT * FROM orders WHERE YEAR(order_date) = 2023;
+
+-- Good: Use range
+SELECT * FROM orders 
+WHERE order_date >= '2023-01-01' AND order_date < '2024-01-01';
+
+-- Bad: Leading wildcard
+SELECT * FROM products WHERE name LIKE '%phone';
+
+-- Good: Trailing wildcard (can use index)
+SELECT * FROM products WHERE name LIKE 'phone%';
+
+-- Bad: OR with different columns
+SELECT * FROM customers WHERE name = 'John' OR email = 'john@example.com';
+
+-- Good: Use UNION
+SELECT * FROM customers WHERE name = 'John'
+UNION
+SELECT * FROM customers WHERE email = 'john@example.com';
+
+-- Bad: SELECT *
+SELECT * FROM large_table;
+
+-- Good: Select only needed columns
+SELECT id, name, email FROM large_table;</code></pre>
+
+                    <h4>JOIN Optimization:</h4>
+                    <pre><code class="language-sql">-- Use EXPLAIN to check join order
+EXPLAIN SELECT * FROM large_table l
+JOIN small_table s ON l.id = s.large_id;
+
+-- Consider join order (smaller table first usually better)
+-- Use STRAIGHT_JOIN to force join order (MySQL)
+SELECT * FROM small_table
+STRAIGHT_JOIN large_table ON small_table.id = large_table.small_id;</code></pre>
+
+                    <h4>Subquery vs JOIN:</h4>
+                    <pre><code class="language-sql">-- Often slower (correlated subquery)
+SELECT name FROM products p
+WHERE price > (SELECT AVG(price) FROM products WHERE category = p.category);
+
+-- Usually faster (JOIN with aggregation)
+SELECT p.name
+FROM products p
+JOIN (
+    SELECT category, AVG(price) as avg_price
+    FROM products
+    GROUP BY category
+) avg_prices ON p.category = avg_prices.category
+WHERE p.price > avg_prices.avg_price;</code></pre>
+
+                    <h4>LIMIT Optimization:</h4>
+                    <pre><code class="language-sql">-- Bad: Large offset
+SELECT * FROM large_table ORDER BY id LIMIT 1000000, 10;
+
+-- Good: Use WHERE with last seen value
+SELECT * FROM large_table 
+WHERE id > @last_seen_id 
+ORDER BY id 
+LIMIT 10;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c32">
+                    32. DATA TYPES REFERENCE
+                </button>
+            </h2>
+            <div id="c32" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Numeric Types:</h4>
+                    <h5>Integer Types:</h5>
+                    <ul>
+                        <li><code>TINYINT</code> - 1 byte (-128 to 127 or 0 to 255)</li>
+                        <li><code>SMALLINT</code> - 2 bytes (-32,768 to 32,767)</li>
+                        <li><code>MEDIUMINT</code> - 3 bytes (-8,388,608 to 8,388,607)</li>
+                        <li><code>INT</code> / <code>INTEGER</code> - 4 bytes (-2 billion to 2 billion)</li>
+                        <li><code>BIGINT</code> - 8 bytes (-9 quintillion to 9 quintillion)</li>
+                    </ul>
+                    <h5>Fixed-Point:</h5>
+                    <ul>
+                        <li><code>DECIMAL(p,s)</code> - Exact numeric, p=precision, s=scale</li>
+                        <li><code>NUMERIC(p,s)</code> - Same as DECIMAL</li>
+                    </ul>
+                    <h5>Floating-Point:</h5>
+                    <ul>
+                        <li><code>FLOAT</code> - 4 bytes, single precision</li>
+                        <li><code>DOUBLE</code> - 8 bytes, double precision</li>
+                        <li><code>REAL</code> - Implementation dependent</li>
+                    </ul>
+
+                    <h4>String Types:</h4>
+                    <ul>
+                        <li><code>CHAR(n)</code> - Fixed length, max 255</li>
+                        <li><code>VARCHAR(n)</code> - Variable length, max 65,535</li>
+                        <li><code>TINYTEXT</code> - Max 255 bytes</li>
+                        <li><code>TEXT</code> - Max 65,535 bytes</li>
+                        <li><code>MEDIUMTEXT</code> - Max 16MB</li>
+                        <li><code>LONGTEXT</code> - Max 4GB</li>
+                        <li><code>BINARY(n)</code> - Fixed binary</li>
+                        <li><code>VARBINARY(n)</code> - Variable binary</li>
+                        <li><code>TINYBLOB</code>, <code>BLOB</code>, <code>MEDIUMBLOB</code>, <code>LONGBLOB</code></li>
+                    </ul>
+
+                    <h4>Date/Time Types:</h4>
+                    <ul>
+                        <li><code>DATE</code> - YYYY-MM-DD</li>
+                        <li><code>TIME</code> - HH:MM:SS</li>
+                        <li><code>DATETIME</code> - YYYY-MM-DD HH:MM:SS</li>
+                        <li><code>TIMESTAMP</code> - Unix timestamp</li>
+                        <li><code>YEAR</code> - YYYY</li>
+                    </ul>
+
+                    <h4>Other Types:</h4>
+                    <ul>
+                    <li><code>BOOLEAN</code> / <code>BOOL</code> - True/False (0/1)</li>
+                    <li><code>ENUM('val1', 'val2', ...)</code> - One of predefined values</li>
+                    <li><code>SET('val1', 'val2', ...)</code> - Zero or more of predefined values</li>
+                    <li><code>JSON</code> - JSON document</li>
+                    <li><code>UUID</code> - Universally unique identifier</li>
+                    <li><code>GEOMETRY</code> - Spatial data</li>
+                    <li><code>POINT</code> - Spatial point</li>
+                    <li><code>LINESTRING</code> - Spatial line</li>
+                    <li><code>POLYGON</code> - Spatial polygon</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c33">
+                    33. NORMALIZATION FORMS
+                </button>
+            </h2>
+            <div id="c33" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>First Normal Form (1NF):</h4>
+                    <ul>
+                        <li>Atomic values (no repeating groups)</li>
+                        <li>Each column contains only one value</li>
+                        <li>Each row is unique</li>
+                    </ul>
+
+                    <h4>Second Normal Form (2NF):</h4>
+                    <ul>
+                        <li>Must be in 1NF</li>
+                        <li>No partial dependencies</li>
+                        <li>All non-key attributes depend on entire primary key</li>
+                    </ul>
+
+                    <h4>Third Normal Form (3NF):</h4>
+                    <ul>
+                        <li>Must be in 2NF</li>
+                        <li>No transitive dependencies</li>
+                        <li>Non-key attributes depend only on primary key</li>
+                    </ul>
+
+                    <h4>Boyce-Codd Normal Form (BCNF):</h4>
+                    <ul>
+                        <li>Must be in 3NF</li>
+                        <li>Every determinant is a candidate key</li>
+                    </ul>
+
+                    <h4>Fourth Normal Form (4NF):</h4>
+                    <ul>
+                        <li>Must be in BCNF</li>
+                        <li>No multi-valued dependencies</li>
+                    </ul>
+
+                    <h4>Fifth Normal Form (5NF):</h4>
+                    <ul>
+                        <li>Must be in 4NF</li>
+                        <li>No join dependencies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c34">
+                    34. TRANSACTION ISOLATION ISSUES
+                </button>
+            </h2>
+            <div id="c34" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Concurrency Problems:</h4>
+                    <h5>Dirty Read:</h5>
+                    <p>Transaction reads uncommitted data from another transaction</p>
+                    <h5>Non-Repeatable Read:</h5>
+                    <p>Same query returns different results within transaction</p>
+                    <h5>Phantom Read:</h5>
+                    <p>New rows appear in result set during transaction</p>
+
+                    <h4>Lock Types:</h4>
+                    <ul>
+                        <li><strong>Shared Lock (S)</strong> - Read lock, multiple allowed</li>
+                        <li><strong>Exclusive Lock (X)</strong> - Write lock, exclusive access</li>
+                        <li><strong>Update Lock (U)</strong> - Upgrade to exclusive</li>
+                        <li><strong>Intent Lock</strong> - Indicates intention to lock</li>
+                        <li><strong>Row-Level</strong>, <strong>Page-Level</strong>, <strong>Table-Level</strong> Locks</li>
+                    </ul>
+
+                    <h4>Locking Commands:</h4>
+                    <pre><code class="language-sql">-- Explicit table lock
+LOCK TABLES table_name READ;
+LOCK TABLES table_name WRITE;
+UNLOCK TABLES;
+
+-- Row-level locking
+SELECT * FROM table_name WHERE id = 1 FOR UPDATE;
+SELECT * FROM table_name WHERE id = 1 LOCK IN SHARE MODE;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c35">
+                    35. COMMON SQL PATTERNS & RECIPES
+                </button>
+            </h2>
+            <div id="c35" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Find Duplicates:</h4>
+                    <pre><code class="language-sql">SELECT column, COUNT(*) as count
+FROM table_name
+GROUP BY column
+HAVING COUNT(*) > 1;</code></pre>
+
+                    <h4>Delete Duplicates (Keep First):</h4>
+                    <pre><code class="language-sql">DELETE t1 FROM table_name t1
+INNER JOIN table_name t2
+WHERE t1.id > t2.id AND t1.column = t2.column;</code></pre>
+
+                    <h4>Find Missing Numbers in Sequence:</h4>
+                    <pre><code class="language-sql">SELECT t1.id + 1 AS missing_id
+FROM table_name t1
+LEFT JOIN table_name t2 ON t1.id + 1 = t2.id
+WHERE t2.id IS NULL;</code></pre>
+
+                    <h4>Running Total:</h4>
+                    <pre><code class="language-sql">SELECT date, amount,
+    SUM(amount) OVER (ORDER BY date) AS running_total
+FROM transactions;</code></pre>
+
+                    <h4>Previous/Next Row Values:</h4>
+                    <pre><code class="language-sql">SELECT 
+    id,
+    value,
+    LAG(value, 1) OVER (ORDER BY id) AS previous_value,
+    LEAD(value, 1) OVER (ORDER BY id) AS next_value
+FROM table_name;</code></pre>
+
+                    <h4>Rank Within Groups:</h4>
+                    <pre><code class="language-sql">SELECT 
+    category,
+    product,
+    sales,
+    RANK() OVER (PARTITION BY category ORDER BY sales DESC) AS rank_in_category
+FROM products;</code></pre>
+
+                    <h4>First/Last Value Per Group:</h4>
+                    <pre><code class="language-sql">SELECT DISTINCT
+    category,
+    FIRST_VALUE(product) OVER (PARTITION BY category ORDER BY sales DESC) AS top_product,
+    LAST_VALUE(product) OVER (PARTITION BY category ORDER BY sales DESC 
+        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS bottom_product
+FROM products;</code></pre>
+
+                    <h4>Median Calculation:</h4>
+                    <pre><code class="language-sql">SELECT AVG(value) AS median
+FROM (
+    SELECT value,
+        ROW_NUMBER() OVER (ORDER BY value) AS rn,
+        COUNT(*) OVER () AS cnt
+    FROM table_name
+) sub
+WHERE rn IN (FLOOR((cnt + 1) / 2), CEIL((cnt + 1) / 2));</code></pre>
+
+                    <h4>Gaps and Islands:</h4>
+                    <pre><code class="language-sql">WITH numbered AS (
+    SELECT 
+        id,
+        ROW_NUMBER() OVER (ORDER BY id) AS rn
+    FROM table_name
+),
+islands AS (
+    SELECT 
+        id,
+        id - rn AS island
+    FROM numbered
+)
+SELECT 
+    MIN(id) AS start_id,
+    MAX(id) AS end_id,
+    COUNT(*) AS island_size
+FROM islands
+GROUP BY island;</code></pre>
+
+                    <h4>Pagination:</h4>
+                    <pre><code class="language-sql">SELECT * FROM products
+ORDER BY id
+LIMIT @page_size OFFSET (@page_number - 1) * @page_size;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c36">
+                    36. SQL INJECTION PREVENTION
+                </button>
+            </h2>
+            <div id="c36" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Parameterized Queries (Prepared Statements):</h4>
+                    <pre><code class="language-sql">-- Instead of:
+SELECT * FROM users WHERE username = '" + userInput + "';
+
+-- Use parameterized:
+PREPARE stmt FROM 'SELECT * FROM users WHERE username = ?';
+SET @username = userInput;
+EXECUTE stmt USING @username;</code></pre>
+
+                    <h4>Input Validation:</h4>
+                    <ul>
+                        <li>Whitelist allowed characters</li>
+                        <li>Escape special characters</li>
+                        <li>Use appropriate data types</li>
+                        <li>Limit input length</li>
+                    </ul>
+
+                    <h4>Best Practices:</h4>
+                    <ul>
+                        <li>Never concatenate user input directly</li>
+                        <li>Use ORMs with parameterization</li>
+                        <li>Apply principle of least privilege</li>
+                        <li>Validate and sanitize all inputs</li>
+                        <li>Use stored procedures</li>
+                        <li>Implement proper error handling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item filter-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c37">
+                    APPENDIX: SQL STANDARDS
+                </button>
+            </h2>
+            <div id="c37" class="accordion-collapse collapse" data-bs-parent="#sqlAccordion">
+                <div class="accordion-body">
+                    <h4>Major SQL Standards:</h4>
+                    <ul>
+                        <li><strong>SQL-86</strong> - First standard</li>
+                        <li><strong>SQL-89</strong> - Integrity enhancement</li>
+                        <li><strong>SQL-92</strong> - Major expansion (SQL2)</li>
+                        <li><strong>SQL:1999</strong> - Recursion, triggers (SQL3)</li>
+                        <li><strong>SQL:2003</strong> - XML, window functions</li>
+                        <li><strong>SQL:2006</strong> - XML updates</li>
+                        <li><strong>SQL:2008</strong> - TRUNCATE, MERGE</li>
+                        <li><strong>SQL:2011</strong> - Temporal data</li>
+                        <li><strong>SQL:2016</strong> - JSON, polymorphic tables</li>
+                        <li><strong>SQL:2023</strong> - Latest standard</li>
+                    </ul>
+
+                    <h4>Common SQL Dialects:</h4>
+                    <ul>
+                        <li><strong>MySQL</strong> / <strong>MariaDB</strong></li>
+                        <li><strong>PostgreSQL</strong></li>
+                        <li><strong>Oracle Database</strong></li>
+                        <li><strong>Microsoft SQL Server</strong></li>
+                        <li><strong>SQLite</strong></li>
+                        <li><strong>IBM Db2</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div> <div class="mt-5 text-center text-muted small">
+        <hr>
+        <p>End of SQL Master Reference Notes</p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+
+<script>
+    // Search Functionality
+    document.getElementById('searchBar').addEventListener('keyup', function(e) {
+        const term = e.target.value.toLowerCase();
+        const items = document.querySelectorAll('.filter-item');
+        
+        items.forEach(item => {
+            const text = item.innerText.toLowerCase();
+            // Display if search term is found in text
+            item.style.display = text.includes(term) ? 'block' : 'none';
+        });
+    });
+
+    // Global Expand/Collapse Functions
+    function expandAll() {
+        document.querySelectorAll('.accordion-collapse').forEach(el => {
+            new bootstrap.Collapse(el, { show: true });
+        });
+    }
+
+    function collapseAll() {
+        document.querySelectorAll('.accordion-collapse').forEach(el => {
+            new bootstrap.Collapse(el, { hide: true });
+        });
+    }
+</script>
+
+</body>
+</html>
