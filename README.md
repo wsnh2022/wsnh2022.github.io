@@ -1,4 +1,4 @@
-# 🚀 Professional Portfolio - Data Analyst & Automation Specialist
+# 🚀 Yoghesh VM | Data Analyst | Business Automation & Supply Chain Optimization
 
 
 
@@ -16,62 +16,65 @@ Data professional with experience transforming complex data into actionable insi
 
 ## 🌟 Featured Projects
 
-### [PopSearch - Instant Search Assistant](https://github.com/wsnh2022/pop-search)
-**Electron Desktop Application** | AutoHotkey Integration
+### [PopSearch - Instant Search Assistant](https://github.com/wsnh2022/pop-search) [PROJ_001]
+**Portable Desktop Application** | Windows Optimization
 
-Frameless popup search app that provides instant access to 40+ search engines through global hotkeys. Demonstrates advanced desktop application development with system-wide integration.
+High-performance search popup that provides instant access to 40+ engines from any application.
 
-**Key Features:**
-- Global hotkey triggers (CapsLock+S, Right-Click Hold)
-- 40+ configurable search providers
-- Portable executable (98MB)
-- Cross-app text selection
-- Professional logging system
+**Key Specifications:**
+- **Portable:** Standalone 98MB EXE
+- **Lightweight:** 60-80MB RAM idle
+- **Efficiency:** CAPSLOCK+S / Right-Click Hold triggers
+- **Integration:** Automated Bulk Metadata Import (Excel/Markdown)
 
-**Tech Stack:** Electron, AutoHotkey v2, Node.js, Vanilla JavaScript
+**Tech Stack:** Electron, Node.js, Vite, AutoHotkey v2, Vanilla JS
+
+---
+
+### [Facility Automation Pipeline](https://github.com/wsnh2022/n8n-form-to-inbox-automation) [PROJ_002]
+**Workflow Engineering** | Operational Automation
+
+End-to-end automated ticketing system for facility requests using n8n and webhooks.
+
+**Impact & Outcomes:**
+- **330 Hours/Year** saved through automation
+- **₹1,65,000** annual labor cost reduction
+- **100% Elimination** of manual data entry
+- **Dual Flow:** Automated Google Sheets logging + Email notifications
+
+**Tech Stack:** n8n, Webhooks, Google Sheets API, Docker, Vanilla JS
 
 ---
 
 ### SQL ETL Pipeline
 **Data Engineering** | Retail Analytics
 
-Structured SQL query system for extracting, cleaning, and aggregating daily sales data from legacy retail systems.
+Structured SQL query system for daily sales data extraction and cleaning from legacy systems.
 
-**Impact:** Reduced reporting lag from 24 hours to real-time, improving decision-making speed by 85%.
+**Impact:** Reduced reporting lag from 24 hours to real-time, improving decision speed by 85%.
 
 **Tech Stack:** SQL, ETL, Data Modeling
-
----
-
-### KPI Operations Dashboard
-**Business Intelligence** | Supply Chain Analytics
-
-Interactive Power BI dashboard visualizing stock-outs and delivery delays for operational decision support.
-
-**Approach:** Exception-based management reducing alert fatigue by 60%.
-
-**Tech Stack:** Power BI, DAX, Data Modeling
 
 ---
 
 ## 🛠️ Technical Skills
 
 ### **Data & Analytics**
-- **SQL**: Complex queries, ETL pipelines, performance optimization
-- **Power BI**: DAX, data modeling, interactive dashboards
-- **Excel**: Advanced formulas, pivot tables, VBA automation
-- **Python**: Data analysis, scripting, automation
+- **SQL (90%)**: Complex queries, performance optimization, ETL pipelines
+- **Power BI (85%)**: DAX, advanced data modeling, interactive dashboards
+- **Excel (95%)**: VBA automation, Power Query, complex financial modeling
+- **Python (75%)**: Scripting, data analysis, automation
 
 ### **Automation & Development**
-- **AutoHotkey**: v2 scripting, GUI automation, system integration
-- **n8n**: Workflow automation, API integrations
-- **Electron**: Desktop applications, cross-platform development
-- **Web Technologies**: HTML5, CSS3, JavaScript
+- **AutoHotkey (90%)**: system-wide automation, GUI development
+- **n8n (80%)**: Advanced workflow orchestration, API integrations
+- **Portable Desktop App Development (Electron)**: Cross-platform utilities
+- **Web Technologies**: HTML5, CSS3, JavaScript (Vanilla)
 
 ### **Tools & Platforms**
+- **Logistics/ERP**: SAP CRM, Inventory Management Systems
 - **Version Control**: Git, GitHub
-- **Documentation**: Technical writing, SOP creation
-- **Project Management**: Agile methodologies, stakeholder communication
+- **Process Design**: SOP creation, time-motion study analysis
 
 ## 🌐 Portfolio Structure
 
@@ -82,14 +85,15 @@ This portfolio is built with:
 - **SEO Optimized** - Meta tags, semantic HTML5
 - **GitHub Pages Ready** - Static site hosting
 
-## 📊 Project Metrics
+## 📊 Performance Metrics
 
-| Category | Projects | Key Technologies |
+| Metric | Achievement | Impact |
 |----------|----------|------------------|
-| **Data Analysis** | 2 | SQL, Power BI, Excel |
-| **Automation** | 1 | AutoHotkey, n8n, Python |
-| **Desktop Apps** | 1 | Electron, Node.js |
-| **Web Development** | 1 | HTML5, CSS3, JavaScript |
+| **Experience** | 7+ Years | Supply Chain & Business Analytics |
+| **Cost Savings** | ₹1.7 Million | Non-moving inventory reduction |
+| **Efficiency** | 40+ Hrs/Mo | Manual MIS reports automation |
+| **Service Rank** | #1 In State | Inventory optimization excellence |
+| **CSAT Impact** | 72% ➜ 95% | Accelerated escalation resolution |
 
 ## 🤝 Connect With Me
 
@@ -97,21 +101,25 @@ This portfolio is built with:
 - **Portfolio**: [Live Demo](https://wsnh2022.github.io) *(when deployed)*
 - **LinkedIn**: [Professional Profile](https://linkedin.com/in/yourprofile)
 
-## 📈 Project Highlights
+## � Achievement Highlights
 
-- **15+** automation tools developed
-- **85%** improvement in data processing speed
-- **40+** search providers integrated in PopSearch
-- **Strong foundation** in data analysis and automation
+- **₹1.7M** inventory cost reduction through data-driven planning.
+- **95%** service excellence rating (improved from 72%).
+- **100+** manual hours saved monthly through custom automation scripts.
+- **Ranked #1** in state for inventory performance metrics.
+
+## 🎨 Beyond the Terminal
+
+- **Digital Branding**: Precision design for posters, flyers, and social media assets.
+- **Lightweight Utilities**: Custom Windows tools for productivity and workflow optimization.
 
 ## 🔧 Technical Approach
 
-My development philosophy focuses on:
-1. **User-Centric Design** - Building tools that solve real problems
-2. **Performance Optimization** - Efficient code and fast execution
-3. **Scalability** - Solutions that grow with business needs
-4. **Documentation** - Clear, maintainable code and processes
-5. **Continuous Learning** - Staying current with emerging technologies
+My development philosophy:
+1. **User-Centric Design** - Tools must solve tangible operational bottlenecks.
+2. **Performance First** - Optimized code for fast execution and minimal footprint.
+3. **Scalable Architecture** - Solutions built to grow with business complexity.
+4. **Data Integrity** - rigorous validation to ensure accuracy in decision-making.
 
 ---
 
