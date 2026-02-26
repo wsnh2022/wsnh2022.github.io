@@ -1,102 +1,150 @@
-# 🚀 Yoghesh | Data Analyst & AI-Generalist Freelancer
+# Yoghesh — Data Analyst & AI-Generalist Freelancer
 
-**I Help Businesses Grow — Anchored in Data, Amplified by Automation & AI.**
+> Data analysis is where everything starts — automation, design, and development are what make it stick.
 
-Welcome to the source repository for my personal portfolio. This project serves not only as a digital resume but as a live demonstration of my skills in data analysis, workflow automation, and front-end web development. 
-
-[👉 View the Live Portfolio](https://wsnh2022.github.io/)
+**Live Portfolio → [wsnh2022.github.io](https://wsnh2022.github.io/)**
 
 ---
 
-## 👋 About Me
+## Who This Is For
 
-I am a **Data Analyst and AI-Generalist Freelancer** with 7+ years of experience in Supply Chain analytics and Multi-Domain Workflow Automation. My philosophy is simple: data analysis is the anchor, but it's not the ceiling. 
+**Recruiters:** This repository is the source code for my personal portfolio. The site itself is the deliverable — visit the live link above. The README documents how it was built and why decisions were made the way they were.
 
-Beyond core data modeling and SQL queries, I actively build static websites, create Canva-based brand assets, and produce targeted social media content for small businesses and independent professionals. I focus on translating messy operational data into clean, automated workflows and impactful visual communication.
-
----
-
-## 🎯 Core Expertise
-
-### **Data & Analytics**
-- **SQL (90%)**: Complex queries, performance optimization, ETL pipelines
-- **Power BI (85%)**: DAX, advanced data modeling, interactive dashboards
-- **Excel (95%)**: VBA automation, Power Query, complex financial modeling
-- **Python (75%)**: Scripting, data analysis, automation
-
-### **Automation & Development**
-- **AutoHotkey (90%)**: System-wide automation, GUI development, desktop utilities
-- **n8n (80%)**: Advanced workflow orchestration, API integrations, webhooks
-- **Web Technologies (80%)**: HTML5, CSS3, JavaScript (Vanilla), Tailwind CSS
-
-### **Design & Content Strategy**
-- **Canva & Visual Design (85%)**: Brand identity, typography, print-ready assets (flyers, visiting cards)
-- **Social Media Content (75%)**: Managing [@datacraft.yogi](https://www.instagram.com/datacraft.yogi/), creating technical content for data professionals
+**Developers:** Pure HTML5, CSS3, and Vanilla JavaScript. No frameworks. No build tools. No dependencies beyond Tailwind CDN and Font Awesome. Every decision is intentional and documented below.
 
 ---
 
-## 🌟 Featured Projects
+## What I Do
 
-### 1. [PopSearch - Instant Search Assistant](https://github.com/wsnh2022/pop-search) `[PROJ_001]`
-**Portable Desktop Application | Windows Optimization**
-A high-performance Windows search utility built with Electron and AutoHotkey v2, offering instant access to 40+ search engines with maximum efficiency (60MB idle RAM).
+7+ years in supply chain analytics and multi-domain workflow engineering. I work across the full operational stack:
 
-### 2. [Facility Automation Pipeline](https://github.com/wsnh2022/n8n-form-to-inbox-automation) `[PROJ_002]`
-**Workflow Engineering | Operational Automation**
-An end-to-end automated ticketing system built with n8n and Webhooks, eliminating 100% of manual data entry and saving 330+ hours annually.
+| Domain | Tools |
+|---|---|
+| Data & Analytics | SQL, Power BI, Excel (VBA + Power Query), Python |
+| Workflow Automation | AutoHotkey v2, n8n, Webhooks, API integrations |
+| Web Development | HTML5, CSS3, Vanilla JS, Tailwind CSS |
+| Design & Content | Canva Pro, Brand Assets, Social Media ([@datacraft.yogi](https://www.instagram.com/datacraft.yogi/)) |
 
-### 3. SQL ETL Pipeline `[PROJ_003]`
-**Data Engineering | Retail Analytics**
-A structured query system extracting legacy retail data, reducing reporting lag time from 24 hours down to real-time.
-
-### 4. [Personal Portfolio](https://github.com/wsnh2022/wsnh2022.github.io) `[PROJ_004]`
-**Web Development | Static Site**
-This very repository. A custom-built static site using pure HTML/CSS/Vanilla JS and Tailwind CSS. Hosted via GitHub Pages with a 95+ Lighthouse performance score.
-
-### 5. Brand Asset Library `[PROJ_005]`
-**Freelance Design | Canva Pro**
-A collection of custom print and digital brand assets designed for small businesses, focusing on alignment, typography hierarchy, and color consistency. *(Full portfolio coming soon)*
+I don't specialize in one tool. I specialize in making disconnected systems work together.
 
 ---
 
-## 📊 Performance & Impact Metrics
+## Proficiency Levels
 
-| Metric | Achievement | Domain Impact |
-|----------|-------------|------------------|
-| **Experience** | 7+ Years | Supply Chain & Business Analytics |
-| **Cost Savings** | ₹1.7 Million | Non-moving inventory reduction |
-| **Efficiency** | 40+ Hrs/Mo | Manual MIS reports automation |
-| **Service Rank** | #1 In State | Inventory optimization excellence |
-| **CSAT Impact** | 72% ➜ 95% | Accelerated escalation resolution |
-
----
-
-## 🌐 About This Repository 
-
-This portfolio was engineered from scratch without relying on heavy frameworks like React or Next.js. 
-
-**Technical Highlights:**
-- **Architecture:** Pure HTML5, CSS3, and Vanilla JavaScript.
-- **Styling:** Tailwind CSS (utility-first approach) with custom Glassmorphism effects.
-- **Interactivity:** Custom JS logic for project filtering, scroll-reveal animations, and dynamic number counters.
-- **Hosting:** Deployed continuously via GitHub Pages.
-- **SEO:** Fully optimized with Open Graph and Twitter card meta tags.
-
-## 🤝 Let's Connect
-
-Whether you need a complex dataset untangled, an operational workflow automated, or a digital brand asset designed from scratch—let's talk.
-
-- 💼 **LinkedIn:** [yoghesh-analytics](https://www.linkedin.com/in/yoghesh-analytics/)
-- 📸 **Instagram:** [@datacraft.yogi](https://www.instagram.com/datacraft.yogi/)
-- 📧 **Email:** [wsnh.code5621@gmail.com](mailto:wsnh.code5621@gmail.com)
+| Tool / Skill | Level |
+|---|---|
+| Excel (VBA, Power Query) | 95% |
+| AutoHotkey v2 | 90% |
+| SQL | 90% |
+| Power BI (DAX, Data Modeling) | 85% |
+| Canva & Visual Design | 85% |
+| n8n Workflow Automation | 80% |
+| Web Technologies (HTML/CSS/JS) | 80% |
+| Python (Scripting, Analysis) | 75% |
+| Social Media Content | 75% |
 
 ---
 
-> *Built with precision. Optimized for impact.*
+## Impact Metrics
 
-<p align="center">
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-</p>
+| Metric | Result |
+|---|---|
+| Cost Savings | ₹1.7 Million — non-moving inventory reduction |
+| Efficiency Gained | 40+ hrs/month — MIS report automation |
+| Service Rank | #1 in State — inventory optimization |
+| CSAT Improvement | 72% → 95% — accelerated escalation resolution |
+| Automation Coverage | 100% manual entry eliminated (ticketing pipeline) |
+| Hours Saved Annually | 1920+ hrs — facility automation system |
+
+---
+
+## Featured Projects
+
+### PROJ_001 — [PopSearch: Instant Search Assistant](https://github.com/wsnh2022/pop-search)
+**Stack:** Electron, AutoHotkey v2 | **Type:** Desktop Utility
+
+Portable Windows search tool with instant access to 40+ search engines. 60MB idle RAM. Built for maximum efficiency with zero installation friction.
+
+---
+
+### PROJ_002 — [Facility Automation Pipeline](https://github.com/wsnh2022/n8n-form-to-inbox-automation)
+**Stack:** n8n, Webhooks, Email API | **Type:** Workflow Engineering
+
+End-to-end automated ticketing system. Eliminated 100% of manual data entry. Saves 330+ hours annually across facility operations.
+
+---
+
+### PROJ_003 — SQL ETL Pipeline
+**Stack:** SQL | **Type:** Data Engineering
+
+Structured query system extracting legacy retail data. Reduced reporting lag from 24 hours to real-time.
+
+---
+
+### PROJ_004 — [This Portfolio](https://github.com/wsnh2022/wsnh2022.github.io)
+**Stack:** HTML5, CSS3, Vanilla JS, Tailwind CSS | **Type:** Web Development
+
+Custom static site hosted on GitHub Pages. No frameworks. 95+ Lighthouse score. See technical details below.
+
+---
+
+### PROJ_005 — Brand Asset Library
+**Stack:** Canva Pro | **Type:** Freelance Design
+
+Custom print and digital brand assets for small businesses. Focus on typographic hierarchy, color consistency, and print-ready output. *(Full portfolio coming soon)*
+
+---
+
+## Technical Architecture — This Portfolio
+
+### Stack Decision
+
+| Choice | Reason |
+|---|---|
+| No React / Next.js | Portfolio sites do not need component trees or build pipelines |
+| No CSS frameworks (installed) | Tailwind loaded via CDN — zero build config, full utility access |
+| Vanilla JS only | No runtime dependencies, no version conflicts, full browser compatibility |
+| GitHub Pages | Free, fast, continuous deployment on push — appropriate for a static site |
+
+### Implementation Details
+
+- **Styling:** Tailwind CSS utility-first with custom Glassmorphism effects and CSS animations
+- **Animations:** IntersectionObserver-based scroll-reveal — no GSAP, no ScrollMagic
+- **Interactivity:** Custom JS for project filtering, animated counters, active nav state on scroll
+- **SEO:** Open Graph + Twitter Card meta tags, Schema.org JSON-LD structured data (Person)
+- **Analytics:** Google Analytics 4 (Measurement ID: G-YT5JNT9C24) on all pages
+- **Performance:** 95+ Lighthouse score — no render-blocking resources, lazy assets
+
+### File Structure
+
+```
+wsnh_portfolio/
+├── index.html              # Main portfolio page
+├── experience.html         # Detailed experience page
+├── README.md               # This file
+├── analytics.google.md     # GA4 integration reference notes
+└── portfolio-improvement-plan.md
+```
+
+---
+
+## Repository Standards
+
+- All code hand-written — no generators, no templates
+- No external JS dependencies loaded at runtime (except Font Awesome icons)
+- Comments in HTML explain intent, not mechanics
+- Mobile-first responsive layout via Tailwind breakpoints
+
+---
+
+## Connect
+
+| Platform | Link |
+|---|---|
+| LinkedIn | [yoghesh-analytics](https://www.linkedin.com/in/yoghesh-analytics/) |
+| Instagram | [@datacraft.yogi](https://www.instagram.com/datacraft.yogi/) |
+| Email | [wsnh.code5621@gmail.com](mailto:wsnh.code5621@gmail.com) |
+
+---
+
+*Built with precision. Optimized for impact. No frameworks were harmed in the making of this portfolio.*

@@ -57,3 +57,6 @@ temp/
 
 # ignore bat file
 publish.bat
+
+# ignore md file
+analytics.google.md

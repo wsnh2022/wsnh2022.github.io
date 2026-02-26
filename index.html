@@ -302,7 +302,7 @@
     <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-5xl glass rounded-2xl z-50 shadow-2xl">
         <div class="px-6 py-4 flex justify-between items-center">
             <a href="#" class="font-display font-bold text-xl tracking-tight text-white flex items-center gap-2">
-                <div class="w-8 h-8 bg-gradient-to-br from-accent to-purple-500 rounded-lg flex items-center justify-center">
+                <div class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
                     <span class="text-midnight font-bold text-sm">Y</span>
                 </div>
                 Yoghesh
@@ -310,26 +310,30 @@
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex gap-8 text-sm font-medium text-slate-400 items-center ml-8">
-                <a href="#overview" class="hover:text-white transition-colors">Overview</a>
+                <a href="#overview" data-section="overview" class="nav-link hover:text-white transition-colors">About</a>
                 <a href="experience.html" class="hover:text-white transition-colors">Experience</a>
-                <a href="#projects" class="hover:text-white transition-colors">Projects</a>
-                <a href="#contact" class="text-accent hover:text-accent/80 transition-colors">Contact</a>
+                <a href="#projects" data-section="projects" class="nav-link hover:text-white transition-colors">Projects</a>
+                <a href="#contact" data-section="contact" class="nav-link hover:text-white transition-colors">Contact</a>
+                <a href="#contact"
+                    class="ml-2 px-5 py-2 rounded-full bg-accent text-midnight text-sm font-bold hover:bg-accent/80 transition-all transform hover:scale-105 shadow-lg shadow-accent/20">
+                    Let's Talk
+                </a>
 
-                <div class="flex gap-4 ml-4 pl-4 border-l border-white/10">
+                <div class="flex gap-3 ml-4 pl-4 border-l border-white/10">
                     <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer"
-                        class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-[#0077b5]/10 text-[#0077b5] border-2 border-[#0077b5] transition-all transform hover:scale-110 group"
+                        class="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-600 text-slate-400 hover:text-white hover:border-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all transform hover:scale-110"
                         title="LinkedIn">
-                        <i class="fab fa-linkedin text-lg group-hover:drop-shadow-[0_0_8px_#0077b5]"></i>
+                        <i class="fab fa-linkedin text-base"></i>
                     </a>
                     <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer"
-                        class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-white/10 text-white border-2 border-white transition-all transform hover:scale-110 group"
+                        class="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-600 text-slate-400 hover:text-white hover:border-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all transform hover:scale-110"
                         title="GitHub">
-                        <i class="fab fa-github text-lg group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"></i>
+                        <i class="fab fa-github text-base"></i>
                     </a>
                     <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer"
-                        class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-[#E1306C]/10 text-[#E1306C] border-2 border-[#E1306C] transition-all transform hover:scale-110 group"
+                        class="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-600 text-slate-400 hover:text-white hover:border-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all transform hover:scale-110"
                         title="Instagram">
-                        <i class="fab fa-instagram text-lg group-hover:drop-shadow-[0_0_8px_#E1306C]"></i>
+                        <i class="fab fa-instagram text-base"></i>
                     </a>
                 </div>
             </div>
@@ -345,7 +349,7 @@
             <div class="flex flex-col gap-4 text-sm font-medium text-slate-400 pt-4 border-t border-white/10">
                 <a href="#overview" class="hover:text-white transition-colors flex items-center gap-3">
                     <i class="fas fa-home text-accent w-5"></i>
-                    <span>Overview</span>
+                    <span>About</span>
                 </a>
                 <a href="experience.html" class="hover:text-white transition-colors flex items-center gap-3">
                     <i class="fas fa-briefcase text-accent w-5"></i>
@@ -355,24 +359,28 @@
                     <i class="fas fa-code text-accent w-5"></i>
                     <span>Projects</span>
                 </a>
-                <a href="#contact" class="text-accent hover:text-accent/80 transition-colors flex items-center gap-3">
+                <a href="#contact" class="hover:text-white transition-colors flex items-center gap-3">
                     <i class="fas fa-envelope text-accent w-5"></i>
                     <span>Contact</span>
                 </a>
+                <a href="#contact"
+                    class="mt-2 px-5 py-2 rounded-full bg-accent text-midnight text-sm font-bold text-center hover:bg-accent/80 transition-all">
+                    Let's Talk
+                </a>
 
-                <div class="flex gap-4 pt-4 border-t border-white/10">
+                <div class="flex gap-3 pt-4 border-t border-white/10">
                     <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer"
-                        class="w-12 h-12 flex items-center justify-center rounded-xl bg-transparent text-[#0077b5] border-2 border-[#0077b5] transition-all"
+                        class="w-12 h-12 flex items-center justify-center rounded-xl border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all"
                         title="LinkedIn">
                         <i class="fab fa-linkedin text-2xl"></i>
                     </a>
                     <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer"
-                        class="w-12 h-12 flex items-center justify-center rounded-xl bg-transparent text-white border-2 border-white transition-all"
+                        class="w-12 h-12 flex items-center justify-center rounded-xl border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all"
                         title="GitHub">
                         <i class="fab fa-github text-2xl"></i>
                     </a>
                     <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer"
-                        class="w-12 h-12 flex items-center justify-center rounded-xl bg-transparent text-[#E1306C] border-2 border-[#E1306C] transition-all"
+                        class="w-12 h-12 flex items-center justify-center rounded-xl border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all"
                         title="Instagram">
                         <i class="fab fa-instagram text-2xl"></i>
                     </a>
@@ -414,18 +422,6 @@
                 <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono uppercase tracking-wide">
                     <i class="fas fa-code text-[9px]"></i> Web Development
                 </span>
-            </div>
-            <div class="mt-11 flex flex-col md:flex-row gap-4 justify-center">
-                <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer"
-                    class="px-9 py-4 bg-[#0077b5] hover:bg-[#0077b5]/90 text-white font-bold rounded-xl hover:scale-105 transition-all inline-flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(0,119,181,0.35)]">
-                    <i class="fab fa-linkedin text-sm"></i>
-                    <span>LINKEDIN</span>
-                </a>
-                <a href="#projects"
-                    class="px-9 py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-xl hover:bg-white/15 transition-all inline-flex items-center justify-center gap-2 border border-white/25">
-                    <i class="fas fa-briefcase text-sm"></i>
-                    <span>MY WORKS</span>
-                </a>
             </div>
 
             <!-- Animated Achievement Counters -->
@@ -476,30 +472,29 @@
                 <div>
                     <h2 class="text-2xl md:text-3xl font-bold text-white mb-3 font-display">The Philosophy</h2>
                     <p class="text-slate-400 mb-6 text-base leading-relaxed">
-                        Great data analysis isn't about complex queries—it's about asking the right questions. I've
-                        spent 7+ years translating messy operational data into clear action plans for warehouse
-                        managers, procurement teams, and executives. My goal isn't to impress with technical skills;
-                        it's to make your team more efficient, one workflow at a time.
+                        Data analysis is where everything starts — automation, design, and development are what make it stick.
+                        With 7+ years in supply chain analytics and multi-domain workflow engineering, I work across the full
+                        operational stack: from SQL pipelines and Power BI dashboards to n8n automations, static web builds,
+                        and brand assets. I don't specialize in one tool. I specialize in making disconnected systems work together.
                     </p>
                     <div class="flex flex-wrap gap-2">
                         <span
-                            class="skill-tag px-3 py-1 bg-transparent text-accent border-2 border-accent rounded-full text-xs font-bold uppercase transition-all">Data
-                            Translation</span>
+                            class="skill-tag px-3 py-1 bg-transparent text-accent border-2 border-accent rounded-full text-xs font-bold uppercase transition-all">SQL
+                            & Analytics</span>
                         <span
-                            class="skill-tag px-3 py-1 bg-transparent text-success border-2 border-success rounded-full text-xs font-bold uppercase transition-all">Process
-                            Optimization</span>
+                            class="skill-tag px-3 py-1 bg-transparent text-amber-400 border-2 border-amber-400 rounded-full text-xs font-bold uppercase transition-all">Power
+                            BI</span>
                         <span
-                            class="skill-tag px-3 py-1 bg-transparent text-purple-400 border-2 border-purple-400 rounded-full text-xs font-bold uppercase transition-all">Team
-                            Enablement</span>
-                        <span
-                            class="skill-tag px-3 py-1 bg-transparent text-amber-400 border-2 border-amber-400 rounded-full text-xs font-bold uppercase transition-all">Content
-                            Strategy</span>
-                        <span
-                            class="skill-tag px-3 py-1 bg-transparent text-rose-400 border-2 border-rose-400 rounded-full text-xs font-bold uppercase transition-all">Visual
-                            Communication</span>
+                            class="skill-tag px-3 py-1 bg-transparent text-success border-2 border-success rounded-full text-xs font-bold uppercase transition-all">Workflow
+                            Automation</span>
                         <span
                             class="skill-tag px-3 py-1 bg-transparent text-emerald-400 border-2 border-emerald-400 rounded-full text-xs font-bold uppercase transition-all">Web
                             Development</span>
+                        <span
+                            class="skill-tag px-3 py-1 bg-transparent text-rose-400 border-2 border-rose-400 rounded-full text-xs font-bold uppercase transition-all">Brand
+                            & Content</span>
+                        <span
+                            class="skill-tag px-3 py-1 bg-transparent text-purple-400 border-2 border-purple-400 rounded-full text-xs font-bold uppercase transition-all">AI-Augmented</span>
                     </div>
                 </div>
             </div>
@@ -1374,6 +1369,31 @@
 
     <!-- JavaScript -->
     <script>
+        // Active Nav Link on Scroll
+        const navLinks = document.querySelectorAll('.nav-link[data-section]');
+        const sections = ['overview', 'projects', 'contact'];
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-white');
+                        link.classList.add('text-slate-400');
+                    });
+                    const active = document.querySelector(`.nav-link[data-section="${entry.target.id}"]`);
+                    if (active) {
+                        active.classList.remove('text-slate-400');
+                        active.classList.add('text-white');
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) navObserver.observe(el);
+        });
+
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
