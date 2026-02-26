@@ -54,3 +54,6 @@ temp/
 
 # Optional eslint cache
 .eslintcache
+
+# ignore bat file
+publish.bat
