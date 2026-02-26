@@ -115,15 +115,35 @@ Custom print and digital brand assets for small businesses. Focus on typographic
 - **Analytics:** Google Analytics 4 (Measurement ID: G-YT5JNT9C24) on all pages
 - **Performance:** 95+ Lighthouse score — no render-blocking resources, lazy assets
 
-### File Structure
+---
+
+## 🛠️ Local Development
+
+While this is a static site, you can run a local development server for a better experience (auto-reload, proper asset paths):
+
+```bash
+# Install development dependencies (Vite)
+npm install
+
+# Start local development server
+npm run dev
+
+# Preview the site
+npm run preview
+```
+
+---
+
+## 📂 File Structure
 
 ```
 wsnh_portfolio/
 ├── index.html              # Main portfolio page
 ├── experience.html         # Detailed experience page
+├── SQL-Reference.html      # SQL implementation details
 ├── README.md               # This file
-├── analytics.google.md     # GA4 integration reference notes
-└── portfolio-improvement-plan.md
+├── portfolio-improvement-plan.md
+└── package.json            # Dev server config
 ```
 
 ---
