@@ -1,5 +1,5 @@
 # Portfolio Improvement Plan — wsnh2022.github.io
-**Subject:** Yoghesh VM  
+**Subject:** Yoghesh  
 **Audited:** 2026-02-22  
 **Scope:** Content and copy changes only. No redesign. Static HTML/CSS/JS. GitHub Pages.
 
@@ -10,7 +10,7 @@
 ### 1.1 `<title>` / Page Meta
 | | Current | Gap |
 |---|---|---|
-| Title tag | `Yoghesh VM \| Data Analyst \| Business Automation & Supply Chain Optimization` | Omits freelance, design, and content services entirely |
+| Title tag | `Yoghesh \| Data Analyst \| Business Automation & Supply Chain Optimization` | Omits freelance, design, and content services entirely |
 | Meta description | Not audited (assumed absent or matching title) | Missing SEO signal for non-data clients |
 
 ---
@@ -75,12 +75,12 @@
 ### 2.1 Page Meta
 **Change the title tag to:**
 ```
-Yoghesh VM | Data Analyst · Automation · Freelance Design & Content
+Yoghesh | Data Analyst · Automation · Freelance Design & Content
 ```
 **Add a meta description:**
 ```html
-<meta name="description" content="Yoghesh VM — Data Analyst and AI-assisted freelancer 
-specializing in Supply Chain analytics, workflow automation, social media content, 
+<meta name="description" content="Yoghesh — Data Analyst and AI-Generalist Freelancer 
+specializing in Supply Chain analytics, Multi-Domain Workflow Automation, social media content, 
 Canva design, and static web development.">
 ```
 **Where:** `<head>` block in `index.html`.  
@@ -131,11 +131,11 @@ Each new project card below must map to at least one of these tags. The existing
 
 ### Revised
 > **Data-Driven by Trade. Multi-Disciplinary by Design.**  
-> I'm Yoghesh VM — Data Analyst and AI-assisted freelancer with 7+ years in Supply Chain analytics, workflow automation, and operations. I also build static websites, create Canva-based brand assets, and produce social media content for small businesses and professionals.
+> I'm Yoghesh — Data Analyst and AI-Generalist Freelancer with 7+ years in Supply Chain analytics, Multi-Domain Workflow Automation, and operations. I also build static websites, create Canva-based brand assets, and produce social media content for small businesses and professionals.
 
 **Rationale:**  
 - Headline anchors on data identity first — preserves Supply Chain positioning.  
-- "AI-assisted freelancer" signals range without inflating seniority claims.  
+- "AI-Generalist Freelancer" signals range and capability across different AI domains while preserving Supply Chain expertise.
 - Subheadline enumerates all three missing services explicitly so search and referral traffic self-qualifies.  
 - No claims that require proof beyond what's already in the project section.
 

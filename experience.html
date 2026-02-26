@@ -4,30 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experience | Yoghesh VM | Data Analyst & Automation Specialist</title>
+    <title>Experience | Yoghesh | Data Analyst & Automation Specialist</title>
     <meta name="description"
-        content="Professional experience timeline of Yoghesh VM - Data Analyst with expertise in business automation, supply chain optimization, and data analytics.">
+        content="Professional experience timeline of Yoghesh - Data Analyst with expertise in business automation, supply chain optimization, and data analytics.">
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://wsnh2022.github.io/experience">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Experience | Yoghesh VM | Data Analyst & Automation Specialist">
+    <meta property="og:title" content="Experience | Yoghesh | Data Analyst & Automation Specialist">
     <meta property="og:description"
         content="Professional experience timeline showcasing data analysis, automation, and supply chain optimization expertise.">
-    <meta property="og:image" content="https://wsnh2022.github.io/assets/images/meta/og_tag.png">
+    <meta property="og:image" content="https://wsnh2022.github.io/og_tag.png">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="wsnh2022.github.io">
     <meta property="twitter:url" content="https://wsnh2022.github.io/experience">
-    <meta name="twitter:title" content="Experience | Yoghesh VM | Data Analyst & Automation Specialist">
+    <meta name="twitter:title" content="Experience | Yoghesh | Data Analyst & Automation Specialist">
     <meta name="twitter:description"
         content="Professional experience timeline showcasing data analysis, automation, and supply chain optimization expertise.">
-    <meta name="twitter:image" content="https://wsnh2022.github.io/assets/images/meta/og_tag.png">
+    <meta name="twitter:image" content="https://wsnh2022.github.io/og_tag.png">
 
     <!-- Favicon -->
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%2338bdf8'>Y</text></svg>">
+
+    <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -71,41 +80,100 @@
     <style>
         /* Custom Animations */
         @keyframes gradient-x {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
+
         @keyframes gradient-y {
-            0%, 100% { background-position: 50% 0%; }
-            50% { background-position: 50% 100%; }
+
+            0%,
+            100% {
+                background-position: 50% 0%;
+            }
+
+            50% {
+                background-position: 50% 100%;
+            }
         }
+
         @keyframes gradient-xy {
-            0%, 100% { background-position: 0% 0%; }
-            25% { background-position: 100% 0%; }
-            50% { background-position: 100% 100%; }
-            75% { background-position: 0% 100%; }
+
+            0%,
+            100% {
+                background-position: 0% 0%;
+            }
+
+            25% {
+                background-position: 100% 0%;
+            }
+
+            50% {
+                background-position: 100% 100%;
+            }
+
+            75% {
+                background-position: 0% 100%;
+            }
         }
+
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
         }
+
         @keyframes glow {
-            from { text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8, 0 0 30px #38bdf8; }
-            to { text-shadow: 0 0 20px #38bdf8, 0 0 30px #38bdf8, 0 0 40px #38bdf8; }
+            from {
+                text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8, 0 0 30px #38bdf8;
+            }
+
+            to {
+                text-shadow: 0 0 20px #38bdf8, 0 0 30px #38bdf8, 0 0 40px #38bdf8;
+            }
         }
+
         @keyframes slide-in {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
+
         @keyframes fade-in {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Glass Morphism */
         .glass {
-            background: rgba(10, 14, 39, 0.5);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -114,6 +182,13 @@
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hero Background */
+        .hero-background {
+            background-color: #030712;
+            background-image: radial-gradient(#1f2937 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
         .hover-card {
@@ -166,8 +241,29 @@
             scroll-behavior: smooth;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
+        /* Hero Background */
+        .hero-background {
+            background-color: #030712;
+            background-image: radial-gradient(#1f2937 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Noise Overlay — matches index.html */
+        .noise::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 9999;
+            filter: contrast(120%) brightness(120%);
+        }
+
+        /* Scroll Bar */
             width: 8px;
         }
 
@@ -197,19 +293,23 @@
     </style>
 </head>
 
-<body class="bg-midnight text-white font-sans antialiased">
-    <!-- Hero Background Image -->
+<body class="bg-midnight text-white font-sans antialiased noise">
+    <!-- Hero Background -->
     <div class="hero-background fixed inset-0 z-0"></div>
 
+    <!-- Background Glow -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 py-4">
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-5xl glass rounded-2xl z-50 shadow-2xl">
+        <div class="px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-gradient-to-br from-accent to-purple-500 rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-sm">Y</span>
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-accent to-purple-500 rounded-lg flex items-center justify-center">
+                        <span class="text-midnight font-bold text-sm">Y</span>
                     </div>
-                    <span class="font-display font-bold text-xl">Yoghesh VM</span>
+                    <span class="font-display font-bold text-xl">Yoghesh</span>
                 </div>
 
                 <!-- Desktop Menu -->
@@ -233,7 +333,8 @@
                         <i class="fas fa-home text-accent w-5"></i>
                         <span>Home</span>
                     </a>
-                    <a href="experience.html" class="text-accent hover:text-accent/80 transition-colors flex items-center gap-3">
+                    <a href="experience.html"
+                        class="text-accent hover:text-accent/80 transition-colors flex items-center gap-3">
                         <i class="fas fa-briefcase text-accent w-5"></i>
                         <span>Experience</span>
                     </a>
@@ -241,13 +342,15 @@
                         <i class="fas fa-code text-accent w-5"></i>
                         <span>Projects</span>
                     </a>
-                    <a href="index.html#contact" class="text-accent hover:text-accent/80 transition-colors flex items-center gap-3">
+                    <a href="index.html#contact"
+                        class="text-accent hover:text-accent/80 transition-colors flex items-center gap-3">
                         <i class="fas fa-envelope text-accent w-5"></i>
                         <span>Contact</span>
                     </a>
 
                     <div class="flex gap-4 pt-4 border-t border-white/10">
-                        <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank"
+                            rel="noopener noreferrer"
                             class="w-12 h-12 flex items-center justify-center rounded-xl bg-transparent text-[#0077b5] border-2 border-[#0077b5] transition-all"
                             title="LinkedIn">
                             <i class="fab fa-linkedin text-2xl"></i>
@@ -282,7 +385,7 @@
                         class="absolute left-[-2px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-accent via-purple-500 to-transparent shadow-[0_0_15px_rgba(56,189,248,0.2)]">
                     </div>
 
-                    
+
                     <!-- Timeline Item 1: Freelance -->
                     <div class="mb-16 relative">
                         <div
@@ -293,7 +396,8 @@
                                 <div>
                                     <h3 class="text-2xl md:text-3xl font-bold text-white">Freelance — Data & Automation
                                         Consultant</h3>
-                                    <p class="text-base text-slate-300">Building Data Infrastructure for Growing Businesses
+                                    <p class="text-base text-slate-300">Building Data Infrastructure for Growing
+                                        Businesses
                                     </p>
                                 </div>
                                 <div class="text-right">
@@ -304,13 +408,15 @@
                             </div>
 
                             <p class="text-slate-400 mb-6 max-w-3xl text-base leading-relaxed">
-                                Providing end-to-end data services: SQL optimization, dashboard prototyping, and workflow
+                                Providing end-to-end data services: SQL optimization, dashboard prototyping, and
+                                workflow
                                 automation. Helping businesses transition from reactive chaos to proactive clarity.
                             </p>
 
                             <div class="grid md:grid-cols-2 gap-6 mb-4">
                                 <div>
-                                    <p class="text-accent font-bold text-sm uppercase tracking-wider mb-3">Service Offerings
+                                    <p class="text-accent font-bold text-sm uppercase tracking-wider mb-3">Service
+                                        Offerings
                                     </p>
                                     <ul class="list-none space-y-2 text-base">
                                         <li class="flex items-start">
@@ -370,7 +476,8 @@
                                     <p class="text-base text-slate-300">Assistant Manager, Service Operations</p>
                                 </div>
                                 <div class="text-right">
-                                    <div class="font-mono text-slate-400 text-sm font-semibold">Sep 2016 – Feb 2024</div>
+                                    <div class="font-mono text-slate-400 text-sm font-semibold">Sep 2016 – Feb 2024
+                                    </div>
                                     <div class="font-mono text-slate-500 text-xs mt-1">7.5 years</div>
                                 </div>
                             </div>
@@ -387,7 +494,8 @@
                                     <li class="flex items-start">
                                         <i class="fas fa-trophy text-warning mt-1 mr-3 text-xs"></i>
                                         <span>
-                                            <strong class="text-white">Inventory Optimization:</strong> Reduced non-moving
+                                            <strong class="text-white">Inventory Optimization:</strong> Reduced
+                                            non-moving
                                             parts by <span class="text-accent">₹1.7M</span> in 2 months (Ranked #1 in
                                             State).
                                         </span>
@@ -395,7 +503,8 @@
                                     <li class="flex items-start">
                                         <i class="fas fa-clock text-success mt-1 mr-3 text-xs"></i>
                                         <span>
-                                            <strong class="text-white">Efficiency ROI:</strong> Automated weekly MIS reports
+                                            <strong class="text-white">Efficiency ROI:</strong> Automated weekly MIS
+                                            reports
                                             using VBA & Power Query, saving <span class="text-accent">40+ manual
                                                 hours/month</span>.
                                         </span>
@@ -403,7 +512,8 @@
                                     <li class="flex items-start">
                                         <i class="fas fa-chart-line text-success mt-1 mr-3 text-xs"></i>
                                         <span>
-                                            <strong class="text-white">Process Improvement:</strong> Accelerated escalation
+                                            <strong class="text-white">Process Improvement:</strong> Accelerated
+                                            escalation
                                             resolution, boosting Customer Satisfaction (CSAT) from <span
                                                 class="text-accent">72% → 95%</span>.
                                         </span>
@@ -411,7 +521,8 @@
                                     <li class="flex items-start">
                                         <i class="fas fa-code text-purple-400 mt-1 mr-3 text-xs"></i>
                                         <span>
-                                            <strong class="text-white">Technical QA:</strong> Debugged AI-based automation
+                                            <strong class="text-white">Technical QA:</strong> Debugged AI-based
+                                            automation
                                             scripts using Python, identifying logic errors to restore output accuracy.
                                         </span>
                                     </li>
@@ -444,17 +555,20 @@
                         <div class="absolute -left-10 w-4 h-4 rounded-full bg-accent/40 border-4 border-midnight"></div>
                         <div class="glass rounded-xl p-8 hover-card">
                             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
-                                <h3 class="text-2xl md:text-3xl font-bold text-white">LG Support Center — Data Reporting &
+                                <h3 class="text-2xl md:text-3xl font-bold text-white">LG Support Center — Data Reporting
+                                    &
                                     Technical Support</h3>
                                 <div class="text-right">
-                                    <div class="font-mono text-slate-400 text-sm font-semibold">Jun 2013 – May 2016</div>
+                                    <div class="font-mono text-slate-400 text-sm font-semibold">Jun 2013 – May 2016
+                                    </div>
                                     <div class="font-mono text-slate-500 text-xs mt-1">3 years</div>
                                 </div>
                             </div>
 
                             <p class="text-slate-400 mb-4 max-w-3xl text-base leading-relaxed">
                                 Tracked 500+ mobile service cases monthly using Excel, categorized by issue type and
-                                turnaround time. Created dynamic lookup tools to accelerate service parts availability and
+                                turnaround time. Created dynamic lookup tools to accelerate service parts availability
+                                and
                                 reduce delays.
                             </p>
 
@@ -473,7 +587,8 @@
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-slate-600 mt-1 mr-3 text-xs"></i>
                                         <span>
-                                            <strong class="text-white">Process Standardization:</strong> Built Excel-based
+                                            <strong class="text-white">Process Standardization:</strong> Built
+                                            Excel-based
                                             SOPs and training documentation for field technicians.
                                         </span>
                                     </li>
@@ -510,17 +625,21 @@
                         <div class="absolute -left-10 w-4 h-4 rounded-full bg-accent/30 border-4 border-midnight"></div>
                         <div class="glass rounded-xl p-8 hover-card">
                             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
-                                <h3 class="text-2xl md:text-3xl font-bold text-white">Whirlpool Stores — Part Coordinator &
+                                <h3 class="text-2xl md:text-3xl font-bold text-white">Whirlpool Stores — Part
+                                    Coordinator &
                                     Data Analyst</h3>
                                 <div class="text-right">
-                                    <div class="font-mono text-slate-400 text-sm font-semibold">Sep 2012 – Apr 2013</div>
+                                    <div class="font-mono text-slate-400 text-sm font-semibold">Sep 2012 – Apr 2013
+                                    </div>
                                     <div class="font-mono text-slate-500 text-xs mt-1">7 months</div>
                                 </div>
                             </div>
 
                             <p class="text-slate-400 mb-4 max-w-3xl text-base leading-relaxed">
-                                Managed inventory using Excel-based stock ledgers and coordinated with vendors to maintain
-                                optimal supply levels. Built and maintained daily Excel dashboards to monitor vendor-wise
+                                Managed inventory using Excel-based stock ledgers and coordinated with vendors to
+                                maintain
+                                optimal supply levels. Built and maintained daily Excel dashboards to monitor
+                                vendor-wise
                                 stock compliance and fulfillment.
                             </p>
 
@@ -531,7 +650,8 @@
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-slate-600 mt-1 mr-3 text-xs"></i>
                                         <span>
-                                            <strong class="text-white">Inventory Management:</strong> Maintained real-time
+                                            <strong class="text-white">Inventory Management:</strong> Maintained
+                                            real-time
                                             stock records and coordinated vendor replenishments.
                                         </span>
                                     </li>
@@ -569,14 +689,16 @@
                                 <h3 class="text-2xl md:text-3xl font-bold text-white">Lucas TVS — Reporting Trainee |
                                     Interfactory Transport Dept</h3>
                                 <div class="text-right">
-                                    <div class="font-mono text-slate-400 text-sm font-semibold">Jul 2010 – Jun 2012</div>
+                                    <div class="font-mono text-slate-400 text-sm font-semibold">Jul 2010 – Jun 2012
+                                    </div>
                                     <div class="font-mono text-slate-500 text-xs mt-1">2 years</div>
                                 </div>
                             </div>
 
                             <p class="text-slate-400 mb-4 max-w-3xl text-base leading-relaxed">
                                 Analyzed operational and production data to support planning and reporting for
-                                cross-functional teams. Served as the critical data bridge between shop-floor operations and
+                                cross-functional teams. Served as the critical data bridge between shop-floor operations
+                                and
                                 management planning.
                             </p>
 
@@ -595,7 +717,8 @@
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-slate-600 mt-1 mr-3 text-xs"></i>
                                         <span>
-                                            <strong class="text-white">Planning Support:</strong> Provided accurate material
+                                            <strong class="text-white">Planning Support:</strong> Provided accurate
+                                            material
                                             flow analysis to align production schedules with demand.
                                         </span>
                                     </li>
@@ -638,10 +761,11 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
                     <div class="flex items-center space-x-2">
-                        <div class="w-6 h-6 bg-gradient-to-br from-accent to-purple-500 rounded flex items-center justify-center">
+                        <div
+                            class="w-6 h-6 bg-gradient-to-br from-accent to-purple-500 rounded flex items-center justify-center">
                             <span class="text-white font-bold text-xs">Y</span>
                         </div>
-                        <span class="text-slate-400 text-sm">© 2025 Yoghesh VM. All rights reserved.</span>
+                        <span class="text-slate-400 text-sm">© 2026 Yoghesh. All rights reserved.</span>
                     </div>
                 </div>
                 <div class="flex space-x-6">

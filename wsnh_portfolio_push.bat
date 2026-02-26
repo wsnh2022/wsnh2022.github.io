@@ -16,9 +16,7 @@ git rm -r --cached . >nul 2>&1
 
 echo Re-syncing index and Pushing...
 :: Re-add everything (Git will ignore what's in .gitignore)
-git add .
-git commit -m "Portfolio update: %datetime%"
-git push origin main
+git add -A && git commit -m "Portfolio update: %datetime%" && git push origin main
 
 if %ERRORLEVEL% equ 0 (
     echo.

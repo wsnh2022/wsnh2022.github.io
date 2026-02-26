@@ -1,63 +1,22 @@
-# 🚀 Yoghesh VM | Data Analyst | Business Automation & Supply Chain Optimization
+# 🚀 Yoghesh | Data Analyst & AI-Generalist Freelancer
 
+**I Help Businesses Grow — Anchored in Data, Amplified by Automation & AI.**
 
+Welcome to the source repository for my personal portfolio. This project serves not only as a digital resume but as a live demonstration of my skills in data analysis, workflow automation, and front-end web development. 
+
+[👉 View the Live Portfolio](https://wsnh2022.github.io/)
+
+---
 
 ## 👋 About Me
 
-Data professional with experience transforming complex data into actionable insights. Specialized in automation, business intelligence, and building innovative tools that bridge the gap between data and decision-making.
+I am a **Data Analyst and AI-Generalist Freelancer** with 7+ years of experience in Supply Chain analytics and Multi-Domain Workflow Automation. My philosophy is simple: data analysis is the anchor, but it's not the ceiling. 
+
+Beyond core data modeling and SQL queries, I actively build static websites, create Canva-based brand assets, and produce targeted social media content for small businesses and independent professionals. I focus on translating messy operational data into clean, automated workflows and impactful visual communication.
+
+---
 
 ## 🎯 Core Expertise
-
-- **Data Analysis & Visualization**: Power BI, Advanced Excel, SQL
-- **Process Automation**: AutoHotkey, n8n, Python scripting
-- **Desktop Applications**: Electron, cross-platform development
-- **Business Intelligence**: KPI dashboards, performance metrics
-- **Technical Documentation**: SOPs, training materials
-
-## 🌟 Featured Projects
-
-### [PopSearch - Instant Search Assistant](https://github.com/wsnh2022/pop-search) [PROJ_001]
-**Portable Desktop Application** | Windows Optimization
-
-High-performance search popup that provides instant access to 40+ engines from any application.
-
-**Key Specifications:**
-- **Portable:** Standalone 98MB EXE
-- **Lightweight:** 60-80MB RAM idle
-- **Efficiency:** CAPSLOCK+S / Right-Click Hold triggers
-- **Integration:** Automated Bulk Metadata Import (Excel/Markdown)
-
-**Tech Stack:** Electron, Node.js, Vite, AutoHotkey v2, Vanilla JS
-
----
-
-### [Facility Automation Pipeline](https://github.com/wsnh2022/n8n-form-to-inbox-automation) [PROJ_002]
-**Workflow Engineering** | Operational Automation
-
-End-to-end automated ticketing system for facility requests using n8n and webhooks.
-
-**Impact & Outcomes:**
-- **330 Hours/Year** saved through automation
-- **₹1,65,000** annual labor cost reduction
-- **100% Elimination** of manual data entry
-- **Dual Flow:** Automated Google Sheets logging + Email notifications
-
-**Tech Stack:** n8n, Webhooks, Google Sheets API, Docker, Vanilla JS
-
----
-
-### SQL ETL Pipeline
-**Data Engineering** | Retail Analytics
-
-Structured SQL query system for daily sales data extraction and cleaning from legacy systems.
-
-**Impact:** Reduced reporting lag from 24 hours to real-time, improving decision speed by 85%.
-
-**Tech Stack:** SQL, ETL, Data Modeling
-
----
-
-## 🛠️ Technical Skills
 
 ### **Data & Analytics**
 - **SQL (90%)**: Complex queries, performance optimization, ETL pipelines
@@ -66,69 +25,78 @@ Structured SQL query system for daily sales data extraction and cleaning from le
 - **Python (75%)**: Scripting, data analysis, automation
 
 ### **Automation & Development**
-- **AutoHotkey (90%)**: system-wide automation, GUI development
-- **n8n (80%)**: Advanced workflow orchestration, API integrations
-- **Portable Desktop App Development (Electron)**: Cross-platform utilities
-- **Web Technologies**: HTML5, CSS3, JavaScript (Vanilla)
+- **AutoHotkey (90%)**: System-wide automation, GUI development, desktop utilities
+- **n8n (80%)**: Advanced workflow orchestration, API integrations, webhooks
+- **Web Technologies (80%)**: HTML5, CSS3, JavaScript (Vanilla), Tailwind CSS
 
-### **Tools & Platforms**
-- **Logistics/ERP**: SAP CRM, Inventory Management Systems
-- **Version Control**: Git, GitHub
-- **Process Design**: SOP creation, time-motion study analysis
+### **Design & Content Strategy**
+- **Canva & Visual Design (85%)**: Brand identity, typography, print-ready assets (flyers, visiting cards)
+- **Social Media Content (75%)**: Managing [@datacraft.yogi](https://www.instagram.com/datacraft.yogi/), creating technical content for data professionals
 
-## 🌐 Portfolio Structure
+---
 
-This portfolio is built with:
-- **Pure HTML/CSS/JavaScript** - No frameworks, maximum performance
-- **Responsive Design** - Optimized for all devices
-- **Modern UI/UX** - Glass morphism, smooth animations
-- **SEO Optimized** - Meta tags, semantic HTML5
-- **GitHub Pages Ready** - Static site hosting
+## 🌟 Featured Projects
 
-## 📊 Performance Metrics
+### 1. [PopSearch - Instant Search Assistant](https://github.com/wsnh2022/pop-search) `[PROJ_001]`
+**Portable Desktop Application | Windows Optimization**
+A high-performance Windows search utility built with Electron and AutoHotkey v2, offering instant access to 40+ search engines with maximum efficiency (60MB idle RAM).
 
-| Metric | Achievement | Impact |
-|----------|----------|------------------|
+### 2. [Facility Automation Pipeline](https://github.com/wsnh2022/n8n-form-to-inbox-automation) `[PROJ_002]`
+**Workflow Engineering | Operational Automation**
+An end-to-end automated ticketing system built with n8n and Webhooks, eliminating 100% of manual data entry and saving 330+ hours annually.
+
+### 3. SQL ETL Pipeline `[PROJ_003]`
+**Data Engineering | Retail Analytics**
+A structured query system extracting legacy retail data, reducing reporting lag time from 24 hours down to real-time.
+
+### 4. [Personal Portfolio](https://github.com/wsnh2022/wsnh2022.github.io) `[PROJ_004]`
+**Web Development | Static Site**
+This very repository. A custom-built static site using pure HTML/CSS/Vanilla JS and Tailwind CSS. Hosted via GitHub Pages with a 95+ Lighthouse performance score.
+
+### 5. Brand Asset Library `[PROJ_005]`
+**Freelance Design | Canva Pro**
+A collection of custom print and digital brand assets designed for small businesses, focusing on alignment, typography hierarchy, and color consistency. *(Full portfolio coming soon)*
+
+---
+
+## 📊 Performance & Impact Metrics
+
+| Metric | Achievement | Domain Impact |
+|----------|-------------|------------------|
 | **Experience** | 7+ Years | Supply Chain & Business Analytics |
 | **Cost Savings** | ₹1.7 Million | Non-moving inventory reduction |
 | **Efficiency** | 40+ Hrs/Mo | Manual MIS reports automation |
 | **Service Rank** | #1 In State | Inventory optimization excellence |
 | **CSAT Impact** | 72% ➜ 95% | Accelerated escalation resolution |
 
-## 🤝 Connect With Me
+---
 
-- **GitHub**: [github.com/wsnh2022](https://github.com/wsnh2022)
-- **Portfolio**: [Live Demo](https://wsnh2022.github.io) *(when deployed)*
-- **LinkedIn**: [Professional Profile](https://linkedin.com/in/yourprofile)
+## 🌐 About This Repository 
 
-## � Achievement Highlights
+This portfolio was engineered from scratch without relying on heavy frameworks like React or Next.js. 
 
-- **₹1.7M** inventory cost reduction through data-driven planning.
-- **95%** service excellence rating (improved from 72%).
-- **100+** manual hours saved monthly through custom automation scripts.
-- **Ranked #1** in state for inventory performance metrics.
+**Technical Highlights:**
+- **Architecture:** Pure HTML5, CSS3, and Vanilla JavaScript.
+- **Styling:** Tailwind CSS (utility-first approach) with custom Glassmorphism effects.
+- **Interactivity:** Custom JS logic for project filtering, scroll-reveal animations, and dynamic number counters.
+- **Hosting:** Deployed continuously via GitHub Pages.
+- **SEO:** Fully optimized with Open Graph and Twitter card meta tags.
 
-## 🎨 Beyond the Terminal
+## 🤝 Let's Connect
 
-- **Digital Branding**: Precision design for posters, flyers, and social media assets.
-- **Lightweight Utilities**: Custom Windows tools for productivity and workflow optimization.
+Whether you need a complex dataset untangled, an operational workflow automated, or a digital brand asset designed from scratch—let's talk.
 
-## 🔧 Technical Approach
-
-My development philosophy:
-1. **User-Centric Design** - Tools must solve tangible operational bottlenecks.
-2. **Performance First** - Optimized code for fast execution and minimal footprint.
-3. **Scalable Architecture** - Solutions built to grow with business complexity.
-4. **Data Integrity** - rigorous validation to ensure accuracy in decision-making.
+- 💼 **LinkedIn:** [yoghesh-analytics](https://www.linkedin.com/in/yoghesh-analytics/)
+- 📸 **Instagram:** [@datacraft.yogi](https://www.instagram.com/datacraft.yogi/)
+- 📧 **Email:** [wsnh.code5621@gmail.com](mailto:wsnh.code5621@gmail.com)
 
 ---
 
-## 📝 License
+> *Built with precision. Optimized for impact.*
 
-This portfolio is open source and available under the [MIT License](LICENSE).
-
----
-
-*Built with passion for data, automation, and elegant solutions.*
-
-
+<p align="center">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+</p>
