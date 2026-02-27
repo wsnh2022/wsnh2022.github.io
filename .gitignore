@@ -56,7 +56,8 @@ temp/
 .eslintcache
 
 # ignore bat file
-wsnh_portfolio_push.bat
+wsnh_portfolio_push_withlog.bat
+deploy-log.txt
 
 # ignore md file
 analytics.google.md
