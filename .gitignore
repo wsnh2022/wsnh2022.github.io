@@ -56,8 +56,7 @@ temp/
 .eslintcache
 
 # ignore bat file
-wsnh_portfolio_push_withlog.bat
-Dynamic-AI-GitSync-Anyrepo.bat
+Dynamic-GitSync-Anyrepo.bat
 deploy-log.txt
 
 # ignore md file
