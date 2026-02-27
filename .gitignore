@@ -57,6 +57,7 @@ temp/
 
 # ignore bat file
 wsnh_portfolio_push_withlog.bat
+Dynamic-AI-GitSync-Anyrepo.bat
 deploy-log.txt
 
 # ignore md file
