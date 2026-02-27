@@ -87,35 +87,41 @@ if %ERRORLEVEL% equ 0 (
 :: Capture diff stat for log
 for /f "delims=" %%i in ('git diff --cached --stat --no-color 2^>nul ^| findstr "changed"') do set DIFF_SUMMARY=%%i
 
-:: Generate commit message from changed file names
-for /f "delims=" %%i in ('git diff --cached --name-only 2^>nul') do (
-    if not defined FIRST_FILE set FIRST_FILE=%%i
-    set /a FILE_COUNT+=1
-)
-if not defined FILE_COUNT set FILE_COUNT=0
-if not defined FIRST_FILE set FIRST_FILE=files
-
-if %FILE_COUNT% equ 1 (
-    set AUTO_COMMIT=Update %FIRST_FILE%
-) else (
-    set AUTO_COMMIT=Update %FIRST_FILE% and %FILE_COUNT% file(s^)
+:: Generate AI commit message using Gemini CLI
+echo Generating AI commit message...
+for /f "delims=" %%i in ('git diff --cached --stat 2^>nul ^| gemini -p "Output only a single Git commit message of max 72 characters in imperative tone based on these changed file names and stats. Do not read files. Do not explain. Do not use tools. Output the commit message text only:"') do (
+    if not defined AI_COMMIT set AI_COMMIT=%%i
 )
 
-echo Commit: %AUTO_COMMIT%
+:: Reject agentic responses
+echo %AI_COMMIT% | findstr /i "will\|going to\|let me\|read\|understand\|provide\|contents\|functionality" >nul
+if %ERRORLEVEL% equ 0 (
+    echo Gemini returned invalid response. Using fallback.
+    set AI_COMMIT=
+)
+
+:: Fallback if Gemini is unavailable or returned invalid response
+if not defined AI_COMMIT (
+    echo Using fallback commit message.
+    set AI_COMMIT=%REPO_NAME% update: %date% %time%
+)
+
+echo Commit: %AI_COMMIT%
 echo.
-git commit -m "%AUTO_COMMIT%"
+git commit -m "%AI_COMMIT%"
 
 :push
 :: Push to remote
 echo Pushing to GitHub...
 git push origin main
+set PUSH_RESULT=%ERRORLEVEL%
 
-if %ERRORLEVEL% equ 0 (
-    call :write_log "SUCCESS" "%AUTO_COMMIT%" "%DIFF_SUMMARY%"
+if %PUSH_RESULT% equ 0 (
+    call :write_log "SUCCESS" "%AI_COMMIT%" "%DIFF_SUMMARY%"
     echo.
     echo ========================================
     echo   ✅ Success! %REPO_NAME% is live.
-    echo   Commit: %AUTO_COMMIT%
+    echo   Commit: %AI_COMMIT%
     echo   Check %ACTIONS_URL%
     echo   Log saved to deploy-log.txt
     echo ========================================
