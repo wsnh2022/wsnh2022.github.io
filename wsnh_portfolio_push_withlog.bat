@@ -88,13 +88,20 @@ for /f "delims=" %%i in ('git diff --cached --stat --no-color 2^>nul ^| findstr 
 
 :: Generate AI commit message using Gemini CLI
 echo Generating AI commit message...
-for /f "delims=" %%i in ('git diff --cached --stat 2^>nul ^| gemini -p "Write a concise Git commit message (max 72 chars, imperative tone) summarizing these file changes. Return only the commit message text, no quotes, no explanation, nothing else:"') do (
+for /f "delims=" %%i in ('git diff --cached --stat 2^>nul ^| gemini -p "Output only a single Git commit message of max 72 characters in imperative tone based on these changed file names and stats. Do not read files. Do not explain. Do not use tools. Output the commit message text only:"') do (
     if not defined AI_COMMIT set AI_COMMIT=%%i
 )
 
-:: Fallback if Gemini is unavailable or returns nothing
+:: Reject agentic responses — Gemini sometimes explains instead of committing
+echo %AI_COMMIT% | findstr /i "will\|going to\|let me\|read\|understand\|provide\|contents\|functionality" >nul
+if %ERRORLEVEL% equ 0 (
+    echo Gemini returned invalid response. Using fallback.
+    set AI_COMMIT=
+)
+
+:: Fallback if Gemini is unavailable or returned invalid response
 if not defined AI_COMMIT (
-    echo Gemini unavailable. Using fallback commit message.
+    echo Using fallback commit message.
     set AI_COMMIT=%REPO_NAME% update: %date% %time%
 )
 
@@ -160,18 +167,3 @@ echo CHANGES    : %~3 >> "%LOG_FILE%"
 echo REMOTE URL : %ACTIONS_URL% >> "%LOG_FILE%"
 echo ================================================ >> "%LOG_FILE%"
 exit /b
-```
-
-**What gets logged per run (`deploy-log.txt` in the same folder):**
-```
-================================================
-DATE       : Fri 27-02-2026
-START TIME : 14:32:10.45
-END TIME   : 14:33:02.11
-ELAPSED    : 51 seconds
-REPO       : wsnh_portfolio
-STATUS     : SUCCESS
-COMMIT MSG : Update portfolio philosophy and nav links
-CHANGES    : 3 files changed, 28 insertions(+), 12 deletions(-)
-REMOTE URL : https://github.com/wsnh2022/wsnh_portfolio/actions
-================================================
