@@ -58,6 +58,7 @@ temp/
 # ignore bat file
 gitsync.bat
 deploy-log.txt
+.gitsync.lock
 
 # ignore md file
 analytics.google.md
