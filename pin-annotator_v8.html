@@ -1,0 +1,3754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Pin Annotator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: #f0f2f5;
+      color: #1c1e21;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Toolbar ── */
+    #toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: #ffffff;
+      border-bottom: 1px solid #dee2e6;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      min-height: 50px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    button {
+      background: #ffffff;
+      color: #4b4f56;
+      border: 1px solid #ced4da;
+      padding: 6px 14px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      touch-action: manipulation;
+      white-space: nowrap;
+      min-height: 34px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    button:hover {
+      background: #f8f9fa;
+      border-color: #adb5bd;
+      color: #1c1e21;
+    }
+
+    button:active {
+      background: #e9ecef;
+      transform: translateY(1px);
+    }
+
+    #btn-home {
+      background: #0f1117;
+      border-color: #2a2d35;
+      color: rgba(255,255,255,0.75);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: all 0.15s;
+    }
+
+    #btn-home:hover {
+      background: #1a1d27;
+      border-color: #4EC9F0;
+      color: #4EC9F0;
+    }
+
+    #btn-add-img {
+      background: #007bff;
+      border-color: #007bff;
+      color: #ffffff;
+    }
+
+    #btn-add-img:hover {
+      background: #0069d9;
+      border-color: #0062cc;
+    }
+
+    #btn-clear {
+      background: #fff;
+      border-color: #ffc2c2;
+      color: #dc3545;
+    }
+
+    #btn-clear:hover {
+      background: #fff5f5;
+    }
+
+    #btn-clear-session {
+      background: #fff;
+      border-color: #ced4da;
+      color: #888;
+      font-size: 12px;
+    }
+
+    #btn-save-png {
+      background: #28a745;
+      border-color: #28a745;
+      color: #ffffff;
+    }
+
+    #btn-save-png:hover {
+      background: #218838;
+      border-color: #1e7e34;
+    }
+
+    #btn-save-html {
+      background: #17a2b8;
+      border-color: #17a2b8;
+      color: #ffffff;
+    }
+
+    #btn-save-html:hover {
+      background: #138496;
+      border-color: #117a8b;
+    }
+
+    #btn-export-bkp {
+      background: #ffffff;
+      color: #666;
+    }
+
+    #btn-import-bkp {
+      background: #ffffff;
+      color: #666;
+    }
+
+    #btn-save-pdf {
+      background: #6f42c1;
+      border-color: #6f42c1;
+      color: #ffffff;
+    }
+
+    #btn-save-pdf:hover {
+      background: #59359a;
+      border-color: #51308d;
+    }
+
+    .save-group {
+      display: flex;
+      gap: 6px;
+      margin-left: auto;
+    }
+
+    #status {
+      font-size: 12px;
+      color: #888;
+      margin: 0 10px;
+    }
+
+    #save-status {
+      font-size: 11px;
+      transition: color 0.3s;
+    }
+
+    #save-status.saving {
+      color: #007bff;
+    }
+
+    #save-status.saved {
+      color: #28a745;
+    }
+
+    #save-status.error {
+      color: #dc3545;
+    }
+
+    @media (max-width:599px) {
+      #status {
+        display: none;
+      }
+    }
+
+    /* Image cap indicator */
+    #img-cap {
+      font-size: 11px;
+      color: #4a3a1a;
+      background: #1e1800;
+      border: 1px solid #3a2e00;
+      border-radius: 4px;
+      padding: 2px 8px;
+      display: none;
+    }
+
+    #img-cap.warn {
+      color: #e0a030;
+      border-color: #6a4a00;
+      background: #2a1e00;
+      display: inline-block;
+    }
+
+    #img-cap.full {
+      color: #e06030;
+      border-color: #8a2a00;
+      background: #2a0e00;
+      display: inline-block;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    /* ── Image tab strip ── */
+    #img-tabs-wrap {
+      background: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      flex-shrink: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      display: flex;
+      align-items: stretch;
+      min-height: 52px;
+      scrollbar-width: thin;
+      scrollbar-color: #ced4da transparent;
+    }
+
+    #img-tabs-wrap::-webkit-scrollbar {
+      height: 3px;
+    }
+
+    #img-tabs-wrap::-webkit-scrollbar-thumb {
+      background: #ced4da;
+    }
+
+    #img-tabs {
+      display: flex;
+      align-items: stretch;
+      gap: 1px;
+      padding: 0 6px;
+      min-width: max-content;
+    }
+
+    .img-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      color: #888;
+      font-size: 13px;
+      white-space: nowrap;
+      transition: all 0.15s;
+      min-height: 50px;
+      touch-action: manipulation;
+    }
+
+    .img-tab:hover {
+      background: #ffffff;
+      color: #1c1e21;
+    }
+
+    .img-tab.active {
+      color: #007bff;
+      border-bottom-color: #007bff;
+      background: #ffffff;
+      font-weight: 500;
+    }
+
+    .tab-thumb {
+      width: 32px;
+      height: 24px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #dee2e6;
+      flex-shrink: 0;
+    }
+
+    .tab-name {
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tab-pin-badge {
+      background: #e7f3ff;
+      border: 1px solid #b2d7ff;
+      color: #007bff;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 1px 7px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .tab-close {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: #ced4da;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.1s;
+      padding: 0;
+      min-height: unset;
+    }
+
+    .tab-close:hover {
+      background: #ffe3e3;
+      color: #dc3545;
+    }
+
+    /* ── Crop overlays ── */
+    .crop-overlay {
+      position: absolute;
+      border: 2px dashed;
+      border-radius: 4px;
+      box-sizing: border-box;
+      z-index: 6;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .crop-label-tag {
+      position: absolute;
+      top: -22px;
+      left: -2px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      border-radius: 3px 3px 0 0;
+      padding: 1px 7px;
+      white-space: nowrap;
+      pointer-events: none;
+      line-height: 1.8;
+    }
+
+    .crop-delete-btn {
+      position: absolute;
+      top: -22px;
+      right: -2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 0 3px 0 0;
+      border: none;
+      background: #dc3545;
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      pointer-events: all;
+      min-height: unset;
+      padding: 0;
+      font-weight: 700;
+      transition: background 0.12s;
+    }
+
+    .crop-delete-btn:hover {
+      background: #b02a37;
+    }
+
+    /* Drawing rect while dragging */
+    .crop-draw-preview {
+      position: absolute;
+      border: 2px dashed #007bff;
+      background: rgba(0, 123, 255, 0.07);
+      pointer-events: none;
+      z-index: 25;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+
+    /* Crop mode active on canvas wrap */
+    .img-list-canvas-wrap.crop-mode {
+      cursor: crosshair !important;
+    }
+
+    .img-list-canvas-wrap.crop-mode .pin {
+      pointer-events: none;
+    }
+
+    /* Crop toggle button */
+    .btn-crop-toggle {
+      background: #fff;
+      border: 1px solid #ced4da;
+      color: #555;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      min-height: 26px;
+      white-space: nowrap;
+      transition: all 0.13s;
+    }
+
+    .btn-crop-toggle:hover {
+      background: #f0f2f5;
+      border-color: #adb5bd;
+    }
+
+    .btn-crop-toggle.active {
+      background: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+
+    /* Crop count badge in header */
+    .tab-crop-badge {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      color: #856404;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 1px 7px;
+      min-width: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .tab-crop-badge.has-crops {
+      display: inline-block;
+    }
+
+    /* ── Image list (replaces tabs) ── */
+    #img-tabs-wrap { display: none !important; }
+
+    #workspace {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .img-list-item {
+      background: #ffffff;
+      border: 2px solid #dee2e6;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      flex-shrink: 0;
+    }
+
+    .img-list-item.active {
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.12);
+    }
+
+    .img-list-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .img-list-header:hover {
+      background: #e9ecef;
+    }
+
+    .img-list-item.active .img-list-header {
+      background: #e7f3ff;
+      border-bottom-color: #b2d7ff;
+    }
+
+    .img-list-name {
+      flex: 1;
+      font-weight: 600;
+      font-size: 13px;
+      color: #1c1e21;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .img-list-canvas-wrap {
+      position: relative;
+      display: block;
+      background: #f0f2f5;
+      padding: 0;
+      line-height: 0;
+    }
+
+    .img-list-canvas-wrap canvas {
+      display: block;
+      max-width: 100%;
+      border-radius: 0;
+    }
+
+    /* No-image placeholder */
+    #no-img-placeholder {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      color: #8e949e;
+      font-size: 15px;
+    }
+
+    #no-img-placeholder::before {
+      content: '⊕';
+      font-size: 52px;
+      color: #ced4da;
+    }
+
+    /* ── Workspace ── */
+    #canvas-wrap { display: none !important; }
+
+    canvas {
+      display: block;
+      border-radius: 4px;
+      max-width: 100%;
+    }
+
+    /* ── Pins ── */
+    .pin {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg) translate(-50%, -50%);
+      transform-origin: 0 0;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.5);
+      z-index: 10;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .pin.dragging {
+      cursor: grabbing;
+      z-index: 50;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .pin-num {
+      transform: rotate(45deg);
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      pointer-events: none;
+    }
+
+    @keyframes lp-ring {
+      from {
+        box-shadow: 0 0 0 0 rgba(106, 180, 240, 0.6);
+      }
+
+      to {
+        box-shadow: 0 0 0 10px rgba(106, 180, 240, 0);
+      }
+    }
+
+    .pin.longpress {
+      animation: lp-ring 0.4s ease-out;
+    }
+
+    /* ── Context menu ── */
+    #ctx-menu {
+      position: fixed;
+      background: #ffffff;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 200;
+      display: none;
+      overflow: hidden;
+      min-width: 160px;
+    }
+
+    .ctx-item {
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #4b4f56;
+      cursor: pointer;
+      transition: background 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      touch-action: manipulation;
+    }
+
+    .ctx-item:hover,
+    .ctx-item:active {
+      background: #f0f2f5;
+      color: #1c1e21;
+    }
+
+    .ctx-item.danger {
+      color: #e07070;
+    }
+
+    .ctx-item.danger:hover,
+    .ctx-item.danger:active {
+      background: #fff5f5;
+    }
+
+    .ctx-sep {
+      height: 1px;
+      background: #e9ecef;
+    }
+
+    /* ── Modal ── */
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      z-index: 100;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    @media (min-width:600px) {
+      #modal-overlay {
+        align-items: center;
+      }
+    }
+
+    #modal-overlay.active {
+      display: flex;
+    }
+
+    #modal {
+      background: #ffffff;
+      border: 1px solid #dee2e6;
+      border-radius: 12px 12px 0 0;
+      padding: 20px 20px 28px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (min-width:600px) {
+      #modal {
+        border-radius: 10px;
+        width: 460px;
+        padding: 22px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      }
+    }
+
+    #modal-handle {
+      width: 40px;
+      height: 4px;
+      background: #e9ecef;
+      border-radius: 2px;
+      margin: 0 auto 4px;
+    }
+
+    @media (min-width:600px) {
+      #modal-handle {
+        display: none;
+      }
+    }
+
+    #modal h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #8e949e;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    #modal textarea {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      color: #1c1e21;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 12px;
+      resize: vertical;
+      min-height: 120px;
+      outline: none;
+      width: 100%;
+      transition: all 0.2s;
+    }
+
+    #modal textarea:focus {
+      background: #fff;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    }
+
+    #modal-title-input {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      color: #1c1e21;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 12px;
+      outline: none;
+      width: 100%;
+      transition: all 0.2s;
+    }
+
+    #modal-title-input:focus {
+      background: #fff;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    }
+
+    /* Syntax hint inside modal */
+    #modal-syntax {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .syntax-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    .syntax-label {
+      color: #8e949e;
+      min-width: 65px;
+      font-weight: 600;
+      padding-top: 1px;
+    }
+
+    .syntax-example {
+      color: #007bff;
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+      font-size: 11px;
+      background: #e7f3ff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid #b2d7ff;
+    }
+
+    .syntax-arrow {
+      color: #ced4da;
+    }
+
+    .syntax-desc {
+      color: #4b4f56;
+      font-size: 11px;
+    }
+
+    #modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    #modal-actions button {
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    #btn-confirm {
+      background: #28a745;
+      border-color: #28a745;
+      color: #ffffff;
+    }
+
+    #btn-confirm:hover {
+      background: #218838;
+      border-color: #1e7e34;
+    }
+
+    /* ── Hero Overlay ─────────────────────────────────────────── */
+    #hero-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    #hero-overlay.dismissing {
+      opacity: 0;
+      transform: translateY(-12px);
+      pointer-events: none;
+    }
+
+    /* ── TOP — Dark manifesto ── */
+    #hero-top {
+      background: #0f1117;
+      color: #ffffff;
+      padding: 48px 32px 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    #hero-trust-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 4px;
+    }
+
+    .trust-bar-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      flex-shrink: 0;
+    }
+
+    .trust-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .trust-bar-item span:first-child {
+      font-size: 13px;
+    }
+
+    #hero-headline {
+      font-size: clamp(26px, 5.8vw, 80px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      margin-bottom: 24px;
+      max-width: 95vw;
+      width: 100%;
+    }
+
+    #hero-headline em {
+      font-style: normal;
+      background: linear-gradient(100deg, #00f5a0 0%, #00d9f5 35%, #a78bfa 70%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    #hero-sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(255,255,255,0.52);
+      line-height: 1.6;
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    #hero-cta-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 52px;
+    }
+
+    #hero-cta-main {
+      background: #ffffff;
+      color: #0f1117;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 32px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      transition: all 0.18s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+      min-height: unset;
+    }
+
+    #hero-cta-main:hover {
+      background: #e8f4ff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+    }
+
+    #hero-cta-skip {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.5);
+      border-radius: 10px;
+      padding: 14px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+      min-height: unset;
+    }
+
+    #hero-cta-skip:hover {
+      border-color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.75);
+      background: rgba(255,255,255,0.05);
+    }
+
+    #hero-zero-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.09);
+      padding-top: 36px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .zero-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 40px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .zero-stat:last-child {
+      border-right: none;
+    }
+
+    .zero-num {
+      font-size: 42px;
+      font-weight: 800;
+      color: #4EC9F0;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .zero-label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      white-space: nowrap;
+    }
+
+    /* ── BOTTOM — Light trust grid ── */
+    #hero-bottom {
+      background: #f8f9fa;
+      border-top: 1px solid #e9ecef;
+      padding: 44px 32px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    #hero-grid-label {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #adb5bd;
+      margin-bottom: 32px;
+    }
+
+    #hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 700px) {
+      #hero-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 420px) {
+      #hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .zero-stat {
+        padding: 0 16px;
+      }
+    }
+
+    .hero-card {
+      background: #ffffff;
+      border: 1px solid #e9ecef;
+      border-radius: 16px;
+      padding: 32px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+
+    .hero-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+      transform: translateY(-3px);
+    }
+
+    .hero-card-icon {
+      font-size: 40px;
+      line-height: 1;
+    }
+
+    .hero-card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1c1e21;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-card-desc {
+      font-size: 16px;
+      color: #8e949e;
+      line-height: 1.6;
+    }
+
+    #hero-bottom-note {
+      font-size: 17px;
+      color: #adb5bd;
+      text-align: center;
+      max-width: 680px;
+      line-height: 1.7;
+    }
+
+    #hero-bottom-note strong {
+      color: #6c757d;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Hero Overlay ─────────────────────────────────────────── -->
+  <div id="hero-overlay">
+
+    <!-- TOP: Dark manifesto -->
+    <div id="hero-top">
+      <div id="hero-trust-bar">
+        <div class="trust-bar-item"><span>🔒</span><span>No Tracking</span></div>
+        <div class="trust-bar-dot"></div>
+        <div class="trust-bar-item"><span>✈️</span><span>Works Offline</span></div>
+        <div class="trust-bar-dot"></div>
+        <div class="trust-bar-item"><span>🆓</span><span>Completely Free</span></div>
+        <div class="trust-bar-dot"></div>
+        <div class="trust-bar-item"><span>🛡️</span><span>No Account Needed</span></div>
+      </div>
+
+      <h1 id="hero-headline">Annotate images.<br><em>In complete privacy.</em></h1>
+
+      <p id="hero-sub">No server. No login. No internet required.<br>Your images never leave your device — ever.</p>
+
+      <div id="hero-cta-wrap">
+        <button id="hero-cta-main" onclick="heroStart()">+ Add Images to Start</button>
+        <button id="hero-cta-skip" onclick="heroDismiss()">I already know this →</button>
+      </div>
+
+      <div id="hero-zero-strip">
+        <div class="zero-stat">
+          <div class="zero-num">0</div>
+          <div class="zero-label">Bytes Sent</div>
+        </div>
+        <div class="zero-stat">
+          <div class="zero-num">0</div>
+          <div class="zero-label">Trackers</div>
+        </div>
+        <div class="zero-stat">
+          <div class="zero-num">0</div>
+          <div class="zero-label">External Requests</div>
+        </div>
+        <div class="zero-stat">
+          <div class="zero-num">$0</div>
+          <div class="zero-label">Cost Forever</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM: Light trust grid -->
+    <div id="hero-bottom">
+      <div id="hero-grid-label">Everything you need. Nothing you don't.</div>
+
+      <div id="hero-grid">
+        <div class="hero-card">
+          <div class="hero-card-icon">🔒</div>
+          <div class="hero-card-title">100% Private</div>
+          <div class="hero-card-desc">Images are processed entirely in your browser. Zero data ever reaches a server.</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-icon">✈️</div>
+          <div class="hero-card-title">Fully Offline</div>
+          <div class="hero-card-desc">Once the page loads, disconnect your internet. It works exactly the same.</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-icon">💾</div>
+          <div class="hero-card-title">Auto-Saved Locally</div>
+          <div class="hero-card-desc">Your session persists in browser storage (IndexedDB). Close and reopen — it's all still there.</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-icon">📤</div>
+          <div class="hero-card-title">Rich Exports</div>
+          <div class="hero-card-desc">Export to PNG, professional PDF, interactive HTML viewer, or backup JSON — all offline.</div>
+        </div>
+      </div>
+
+      <p id="hero-bottom-note">
+        <strong>No invisible strings.</strong> No analytics, no telemetry, no CDN fonts in the main app,
+        no cookies, no ads. This is a plain HTML file — open it, use it, trust it.
+      </p>
+    </div>
+
+  </div>
+  <!-- ── End Hero ─────────────────────────────────────────────── -->
+
+  <div id="toolbar">
+    <button id="btn-home" onclick="showHero()" title="Back to home">⌂ Home</button>
+    <button id="btn-add-img" onclick="document.getElementById('file-input').click()">+ Add Image(s)</button>
+    <input type="file" id="file-input" accept="image/*" multiple>
+    <span id="img-cap"></span>
+    <span id="status">No images loaded</span>
+    <span id="save-status" title="Auto-save status"></span>
+    <button id="btn-clear" onclick="clearAllPins()">Clear Pins</button>
+    <button id="btn-clear-session" onclick="clearSession()" title="Remove all images and pins, reset workspace">✕ Clear
+      All</button>
+    <div class="save-group">
+      <button id="btn-export-bkp" onclick="exportBackup()"
+        title="Download entire session: triggers 'Save As' file manager">Export Backup</button>
+      <button id="btn-import-bkp" onclick="document.getElementById('import-input').click()"
+        title="Restore session: pick a file from your file manager">Import Backup</button>
+      <input type="file" id="import-input" accept=".json" style="display:none" onchange="importBackup(this)">
+      <button id="btn-save-png" title="Download annotated image with legend">Save PNG</button>
+      <button id="btn-save-pdf" title="Download professional documentation PDF">Save PDF</button>
+      <button id="btn-save-html" title="Download interactive HTML viewer">Save HTML</button>
+    </div>
+  </div>
+
+  <div id="img-tabs-wrap">
+    <div id="img-tabs"></div>
+  </div>
+
+  <div id="workspace">
+    <div id="no-img-placeholder">
+      <span>Add up to 40 images to begin</span>
+      <span style="font-size:11px;color:#222">Tap to place pins · Drag to reposition · Long-press to edit/delete</span>
+    </div>
+    <div id="canvas-wrap" style="display:none;"></div>
+  </div>
+
+  <div id="ctx-menu">
+    <div class="ctx-item" id="ctx-edit">✎ Edit comment</div>
+    <div class="ctx-sep"></div>
+    <div class="ctx-item danger" id="ctx-delete">✕ Delete pin</div>
+  </div>
+
+  <div id="modal-overlay">
+    <div id="modal">
+      <span id="modal-handle"></span>
+      <h3 id="modal-title">PIN #1 — ADD COMMENT</h3>
+      <input type="text" id="modal-title-input" placeholder="Pin title (optional — e.g. 'Button misaligned')">
+      <textarea id="modal-input"
+        placeholder="Write your comment…&#10;Use `backticks` for code/URLs with copy button.&#10;Use ```triple``` for multi-line code blocks."></textarea>
+
+      <!-- Syntax reference -->
+      <div id="modal-syntax">
+        <div class="syntax-row">
+          <span class="syntax-label">Inline</span>
+          <span class="syntax-example">`https://example.com`</span>
+          <span class="syntax-arrow">→</span>
+          <span class="syntax-desc">code block + copy + open</span>
+        </div>
+        <div class="syntax-row">
+          <span class="syntax-label">Block</span>
+          <span class="syntax-example">```multi line```</span>
+          <span class="syntax-arrow">→</span>
+          <span class="syntax-desc">fenced code block + copy</span>
+        </div>
+        <div class="syntax-row">
+          <span class="syntax-label">URL</span>
+          <span class="syntax-example">https://... (bare)</span>
+          <span class="syntax-arrow">→</span>
+          <span class="syntax-desc">auto-linked, opens new tab</span>
+        </div>
+      </div>
+
+      <div id="modal-actions">
+        <button onclick="cancelPin()">Cancel</button>
+        <button id="btn-confirm" onclick="confirmPin()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="export-canvas" style="display:none;"></canvas>
+
+  <script>
+    const MAX_IMAGES = 40;
+
+    const fileInput = document.getElementById('file-input');
+    const statusEl = document.getElementById('status');
+    const imgCapEl = document.getElementById('img-cap');
+    const tabsEl = document.getElementById('img-tabs');
+    const wrap = document.getElementById('canvas-wrap');
+    const placeholder = document.getElementById('no-img-placeholder');
+    const modalOv = document.getElementById('modal-overlay');
+    const modalInput = document.getElementById('modal-input');
+    const modalTitleInput = document.getElementById('modal-title-input');
+    const modalTitle = document.getElementById('modal-title');
+    const exportCvs = document.getElementById('export-canvas');
+    const ctxMenu = document.getElementById('ctx-menu');
+
+    const COLORS = ['#FFBE45', '#4EC9F0', '#F07070', '#5DD98C', '#C07CF5', '#F5A55B', '#F06EA8', '#6AF0D4'];
+    const CROP_COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFD166', '#C77DFF', '#F4A261', '#52B788'];
+
+    let images = [];
+    let activeId = null;
+    let cropModeEntryId = null; // which image is currently in crop-draw mode
+    let cropCounter = 0; // global crop id counter
+    let pending = null;
+    let editingPin = null;
+    let ctxPin = null;
+    let dragMoved = false;
+    let idCounter = 0;
+
+    function activeImg() { return images.find(i => i.id === activeId) || null; }
+
+    // ── Persistence (IndexedDB — no size limit) ─────────────────
+    const DB_NAME = 'PinAnnotatorDB';
+    const DB_VERSION = 1;
+    const DB_STORE = 'session';
+    let _db = null;
+    let _saveTimer = null;
+    let _dirty = false;
+
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        if (_db) { resolve(_db); return; }
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = e => e.target.result.createObjectStore(DB_STORE);
+        req.onsuccess = e => { _db = e.target.result; resolve(_db); };
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    function scheduleSave() {
+      _dirty = true;
+      clearTimeout(_saveTimer);
+      const ss = document.getElementById('save-status');
+      if (ss) { ss.textContent = '● Saving…'; ss.className = 'saving'; }
+      _saveTimer = setTimeout(saveSession, 300);
+    }
+
+    function exportBackup() {
+      if (!images.length) { alert('Nothing to export.'); return; }
+      const payload = JSON.stringify({
+        idCounter,
+        activeId,
+        timestamp: new Date().toISOString(),
+        data: images.map(e => ({
+          id: e.id,
+          name: e.name,
+          dataURL: e.dataURL,
+          pins: e.pins.map(p => ({ num: p.num, title: p.title || '', comment: p.comment, color: p.color, domX: p.domX, domY: p.domY }))
+        }))
+      }, null, 2);
+      const blob = new Blob([payload], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.download = `pin-annotator-backup_${ts()}.json`;
+      a.href = URL.createObjectURL(blob);
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function importBackup(input) {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (!parsed.data || !Array.isArray(parsed.data)) throw new Error('Invalid backup format');
+          if (!confirm('This will replace your current session. Continue?')) return;
+
+          // Clear current
+          images.forEach(e => { e.pins.forEach(p => p.el && p.el.remove()); e.sectionEl?.remove(); });
+          images = [];
+          document.querySelectorAll('.img-list-item').forEach(s => s.remove());
+
+          // Load new
+          idCounter = parsed.idCounter || 0;
+          activeId = parsed.activeId;
+
+          let loaded = 0;
+          parsed.data.forEach(saved => {
+            const imgEl = new Image();
+            imgEl.onload = () => {
+              const entry = {
+                id: saved.id, name: saved.name, dataURL: saved.dataURL, imgEl,
+                pins: [], displayW: imgEl.naturalWidth, displayH: imgEl.naturalHeight
+              };
+              saved.pins.forEach(p => entry.pins.push({ ...p, el: null }));
+              images.push(entry);
+              images.sort((a, b) => a.id - b.id);
+              document.querySelectorAll('.img-list-item').forEach(s => s.remove());
+              images.forEach(e => { renderImageSection(e); updateTabBadge(e.id); });
+
+              loaded++;
+              if (saved.id === activeId) switchTo(entry.id);
+              if (loaded === parsed.data.length) {
+                if (!activeId && images.length) switchTo(images[0].id);
+                updateCapUI();
+                updateStatus();
+                saveSession();
+              }
+            };
+            imgEl.src = saved.dataURL;
+          });
+        } catch (err) { alert('Failed to import: ' + err.message); }
+        input.value = '';
+      };
+      reader.readAsText(file);
+    }
+
+    function saveSession() {
+      _dirty = false;
+      clearTimeout(_saveTimer);
+      const ss = document.getElementById('save-status');
+      return openDB().then(db => {
+        return new Promise((resolve, reject) => {
+          const payload = JSON.stringify({
+            idCounter,
+            activeId,
+            draft: modalOv.classList.contains('active') ? {
+              comment: modalInput.value,
+              pending: pending,
+              editingNum: editingPin ? editingPin.num : null
+            } : null,
+            data: images.map(e => ({
+              id: e.id,
+              name: e.name,
+              dataURL: e.dataURL,
+              pins: e.pins.map(p => ({ num: p.num, title: p.title || '', comment: p.comment, color: p.color, domX: p.domX, domY: p.domY }))
+            }))
+          });
+          const tx = db.transaction(DB_STORE, 'readwrite');
+          const req = tx.objectStore(DB_STORE).put(payload, 'current');
+          tx.oncomplete = () => {
+            if (ss) { ss.textContent = '✓ Saved'; ss.className = 'saved'; }
+            resolve();
+          };
+          tx.onerror = () => {
+            if (ss) { ss.textContent = '⚠ Save failed'; ss.className = 'error'; }
+            reject(tx.error);
+          };
+        });
+      }).catch(() => {
+        if (ss) { ss.textContent = '⚠ Save failed'; ss.className = 'error'; }
+      });
+    }
+
+    // Force-save immediately before page closes
+    window.addEventListener('beforeunload', () => {
+      if (_dirty) saveSession();
+    });
+
+    function restoreSession() {
+      return openDB().then(db => {
+        return new Promise(resolve => {
+          const tx = db.transaction(DB_STORE, 'readonly');
+          const req = tx.objectStore(DB_STORE).get('current');
+          req.onsuccess = () => {
+            if (!req.result) { resolve(); return; }
+            try {
+              const { idCounter: ic, activeId: aid, data, draft } = JSON.parse(req.result);
+              idCounter = ic || 0;
+              if (!data || !data.length) { resolve(); return; }
+
+              let loaded = 0;
+              const total = data.length;
+
+              // Sort so active image loads first for faster perceived restore
+              const sorted = [...data].sort((a, b) => (b.id === aid ? 1 : 0) - (a.id === aid ? 1 : 0));
+
+              sorted.forEach(saved => {
+                const imgEl = new Image();
+                imgEl.onload = () => {
+                  const entry = {
+                    id: saved.id, name: saved.name, dataURL: saved.dataURL, imgEl,
+                    pins: [], crops: [], displayW: imgEl.naturalWidth, displayH: imgEl.naturalHeight
+                  };
+                  saved.pins.forEach(p => entry.pins.push({ ...p, el: null }));
+                  if (saved.crops) saved.crops.forEach(c => entry.crops.push({ ...c, el: null }));
+                  images.push(entry);
+
+                  images.sort((a, b) => a.id - b.id);
+                  // Re-render all sections in correct order
+                  document.querySelectorAll('.img-list-item').forEach(s => s.remove());
+                  images.forEach(e => { renderImageSection(e); updateTabBadge(e.id); });
+
+                  updateCapUI();
+                  loaded++;
+
+                  // Switch to the previously active image once it's ready
+                  if (saved.id === aid) switchTo(entry.id);
+                  // If no saved activeId just switch when all loaded
+                  if (!aid && loaded === total) switchTo(images[0].id);
+
+                  if (loaded === total) {
+                    // Restore draft if any
+                    if (draft) {
+                      const activeEntry = images.find(i => i.id === aid);
+                      if (draft.editingNum && activeEntry) {
+                        const pin = activeEntry.pins.find(p => p.num === draft.editingNum);
+                        if (pin) {
+                          openModal(null, pin);
+                          // Only overwrite if draft has actual content to avoid clearing saved pins
+                          if (draft.comment) modalInput.value = draft.comment;
+                        }
+                      } else if (draft.pending) {
+                        openModal(draft.pending, null);
+                        if (draft.comment) modalInput.value = draft.comment;
+                      }
+                    }
+                    resolve();
+                  }
+                };
+                imgEl.onerror = () => { loaded++; if (loaded === total) resolve(); };
+                imgEl.src = saved.dataURL;
+              });
+            } catch (e) { resolve(); }
+          };
+          req.onerror = () => resolve();
+        });
+      }).catch(() => { });
+    }
+
+    // ── Image cap UI ────────────────────────────────────────────
+    function updateCapUI() {
+      const n = images.length;
+      if (n >= MAX_IMAGES) {
+        imgCapEl.textContent = `${n}/${MAX_IMAGES} images — limit reached`;
+        imgCapEl.className = 'full';
+        document.getElementById('btn-add-img').disabled = true;
+      } else if (n >= MAX_IMAGES * 0.75) {
+        imgCapEl.textContent = `${n}/${MAX_IMAGES} images`;
+        imgCapEl.className = 'warn';
+        document.getElementById('btn-add-img').disabled = false;
+      } else {
+        imgCapEl.className = '';
+        document.getElementById('btn-add-img').disabled = false;
+      }
+    }
+
+    // ── Load ────────────────────────────────────────────────────
+    fileInput.addEventListener('change', e => {
+      const files = Array.from(e.target.files);
+      const slots = MAX_IMAGES - images.length;
+      if (slots <= 0) { alert(`Image limit reached (${MAX_IMAGES}). Remove images to add more.`); fileInput.value = ''; return; }
+      const toLoad = files.slice(0, slots);
+      if (files.length > slots) alert(`Only ${slots} slot(s) remaining. First ${slots} image(s) added.`);
+      toLoad.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = ev => addImage(file.name, ev.target.result);
+        reader.readAsDataURL(file);
+      });
+      fileInput.value = '';
+    });
+
+    function addImage(name, dataURL) {
+      const imgEl = new Image();
+      imgEl.onload = () => {
+        const entry = { id: ++idCounter, name, dataURL, imgEl, pins: [], crops: [], displayW: imgEl.naturalWidth, displayH: imgEl.naturalHeight };
+        images.push(entry);
+        renderImageSection(entry);
+        setActiveSection(entry.id);
+        placeholder.style.display = 'none';
+        updateCapUI();
+        scheduleSave();
+      };
+      imgEl.src = dataURL;
+    }
+
+    // ── Image List (replaces Tabs) ──────────────────────────────
+    const workspace = document.getElementById('workspace');
+
+    function renderImageSection(entry) {
+      const section = document.createElement('div');
+      section.className = 'img-list-item';
+      section.dataset.id = entry.id;
+
+      const header = document.createElement('div');
+      header.className = 'img-list-header';
+      header.addEventListener('click', () => setActiveSection(entry.id));
+
+      const thumb = document.createElement('img');
+      thumb.className = 'tab-thumb';
+      thumb.src = entry.dataURL;
+
+      const name = document.createElement('span');
+      name.className = 'img-list-name';
+      name.textContent = entry.name.replace(/\.[^/.]+$/, '');
+
+      const badge = document.createElement('span');
+      badge.className = 'tab-pin-badge';
+      badge.textContent = entry.pins.length;
+      badge.dataset.badge = entry.id;
+
+      const close = document.createElement('button');
+      close.className = 'tab-close';
+      close.textContent = '×';
+      close.addEventListener('click', e => { e.stopPropagation(); removeImage(entry.id); });
+
+      header.appendChild(thumb); header.appendChild(name); header.appendChild(badge); header.appendChild(close);
+
+      const canvasWrap = document.createElement('div');
+      canvasWrap.className = 'img-list-canvas-wrap';
+      canvasWrap.dataset.id = entry.id;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = entry.imgEl.naturalWidth;
+      canvas.height = entry.imgEl.naturalHeight;
+      canvas.style.maxWidth = '100%';
+      canvas.style.display = 'block';
+      canvas.getContext('2d').drawImage(entry.imgEl, 0, 0);
+      canvasWrap.appendChild(canvas);
+
+      entry.wrapEl = canvasWrap;
+      entry.sectionEl = section;
+
+      entry.pins.forEach(p => renderPinDOM(p, canvasWrap));
+
+      requestAnimationFrame(() => {
+        entry.displayW = canvas.offsetWidth;
+        entry.displayH = canvas.offsetHeight;
+      });
+
+      canvasWrap.addEventListener('click', e => {
+        if (dragMoved) return;
+        if (window._ctxCoolDown) return;
+        if (e.target.closest('.pin')) return;
+        if (window._touchPlaced) { window._touchPlaced = false; return; }
+        setActiveSection(entry.id);
+        const rect = canvasWrap.getBoundingClientRect();
+        openModal({ domX: e.clientX - rect.left, domY: e.clientY - rect.top }, null);
+      });
+      canvasWrap.addEventListener('touchend', e => {
+        if (e.target.closest('.pin')) return;
+        if (dragMoved) return;
+        if (window._ctxCoolDown) return;
+        e.preventDefault();
+        const t = e.changedTouches[0];
+        const rect = canvasWrap.getBoundingClientRect();
+        window._touchPlaced = true;
+        setActiveSection(entry.id);
+        openModal({ domX: t.clientX - rect.left, domY: t.clientY - rect.top }, null);
+      }, { passive: false });
+
+      section.appendChild(header);
+      section.appendChild(canvasWrap);
+      workspace.appendChild(section);
+    }
+
+    // DEPRECATED stub kept for backward compat — replaced by renderImageSection
+    function renderTab(entry) { renderImageSection(entry); }
+
+    function updateTabBadge(id) {
+      const entry = images.find(i => i.id === id);
+      if (!entry) return;
+      const badge = document.querySelector(`[data-badge="${id}"]`);
+      if (badge) badge.textContent = entry.pins.length;
+    }
+
+    function setActiveSection(id) {
+      activeId = id;
+      document.querySelectorAll('.img-list-item').forEach(s => {
+        s.classList.toggle('active', +s.dataset.id === id);
+      });
+      updateStatus();
+    }
+
+    function setActiveTab(id) { setActiveSection(id); }
+
+    function switchTo(id) {
+      const entry = images.find(i => i.id === id);
+      if (!entry) return;
+      if (!entry.sectionEl) renderImageSection(entry);
+      setActiveSection(id);
+      placeholder.style.display = 'none';
+    }
+
+    function removeImage(id) {
+      const idx = images.findIndex(i => i.id === id);
+      if (idx === -1) return;
+      images[idx].pins.forEach(p => p.el && p.el.remove());
+      images[idx].sectionEl?.remove();
+      images.splice(idx, 1);
+      updateCapUI();
+
+      if (!images.length) {
+        activeId = null;
+        placeholder.style.display = 'flex';
+        updateStatus();
+      } else {
+        switchTo(images[Math.min(idx, images.length - 1)].id);
+      }
+      scheduleSave();
+    }
+
+    function updateStatus() {
+      const entry = activeImg();
+      if (!entry) { statusEl.textContent = 'No images loaded'; return; }
+      const total = images.reduce((s, i) => s + i.pins.length, 0);
+      statusEl.textContent = `${images.length}/${MAX_IMAGES} images · ${entry.imgEl.naturalWidth}×${entry.imgEl.naturalHeight} · ${entry.pins.length} pin${entry.pins.length !== 1 ? 's' : ''} · ${total} total`;
+    }
+
+    // ── Place pin — handlers are now per-section (see renderImageSection) ──
+
+    function openModal(pos, pinToEdit) {
+      const entry = activeImg(); if (!entry) return;
+      pending = pos;
+      editingPin = pinToEdit;
+      const num = pinToEdit ? pinToEdit.num : images.reduce((s, i) => s + i.pins.length, 0) + 1;
+      modalTitle.textContent = pinToEdit ? `PIN #${num} — EDIT` : `PIN #${num} — ADD`;
+      modalTitleInput.value = pinToEdit ? (pinToEdit.title || '') : '';
+      modalInput.value = pinToEdit ? pinToEdit.comment : '';
+      modalOv.classList.add('active');
+      setTimeout(() => { modalTitleInput.focus(); if (pinToEdit) modalTitleInput.select(); }, 80);
+    }
+
+    modalInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); confirmPin(); }
+      if (e.key === 'Escape') cancelPin();
+    });
+    modalInput.addEventListener('input', scheduleSave);
+    modalTitleInput.addEventListener('keydown', e => {
+      if (e.key === 'Tab') { e.preventDefault(); modalInput.focus(); }
+      if (e.key === 'Escape') cancelPin();
+    });
+    modalTitleInput.addEventListener('input', scheduleSave);
+
+    function confirmPin() {
+      const comment = modalInput.value.trim();
+      if (!comment) { cancelPin(); return; }
+      const title = modalTitleInput.value.trim();
+      const entry = activeImg(); if (!entry) return;
+
+      if (editingPin) {
+        editingPin.title = title;
+        editingPin.comment = comment;
+        modalOv.classList.remove('active');
+        editingPin = null;
+        scheduleSave();
+        return;
+      }
+
+      const num = images.reduce((s, i) => s + i.pins.length, 0) + 1; // global across all images
+      const color = COLORS[(num - 1) % COLORS.length];
+      const pin = { domX: pending.domX, domY: pending.domY, num, title, comment, color, el: null };
+      entry.pins.push(pin);
+      renderPinDOM(pin, entry.wrapEl);
+      updateTabBadge(activeId);
+      modalOv.classList.remove('active');
+      pending = null;
+      updateStatus();
+      scheduleSave();
+    }
+
+    function cancelPin() { modalOv.classList.remove('active'); pending = null; editingPin = null; }
+    modalOv.addEventListener('click', e => { if (e.target === modalOv) cancelPin(); });
+
+    // ── Render pin ──────────────────────────────────────────────
+    function renderPinDOM(pin, wrapEl) {
+      wrapEl = wrapEl || activeImg()?.wrapEl;
+      if (!wrapEl) return;
+      const el = document.createElement('div');
+      el.className = 'pin';
+      el.style.left = pin.domX + 'px';
+      el.style.top = pin.domY + 'px';
+      el.style.background = pin.color;
+      const numEl = document.createElement('span');
+      numEl.className = 'pin-num';
+      numEl.textContent = pin.num;
+      el.appendChild(numEl);
+      wrapEl.appendChild(el);
+      pin.el = el;
+      makeDraggable(el, pin);
+      attachCtx(el, pin);
+    }
+
+    // ── Context menu ────────────────────────────────────────────
+    function attachCtx(el, pin) {
+      el.addEventListener('contextmenu', e => { e.preventDefault(); e.stopPropagation(); ctxPin = pin; showCtxMenu(e.clientX, e.clientY); });
+      let lpTimer = null;
+      let lastTap = 0;
+      el.addEventListener('touchstart', e => {
+        // Double-tap to edit (Mobile/Tablet only)
+        const now = Date.now();
+        const isMobileView = window.innerWidth <= 1024;
+        if (isMobileView && now - lastTap < 300) {
+          if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
+
+          // Set cooldown to prevent ghost click on workspace
+          window._ctxCoolDown = true;
+          setTimeout(() => window._ctxCoolDown = false, 400);
+
+          openModal(null, pin);
+          scheduleSave(); // Persist editing state
+          return;
+        }
+        lastTap = now;
+
+        lpTimer = setTimeout(() => {
+          lpTimer = null;
+          el.classList.add('longpress');
+          setTimeout(() => el.classList.remove('longpress'), 400);
+          ctxPin = pin; showCtxMenu(e.touches[0].clientX, e.touches[0].clientY);
+        }, 500);
+      }, { passive: true });
+      el.addEventListener('touchend', () => { if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; } });
+      el.addEventListener('touchmove', () => { if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; } });
+    }
+
+    function showCtxMenu(x, y) {
+      ctxMenu.style.display = 'block';
+      const mw = ctxMenu.offsetWidth, mh = ctxMenu.offsetHeight;
+      ctxMenu.style.left = Math.min(x, window.innerWidth - mw - 8) + 'px';
+      ctxMenu.style.top = Math.min(y, window.innerHeight - mh - 8) + 'px';
+    }
+
+    document.addEventListener('click', e => {
+      if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none';
+    });
+    document.addEventListener('touchstart', e => {
+      if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none';
+    }, { passive: true });
+
+    document.getElementById('ctx-edit').addEventListener('click', e => {
+      e.stopPropagation(); e.preventDefault();
+      if (!ctxPin) return;
+      const p = ctxPin; ctxPin = null;
+      ctxMenu.style.display = 'none';
+
+      // Set cooldown to prevent ghost click on workspace
+      window._ctxCoolDown = true;
+      setTimeout(() => window._ctxCoolDown = false, 400);
+
+      openModal(null, p);
+      scheduleSave();
+    });
+    document.getElementById('ctx-delete').addEventListener('click', e => {
+      e.stopPropagation(); e.preventDefault();
+      if (!ctxPin) return;
+      ctxMenu.style.display = 'none';
+
+      // Set cooldown
+      window._ctxCoolDown = true;
+      setTimeout(() => window._ctxCoolDown = false, 400);
+
+      deletePin(ctxPin); ctxPin = null;
+    });
+
+    function deletePin(pin) {
+      const entry = activeImg(); if (!entry) return;
+      pin.el.remove();
+      entry.pins = entry.pins.filter(p => p !== pin);
+      // Renumber all pins across all images sequentially from 1
+      let globalN = 0;
+      images.forEach(img => {
+        img.pins.forEach(p => {
+          p.num = ++globalN;
+          if (p.el) p.el.querySelector('.pin-num').textContent = p.num;
+        });
+      });
+      updateTabBadge(activeId);
+      updateStatus();
+      scheduleSave();
+    }
+    function makeDraggable(el, pin) {
+      el.addEventListener('mousedown', e => {
+        if (e.button !== 0) return;
+        e.stopPropagation(); e.preventDefault();
+        const s = { x: e.clientX, y: e.clientY, ox: pin.domX, oy: pin.domY, moved: false };
+        el.classList.add('dragging');
+        const mv = ev => dragMove(ev.clientX, ev.clientY, pin, el, s);
+        const up = () => {
+          el.classList.remove('dragging');
+          document.removeEventListener('mousemove', mv);
+          if (s.moved) { dragMoved = true; requestAnimationFrame(() => dragMoved = false); scheduleSave(); }
+        };
+        document.addEventListener('mousemove', mv);
+        document.addEventListener('mouseup', up, { once: true });
+      });
+
+      el.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) return;
+        e.stopPropagation();
+        const t0 = e.touches[0];
+        const s = { x: t0.clientX, y: t0.clientY, ox: pin.domX, oy: pin.domY, moved: false };
+        el.classList.add('dragging');
+        const mv = ev => { ev.preventDefault(); dragMove(ev.touches[0].clientX, ev.touches[0].clientY, pin, el, s); };
+        const up = () => {
+          el.classList.remove('dragging');
+          document.removeEventListener('touchmove', mv);
+          if (s.moved) { dragMoved = true; requestAnimationFrame(() => dragMoved = false); scheduleSave(); }
+        };
+        document.addEventListener('touchmove', mv, { passive: false });
+        document.addEventListener('touchend', up, { once: true, passive: true });
+      }, { passive: true });
+    }
+
+    function dragMove(cx, cy, pin, el, s) {
+      const dx = cx - s.x, dy = cy - s.y;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) s.moved = true;
+      pin.domX = s.ox + dx; pin.domY = s.oy + dy;
+      el.style.left = pin.domX + 'px'; el.style.top = pin.domY + 'px';
+    }
+
+    function clearAllPins() {
+      const entry = activeImg(); if (!entry) return;
+      entry.pins.forEach(p => p.el && p.el.remove());
+      entry.pins = [];
+      updateTabBadge(activeId);
+      updateStatus();
+      scheduleSave();
+    }
+
+    function clearSession() {
+      if (!confirm('Remove all images and pins? This cannot be undone.')) return;
+      images.forEach(e => {
+        e.pins.forEach(p => p.el && p.el.remove());
+        e.sectionEl?.remove();
+      });
+      images = []; activeId = null; idCounter = 0;
+      placeholder.style.display = 'flex';
+      openDB().then(db => {
+        const tx = db.transaction(DB_STORE, 'readwrite');
+        tx.objectStore(DB_STORE).delete('current');
+      }).catch(() => { });
+      updateCapUI(); updateStatus();
+    }
+
+    function ts() {
+      const d = new Date();
+      return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}_${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`;
+    }
+
+    // ── Comment renderer — parses backtick code & bare URLs ────
+    function renderComment(text) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'comment-body';
+      const parts = [];
+      const fenceRx = /```([\s\S]*?)```/g;
+      let last = 0, m;
+      while ((m = fenceRx.exec(text)) !== null) {
+        if (m.index > last) {
+          const v = text.slice(last, m.index).replace(/^[\n\r]+|[\n\r]+$/g, '').replace(/\n{3,}/g, '\n\n');
+          if (v) parts.push({ type: 'text', val: v });
+        }
+        parts.push({ type: 'fence', val: m[1].trim() });
+        last = m.index + m[0].length;
+      }
+      if (last < text.length) {
+        const v = text.slice(last).replace(/^[\n\r]+|[\n\r]+$/g, '').replace(/\n{3,}/g, '\n\n');
+        if (v) parts.push({ type: 'text', val: v });
+      }
+      parts.forEach(part => {
+        if (part.type === 'fence') { wrapper.appendChild(buildFenceBlock(part.val)); return; }
+        const inlineRx = /`([^`]+)`/g;
+        let tLast = 0, tm;
+        const sub = part.val;
+        while ((tm = inlineRx.exec(sub)) !== null) {
+          if (tm.index > tLast) wrapper.appendChild(buildTextSeg(sub.slice(tLast, tm.index)));
+          wrapper.appendChild(buildInlineCode(tm[1]));
+          tLast = tm.index + tm[0].length;
+        }
+        if (tLast < sub.length) wrapper.appendChild(buildTextSeg(sub.slice(tLast)));
+      });
+      return wrapper;
+    }
+
+    function buildTextSeg(text) {
+      const frag = document.createDocumentFragment();
+      const urlRx = /(https?:\/\/[^\s"<>]+)/g;
+      let last = 0, m;
+      while ((m = urlRx.exec(text)) !== null) {
+        if (m.index > last) frag.appendChild(makeTextNode(text.slice(last, m.index)));
+        const a = document.createElement('a');
+        a.className = 'c-url'; a.href = m[1]; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        a.textContent = m[1]; frag.appendChild(a);
+        last = m.index + m[0].length;
+      }
+      if (last < text.length) frag.appendChild(makeTextNode(text.slice(last)));
+      const span = document.createElement('span'); span.className = 'text-seg';
+      span.appendChild(frag); return span;
+    }
+
+    function makeTextNode(t) { const s = document.createElement('span'); s.textContent = t; return s; }
+    function isURL(s) { return /^https?:\/\//.test(s.trim()); }
+
+    function buildInlineCode(val) {
+      const wrap = document.createElement('span'); wrap.className = 'c-inline';
+      const code = document.createElement('span'); code.textContent = val;
+      wrap.appendChild(code);
+      const actions = document.createElement('span'); actions.className = 'c-inline-actions';
+      const copyBtn = document.createElement('button'); copyBtn.className = 'c-btn';
+      copyBtn.textContent = 'Copy';
+      copyBtn.dataset.copyVal = val; // Added for PDF delegation
+      copyBtn.addEventListener('click', e => { e.stopPropagation(); copyText(val, copyBtn); });
+      if (isURL(val)) {
+        const openBtn = document.createElement('button'); openBtn.className = 'c-btn open-btn';
+        openBtn.textContent = 'Open ↗';
+        openBtn.dataset.url = val.trim(); // Added for PDF delegation
+        openBtn.addEventListener('click', e => { e.stopPropagation(); window.open(val.trim(), '_blank', 'noopener,noreferrer'); });
+        actions.appendChild(openBtn);
+      }
+      actions.appendChild(copyBtn); wrap.appendChild(actions); return wrap;
+    }
+
+    function buildFenceBlock(code) {
+      const outer = document.createElement('div'); outer.className = 'c-block';
+      const header = document.createElement('div'); header.className = 'c-block-header';
+      const label = document.createElement('span'); label.textContent = isURL(code.split('\n')[0]) ? 'URL' : 'Code';
+      const copyBtn = document.createElement('button'); copyBtn.className = 'c-btn';
+      copyBtn.textContent = 'Copy';
+      copyBtn.dataset.copyVal = code; // Added for PDF delegation
+      copyBtn.addEventListener('click', e => { e.stopPropagation(); copyText(code, copyBtn); });
+      header.appendChild(label);
+      const firstLine = code.split('\n')[0].trim();
+      if (isURL(firstLine)) {
+        const openBtn = document.createElement('button'); openBtn.className = 'c-btn open-btn';
+        openBtn.textContent = 'Open ↗';
+        openBtn.dataset.url = firstLine; // Added for PDF delegation
+        openBtn.addEventListener('click', e => { e.stopPropagation(); window.open(firstLine, '_blank', 'noopener,noreferrer'); });
+        header.appendChild(openBtn);
+      }
+      header.appendChild(copyBtn);
+      const pre = document.createElement('pre'); pre.textContent = code;
+      outer.appendChild(header); outer.appendChild(pre); return outer;
+    }
+
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent; btn.textContent = 'Copied!'; btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+      }).catch(() => {
+        const ta = document.createElement('textarea'); ta.value = text;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta);
+        const orig = btn.textContent; btn.textContent = 'Copied!'; btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+      });
+    }
+
+    // ── Save PNG ────────────────────────────────────────────────
+    function savePNG() {
+      const entry = activeImg();
+      if (!entry) { alert('Load an image first.'); return; }
+      if (!entry.pins.length) { alert('Add at least one pin.'); return; }
+
+      const customTitle = prompt("Enter a Title for this export:", entry.name.replace(/\.[^/.]+$/, ''));
+      if (customTitle === null) return;
+      const docTitle = customTitle || "Annotated Image";
+
+      const mc = entry.wrapEl?.querySelector('canvas') || document.getElementById('main-canvas');
+      const scaleX = entry.imgEl.naturalWidth / (mc ? mc.offsetWidth : entry.displayW);
+      const scaleY = entry.imgEl.naturalHeight / (mc ? mc.offsetHeight : entry.displayH);
+      const LINE_H = 32, PAD = 18, DOT_R = 11, FONT = 14;
+      const legH = PAD * 2 + entry.pins.length * LINE_H;
+
+      exportCvs.width = entry.imgEl.naturalWidth;
+      exportCvs.height = entry.imgEl.naturalHeight + legH;
+      const ctx = exportCvs.getContext('2d');
+      ctx.drawImage(entry.imgEl, 0, 0);
+
+      entry.pins.forEach(p => {
+        const x = Math.round(p.domX * scaleX), y = Math.round(p.domY * scaleY);
+        ctx.beginPath(); ctx.arc(x, y, 15, 0, Math.PI * 2);
+        ctx.fillStyle = p.color; ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.4)'; ctx.lineWidth = 1.5; ctx.stroke();
+        ctx.fillStyle = 'rgba(0,0,0,0.75)';
+        ctx.font = `bold 13px 'Segoe UI', system-ui, sans-serif`;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(String(p.num), x, y);
+      });
+
+      const ly = entry.imgEl.naturalHeight;
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(0, ly, entry.imgEl.naturalWidth, legH);
+      ctx.strokeStyle = '#dee2e6'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, ly + 0.5); ctx.lineTo(entry.imgEl.naturalWidth, ly + 0.5); ctx.stroke();
+
+      entry.pins.forEach((p, i) => {
+        const tx = PAD, ty = ly + PAD + i * LINE_H + LINE_H / 2;
+        ctx.beginPath(); ctx.arc(tx + DOT_R, ty, DOT_R, 0, Math.PI * 2);
+        ctx.fillStyle = p.color; ctx.fill();
+        ctx.fillStyle = 'rgba(0,0,0,0.75)';
+        ctx.font = `bold 9px 'Segoe UI', sans-serif`;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(String(p.num), tx + DOT_R, ty);
+        ctx.fillStyle = '#1c1e21';
+        ctx.font = `${FONT}px 'Segoe UI', system-ui, sans-serif`;
+        ctx.textAlign = 'left';
+        // Strip markdown syntax for plain PNG legend
+        const plain = p.comment.replace(/```[\s\S]*?```/g, '[code]').replace(/`([^`]+)`/g, '$1').replace(/\n/g, ' ');
+        ctx.fillText(plain, tx + DOT_R * 2 + 10, ty);
+      });
+
+      const a = document.createElement('a');
+      a.download = `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${ts()}.png`;
+      a.href = exportCvs.toDataURL('image/png');
+      a.click();
+    }
+
+    // ── Save PDF (Report) — Notion-style ───────────────────────
+    async function savePDF() {
+      if (!images.length) { alert('Load at least one image.'); return; }
+      if (!images.some(i => i.pins.length > 0)) { alert('Add at least one pin to any image.'); return; }
+
+      const customTitle = prompt("Enter a Title for this report:", "Annotated Report");
+      if (customTitle === null) return;
+      const docTitle = customTitle || "Annotated Report";
+
+      const tsNow = ts();
+      const validImages = images.filter(i => i.pins.length > 0);
+      const totalPins = validImages.reduce((sum, img) => sum + img.pins.length, 0);
+      const safePdfTitle = docTitle.replace(/"/g, "'").toUpperCase();
+      const dateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+      const dateShort = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+      const win = window.open('', '_blank');
+      win.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>${docTitle}</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 16mm 16mm;
+      @top-left {
+        content: "${safePdfTitle}";
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+        color: #adb5bd; vertical-align: bottom; padding-bottom: 5px;
+        border-bottom: 1px solid #e9ecef;
+      }
+      @top-right {
+        content: "${dateShort}";
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        font-size: 9px; color: #adb5bd;
+        vertical-align: bottom; padding-bottom: 5px;
+        border-bottom: 1px solid #e9ecef;
+      }
+      @bottom-right {
+        content: "Page " counter(page) " of " counter(pages);
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        font-size: 9px; color: #c0c4cc; vertical-align: top; padding-top: 5px;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #1c1e21; background: #fff; line-height: 1.6; font-size: 14px;
+    }
+
+    /* ── Cover ── */
+    .cover {
+      padding-bottom: 24px;
+      border-bottom: 2px solid #1c1e21;
+      margin-bottom: 40px;
+    }
+    .cover-title {
+      font-size: 30px; font-weight: 800; color: #1c1e21;
+      letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px;
+    }
+    .cover-meta {
+      display: flex; align-items: center;
+      font-size: 13px; color: #8e949e;
+    }
+    .cover-meta-item {
+      padding: 0 14px; border-right: 1px solid #dee2e6;
+    }
+    .cover-meta-item:first-child { padding-left: 0; }
+    .cover-meta-item:last-child { border-right: none; }
+    .cover-meta-item strong { color: #1c1e21; font-weight: 600; }
+
+    /* ── Section block ── */
+    .section-break { page-break-before: always; }
+
+    .section-block {
+      border: 1px solid #e9ecef;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 28px;
+      page-break-inside: avoid;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+
+    /* Single horizontal header bar */
+    .section-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: #fafafa;
+      border-bottom: 1px solid #e9ecef;
+      gap: 12px;
+    }
+    .section-hdr-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .section-hdr-eyebrow {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #adb5bd;
+    }
+    .section-hdr-name {
+      font-size: 16px; font-weight: 700; color: #1c1e21;
+      letter-spacing: -0.01em; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .section-hdr-badge {
+      background: #e7f3ff; border: 1px solid #b2d7ff;
+      color: #007bff; font-size: 11px; font-weight: 700;
+      border-radius: 20px; padding: 3px 12px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── Two-column body: crop | annotations ── */
+    .section-body {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    /* LEFT 42% — tight bounding box crop */
+    .section-crop-wrap {
+      flex: 0 0 42%;
+      width: 42%;
+      padding: 16px;
+      background: #f4f5f7;
+      border-right: 1px solid #e9ecef;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .section-crop-img {
+      width: 100%; display: block;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    /* RIGHT 58% — stacked annotation list */
+    .section-notes-wrap {
+      flex: 0 0 58%;
+      width: 58%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Individual annotation row */
+    .pin-row {
+      padding: 14px 18px;
+      border-bottom: 1px solid #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .pin-row:last-child { border-bottom: none; }
+
+    .pin-row-hdr {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .pin-badge {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+    }
+    .pin-row-title {
+      font-size: 12px; font-weight: 700; color: #1c1e21;
+      letter-spacing: 0.01em;
+    }
+    .pin-row-body {
+      padding-left: 31px; /* indent under badge */
+    }
+
+    /* Comment content styles */
+    .comment-body {
+      font-size: 12px; line-height: 1.65; color: #4b4f56;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .text-seg { white-space: pre-wrap; }
+    .c-inline {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #f1f3f5; border: 1px solid #e0e4ea; border-radius: 4px;
+      padding: 1px 7px; font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 11px; color: #007bff; word-break: break-all;
+      vertical-align: middle; margin: 1px 0;
+    }
+    .c-inline-actions { display: inline-flex; gap: 3px; flex-shrink: 0; }
+    .c-btn {
+      background: #fff; border: 1px solid #dee2e6; border-radius: 3px;
+      color: #8e949e; font-size: 10px; padding: 1px 5px;
+      cursor: pointer; white-space: nowrap; font-weight: 600;
+    }
+    .c-btn.open-btn { color: #fff; background: #007bff; border-color: #007bff; }
+    .c-block {
+      background: #fafafa; border: 1px solid #e9ecef;
+      border-radius: 5px; overflow: hidden; margin: 3px 0;
+    }
+    .c-block-header {
+      display: flex; align-items: center; padding: 3px 10px;
+      background: #f1f3f5; border-bottom: 1px solid #e9ecef; gap: 6px;
+    }
+    .c-block-header span {
+      font-size: 9px; color: #8e949e; margin-right: auto;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .c-block pre {
+      padding: 8px 12px; font-family: 'Consolas', monospace;
+      font-size: 10px; line-height: 1.5; color: #4b4f56;
+      background: #fafafa; white-space: pre-wrap; margin: 0;
+    }
+    .c-url { color: #007bff; text-decoration: none; }
+
+    /* End marker */
+    .doc-end {
+      text-align: center; padding: 48px 0 8px;
+      border-top: 1px solid #e9ecef; margin-top: 40px;
+      font-size: 11px; color: #adb5bd;
+      letter-spacing: 0.15em; text-transform: uppercase;
+    }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .c-btn { display: none; }
+      .section-block { box-shadow: none; }
+      .section-crop-img { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cover -->
+  <div class="cover">
+    <div class="cover-title">${docTitle}</div>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><strong>${dateStr}</strong></div>
+      <div class="cover-meta-item"><strong>${validImages.length}</strong> image${validImages.length !== 1 ? 's' : ''}</div>
+      <div class="cover-meta-item"><strong>${totalPins}</strong> annotation${totalPins !== 1 ? 's' : ''}</div>
+    </div>
+  </div>
+  <div id="content">Generating…</div>
+  <script>
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('.c-btn');
+      if (!btn) return;
+      e.preventDefault(); e.stopPropagation();
+      if (btn.dataset.url) {
+        window.open(btn.dataset.url, '_blank', 'noopener,noreferrer');
+      } else if (btn.dataset.copyVal) {
+        navigator.clipboard.writeText(btn.dataset.copyVal).then(() => {
+          const orig = btn.textContent; btn.textContent = 'Copied!';
+          setTimeout(() => btn.textContent = orig, 1500);
+        });
+      }
+    });
+  <\/script>
+</body>
+</html>`);
+      win.document.close();
+
+      const content = win.document.getElementById('content');
+      content.innerHTML = '';
+
+      let sectionIdx = 1;
+      let firstSection = true;
+      let globalPinNum = 0;
+
+      // ── Tight bounding box crop — all pins visible ────────────
+      const getBoundingCrop = (entry) => {
+        const nW = entry.imgEl.naturalWidth;
+        const nH = entry.imgEl.naturalHeight;
+        const scaleX = nW / (entry.displayW || nW);
+        const scaleY = nH / (entry.displayH || nH);
+
+        // 1. Find bounding box of all pins in natural image space
+        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        entry.pins.forEach(p => {
+          const x = p.domX * scaleX;
+          const y = p.domY * scaleY;
+          minX = Math.min(minX, x);
+          minY = Math.min(minY, y);
+          maxX = Math.max(maxX, x);
+          maxY = Math.max(maxY, y);
+        });
+
+        // 2. Generous padding: 14% of image dimension or 100px, whichever is larger
+        const padX = Math.max(100, nW * 0.14);
+        const padY = Math.max(100, nH * 0.14);
+
+        // 3. Apply padding and clamp to image bounds
+        let srcX = Math.max(0, minX - padX);
+        let srcY = Math.max(0, minY - padY);
+        let srcRight = Math.min(nW, maxX + padX);
+        let srcBottom = Math.min(nH, maxY + padY);
+
+        // 4. Enforce minimum crop size of 380px in both dimensions
+        //    Expand symmetrically if the natural bounding box is too small
+        const MIN = 380;
+        if (srcRight - srcX < MIN) {
+          const expand = (MIN - (srcRight - srcX)) / 2;
+          srcX = Math.max(0, srcX - expand);
+          srcRight = Math.min(nW, srcRight + expand);
+        }
+        if (srcBottom - srcY < MIN) {
+          const expand = (MIN - (srcBottom - srcY)) / 2;
+          srcY = Math.max(0, srcY - expand);
+          srcBottom = Math.min(nH, srcBottom + expand);
+        }
+
+        const srcW = srcRight - srcX;
+        const srcH = srcBottom - srcY;
+
+        // 5. Output canvas — preserve aspect ratio, cap at 800px wide
+        const OUT_W = Math.min(800, srcW);
+        const OUT_H = Math.round(OUT_W * (srcH / srcW));
+
+        const c = document.createElement('canvas');
+        c.width = OUT_W; c.height = OUT_H;
+        const ctx = c.getContext('2d');
+
+        // Draw the cropped region
+        ctx.fillStyle = '#f4f5f7';
+        ctx.fillRect(0, 0, OUT_W, OUT_H);
+        ctx.drawImage(entry.imgEl, srcX, srcY, srcW, srcH, 0, 0, OUT_W, OUT_H);
+
+        // 6. Draw all pins repositioned into crop space
+        entry.pins.forEach(p => {
+          const px = (p.domX * scaleX - srcX) * (OUT_W / srcW);
+          const py = (p.domY * scaleY - srcY) * (OUT_H / srcH);
+          const r = Math.max(10, OUT_W * 0.018); // pin radius scales with output
+
+          ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color; ctx.fill();
+          ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+          ctx.lineWidth = 2; ctx.stroke();
+
+          ctx.fillStyle = 'rgba(0,0,0,0.78)';
+          ctx.font = `bold ${Math.round(r * 0.95)}px sans-serif`;
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          ctx.fillText(String(p.num), px, py);
+        });
+
+        return c.toDataURL('image/png');
+      };
+
+      for (const entry of images) {
+        if (!entry.pins.length) continue;
+
+        const imgSection = win.document.createElement('div');
+        if (!firstSection) imgSection.className = 'section-break';
+        firstSection = false;
+
+        // ── Section block wrapper ──
+        const block = win.document.createElement('div');
+        block.className = 'section-block';
+
+        // ── Clean single-line header bar ──
+        const hdr = win.document.createElement('div');
+        hdr.className = 'section-hdr';
+
+        const hdrLeft = win.document.createElement('div');
+        hdrLeft.className = 'section-hdr-left';
+
+        const eyebrow = win.document.createElement('div');
+        eyebrow.className = 'section-hdr-eyebrow';
+        eyebrow.textContent = `Section ${String(sectionIdx++).padStart(2, '0')}`;
+
+        const hdrName = win.document.createElement('div');
+        hdrName.className = 'section-hdr-name';
+        hdrName.textContent = entry.name.replace(/\.[^/.]+$/, '');
+
+        hdrLeft.appendChild(eyebrow);
+        hdrLeft.appendChild(hdrName);
+
+        const hdrBadge = win.document.createElement('div');
+        hdrBadge.className = 'section-hdr-badge';
+        hdrBadge.textContent = `${entry.pins.length} annotation${entry.pins.length !== 1 ? 's' : ''}`;
+
+        hdr.appendChild(hdrLeft);
+        hdr.appendChild(hdrBadge);
+        block.appendChild(hdr);
+
+        // ── Two-column body ──
+        const body = win.document.createElement('div');
+        body.className = 'section-body';
+
+        // LEFT — tight bounding box crop with all pins
+        const cropWrap = win.document.createElement('div');
+        cropWrap.className = 'section-crop-wrap';
+        const cropImg = win.document.createElement('img');
+        cropImg.className = 'section-crop-img';
+        cropImg.src = getBoundingCrop(entry);
+        cropWrap.appendChild(cropImg);
+
+        // RIGHT — stacked annotation rows
+        const notesWrap = win.document.createElement('div');
+        notesWrap.className = 'section-notes-wrap';
+
+        for (const p of entry.pins) {
+          const displayNum = ++globalPinNum;
+
+          const row = win.document.createElement('div');
+          row.className = 'pin-row';
+          row.style.borderLeft = `3px solid ${p.color}`;
+
+          // Row header: badge + title
+          const rowHdr = win.document.createElement('div');
+          rowHdr.className = 'pin-row-hdr';
+
+          const badge = win.document.createElement('span');
+          badge.className = 'pin-badge';
+          badge.style.background = p.color;
+          badge.textContent = displayNum;
+
+          const rowTitle = win.document.createElement('span');
+          rowTitle.className = 'pin-row-title';
+          rowTitle.textContent = p.title || `Pin ${displayNum}`;
+
+          rowHdr.appendChild(badge);
+          rowHdr.appendChild(rowTitle);
+
+          // Row body: rendered comment, indented
+          const rowBody = win.document.createElement('div');
+          rowBody.className = 'pin-row-body';
+          const commentDiv = win.document.createElement('div');
+          commentDiv.className = 'comment-body';
+          const rendered = renderComment(p.comment);
+          commentDiv.appendChild(win.document.importNode(rendered, true));
+          rowBody.appendChild(commentDiv);
+
+          row.appendChild(rowHdr);
+          row.appendChild(rowBody);
+          notesWrap.appendChild(row);
+        }
+
+        body.appendChild(cropWrap);
+        body.appendChild(notesWrap);
+        block.appendChild(body);
+        imgSection.appendChild(block);
+        content.appendChild(imgSection);
+      }
+
+      // ── End of document marker ──
+      const endDoc = win.document.createElement('div');
+      endDoc.className = 'doc-end';
+      endDoc.textContent = '— End of Document —';
+      content.appendChild(endDoc);
+
+      setTimeout(() => win.print(), 500);
+    }
+
+    // ── Save HTML Viewer ────────────────────────────────────────
+    function saveHTML() {
+      if (!images.length) { alert('Load at least one image.'); return; }
+      if (!images.some(i => i.pins.length > 0)) { alert('Add at least one pin to any image.'); return; }
+
+      const customTitle = prompt("Enter a Title for this viewer:", "Annotated Image Viewer");
+      if (customTitle === null) return;
+      const docTitle = customTitle || "Annotated Image Viewer";
+
+      const imgData = images.map(entry => ({
+        id: entry.id,
+        name: entry.name.replace(/\.[^/.]+$/, ''),
+        dataURL: entry.dataURL,
+        w: entry.imgEl.naturalWidth,
+        h: entry.imgEl.naturalHeight,
+        pins: entry.pins.map(p => ({
+          num: p.num,
+          title: p.title || '',
+          color: p.color,
+          comment: p.comment,
+          xPct: (p.domX * (entry.imgEl.naturalWidth / entry.displayW)) / entry.imgEl.naturalWidth * 100,
+          yPct: (p.domY * (entry.imgEl.naturalHeight / entry.displayH)) / entry.imgEl.naturalHeight * 100
+        }))
+      }));
+
+      // Escape backticks and ${ sequences so they don't break the
+      // template literal string that wraps the generated HTML.
+      const dataJSON = JSON.stringify(imgData)
+        .replace(/`/g, '\\`')
+        .replace(/\$\{/g, '\\${');
+
+      const html = `
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${docTitle}</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --panel-h: 300px;
+    }
+
+    body {
+      background: #f0f2f5;
+      color: #1c1e21;
+      font-family: 'DM Sans', 'Inter', 'Segoe UI', system-ui, sans-serif;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Header */
+    #header {
+      background: #ffffff;
+      border-bottom: 1px solid #dee2e6;
+      padding: 0 16px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    #header-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #8e949e;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    #img-counter {
+      font-size: 14px;
+      color: #007bff;
+      font-weight: 600;
+    }
+
+    #kb-hint { display: none; }
+
+    /* Image strip */
+    #img-strip-wrap {
+      background: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      flex-shrink: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      display: flex;
+      align-items: stretch;
+      min-height: 56px;
+      scrollbar-width: thin;
+      scrollbar-color: #ced4da transparent;
+    }
+
+    #img-strip-wrap::-webkit-scrollbar {
+      height: 3px;
+    }
+
+    #img-strip-wrap::-webkit-scrollbar-thumb {
+      background: #ced4da;
+    }
+
+    #img-strip {
+      display: flex;
+      align-items: stretch;
+      padding: 0 8px;
+      gap: 2px;
+      min-width: max-content;
+    }
+
+    .strip-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      color: #8e949e;
+      font-size: 13px;
+      white-space: nowrap;
+      transition: all 0.15s;
+      min-height: 56px;
+      touch-action: manipulation;
+    }
+
+    .strip-item:hover,
+    .strip-item:active {
+      background: #ffffff;
+      color: #1c1e21;
+    }
+
+    .strip-item.active {
+      color: #007bff;
+      border-bottom-color: #007bff;
+      background: #ffffff;
+      font-weight: 500;
+    }
+
+    .strip-thumb {
+      width: 38px;
+      height: 28px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #dee2e6;
+      flex-shrink: 0;
+    }
+
+    .strip-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .strip-name {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .strip-pins {
+      font-size: 11px;
+      color: #28a745;
+    }
+
+    .strip-item.active .strip-pins {
+      color: #218838;
+      font-weight: 500;
+    }
+
+    /* Layout */
+    #main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    #img-area {
+      flex: 1;
+      overflow: auto;
+      padding: 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #img-wrap {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    #img-wrap img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    #zoom-wrap {
+      position: relative;
+      display: inline-block;
+      line-height: 0;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-origin: 50% 50%;
+    }
+
+    #spotlight {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      border-radius: 4px;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    #panel {
+      width: 310px;
+      min-width: 310px;
+      background: #ffffff;
+      border-left: 1px solid #dee2e6;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    @media (max-width:599px) {
+      #main {
+        flex-direction: column;
+      }
+
+      #img-area {
+        flex: 1;
+        min-height: 0;
+        padding: 10px;
+      }
+
+      #panel {
+        width: 100%;
+        min-width: unset;
+        height: var(--panel-h);
+        border-left: none;
+        border-top: 1px solid #1c1c1c;
+        flex-shrink: 0;
+      }
+
+      #panel-tabs {
+        display: flex !important;
+      }
+    }
+
+    #panel-tabs {
+      display: none;
+      border-bottom: 1px solid #dee2e6;
+      flex-shrink: 0;
+    }
+
+    .ptab {
+      flex: 1;
+      padding: 10px;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: #8e949e;
+      cursor: pointer;
+      touch-action: manipulation;
+      font-weight: 500;
+    }
+
+    .ptab.active {
+      color: #007bff;
+      border-bottom-color: #007bff;
+    }
+
+    #index-header {
+      padding: 12px 16px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8e949e;
+      border-bottom: 1px solid #dee2e6;
+      flex-shrink: 0;
+      font-family: 'DM Sans', 'Inter', sans-serif;
+    }
+
+    #index-wrap {
+      overflow-y: auto;
+      flex-shrink: 0;
+      max-height: 200px;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    #panel.tab-index #index-wrap {
+      max-height: unset;
+      flex: 1;
+      border-bottom: none;
+    }
+
+    #panel.tab-index #comment-area {
+      display: none;
+    }
+
+    #panel.tab-index #nav-bar {
+      display: none;
+    }
+
+    #panel.tab-comment #index-header {
+      display: none;
+    }
+
+    #panel.tab-comment #index-wrap {
+      display: none;
+    }
+
+    .index-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid #f0f2f5;
+      transition: all 0.1s;
+      touch-action: manipulation;
+    }
+
+    .index-item:hover,
+    .index-item:active {
+      background: #f8f9fa;
+    }
+
+    .index-item.active {
+      background: #e7f3ff;
+      border-left: 3px solid #007bff;
+      padding-left: 13px;
+    }
+
+    .idx-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .idx-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .idx-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: #1c1e21;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: 'DM Sans', 'Inter', sans-serif;
+    }
+
+    .idx-preview {
+      font-size: 12px;
+      color: #8e949e;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-family: 'DM Sans', 'Inter', sans-serif;
+    }
+
+    /* Comment area */
+    #comment-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #no-selection {
+      margin: auto;
+      text-align: center;
+      color: #8e949e;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .comment-pin-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #dee2e6;
+      margin-bottom: 4px;
+    }
+
+    .comment-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .comment-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .comment-pin-num {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #1c1e21;
+      font-family: 'DM Sans', 'Inter', sans-serif;
+    }
+
+    .comment-of {
+      font-size: 11px;
+      color: #8e949e;
+      font-family: 'DM Sans', 'Inter', sans-serif;
+      font-weight: 500;
+    }
+
+    /* Comment body — rendered content */
+    .comment-body {
+      font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #4b4f56;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      word-break: break-word;
+    }
+
+    .comment-body .text-seg {
+      white-space: pre-wrap;
+    }
+
+    /* ── Inline code block ── */
+    .c-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f3f5;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      padding: 4px 8px;
+      font-family: 'DM Mono', 'Consolas', 'Courier New', monospace;
+      font-size: 12px;
+      color: #007bff;
+      word-break: break-all;
+      vertical-align: middle;
+      margin: 2px 0;
+    }
+
+    .c-inline-actions {
+      display: inline-flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .c-btn {
+      background: #ffffff;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      color: #8e949e;
+      font-size: 11px;
+      font-family: 'DM Sans', 'Inter', sans-serif;
+      padding: 2px 8px;
+      cursor: pointer;
+      transition: all 0.1s;
+      white-space: nowrap;
+      touch-action: manipulation;
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .c-btn:hover,
+    .c-btn:active {
+      background: #f8f9fa;
+      color: #1c1e21;
+      border-color: #adb5bd;
+    }
+
+    .c-btn.open-btn {
+      color: #ffffff;
+      border-color: #007bff;
+      background: #007bff;
+    }
+
+    .c-btn.open-btn:hover {
+      background: #0069d9;
+      color: #ffffff;
+      border-color: #0062cc;
+    }
+
+    .c-btn.copied {
+      color: #ffffff !important;
+      border-color: #28a745 !important;
+      background: #28a745 !important;
+    }
+
+    /* ── Fenced code block ── */
+    .c-block {
+      background: #ffffff;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .c-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 6px 12px;
+      background: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      gap: 8px;
+    }
+
+    .c-block-header span {
+      font-size: 10px;
+      color: #303030;
+      margin-right: auto;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .c-block pre {
+      padding: 12px 16px;
+      overflow-x: auto;
+      font-family: 'DM Mono', 'Consolas', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #4b4f56;
+      background: #ffffff;
+      line-height: 1.6;
+      white-space: pre;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* ── Auto-linked URL ── */
+    .c-url {
+      color: #4a90d9;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .c-url:hover {
+      text-decoration: underline;
+      color: #6ab4f0;
+    }
+
+    /* Nav */
+    #nav-bar {
+      padding: 10px 14px;
+      border-top: 1px solid #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .nav-btn {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #aaa;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      padding: 7px 18px;
+      cursor: pointer;
+      touch-action: manipulation;
+      min-width: 80px;
+      font-weight: 500;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+
+    .nav-btn:hover,
+    .nav-btn:active {
+      background: #222;
+      color: #fff;
+      border-color: #6ab4f0;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
+
+    #nav-pos {
+      font-size: 14px;
+      color: #aaa;
+      font-weight: 600;
+    }
+
+    /* Pins */
+    .pin {
+      position: absolute;
+      width: 0;
+      height: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    .pin-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 0 0 1.5px rgba(255, 255, 255, 0.07);
+      transition: transform 0.15s cubic-bezier(.34, 1.56, .64, 1), box-shadow 0.15s;
+      touch-action: manipulation;
+    }
+
+    .pin-dot:hover,
+    .pin-dot:active {
+      transform: rotate(-45deg) scale(1.18);
+    }
+
+    .pin-dot.active {
+      transform: rotate(-45deg) scale(1.22);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.9), 0 0 0 2.5px rgba(255, 255, 255, 0.28);
+    }
+
+    .pin-num {
+      transform: rotate(45deg);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.72);
+      pointer-events: none;
+      letter-spacing: -0.02em;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #1e1e1e;
+      border-radius: 2px;
+    }
+
+    /* ── Resize handle ── */
+    #resize-handle {
+      width: 5px;
+      flex-shrink: 0;
+      background: #161616;
+      cursor: col-resize;
+      position: relative;
+      transition: background 0.15s;
+      border-left: 1px solid #1c1c1c;
+    }
+
+    #resize-handle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1px;
+      height: 40px;
+      background: #2a2a2a;
+      border-radius: 1px;
+    }
+
+    #resize-handle:hover,
+    #resize-handle.dragging {
+      background: #1a2a3a;
+      border-left-color: #4a90d9;
+    }
+
+    #resize-handle:hover::after,
+    #resize-handle.dragging::after {
+      background: #4a90d9;
+    }
+
+    @media (max-width:599px) {
+      #resize-handle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header">
+    <span id="header-title">Annotated Viewer</span>
+    <span id="img-counter"></span>
+  </div>
+
+  <div id="img-strip-wrap">
+    <div id="img-strip"></div>
+  </div>
+
+  <div id="main">
+    <div id="img-area">
+      <div id="img-wrap"></div>
+    </div>
+    <div id="resize-handle" title="Drag to resize panel"></div>
+    <div id="panel">
+      <div id="comment-area">
+        <div id="no-selection">Select a pin to view its comment</div>
+      </div>
+      <div id="nav-bar">
+        <button class="nav-btn" id="btn-prev" onclick="navigate(-1)" disabled>← Prev</button>
+        <span id="nav-pos">—</span>
+        <button class="nav-btn" id="btn-next" onclick="navigate(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const DATA = ${dataJSON};
+
+  const imgWrap    = document.getElementById('img-wrap');
+  const stripEl    = document.getElementById('img-strip');
+  const commentArea= document.getElementById('comment-area');
+  const navPos     = document.getElementById('nav-pos');
+  const btnPrev    = document.getElementById('btn-prev');
+  const btnNext    = document.getElementById('btn-next');
+  const panel      = document.getElementById('panel');
+
+  let activeImgIdx = 0;
+  let activePinIdx = -1;
+  const isMob = () => window.innerWidth <= 599;
+
+  document.getElementById('img-counter').textContent = DATA.length + ' image' + (DATA.length !== 1 ? 's' : '');
+  if (isMob()) panel.classList.add('tab-index');
+
+  function switchTab(t) {
+    panel.classList.remove('tab-index','tab-comment');
+    panel.classList.add('tab-' + t);
+    document.getElementById('tab-idx').classList.toggle('active', t === 'index');
+    document.getElementById('tab-cmt').classList.toggle('active', t === 'comment');
+  }
+
+
+  // ── Comment renderer — parses backtick code & bare URLs ────
+  function renderComment(text) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'comment-body';
+
+    // Split by fenced blocks first, then inline, then plain text
+    // Fenced: triple backtick
+    const parts = [];
+    const fenceRx = /\`\`\`([\\s\\S]*?)\`\`\`/g;
+    let last = 0, m;
+    while ((m = fenceRx.exec(text)) !== null) {
+      if (m.index > last) {
+        const v = text.slice(last, m.index).replace(/^[\\n\\r]+|[\\n\\r]+$/g, '').replace(/\\n{3,}/g, '\\n\\n');
+        if (v) parts.push({ type: 'text', val: v });
+      }
+      parts.push({ type: 'fence', val: m[1].trim() });
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) {
+      const v = text.slice(last).replace(/^[\\n\\r]+|[\\n\\r]+$/g, '').replace(/\\n{3,}/g, '\\n\\n');
+      if (v) parts.push({ type: 'text', val: v });
+    }
+
+    parts.forEach(part => {
+      if (part.type === 'fence') {
+        wrapper.appendChild(buildFenceBlock(part.val));
+        return;
+      }
+      // Within text: split by inline backtick
+      const inlineRx = /\`([^\`]+)\`/g;
+      let tLast = 0, tm;
+      const sub = part.val;
+      while ((tm = inlineRx.exec(sub)) !== null) {
+        if (tm.index > tLast) wrapper.appendChild(buildTextSeg(sub.slice(tLast, tm.index)));
+        wrapper.appendChild(buildInlineCode(tm[1]));
+        tLast = tm.index + tm[0].length;
+      }
+      if (tLast < sub.length) wrapper.appendChild(buildTextSeg(sub.slice(tLast)));
+    });
+
+    return wrapper;
+  }
+
+  // Auto-link bare URLs inside a plain text segment
+  function buildTextSeg(text) {
+    const frag = document.createDocumentFragment();
+    const urlRx = /(https?:\\/\\/[^\\s"<>]+)/g;
+    let last = 0, m;
+    while ((m = urlRx.exec(text)) !== null) {
+      if (m.index > last) frag.appendChild(makeTextNode(text.slice(last, m.index)));
+      const a = document.createElement('a');
+      a.className = 'c-url';
+      a.href = m[1]; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      a.textContent = m[1];
+      frag.appendChild(a);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) frag.appendChild(makeTextNode(text.slice(last)));
+    const span = document.createElement('span');
+    span.className = 'text-seg';
+    span.appendChild(frag);
+    return span;
+  }
+
+  function makeTextNode(t) {
+    const span = document.createElement('span');
+    span.textContent = t;
+    return span;
+  }
+
+  function isURL(s) { return /^https?:\\/\\//.test(s.trim()); }
+
+  // Inline code: \`value\` → box with copy + optional open
+  function buildInlineCode(val) {
+    const wrap = document.createElement('span');
+    wrap.className = 'c-inline';
+
+    const code = document.createElement('span');
+    code.textContent = val;
+    wrap.appendChild(code);
+
+    const actions = document.createElement('span');
+    actions.className = 'c-inline-actions';
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'c-btn';
+    copyBtn.textContent = 'Copy';
+    copyBtn.addEventListener('click', e => { e.stopPropagation(); copyText(val, copyBtn); });
+
+    if (isURL(val)) {
+      const openBtn = document.createElement('button');
+      openBtn.className = 'c-btn open-btn';
+      openBtn.textContent = 'Open ↗';
+      openBtn.addEventListener('click', e => { e.stopPropagation(); window.open(val.trim(), '_blank', 'noopener,noreferrer'); });
+      actions.appendChild(openBtn);
+    }
+
+    actions.appendChild(copyBtn);
+    wrap.appendChild(actions);
+    return wrap;
+  }
+
+  // Fenced block: triple backtick
+  function buildFenceBlock(code) {
+    const outer = document.createElement('div');
+    outer.className = 'c-block';
+
+    const header = document.createElement('div');
+    header.className = 'c-block-header';
+
+    const label = document.createElement('span');
+    label.textContent = isURL(code.split('\\n')[0]) ? 'URL' : 'Code';
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'c-btn';
+    copyBtn.textContent = 'Copy';
+    copyBtn.addEventListener('click', e => { e.stopPropagation(); copyText(code, copyBtn); });
+
+    header.appendChild(label);
+
+    // If first line is a URL, add open button
+    const firstLine = code.split('\\n')[0].trim();
+    if (isURL(firstLine)) {
+      const openBtn = document.createElement('button');
+      openBtn.className = 'c-btn open-btn';
+      openBtn.textContent = 'Open ↗';
+      openBtn.addEventListener('click', e => { e.stopPropagation(); window.open(firstLine, '_blank', 'noopener,noreferrer'); });
+      header.appendChild(openBtn);
+    }
+
+    header.appendChild(copyBtn);
+
+    const pre = document.createElement('pre');
+    pre.textContent = code;
+
+    outer.appendChild(header);
+    outer.appendChild(pre);
+    return outer;
+  }
+
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+    }).catch(() => {
+      // Fallback for non-HTTPS contexts
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+    });
+  }
+
+  // ── Image strip ─────────────────────────────────────────────
+  DATA.forEach((img, idx) => {
+    const item  = document.createElement('div');
+    item.className = 'strip-item';
+    const thumb = document.createElement('img');
+    thumb.className = 'strip-thumb'; thumb.src = img.dataURL;
+    const info  = document.createElement('div'); info.className = 'strip-info';
+    const name  = document.createElement('div'); name.className = 'strip-name'; name.textContent = img.name;
+    const pins  = document.createElement('div'); pins.className = 'strip-pins'; pins.textContent = img.pins.length + ' pin' + (img.pins.length !== 1 ? 's' : '');
+    info.appendChild(name); info.appendChild(pins);
+    item.appendChild(thumb); item.appendChild(info);
+    stripEl.appendChild(item);
+    item.addEventListener('click', () => loadImage(idx));
+  });
+
+  function loadImage(idx, startPin = 0) {
+    activeImgIdx = idx;
+    activePinIdx = -1;
+    const img = DATA[idx];
+
+    document.querySelectorAll('.strip-item').forEach((el, i) => el.classList.toggle('active', i === idx));
+    const si = document.querySelectorAll('.strip-item')[idx];
+    if (si) si.scrollIntoView({ inline: 'nearest', behavior: 'smooth' });
+
+    imgWrap.innerHTML = '';
+
+    const zoomWrap = document.createElement('div');
+    zoomWrap.id = 'zoom-wrap';
+    imgWrap._zoomWrap = zoomWrap;
+
+    const imgEl = document.createElement('img');
+    imgEl.alt = img.name;
+
+    const spotCanvas = document.createElement('canvas');
+    spotCanvas.id = 'spotlight';
+
+    zoomWrap.appendChild(imgEl);
+    zoomWrap.appendChild(spotCanvas);
+    imgWrap.appendChild(zoomWrap);
+    imgWrap._imgEl = imgEl;
+
+    // Set src AFTER onload — guarantees onload fires even for cached dataURLs
+    imgEl.onload = () => {
+      spotCanvas.width  = imgEl.naturalWidth;  // pixel dims from natural size — layout-independent
+      spotCanvas.height = imgEl.naturalHeight;
+      if (startPin >= 0 && startPin < img.pins.length) {
+        drawSpotlight(img.pins[startPin].xPct, img.pins[startPin].yPct);
+      }
+    };
+    imgEl.src = img.dataURL;
+
+    img.pins.forEach((p, localIdx) => {
+      const pinEl  = document.createElement('div'); pinEl.className = 'pin';
+      pinEl.style.left = p.xPct + '%'; pinEl.style.top = p.yPct + '%';
+      const dot    = document.createElement('div'); dot.className = 'pin-dot'; dot.style.background = p.color; dot.dataset.idx = localIdx;
+      const num    = document.createElement('span'); num.className = 'pin-num'; num.textContent = p.num;
+      dot.appendChild(num); pinEl.appendChild(dot); imgWrap.appendChild(pinEl);
+      dot.addEventListener('click', () => { selectPin(localIdx); });
+    });
+
+    commentArea.innerHTML = '';
+    const ns = Object.assign(document.createElement('div'), { textContent: 'Select a pin to view its comment' });
+    ns.style.cssText = 'margin:auto;text-align:center;color:#8e949e;font-size:13px;line-height:2.2;';
+    commentArea.appendChild(ns);
+
+    if (img.pins.length > 0) selectPin(startPin);
+  }
+
+  function selectPin(idx) {
+    const img = DATA[activeImgIdx];
+    if (!img || idx < 0 || idx >= img.pins.length) return;
+
+    if (activePinIdx >= 0) {
+      document.querySelector('.pin-dot[data-idx="' + activePinIdx + '"]')?.classList.remove('active');
+    }
+    activePinIdx = idx;
+    const p = img.pins[idx];
+
+    document.querySelector('.pin-dot[data-idx="' + idx + '"]')?.classList.add('active');
+
+    commentArea.innerHTML = '';
+
+    const lbl  = document.createElement('div'); lbl.className = 'comment-pin-label';
+    const cdot = document.createElement('div'); cdot.className = 'comment-dot'; cdot.style.background = p.color; cdot.textContent = p.num;
+    const meta = document.createElement('div'); meta.className = 'comment-meta';
+    const cnl  = document.createElement('div'); cnl.className = 'comment-pin-num';
+    cnl.textContent = p.title ? p.title : ('Pin ' + p.num); // title overrides generic label
+    const cof  = document.createElement('div'); cof.className = 'comment-of';
+    cof.textContent = 'Pin ' + p.num + '  ·  ' + (idx + 1) + ' of ' + img.pins.length;
+    meta.appendChild(cnl); meta.appendChild(cof);
+    lbl.appendChild(cdot); lbl.appendChild(meta);
+    commentArea.appendChild(lbl);
+    commentArea.appendChild(renderComment(p.comment));
+
+    btnPrev.disabled = activeImgIdx === 0 && idx === 0;
+    btnNext.disabled = activeImgIdx === DATA.length - 1 && idx === img.pins.length - 1;
+    navPos.textContent = (idx + 1) + ' / ' + img.pins.length;
+
+    // Spotlight + zoom
+    drawSpotlight(p.xPct, p.yPct);
+  }
+
+  function drawSpotlight(xPct, yPct) {
+    const spot    = document.getElementById('spotlight');
+    const imgEl   = imgWrap._imgEl;
+    const zoomWrap = imgWrap._zoomWrap;
+    if (!spot || !imgEl || !zoomWrap) return;
+
+    const nw = imgEl.naturalWidth;
+    const nh = imgEl.naturalHeight;
+    if (!nw || !nh) return; // not loaded yet — onload will call us
+
+    // Ensure canvas pixel dims match natural image dims
+    if (spot.width !== nw)  spot.width  = nw;
+    if (spot.height !== nh) spot.height = nh;
+
+    const cx = nw * xPct / 100; // pin x in natural-image pixel space
+    const cy = nh * yPct / 100; // pin y in natural-image pixel space
+    const r  = Math.min(nw, nh) * 0.18; // spotlight radius
+
+    const ctx = spot.getContext('2d');
+    ctx.clearRect(0, 0, nw, nh);
+
+    // Dark vignette over entire canvas
+    ctx.fillStyle = 'rgba(0,0,0,0.62)';
+    ctx.fillRect(0, 0, nw, nh);
+
+    // Punch out clear circle with feathered edge via destination-out
+    ctx.globalCompositeOperation = 'destination-out';
+    const grad = ctx.createRadialGradient(cx, cy, r * 0.55, cx, cy, r);
+    grad.addColorStop(0,   'rgba(0,0,0,1)');
+    grad.addColorStop(0.7, 'rgba(0,0,0,0.9)');
+    grad.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+    ctx.globalCompositeOperation = 'source-over';
+
+    // Soft glow ring at the edge
+    const ring = ctx.createRadialGradient(cx, cy, r * 0.82, cx, cy, r * 1.08);
+    ring.addColorStop(0,   'rgba(255,255,255,0)');
+    ring.addColorStop(0.5, 'rgba(255,255,255,0.08)');
+    ring.addColorStop(1,   'rgba(255,255,255,0)');
+    ctx.fillStyle = ring;
+    ctx.beginPath(); ctx.arc(cx, cy, r * 1.08, 0, Math.PI * 2); ctx.fill();
+
+    spot.style.opacity = '1';
+
+    // Scale the zoom-wrap (contains both img + canvas) toward the pin
+    zoomWrap.style.transformOrigin = xPct + '% ' + yPct + '%';
+    zoomWrap.style.transform = 'scale(1.08)';
+  }
+
+  function navigate(dir) {
+    const img = DATA[activeImgIdx]; if (!img) return;
+    const n = activePinIdx + dir;
+    if (n >= 0 && n < img.pins.length) {
+      // Within current image — move selection only
+      selectPin(n); if (isMob()) switchTab('comment');
+    } else if (dir === 1 && activeImgIdx < DATA.length - 1) {
+      // Past last pin — load next image, land on its first pin
+      loadImage(activeImgIdx + 1, 0);
+      if (isMob()) switchTab('comment');
+    } else if (dir === -1 && activeImgIdx > 0) {
+      // Before first pin — load previous image, land on its last pin
+      loadImage(activeImgIdx - 1, DATA[activeImgIdx - 1].pins.length - 1);
+      if (isMob()) switchTab('comment');
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   navigate(-1);
+  });
+
+  loadImage(0);
+
+  // ── Resizable panel ─────────────────────────────────────────
+  (function() {
+    const handle  = document.getElementById('resize-handle');
+    const panelEl = document.getElementById('panel');
+    const mainEl  = document.getElementById('main');
+    if (!handle || !panelEl) return;
+    let dragging = false, startX = 0, startW = 0;
+    handle.addEventListener('mousedown', e => {
+      dragging = true; startX = e.clientX; startW = panelEl.offsetWidth;
+      handle.classList.add('dragging');
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', e => {
+      if (!dragging) return;
+      const dx  = startX - e.clientX;
+      const max = mainEl.offsetWidth - 160;
+      const nw  = Math.max(200, Math.min(max, startW + dx));
+      panelEl.style.width = nw + 'px';
+      panelEl.style.minWidth = nw + 'px';
+    });
+    document.addEventListener('mouseup', () => {
+      if (!dragging) return;
+      dragging = false;
+      handle.classList.remove('dragging');
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    });
+    // Double-click resets to default width
+    handle.addEventListener('dblclick', () => {
+      panelEl.style.width = '310px';
+      panelEl.style.minWidth = '310px';
+    });
+  })();
+
+  // ── Restore last session on load ────────────────────────────
+  restoreSession();
+  <\/script>
+</body>
+
+</html>`;
+
+      const blob = new Blob([html], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.download = `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${ts()}.html`;
+      a.href = URL.createObjectURL(blob);
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    // Track display size on resize
+    let resizeDebounce;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeDebounce);
+      resizeDebounce = setTimeout(() => {
+        images.forEach(e => {
+          if (e.wrapEl) {
+            const canvas = e.wrapEl.querySelector('canvas');
+            if (canvas) { e.displayW = canvas.offsetWidth; e.displayH = canvas.offsetHeight; }
+          }
+        });
+      }, 150);
+    });
+
+    // ── Hero ────────────────────────────────────────────────────
+    const heroOverlay = document.getElementById('hero-overlay');
+
+    function heroDismiss() {
+      heroOverlay.classList.add('dismissing');
+      setTimeout(() => { heroOverlay.style.display = 'none'; }, 360);
+    }
+
+    function heroStart() {
+      heroDismiss();
+      setTimeout(() => document.getElementById('file-input').click(), 380);
+    }
+
+    function showHero() {
+      heroOverlay.style.display = 'flex';
+      heroOverlay.classList.remove('dismissing');
+      // Scroll to top of hero
+      heroOverlay.scrollTop = 0;
+      // Update skip button depending on whether session exists
+      const skipBtn = document.getElementById('hero-cta-skip');
+      if (skipBtn) {
+        if (images.length > 0) {
+          skipBtn.textContent = 'Continue my session →';
+          skipBtn.style.borderColor = 'rgba(78,201,240,0.4)';
+          skipBtn.style.color = 'rgba(78,201,240,0.85)';
+        } else {
+          skipBtn.textContent = 'I already know this →';
+          skipBtn.style.borderColor = '';
+          skipBtn.style.color = '';
+        }
+      }
+    }
+
+    // ── Entry Point ─────────────────────────────────────────────
+    // Hero always shows. Restore session in background.
+    // Once restored, swap skip button to "Continue my session →" if images exist.
+    restoreSession().then(() => {
+      if (images.length > 0) {
+        const skipBtn = document.getElementById('hero-cta-skip');
+        if (skipBtn) {
+          skipBtn.textContent = 'Continue my session →';
+          skipBtn.style.borderColor = 'rgba(78,201,240,0.4)';
+          skipBtn.style.color = 'rgba(78,201,240,0.85)';
+        }
+      }
+    });
+
+    document.getElementById('btn-save-png').addEventListener('click', savePNG);
+    document.getElementById('btn-save-pdf').addEventListener('click', savePDF);
+    document.getElementById('btn-save-html').addEventListener('click', saveHTML);
+  </script>
+</body>
+
+</html>
