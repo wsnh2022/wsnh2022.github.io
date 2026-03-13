@@ -63,3 +63,6 @@ deploy-log.txt
 # ignore md file
 analytics.google.md
 index_backup.html
+
+# old/renamed project screenshots
+assets/images/projects/popsearch-screenshot.old.png
