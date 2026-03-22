@@ -78,9 +78,6 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Three.js for hero background shader -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -134,36 +131,49 @@
         body {
             background-color: #030712;
             color: #e2e8f0;
+            background-image: radial-gradient(#1f2937 1px, transparent 1px);
+            background-size: 40px 40px;
             overflow-x: hidden;
         }
 
-        /* Noise overlay removed — shader provides visual texture now */
-
-        /* Hero Background — SoftAurora Shader (Three.js) */
-        .hero-background {
+        /* Subtle Noise Overlay */
+        .noise::before {
+            content: "";
             position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 9999;
+            filter: contrast(120%) brightness(120%);
+        }
+
+        /* Hero Background Image */
+        .hero-background {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            z-index: 1;
-        }
-
-        .hero-background canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
+            background-image: url('./assets/images/hero/gradient_background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            opacity: 0.85;
         }
 
         .hero-background::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
             width: 100%;
-            height: 45%;
+            height: 100%;
             background: linear-gradient(180deg, transparent 0%, #030712 100%);
-            pointer-events: none;
         }
 
         /* Glassmorphism Effect */
@@ -278,14 +288,15 @@
     </style>
 </head>
 
-<body class="min-h-screen selection:bg-accent selection:text-midnight overflow-x-hidden">
+<body class="min-h-screen selection:bg-accent selection:text-midnight overflow-x-hidden noise">
 
-    <!-- Hero Background — SoftAurora Shader -->
-    <div class="hero-background">
-        <canvas id="hero-canvas"></canvas>
+    <!-- Hero Background Image -->
+    <div class="hero-background"></div>
+
+    <!-- Background Glow Effect -->
+    <div
+        class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none z-0">
     </div>
-
-    <!-- Background glow removed — Three.js shader handles visual interest now -->
 
     <!-- Navigation -->
     <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-5xl glass rounded-2xl z-50 shadow-2xl">
@@ -749,15 +760,15 @@
                             <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
                         </div>
                         <!-- ribbon -->
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4">
                             <div class="flex items-end justify-between gap-2">
                                 <div>
                     <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">
                                     <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#4B32C3]/95 text-white text-[11px] font-bold rounded-md">Electron</span>
-                                        <span class="px-2.5 py-1 bg-[#61DAFB]/95 text-black text-[11px] font-bold rounded-md">React</span>
-                                        <span class="px-2.5 py-1 bg-[#3178C6]/95 text-white text-[11px] font-bold rounded-md">TypeScript</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Daily Driver</span>
+                                        <span class="px-1.5 py-0.5 bg-[#4B32C3]/80 text-white text-[9px] font-bold rounded">Electron</span>
+                                        <span class="px-1.5 py-0.5 bg-[#61DAFB]/80 text-black text-[9px] font-bold rounded">React</span>
+                                        <span class="px-1.5 py-0.5 bg-[#3178C6]/80 text-white text-[9px] font-bold rounded">TypeScript</span>
+                                        <span class="px-1.5 py-0.5 bg-[#10b981]/80 text-white text-[9px] font-bold rounded">Daily Driver</span>
                                     </div>
                                 </div>
                                 <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_006</span>
@@ -778,15 +789,15 @@
                             <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
                         </div>
                         <!-- ribbon -->
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4">
                             <div class="flex items-end justify-between gap-2">
                                 <div>
                                     <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Nexus Launcher</h3>
                                     <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#4B32C3]/95 text-white text-[11px] font-bold rounded-md">Electron</span>
-                                        <span class="px-2.5 py-1 bg-[#00f2ff]/95 text-black text-[11px] font-bold rounded-md">AutoHotkey v2</span>
-                                        <span class="px-2.5 py-1 bg-[#646CFF]/95 text-white text-[11px] font-bold rounded-md">Vite</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Open Source</span>
+                                        <span class="px-1.5 py-0.5 bg-[#4B32C3]/80 text-white text-[9px] font-bold rounded">Electron</span>
+                                        <span class="px-1.5 py-0.5 bg-[#00f2ff]/80 text-black text-[9px] font-bold rounded">AutoHotkey v2</span>
+                                        <span class="px-1.5 py-0.5 bg-[#646CFF]/80 text-white text-[9px] font-bold rounded">Vite</span>
+                                        <span class="px-1.5 py-0.5 bg-[#10b981]/80 text-white text-[9px] font-bold rounded">Open Source</span>
                                     </div>
                                 </div>
                                 <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_001</span>
@@ -805,15 +816,15 @@
                         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4">
                             <div class="flex items-end justify-between gap-2">
                                 <div>
                                     <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Facility Automation Pipeline</h3>
                                     <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#ea4b71]/95 text-white text-[11px] font-bold rounded-md">n8n</span>
-                                        <span class="px-2.5 py-1 bg-[#0db7ed]/95 text-white text-[11px] font-bold rounded-md">Docker</span>
-                                        <span class="px-2.5 py-1 bg-[#0f9d58]/95 text-white text-[11px] font-bold rounded-md">Google Sheets</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">330 hrs/yr saved</span>
+                                        <span class="px-1.5 py-0.5 bg-[#ea4b71]/80 text-white text-[9px] font-bold rounded">n8n</span>
+                                        <span class="px-1.5 py-0.5 bg-[#0db7ed]/80 text-white text-[9px] font-bold rounded">Docker</span>
+                                        <span class="px-1.5 py-0.5 bg-[#0f9d58]/80 text-white text-[9px] font-bold rounded">Google Sheets</span>
+                                        <span class="px-1.5 py-0.5 bg-[#10b981]/80 text-white text-[9px] font-bold rounded">330 hrs/yr saved</span>
                                     </div>
                                 </div>
                                 <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_002</span>
@@ -832,15 +843,15 @@
                         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4">
                             <div class="flex items-end justify-between gap-2">
                                 <div>
                                     <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Social Media Content System</h3>
                                     <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-pink-500/95 text-white text-[11px] font-bold rounded-md">Canva</span>
-                                        <span class="px-2.5 py-1 bg-orange-500/95 text-white text-[11px] font-bold rounded-md">Instagram</span>
-                                        <span class="px-2.5 py-1 bg-green-500/95 text-white text-[11px] font-bold rounded-md">GenAI</span>
-                                        <span class="px-2.5 py-1 bg-amber-500/95 text-black text-[11px] font-bold rounded-md">Branding</span>
+                                        <span class="px-1.5 py-0.5 bg-pink-500/80 text-white text-[9px] font-bold rounded">Canva</span>
+                                        <span class="px-1.5 py-0.5 bg-orange-500/80 text-white text-[9px] font-bold rounded">Instagram</span>
+                                        <span class="px-1.5 py-0.5 bg-green-500/80 text-white text-[9px] font-bold rounded">GenAI</span>
+                                        <span class="px-1.5 py-0.5 bg-amber-500/80 text-black text-[9px] font-bold rounded">Branding</span>
                                     </div>
                                 </div>
                                 <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_003</span>
@@ -859,15 +870,15 @@
                         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4">
                             <div class="flex items-end justify-between gap-2">
                                 <div>
                                     <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Personal Portfolio</h3>
                                     <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#e34c26]/95 text-white text-[11px] font-bold rounded-md">HTML5</span>
-                                        <span class="px-2.5 py-1 bg-[#264de4]/95 text-white text-[11px] font-bold rounded-md">CSS3</span>
-                                        <span class="px-2.5 py-1 bg-[#38bdf8]/95 text-black text-[11px] font-bold rounded-md">Tailwind</span>
-                                        <span class="px-2.5 py-1 bg-emerald-500/95 text-white text-[11px] font-bold rounded-md">GitHub Pages</span>
+                                        <span class="px-1.5 py-0.5 bg-[#e34c26]/80 text-white text-[9px] font-bold rounded">HTML5</span>
+                                        <span class="px-1.5 py-0.5 bg-[#264de4]/80 text-white text-[9px] font-bold rounded">CSS3</span>
+                                        <span class="px-1.5 py-0.5 bg-[#38bdf8]/80 text-black text-[9px] font-bold rounded">Tailwind</span>
+                                        <span class="px-1.5 py-0.5 bg-emerald-500/80 text-white text-[9px] font-bold rounded">GitHub Pages</span>
                                     </div>
                                 </div>
                                 <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_004</span>
@@ -886,15 +897,15 @@
                         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4">
                             <div class="flex items-end justify-between gap-2">
                                 <div>
                                     <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Brand Asset Library</h3>
                                     <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-pink-500/95 text-white text-[11px] font-bold rounded-md">Canva Pro</span>
-                                        <span class="px-2.5 py-1 bg-purple-500/95 text-white text-[11px] font-bold rounded-md">Typography</span>
-                                        <span class="px-2.5 py-1 bg-cyan-500/95 text-black text-[11px] font-bold rounded-md">Branding</span>
-                                        <span class="px-2.5 py-1 bg-slate-500/95 text-white text-[11px] font-bold rounded-md">Freelance</span>
+                                        <span class="px-1.5 py-0.5 bg-pink-500/80 text-white text-[9px] font-bold rounded">Canva Pro</span>
+                                        <span class="px-1.5 py-0.5 bg-purple-500/80 text-white text-[9px] font-bold rounded">Typography</span>
+                                        <span class="px-1.5 py-0.5 bg-cyan-500/80 text-black text-[9px] font-bold rounded">Branding</span>
+                                        <span class="px-1.5 py-0.5 bg-slate-500/80 text-white text-[9px] font-bold rounded">Freelance</span>
                                     </div>
                                 </div>
                                 <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_005</span>
@@ -1671,249 +1682,6 @@
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') closeLightbox();
         });
-    </script>
-
-    <!-- ================================================ -->
-    <!-- SOFT AURORA SHADER — Three.js port               -->
-    <!-- Source: ReactBits SoftAurora (OGL+GLSL)          -->
-    <!-- Ported to Three.js for file:// compatibility     -->
-    <!-- ================================================ -->
-    <script>
-    (function () {
-        'use strict';
-
-        // --- CONFIG — matches source demo values ---
-        var CONFIG = {
-            speed: 0.6,
-            scale: 1.5,
-            brightness: 1.0,
-            color1: '#f7f7f7',
-            color2: '#e100ff',
-            noiseFrequency: 2.5,
-            noiseAmplitude: 1.0,
-            bandHeight: 0.5,
-            bandSpread: 1.0,
-            octaveDecay: 0.1,
-            layerOffset: 0,
-            colorSpeed: 1.0,
-            enableMouseInteraction: true,
-            mouseInfluence: 0.25
-        };
-
-        function hexToVec3(hex) {
-            var h = hex.replace('#', '');
-            return new THREE.Vector3(
-                parseInt(h.slice(0, 2), 16) / 255,
-                parseInt(h.slice(2, 4), 16) / 255,
-                parseInt(h.slice(4, 6), 16) / 255
-            );
-        }
-
-        // --- VERTEX SHADER ---
-        var vertexShader =
-            'varying vec2 vUv;\n' +
-            'void main() {\n' +
-            '  vUv = uv;\n' +
-            '  gl_Position = vec4(position, 1.0);\n' +
-            '}';
-
-        // --- FRAGMENT SHADER (verbatim from source) ---
-        var fragmentShader =
-            'precision highp float;\n' +
-            '\n' +
-            'uniform float uTime;\n' +
-            'uniform vec3 uResolution;\n' +
-            'uniform float uSpeed;\n' +
-            'uniform float uScale;\n' +
-            'uniform float uBrightness;\n' +
-            'uniform vec3 uColor1;\n' +
-            'uniform vec3 uColor2;\n' +
-            'uniform float uNoiseFreq;\n' +
-            'uniform float uNoiseAmp;\n' +
-            'uniform float uBandHeight;\n' +
-            'uniform float uBandSpread;\n' +
-            'uniform float uOctaveDecay;\n' +
-            'uniform float uLayerOffset;\n' +
-            'uniform float uColorSpeed;\n' +
-            'uniform vec2 uMouse;\n' +
-            'uniform float uMouseInfluence;\n' +
-            'uniform bool uEnableMouse;\n' +
-            '\n' +
-            '#define TAU 6.28318\n' +
-            '\n' +
-            'vec3 gradientHash(vec3 p) {\n' +
-            '  p = vec3(\n' +
-            '    dot(p, vec3(127.1, 311.7, 234.6)),\n' +
-            '    dot(p, vec3(269.5, 183.3, 198.3)),\n' +
-            '    dot(p, vec3(169.5, 283.3, 156.9))\n' +
-            '  );\n' +
-            '  vec3 h = fract(sin(p) * 43758.5453123);\n' +
-            '  float phi = acos(2.0 * h.x - 1.0);\n' +
-            '  float theta = TAU * h.y;\n' +
-            '  return vec3(cos(theta) * sin(phi), sin(theta) * cos(phi), cos(phi));\n' +
-            '}\n' +
-            '\n' +
-            'float quinticSmooth(float t) {\n' +
-            '  float t2 = t * t;\n' +
-            '  float t3 = t * t2;\n' +
-            '  return 6.0 * t3 * t2 - 15.0 * t2 * t2 + 10.0 * t3;\n' +
-            '}\n' +
-            '\n' +
-            'vec3 cosineGradient(float t, vec3 a, vec3 b, vec3 c, vec3 d) {\n' +
-            '  return a + b * cos(TAU * (c * t + d));\n' +
-            '}\n' +
-            '\n' +
-            'float perlin3D(float amplitude, float frequency, float px, float py, float pz) {\n' +
-            '  float x = px * frequency;\n' +
-            '  float y = py * frequency;\n' +
-            '  float fx = floor(x); float fy = floor(y); float fz = floor(pz);\n' +
-            '  float cx = ceil(x);  float cy = ceil(y);  float cz = ceil(pz);\n' +
-            '  vec3 g000 = gradientHash(vec3(fx, fy, fz));\n' +
-            '  vec3 g100 = gradientHash(vec3(cx, fy, fz));\n' +
-            '  vec3 g010 = gradientHash(vec3(fx, cy, fz));\n' +
-            '  vec3 g110 = gradientHash(vec3(cx, cy, fz));\n' +
-            '  vec3 g001 = gradientHash(vec3(fx, fy, cz));\n' +
-            '  vec3 g101 = gradientHash(vec3(cx, fy, cz));\n' +
-            '  vec3 g011 = gradientHash(vec3(fx, cy, cz));\n' +
-            '  vec3 g111 = gradientHash(vec3(cx, cy, cz));\n' +
-            '  float d000 = dot(g000, vec3(x - fx, y - fy, pz - fz));\n' +
-            '  float d100 = dot(g100, vec3(x - cx, y - fy, pz - fz));\n' +
-            '  float d010 = dot(g010, vec3(x - fx, y - cy, pz - fz));\n' +
-            '  float d110 = dot(g110, vec3(x - cx, y - cy, pz - fz));\n' +
-            '  float d001 = dot(g001, vec3(x - fx, y - fy, pz - cz));\n' +
-            '  float d101 = dot(g101, vec3(x - cx, y - fy, pz - cz));\n' +
-            '  float d011 = dot(g011, vec3(x - fx, y - cy, pz - cz));\n' +
-            '  float d111 = dot(g111, vec3(x - cx, y - cy, pz - cz));\n' +
-            '  float sx = quinticSmooth(x - fx);\n' +
-            '  float sy = quinticSmooth(y - fy);\n' +
-            '  float sz = quinticSmooth(pz - fz);\n' +
-            '  float lx00 = mix(d000, d100, sx);\n' +
-            '  float lx10 = mix(d010, d110, sx);\n' +
-            '  float lx01 = mix(d001, d101, sx);\n' +
-            '  float lx11 = mix(d011, d111, sx);\n' +
-            '  float ly0 = mix(lx00, lx10, sy);\n' +
-            '  float ly1 = mix(lx01, lx11, sy);\n' +
-            '  return amplitude * mix(ly0, ly1, sz);\n' +
-            '}\n' +
-            '\n' +
-            'float auroraGlow(float t, vec2 shift) {\n' +
-            '  vec2 uv = gl_FragCoord.xy / uResolution.y;\n' +
-            '  uv += shift;\n' +
-            '  float noiseVal = 0.0;\n' +
-            '  float freq = uNoiseFreq;\n' +
-            '  float amp = uNoiseAmp;\n' +
-            '  vec2 samplePos = uv * uScale;\n' +
-            '  for (float i = 0.0; i < 3.0; i += 1.0) {\n' +
-            '    noiseVal += perlin3D(amp, freq, samplePos.x, samplePos.y, t);\n' +
-            '    amp *= uOctaveDecay;\n' +
-            '    freq *= 2.0;\n' +
-            '  }\n' +
-            '  float yBand = uv.y * 10.0 - uBandHeight * 10.0;\n' +
-            '  return 0.3 * max(exp(uBandSpread * (1.0 - 1.1 * abs(noiseVal + yBand))), 0.0);\n' +
-            '}\n' +
-            '\n' +
-            'void main() {\n' +
-            '  vec2 uv = gl_FragCoord.xy / uResolution.xy;\n' +
-            '  float t = uSpeed * 0.4 * uTime;\n' +
-            '  vec2 shift = vec2(0.0);\n' +
-            '  if (uEnableMouse) {\n' +
-            '    shift = (uMouse - 0.5) * uMouseInfluence;\n' +
-            '  }\n' +
-            '  vec3 col = vec3(0.0);\n' +
-            '  col += 0.99 * auroraGlow(t, shift) * cosineGradient(uv.x + uTime * uSpeed * 0.2 * uColorSpeed, vec3(0.5), vec3(0.5), vec3(1.0), vec3(0.3, 0.20, 0.20)) * uColor1;\n' +
-            '  col += 0.99 * auroraGlow(t + uLayerOffset, shift) * cosineGradient(uv.x + uTime * uSpeed * 0.1 * uColorSpeed, vec3(0.5), vec3(0.5), vec3(2.0, 1.0, 0.0), vec3(0.5, 0.20, 0.25)) * uColor2;\n' +
-            '  col *= uBrightness;\n' +
-            '  float alpha = clamp(length(col), 0.0, 1.0);\n' +
-            '  gl_FragColor = vec4(col, alpha);\n' +
-            '}';
-
-        // --- INIT ---
-        var container = document.querySelector('.hero-background');
-        var canvas = document.getElementById('hero-canvas');
-        if (!container || !canvas) return;
-
-        var scene = new THREE.Scene();
-        var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        var geometry = new THREE.PlaneGeometry(2, 2);
-
-        var material = new THREE.ShaderMaterial({
-            vertexShader: vertexShader,
-            fragmentShader: fragmentShader,
-            uniforms: {
-                uTime:           { value: 0 },
-                uResolution:     { value: new THREE.Vector3(1, 1, 1) },
-                uSpeed:          { value: CONFIG.speed },
-                uScale:          { value: CONFIG.scale },
-                uBrightness:     { value: CONFIG.brightness },
-                uColor1:         { value: hexToVec3(CONFIG.color1) },
-                uColor2:         { value: hexToVec3(CONFIG.color2) },
-                uNoiseFreq:      { value: CONFIG.noiseFrequency },
-                uNoiseAmp:       { value: CONFIG.noiseAmplitude },
-                uBandHeight:     { value: CONFIG.bandHeight },
-                uBandSpread:     { value: CONFIG.bandSpread },
-                uOctaveDecay:    { value: CONFIG.octaveDecay },
-                uLayerOffset:    { value: CONFIG.layerOffset },
-                uColorSpeed:     { value: CONFIG.colorSpeed },
-                uMouse:          { value: new THREE.Vector2(0.5, 0.5) },
-                uMouseInfluence: { value: CONFIG.mouseInfluence },
-                uEnableMouse:    { value: CONFIG.enableMouseInteraction }
-            },
-            transparent: true
-        });
-
-        scene.add(new THREE.Mesh(geometry, material));
-
-        var renderer = new THREE.WebGLRenderer({
-            canvas: canvas,
-            antialias: false,
-            alpha: true
-        });
-        renderer.setClearColor(0x000000, 0);
-
-        // --- MOUSE TRACKING ---
-        var currentMouse = [0.5, 0.5];
-        var targetMouse = [0.5, 0.5];
-
-        container.addEventListener('mousemove', function (e) {
-            var rect = container.getBoundingClientRect();
-            targetMouse[0] = (e.clientX - rect.left) / rect.width;
-            targetMouse[1] = 1.0 - (e.clientY - rect.top) / rect.height;
-        });
-
-        container.addEventListener('mouseleave', function () {
-            targetMouse[0] = 0.5;
-            targetMouse[1] = 0.5;
-        });
-
-        // --- RESIZE ---
-        function handleResize() {
-            var w = container.offsetWidth || 1;
-            var h = container.offsetHeight || 1;
-            renderer.setSize(w, h, false);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-            var pw = w * Math.min(window.devicePixelRatio || 1, 2);
-            var ph = h * Math.min(window.devicePixelRatio || 1, 2);
-            material.uniforms.uResolution.value.set(pw, ph, pw / ph);
-        }
-        handleResize();
-        window.addEventListener('resize', handleResize);
-
-        // --- ANIMATION LOOP ---
-        function update(time) {
-            requestAnimationFrame(update);
-            var t = time * 0.001;
-            material.uniforms.uTime.value = t;
-
-            if (CONFIG.enableMouseInteraction) {
-                currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
-                currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
-                material.uniforms.uMouse.value.set(currentMouse[0], currentMouse[1]);
-            }
-
-            renderer.render(scene, camera);
-        }
-        requestAnimationFrame(update);
-    })();
     </script>
 
 </body>
