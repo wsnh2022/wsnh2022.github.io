@@ -821,7 +821,7 @@
       pointer-events: none;
     }
 
-    /* ── TOP — Dark manifesto ── */
+    /* ── TOP - Dark manifesto ── */
     #hero-top {
       background: #0f1117;
       color: #ffffff;
@@ -987,7 +987,7 @@
       white-space: nowrap;
     }
 
-    /* ── BOTTOM — Light trust grid ── */
+    /* ── BOTTOM - Light trust grid ── */
     #hero-bottom {
       background: #f8f9fa;
       border-top: 1px solid #e9ecef;
@@ -1100,7 +1100,7 @@
 
       <h1 id="hero-headline">Annotate images.<br><em>In complete privacy.</em></h1>
 
-      <p id="hero-sub">No server. No login. No internet required.<br>Your images never leave your device — ever.</p>
+      <p id="hero-sub">No server. No login. No internet required.<br>Your images never leave your device - ever.</p>
 
       <div id="hero-cta-wrap">
         <button id="hero-cta-main" onclick="heroStart()">+ Add Images to Start</button>
@@ -1145,18 +1145,18 @@
         <div class="hero-card">
           <div class="hero-card-icon">💾</div>
           <div class="hero-card-title">Auto-Saved Locally</div>
-          <div class="hero-card-desc">Your session persists in browser storage (IndexedDB). Close and reopen — it's all still there.</div>
+          <div class="hero-card-desc">Your session persists in browser storage (IndexedDB). Close and reopen - it's all still there.</div>
         </div>
         <div class="hero-card">
           <div class="hero-card-icon">📤</div>
           <div class="hero-card-title">Rich Exports</div>
-          <div class="hero-card-desc">Export to PNG, professional PDF, interactive HTML viewer, or backup JSON — all offline.</div>
+          <div class="hero-card-desc">Export to PNG, professional PDF, interactive HTML viewer, or backup JSON - all offline.</div>
         </div>
       </div>
 
       <p id="hero-bottom-note">
         <strong>No invisible strings.</strong> No analytics, no telemetry, no CDN fonts in the main app,
-        no cookies, no ads. This is a plain HTML file — open it, use it, trust it.
+        no cookies, no ads. This is a plain HTML file - open it, use it, trust it.
       </p>
     </div>
 
@@ -1206,8 +1206,8 @@
   <div id="modal-overlay">
     <div id="modal">
       <span id="modal-handle"></span>
-      <h3 id="modal-title">PIN #1 — ADD COMMENT</h3>
-      <input type="text" id="modal-title-input" placeholder="Pin title (optional — e.g. 'Button misaligned')">
+      <h3 id="modal-title">PIN #1 - ADD COMMENT</h3>
+      <input type="text" id="modal-title-input" placeholder="Pin title (optional - e.g. 'Button misaligned')">
       <textarea id="modal-input"
         placeholder="Write your comment…&#10;Use `backticks` for code/URLs with copy button.&#10;Use ```triple``` for multi-line code blocks."></textarea>
 
@@ -1273,7 +1273,7 @@
 
     function activeImg() { return images.find(i => i.id === activeId) || null; }
 
-    // ── Persistence (IndexedDB — no size limit) ─────────────────
+    // ── Persistence (IndexedDB - no size limit) ─────────────────
     const DB_NAME = 'PinAnnotatorDB';
     const DB_VERSION = 1;
     const DB_STORE = 'session';
@@ -1487,7 +1487,7 @@
     function updateCapUI() {
       const n = images.length;
       if (n >= MAX_IMAGES) {
-        imgCapEl.textContent = `${n}/${MAX_IMAGES} images — limit reached`;
+        imgCapEl.textContent = `${n}/${MAX_IMAGES} images - limit reached`;
         imgCapEl.className = 'full';
         document.getElementById('btn-add-img').disabled = true;
       } else if (n >= MAX_IMAGES * 0.75) {
@@ -1609,7 +1609,7 @@
       workspace.appendChild(section);
     }
 
-    // DEPRECATED stub kept for backward compat — replaced by renderImageSection
+    // DEPRECATED stub kept for backward compat - replaced by renderImageSection
     function renderTab(entry) { renderImageSection(entry); }
 
     function updateTabBadge(id) {
@@ -1662,14 +1662,14 @@
       statusEl.textContent = `${images.length}/${MAX_IMAGES} images · ${entry.imgEl.naturalWidth}×${entry.imgEl.naturalHeight} · ${entry.pins.length} pin${entry.pins.length !== 1 ? 's' : ''} · ${total} total`;
     }
 
-    // ── Place pin — handlers are now per-section (see renderImageSection) ──
+    // ── Place pin - handlers are now per-section (see renderImageSection) ──
 
     function openModal(pos, pinToEdit) {
       const entry = activeImg(); if (!entry) return;
       pending = pos;
       editingPin = pinToEdit;
       const num = pinToEdit ? pinToEdit.num : images.reduce((s, i) => s + i.pins.length, 0) + 1;
-      modalTitle.textContent = pinToEdit ? `PIN #${num} — EDIT` : `PIN #${num} — ADD`;
+      modalTitle.textContent = pinToEdit ? `PIN #${num} - EDIT` : `PIN #${num} - ADD`;
       modalTitleInput.value = pinToEdit ? (pinToEdit.title || '') : '';
       modalInput.value = pinToEdit ? pinToEdit.comment : '';
       modalOv.classList.add('active');
@@ -1893,7 +1893,7 @@
       return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}_${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`;
     }
 
-    // ── Comment renderer — parses backtick code & bare URLs ────
+    // ── Comment renderer - parses backtick code & bare URLs ────
     function renderComment(text) {
       const wrapper = document.createElement('div');
       wrapper.className = 'comment-body';
@@ -2060,7 +2060,7 @@
       a.click();
     }
 
-    // ── Save PDF (Report) — Notion-style ───────────────────────
+    // ── Save PDF (Report) - Notion-style ───────────────────────
     async function savePDF() {
       if (!images.length) { alert('Load at least one image.'); return; }
       if (!images.some(i => i.pins.length > 0)) { alert('Add at least one pin to any image.'); return; }
@@ -2185,7 +2185,7 @@
       min-height: 0;
     }
 
-    /* LEFT 42% — tight bounding box crop */
+    /* LEFT 42% - tight bounding box crop */
     .section-crop-wrap {
       flex: 0 0 42%;
       width: 42%;
@@ -2203,7 +2203,7 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
 
-    /* RIGHT 58% — stacked annotation list */
+    /* RIGHT 58% - stacked annotation list */
     .section-notes-wrap {
       flex: 0 0 58%;
       width: 58%;
@@ -2332,7 +2332,7 @@
       let firstSection = true;
       let globalPinNum = 0;
 
-      // ── Tight bounding box crop — all pins visible ────────────
+      // ── Tight bounding box crop - all pins visible ────────────
       const getBoundingCrop = (entry) => {
         const nW = entry.imgEl.naturalWidth;
         const nH = entry.imgEl.naturalHeight;
@@ -2377,7 +2377,7 @@
         const srcW = srcRight - srcX;
         const srcH = srcBottom - srcY;
 
-        // 5. Output canvas — preserve aspect ratio, cap at 800px wide
+        // 5. Output canvas - preserve aspect ratio, cap at 800px wide
         const OUT_W = Math.min(800, srcW);
         const OUT_H = Math.round(OUT_W * (srcH / srcW));
 
@@ -2451,7 +2451,7 @@
         const body = win.document.createElement('div');
         body.className = 'section-body';
 
-        // LEFT — tight bounding box crop with all pins
+        // LEFT - tight bounding box crop with all pins
         const cropWrap = win.document.createElement('div');
         cropWrap.className = 'section-crop-wrap';
         const cropImg = win.document.createElement('img');
@@ -2459,7 +2459,7 @@
         cropImg.src = getBoundingCrop(entry);
         cropWrap.appendChild(cropImg);
 
-        // RIGHT — stacked annotation rows
+        // RIGHT - stacked annotation rows
         const notesWrap = win.document.createElement('div');
         notesWrap.className = 'section-notes-wrap';
 
@@ -2510,7 +2510,7 @@
       // ── End of document marker ──
       const endDoc = win.document.createElement('div');
       endDoc.className = 'doc-end';
-      endDoc.textContent = '— End of Document —';
+      endDoc.textContent = '- End of Document -';
       content.appendChild(endDoc);
 
       setTimeout(() => win.print(), 500);
@@ -2969,7 +2969,7 @@
       font-weight: 500;
     }
 
-    /* Comment body — rendered content */
+    /* Comment body - rendered content */
     .comment-body {
       font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
       font-size: 14px;
@@ -3265,7 +3265,7 @@
       </div>
       <div id="nav-bar">
         <button class="nav-btn" id="btn-prev" onclick="navigate(-1)" disabled>← Prev</button>
-        <span id="nav-pos">—</span>
+        <span id="nav-pos">-</span>
         <button class="nav-btn" id="btn-next" onclick="navigate(1)">Next →</button>
       </div>
     </div>
@@ -3297,7 +3297,7 @@
   }
 
 
-  // ── Comment renderer — parses backtick code & bare URLs ────
+  // ── Comment renderer - parses backtick code & bare URLs ────
   function renderComment(text) {
     const wrapper = document.createElement('div');
     wrapper.className = 'comment-body';
@@ -3498,9 +3498,9 @@
     imgWrap.appendChild(zoomWrap);
     imgWrap._imgEl = imgEl;
 
-    // Set src AFTER onload — guarantees onload fires even for cached dataURLs
+    // Set src AFTER onload - guarantees onload fires even for cached dataURLs
     imgEl.onload = () => {
-      spotCanvas.width  = imgEl.naturalWidth;  // pixel dims from natural size — layout-independent
+      spotCanvas.width  = imgEl.naturalWidth;  // pixel dims from natural size - layout-independent
       spotCanvas.height = imgEl.naturalHeight;
       if (startPin >= 0 && startPin < img.pins.length) {
         drawSpotlight(img.pins[startPin].xPct, img.pins[startPin].yPct);
@@ -3567,7 +3567,7 @@
 
     const nw = imgEl.naturalWidth;
     const nh = imgEl.naturalHeight;
-    if (!nw || !nh) return; // not loaded yet — onload will call us
+    if (!nw || !nh) return; // not loaded yet - onload will call us
 
     // Ensure canvas pixel dims match natural image dims
     if (spot.width !== nw)  spot.width  = nw;
@@ -3613,14 +3613,14 @@
     const img = DATA[activeImgIdx]; if (!img) return;
     const n = activePinIdx + dir;
     if (n >= 0 && n < img.pins.length) {
-      // Within current image — move selection only
+      // Within current image - move selection only
       selectPin(n); if (isMob()) switchTab('comment');
     } else if (dir === 1 && activeImgIdx < DATA.length - 1) {
-      // Past last pin — load next image, land on its first pin
+      // Past last pin - load next image, land on its first pin
       loadImage(activeImgIdx + 1, 0);
       if (isMob()) switchTab('comment');
     } else if (dir === -1 && activeImgIdx > 0) {
-      // Before first pin — load previous image, land on its last pin
+      // Before first pin - load previous image, land on its last pin
       loadImage(activeImgIdx - 1, DATA[activeImgIdx - 1].pins.length - 1);
       if (isMob()) switchTab('comment');
     }
