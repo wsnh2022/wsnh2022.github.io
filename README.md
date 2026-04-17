@@ -3,6 +3,10 @@
 > Data analysis is where everything starts - automation, design, and development are what make it stick.
 
 **Live Portfolio → [wsnh2022.github.io](https://wsnh2022.github.io/)**
+**Live Portfolio → [AHK-MENU Online Menu Creator](https://wsnh2022.github.io/ahkmenu)**
+**Live Portfolio → [Annotate images → In complete privacy.](https://wsnh2022.github.io/)**
+**Live Portfolio → [My-Blog](https://github.com/wsnh2022/blog)**
+**Live Portfolio → [SQL- Quick Master Reference](https://wsnh2022.github.io/sql-reference)**
 
 ---
 
