@@ -349,6 +349,10 @@
             100% { transform: translate(5vw, -4vh) scale(1.05); }
         }
 
+        /* Prevent desktop nav from flashing before Tailwind CDN loads */
+        .desktop-nav { display: none; }
+        @media (min-width: 1024px) { .desktop-nav { display: flex; } }
+
         /* ── MOBILE OVERRIDES ─────────────────────────────── */
         @media (max-width: 768px) {
             .glass {
@@ -356,6 +360,13 @@
                 -webkit-backdrop-filter: none;
                 background: rgba(10, 14, 39, 0.92);   /* opaque fallback */
             }
+        }
+
+        /* Mobile nav: burger sits right next to logo */
+        #mobileMenuBtn { display: flex; }
+        @media (min-width: 1024px) { #mobileMenuBtn { display: none; } }
+        @media (max-width: 1023px) {
+            .nav-bar-row { justify-content: flex-start !important; gap: 0.75rem; }
         }
     </style>
 </head>
@@ -376,100 +387,58 @@
     <!-- Background glow removed - Three.js shader handles visual interest now -->
 
     <!-- Navigation -->
-    <div class="fixed top-6 z-50" style="left:0;right:0;padding:0 1rem;">
-    <nav class="glass rounded-2xl shadow-2xl" style="max-width:64rem;margin:0 auto;">
-        <div class="px-4 md:px-6 py-4 flex justify-between items-center">
-            <a href="#" class="font-display font-bold text-xl tracking-tight text-white flex items-center gap-2">
-                <div class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-                    <span class="text-midnight font-bold text-sm">Y</span>
-                </div>
-                Yoghesh
-            </a>
+    <header style="position:fixed;top:0;left:0;right:0;z-index:50;padding:0.875rem 1rem;">
+        <nav class="glass rounded-2xl shadow-2xl" style="width:100%;max-width:52rem;margin:0 auto;box-sizing:border-box;">
 
-            <!-- Desktop Menu -->
-            <div class="hidden lg:flex gap-8 text-sm font-medium text-slate-400 items-center ml-8">
-                <a href="#overview" data-section="overview"
-                    class="nav-link hover:text-white transition-colors">About</a>
-                <a href="experience.html" class="hover:text-white transition-colors">Experience</a>
-                <a href="#projects" data-section="projects"
-                    class="nav-link hover:text-white transition-colors">Projects</a>
-                <a href="#contact" data-section="contact"
-                    class="nav-link hover:text-white transition-colors">Contact</a>
-                <a href="#contact"
-                    class="ml-2 px-5 py-2 rounded-full bg-accent text-midnight text-sm font-bold hover:bg-accent/80 transition-all transform hover:scale-105 shadow-lg shadow-accent/20">
-                    Let's Talk
+            <!-- Nav Bar Row -->
+            <div class="nav-bar-row" style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1.25rem;">
+
+                <!-- Logo -->
+                <a href="#" class="font-display font-bold text-lg tracking-tight text-white" style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
+                    <div class="bg-accent rounded-lg flex items-center justify-center" style="width:2rem;height:2rem;flex-shrink:0;">
+                        <span class="text-midnight font-bold text-sm">Y</span>
+                    </div>
+                    Yoghesh
                 </a>
 
-                <div class="flex gap-3 ml-4 pl-4 border-l border-white/10">
-                    <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer"
-                        class="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-600 text-slate-400 hover:text-white hover:border-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all transform hover:scale-110"
-                        title="LinkedIn">
-                        <i class="fab fa-linkedin text-base"></i>
-                    </a>
-                    <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer"
-                        class="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-600 text-slate-400 hover:text-white hover:border-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all transform hover:scale-110"
-                        title="GitHub">
-                        <i class="fab fa-github text-base"></i>
-                    </a>
-                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer"
-                        class="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-600 text-slate-400 hover:text-white hover:border-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all transform hover:scale-110"
-                        title="Instagram">
-                        <i class="fab fa-instagram text-base"></i>
-                    </a>
+                <!-- Desktop Menu -->
+                <div class="desktop-nav hidden lg:flex gap-6 text-sm font-medium text-slate-400 items-center">
+                    <a href="#overview" data-section="overview" class="nav-link hover:text-white transition-colors">About</a>
+                    <a href="experience.html" class="hover:text-white transition-colors">Experience</a>
+                    <a href="#projects" data-section="projects" class="nav-link hover:text-white transition-colors">Projects</a>
+                    <a href="#contact" data-section="contact" class="nav-link hover:text-white transition-colors">Contact</a>
+                    <a href="#contact" class="px-4 py-2 rounded-full bg-accent text-midnight text-sm font-bold hover:bg-accent/80 transition-all shadow-lg shadow-accent/20">Let's Talk</a>
+                    <div class="flex gap-2 pl-3 border-l border-white/10">
+                        <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all" title="LinkedIn"><i class="fab fa-linkedin text-sm"></i></a>
+                        <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all" title="GitHub"><i class="fab fa-github text-sm"></i></a>
+                        <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all" title="Instagram"><i class="fab fa-instagram text-sm"></i></a>
+                    </div>
+                </div>
+
+                <!-- Burger — always rendered, hidden only on lg+ -->
+                <button id="mobileMenuBtn" style="align-items:center;justify-content:center;width:2.5rem;height:2.5rem;border-radius:0.625rem;border:1px solid rgba(255,255,255,0.15);color:#94a3b8;flex-shrink:0;background:transparent;cursor:pointer;margin-left:200px;" aria-label="Open menu">
+                    <i class="fas fa-bars" style="font-size:1rem;"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Dropdown -->
+            <div id="mobileMenu" class="lg:hidden" style="padding:0 1.25rem 1rem;">
+                <div class="flex flex-col gap-3 text-sm font-medium text-slate-400 pt-4 border-t border-white/10">
+                    <a href="#overview" class="hover:text-white transition-colors flex items-center gap-3 py-1"><i class="fas fa-home text-accent w-4"></i> About</a>
+                    <a href="experience.html" class="hover:text-white transition-colors flex items-center gap-3 py-1"><i class="fas fa-briefcase text-accent w-4"></i> Experience</a>
+                    <a href="#projects" class="hover:text-white transition-colors flex items-center gap-3 py-1"><i class="fas fa-code text-accent w-4"></i> Projects</a>
+                    <a href="#contact" class="hover:text-white transition-colors flex items-center gap-3 py-1"><i class="fas fa-envelope text-accent w-4"></i> Contact</a>
+                    <a href="#contact" class="mt-1 px-5 py-2 rounded-full bg-accent text-midnight text-sm font-bold text-center hover:bg-accent/80 transition-all">Let's Talk</a>
+                    <div class="flex gap-3 pt-3 border-t border-white/10">
+                        <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all" title="LinkedIn"><i class="fab fa-linkedin text-lg"></i></a>
+                        <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all" title="GitHub"><i class="fab fa-github text-lg"></i></a>
+                        <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all" title="Instagram"><i class="fab fa-instagram text-lg"></i></a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobileMenuBtn" class="lg:hidden text-slate-400 hover:text-white transition-colors">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobileMenu" class="lg:hidden px-6 pb-4">
-            <div class="flex flex-col gap-4 text-sm font-medium text-slate-400 pt-4 border-t border-white/10">
-                <a href="#overview" class="hover:text-white transition-colors flex items-center gap-3">
-                    <i class="fas fa-home text-accent w-5"></i>
-                    <span>About</span>
-                </a>
-                <a href="experience.html" class="hover:text-white transition-colors flex items-center gap-3">
-                    <i class="fas fa-briefcase text-accent w-5"></i>
-                    <span>Experience</span>
-                </a>
-                <a href="#projects" class="hover:text-white transition-colors flex items-center gap-3">
-                    <i class="fas fa-code text-accent w-5"></i>
-                    <span>Projects</span>
-                </a>
-                <a href="#contact" class="hover:text-white transition-colors flex items-center gap-3">
-                    <i class="fas fa-envelope text-accent w-5"></i>
-                    <span>Contact</span>
-                </a>
-                <a href="#contact"
-                    class="mt-2 px-5 py-2 rounded-full bg-accent text-midnight text-sm font-bold text-center hover:bg-accent/80 transition-all">
-                    Let's Talk
-                </a>
-
-                <div class="flex gap-3 pt-4 border-t border-white/10">
-                    <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer"
-                        class="w-12 h-12 flex items-center justify-center rounded-xl border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all"
-                        title="LinkedIn">
-                        <i class="fab fa-linkedin text-2xl"></i>
-                    </a>
-                    <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer"
-                        class="w-12 h-12 flex items-center justify-center rounded-xl border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all"
-                        title="GitHub">
-                        <i class="fab fa-github text-2xl"></i>
-                    </a>
-                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer"
-                        class="w-12 h-12 flex items-center justify-center rounded-xl border border-slate-600 text-slate-400 hover:text-white hover:border-white transition-all"
-                        title="Instagram">
-                        <i class="fab fa-instagram text-2xl"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-    </div>
+        </nav>
+    </header>
 
     <main class="relative z-10 pt-32 pb-20 px-4 max-w-6xl mx-auto">
 
