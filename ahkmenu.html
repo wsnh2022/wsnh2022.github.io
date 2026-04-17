@@ -752,15 +752,11 @@ ${topHandlers.join("\n\n")}${subHandlers.length ? "\n\n; --- Submenu Handlers --
           const domain = overrideDomain?.trim() || new URL(targetUrl).hostname;
           const filename = `${domain.replace(/[^a-zA-Z0-9]/g, "_")}.png`;
 
-          // Primary: vemetric (works over HTTP / local file:// context)
-          // const vemetricUrl = `http://favicon.vemetric.com/${domain}?size=32&format=png`;
-          // Fallback: Google favicons (HTTPS — required when hosted on GitHub Pages / any HTTPS host)
-          // const googleUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
-
           let blob = null;
           for (const url of [
-            `http://favicon.vemetric.com/${domain}?size=32&format=png`,
-            `https://www.google.com/s2/favicons?domain=${domain}&sz=32`,
+            `https://favicone.com/${domain}?s=32`,
+            `https://icons.duckduckgo.com/ip3/${domain}.ico`,
+            `https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${domain}&size=32`,
           ]) {
             try {
               const r = await fetch(url);
