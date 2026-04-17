@@ -2,11 +2,11 @@
 
 > Data analysis is where everything starts - automation, design, and development are what make it stick.
 
-- **Live Portfolio → [wsnh2022.github.io](https://wsnh2022.github.io/)**
-- **AHKMENU Online Menu Creator Run In Windows → [wsnh2022.github.io/ahkmenu](https://wsnh2022.github.io/ahkmenu)**
-- **Annotate images-In complete privacy. → [wsnh2022.github.io/pin-annotator_v8](https://wsnh2022.github.io/pin-annotator_v8)**
-- **My-Blog → [wsnh2022.github.io/blog/](https://wsnh2022.github.io/blog/)**
-- **SQL- Quick Master Reference → [wsnh2022.github.io/sql-reference](https://wsnh2022.github.io/sql-reference)**
+- **Portfolio → [wsnh2022.github.io](https://wsnh2022.github.io/)**
+- **AHKMenu - AutoHotkey Menu Builder → [wsnh2022.github.io/ahkmenu](https://wsnh2022.github.io/ahkmenu)**
+- **Pin Annotator - Private Image Annotation → [wsnh2022.github.io/pin-annotator_v8](https://wsnh2022.github.io/pin-annotator_v8)**
+- **Blog → [wsnh2022.github.io/blog](https://wsnh2022.github.io/blog/)**
+- **SQL Quick Reference → [wsnh2022.github.io/sql-reference](https://wsnh2022.github.io/sql-reference)**
 
 ---
 
