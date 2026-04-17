@@ -524,22 +524,22 @@ ${topHandlers.join("\n\n")}${subHandlers.length ? "\n\n; --- Submenu Handlers --
         {
           badge: "?", badgeColor: "var(--cyan)", borderColor: "var(--border2)",
           title: "What is AHKMenu Builder?",
-          body: "Build a fully custom Windows right-click context menu — no coding needed. Design your menu here, then run the generated AutoHotkey v2 script on your PC."
+          body: "Build a fully custom Windows right-click context menu - no coding needed. Design your menu here, then run the generated AutoHotkey v2 script on your PC."
         },
         {
           badge: "⚠", badgeColor: "#f5a623", borderColor: "#f5a62355",
-          title: "Prerequisite — Install AutoHotkey v2",
-          body: "AHK scripts only run if AutoHotkey v2 is installed. Download it free from autohotkey.com — choose the v2 installer. One-time setup."
+          title: "Prerequisite - Install AutoHotkey v2",
+          body: "AHK scripts only run if AutoHotkey v2 is installed. Download it free from autohotkey.com - choose the v2 installer. One-time setup."
         },
         {
           badge: "1", badgeColor: "var(--cyan)", borderColor: "var(--border2)",
           title: "Add Menu Items",
-          body: "Use the left sidebar buttons to add items:\n• APP — launch any app or file\n• FOLDER — open a folder in Explorer\n• URL — open a website in your browser\n• SUBMENU — a nested group of items\n• SEP — a visual separator line"
+          body: "Use the left sidebar buttons to add items:\n• APP - launch any app or file\n• FOLDER - open a folder in Explorer\n• URL - open a website in your browser\n• SUBMENU - a nested group of items\n• SEP - a visual separator line"
         },
         {
           badge: "2", badgeColor: "var(--cyan)", borderColor: "var(--border2)",
           title: "Edit Item Properties",
-          body: "Click any item in the center list to select it. The right Properties panel lets you set:\n• Label — the text shown in the menu\n• Target — the file path, folder path, or URL to open"
+          body: "Click any item in the center list to select it. The right Properties panel lets you set:\n• Label - the text shown in the menu\n• Target - the file path, folder path, or URL to open"
         },
         {
           badge: "3", badgeColor: "var(--cyan)", borderColor: "var(--border2)",
@@ -549,22 +549,22 @@ ${topHandlers.join("\n\n")}${subHandlers.length ? "\n\n; --- Submenu Handlers --
         {
           badge: "4", badgeColor: "var(--cyan)", borderColor: "var(--border2)",
           title: "Set Icons (Optional)",
-          body: "Each item can have an icon:\n• SHELL — pick a free built-in Windows icon (no extra files needed)\n• FILE PATH — use a custom .ico or .exe icon\n• For URL items — the site favicon is fetched automatically"
+          body: "Each item can have an icon:\n• SHELL - pick a free built-in Windows icon (no extra files needed)\n• FILE PATH - use a custom .ico or .exe icon\n• For URL items - the site favicon is fetched automatically"
         },
         {
           badge: "5", badgeColor: "var(--cyan)", borderColor: "var(--border2)",
           title: "Export Your Script",
-          body: "Switch to the code tab at the top right.\n• Download .ahk — single script file, use this if you have no favicons\n• Export ZIP — includes the script + an icons/ folder (required if you used favicon icons)"
+          body: "Switch to the code tab at the top right.\n• Download .ahk - single script file, use this if you have no favicons\n• Export ZIP - includes the script + an icons/ folder (required if you used favicon icons)"
         },
         {
           badge: "6", badgeColor: "var(--green)", borderColor: "#3dffa033",
           title: "Run It!",
-          body: "Double-click the .ahk file (or the one inside the ZIP). AutoHotkey loads it silently in the tray. Now press your hotkey anywhere — your context menu appears instantly!"
+          body: "Double-click the .ahk file (or the one inside the ZIP). AutoHotkey loads it silently in the tray. Now press your hotkey anywhere - your context menu appears instantly!"
         },
         {
           badge: "💡", badgeColor: "var(--green)", borderColor: "#3dffa033",
           title: "Tips",
-          body: "• Use Templates (left sidebar) to start with a pre-filled menu in one click\n• Your menu auto-saves in the browser — it'll be there next time you open this page\n• Drag items up/down to reorder them\n• Submenus can hold up to any number of child items"
+          body: "• Use Templates (left sidebar) to start with a pre-filled menu in one click\n• Your menu auto-saves in the browser - it'll be there next time you open this page\n• Drag items up/down to reorder them\n• Submenus can hold up to any number of child items"
         },
       ];
       return (
@@ -587,7 +587,7 @@ ${topHandlers.join("\n\n")}${subHandlers.length ? "\n\n; --- Submenu Handlers --
                   <span style={{ color: "var(--cyan)" }}>HOW</span><span style={{ color: "#fff" }}> TO USE</span>
                 </div>
                 <div style={{ fontSize: 11, color: "var(--muted)", marginTop: 3, fontFamily: "var(--font-sans)" }}>
-                  AHKMenu Builder — beginner guide
+                  AHKMenu Builder - beginner guide
                 </div>
               </div>
               <button onClick={onClose}
@@ -745,7 +745,7 @@ ${topHandlers.join("\n\n")}${subHandlers.length ? "\n\n; --- Submenu Handlers --
         else Object.entries(fields).forEach(([k, v]) => updTop(itemId, k, v));
       };
 
-      /* Tier 2: fetch favicon — tries vemetric first, falls back to Google if it fails (e.g. HTTPS mixed-content block) */
+      /* Tier 2: fetch favicon - tries vemetric first, falls back to Google if it fails (e.g. HTTPS mixed-content block) */
       const fetchFavicon = async (itemId, targetUrl, isChild, parentId, overrideDomain = null) => {
         setFetchingId(itemId);
         try {
@@ -1275,7 +1275,7 @@ ${topHandlers.join("\n\n")}${subHandlers.length ? "\n\n; --- Submenu Handlers --
                     <div style={{ paddingTop: 14, borderTop: "1px solid var(--border)" }}>
                       <FL>Icon Source</FL>
                       <div style={{ display: "flex", gap: 4, marginBottom: 12 }}>
-                        <button disabled title="Shell DLL icon picker — coming soon" style={{
+                        <button disabled title="Shell DLL icon picker - coming soon" style={{
                           flex: 1, padding: "6px 0", fontSize: 10, fontWeight: 700, borderRadius: 5,
                           border: "1px solid #3a4a60", cursor: "not-allowed", fontFamily: "var(--font-sans)",
                           letterSpacing: "0.05em", background: "var(--panel)", color: "#3a4a60",
