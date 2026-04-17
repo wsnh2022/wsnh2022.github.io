@@ -754,16 +754,37 @@ ${topHandlers.join("\n\n")}${subHandlers.length ? "\n\n; --- Submenu Handlers --
 
           let blob = null;
           for (const url of [
+            `https://favicon.vemetric.com/https://${domain}/?size=32&format=png`,
+            `https://api.faviconkit.com/${domain}/32`,
             `https://favicone.com/${domain}?s=32`,
-            `https://icons.duckduckgo.com/ip3/${domain}.ico`,
             `https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${domain}&size=32`,
+            `https://icons.duckduckgo.com/ip3/${domain}.ico`,
+            `https://favicon.im/${domain}?larger=true`,
+            `https://www.google.com/s2/favicons?domain=${domain}&sz=32`,
           ]) {
             try {
               const r = await fetch(url);
               if (!r.ok) continue;
               const b = await r.blob();
-              if (b.size > 0) { blob = b; break; }
+              if (b.size > 100) { blob = b; break; }
             } catch (_) { continue; }
+          }
+          // last resort: img+canvas direct probe (works for sites that block fetch but allow img src)
+          if (!blob) {
+            blob = await new Promise(resolve => {
+              const img = new Image();
+              img.crossOrigin = 'anonymous';
+              img.onload = () => {
+                try {
+                  const c = document.createElement('canvas');
+                  c.width = 32; c.height = 32;
+                  c.getContext('2d').drawImage(img, 0, 0, 32, 32);
+                  c.toBlob(b => resolve(b && b.size > 100 ? b : null), 'image/png');
+                } catch { resolve(null); }
+              };
+              img.onerror = () => resolve(null);
+              img.src = `https://${domain}/favicon.ico`;
+            });
           }
           if (!blob) throw new Error("All favicon services failed");
           const dataUrl = await new Promise((res, rej) => {
@@ -847,6 +868,21 @@ ${topHandlers.join("\n\n")}${subHandlers.length ? "\n\n; --- Submenu Handlers --
         });
       };
 
+      const retryAllFailed = () => {
+        items.forEach(item => {
+          if (item.type === "url" && item.target?.trim() && faviconFallback[item.id]?.active && !fetchedIcons[item.id]) {
+            fetchFavicon(item.id, item.target, false, null);
+          }
+          (item.children || []).forEach(child => {
+            if (child.type === "url" && child.target?.trim() && faviconFallback[child.id]?.active && !fetchedIcons[child.id]) {
+              fetchFavicon(child.id, child.target, true, item.id);
+            }
+          });
+        });
+      };
+
+      const failedCount = Object.values(faviconFallback).filter(f => f.active).length;
+
       const selParts = sel?.includes("__") ? sel.split("__") : null;
       const selItem = selParts ? items.find(i => i.id === selParts[0]) : items.find(i => i.id === sel);
       const selChild = selParts ? selItem?.children?.find(c => c.id === selParts[1]) : null;
@@ -911,6 +947,13 @@ ${topHandlers.join("\n\n")}${subHandlers.length ? "\n\n; --- Submenu Handlers --
               </span>
               {faviconCount > 0 && (
                 <span style={{ fontSize: 12, color: "var(--pink)", fontWeight: 600 }}>🌐 {faviconCount} favicon{faviconCount > 1 ? "s" : ""}</span>
+              )}
+              {failedCount > 0 && (
+                <button onClick={retryAllFailed} style={{
+                  fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 4,
+                  background: "transparent", border: "1px solid var(--red, #ff4466)",
+                  color: "var(--red, #ff4466)", cursor: "pointer", letterSpacing: "0.06em"
+                }}>⟳ RETRY {failedCount} FAILED</button>
               )}
               <span style={{
                 fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", display: "flex", alignItems: "center", gap: 5,
