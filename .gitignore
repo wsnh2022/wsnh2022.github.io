@@ -56,7 +56,6 @@ temp/
 .eslintcache
 
 # ignore bat file
-gitsync.bat
 deploy-log.txt
 .gitsync.lock
 
@@ -65,4 +64,4 @@ analytics.google.md
 index_backup.html
 
 # old/renamed project screenshots
-assets/images/projects/popsearch-screenshot.old.png
+assets/images/projects/popsearch-screenshot.old.pnggitsync.bat 
