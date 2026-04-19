@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Yoghesh · Automation Engineer</title>
+    <meta name="description" content="Project portfolio — Electron apps, n8n automation, AutoHotkey tools, Python, Power BI, and web builds by Yoghesh.">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://wsnh2022.github.io/projects.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Projects | Yoghesh · Automation Engineer">
+    <meta property="og:description" content="Real builds — Electron, n8n, AutoHotkey, Python, Power BI, and web tools.">
+    <meta property="og:image" content="https://wsnh2022.github.io/assets/images/meta/og_tag.png">
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%2338bdf8'>Y</text></svg>">
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YT5JNT9C24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-YT5JNT9C24');
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        midnight: '#030712',
+                        panel: '#111827',
+                        surface: '#1f2937',
+                        accent: '#38bdf8',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { overflow-x: hidden; }
+        body { background-color: #030712; color: #e2e8f0; overflow-x: hidden; }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Terminal Input Style */
+        .terminal-input {
+            background: #0f0f15;
+            border-left: 2px solid #f59e0b;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            position: relative;
+        }
+        .terminal-input::before {
+            content: 'LOG_OUTPUT :: ';
+            color: #f59e0b;
+            font-weight: bold;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Scroll to Top */
+        #scrollToTop { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        #scrollToTop.show { opacity: 1; pointer-events: auto; }
+
+        /* ═══ NAVBAR ═══ */
+        #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0.75rem 1rem; }
+        @media (min-width: 768px) { #navbar { padding: 1rem 1.5rem; } }
+
+        .nb-container {
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(3, 7, 18, 0.82); backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 0.875rem;
+            padding: 0.625rem 1rem; max-width: 72rem; margin: 0 auto;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+        @media (min-width: 768px) { .nb-container { padding: 0.75rem 1.25rem; } }
+
+        .nb-brand { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+
+        .nb-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; flex-shrink: 0; }
+        .nb-logo-icon {
+            width: 2rem; height: 2rem; background: #38bdf8; border-radius: 0.5rem;
+            display: none; align-items: center; justify-content: center;
+            font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.875rem; color: #030712; flex-shrink: 0;
+        }
+        @media (min-width: 768px) { .nb-logo-icon { display: flex; } }
+        .nb-logo-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; }
+
+        .nb-links { display: none; align-items: center; gap: 0.25rem; }
+        @media (min-width: 768px) { .nb-links { display: flex; } }
+
+        .nb-link {
+            padding: 0.4rem 0.875rem; font-size: 0.875rem; font-weight: 500;
+            color: #94a3b8; text-decoration: none; border-radius: 0.5rem;
+            transition: color 0.2s, background 0.2s; white-space: nowrap;
+        }
+        .nb-link:hover { color: #f1f5f9; background: rgba(255,255,255,0.06); }
+        .nb-link.active { color: #38bdf8; }
+
+        .nb-right { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+
+        .nb-socials {
+            display: none; align-items: center; gap: 0.25rem;
+            padding-right: 0.625rem; border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        @media (min-width: 768px) { .nb-socials { display: flex; } }
+        .nb-social {
+            width: 1.875rem; height: 1.875rem; display: flex; align-items: center; justify-content: center;
+            border-radius: 0.375rem; color: #64748b; text-decoration: none; font-size: 0.875rem;
+            transition: color 0.2s, background 0.2s;
+        }
+        .nb-social:hover { color: #e2e8f0; background: rgba(255,255,255,0.07); }
+
+        .nb-mobile-socials {
+            display: flex; gap: 0.625rem; padding: 0.5rem 0.75rem 0.75rem;
+            border-top: 1px solid rgba(255,255,255,0.06); margin-top: 0.25rem;
+        }
+        .nb-mobile-social {
+            width: 2.25rem; height: 2.25rem; display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255,255,255,0.12); border-radius: 0.5rem; color: #64748b;
+            text-decoration: none; font-size: 1rem; transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+        .nb-mobile-social:hover { color: #e2e8f0; border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.05); }
+
+        .nb-cta {
+            display: none; padding: 0.4375rem 1rem; background: #38bdf8; color: #030712;
+            font-size: 0.8125rem; font-weight: 700; border-radius: 9999px; text-decoration: none;
+            transition: background 0.2s, transform 0.2s; white-space: nowrap;
+        }
+        .nb-cta:hover { background: #7dd3fc; transform: translateY(-1px); }
+        @media (min-width: 640px) { .nb-cta { display: inline-flex; align-items: center; } }
+
+        .nb-burger {
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px;
+            width: 2.25rem; height: 2.25rem; background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.18); border-radius: 0.5rem; cursor: pointer;
+            flex-shrink: 0; transition: background 0.2s, border-color 0.2s;
+        }
+        .nb-burger:hover { background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.35); }
+        @media (min-width: 768px) { .nb-burger { display: none; } }
+        .nb-burger span { display: block; width: 16px; height: 2px; background: #cbd5e1; border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; }
+        .nb-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .nb-burger.open span:nth-child(2) { opacity: 0; }
+        .nb-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+        #nb-mobile-menu {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            background: rgba(3, 7, 18, 0.96); border: 1px solid rgba(255,255,255,0.07);
+            border-top: none; border-radius: 0 0 0.875rem 0.875rem;
+            max-width: 72rem; margin: 0 auto;
+        }
+        #nb-mobile-menu.open { max-height: 360px; }
+
+        .nb-mobile-links { display: flex; flex-direction: column; padding: 0.5rem 0.75rem 0.875rem; gap: 0.125rem; }
+        .nb-mobile-link {
+            display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem;
+            font-size: 0.9375rem; font-weight: 500; color: #94a3b8; text-decoration: none;
+            border-radius: 0.5rem; transition: color 0.2s, background 0.2s;
+        }
+        .nb-mobile-link:hover { color: #f1f5f9; background: rgba(255,255,255,0.05); }
+        .nb-mobile-link i { color: #38bdf8; width: 1rem; text-align: center; font-size: 0.875rem; }
+
+        .nb-mobile-cta {
+            display: block; margin: 0.375rem 0.75rem 0.25rem; padding: 0.75rem; text-align: center;
+            background: #38bdf8; color: #030712; font-size: 0.9375rem; font-weight: 700;
+            border-radius: 0.625rem; text-decoration: none; transition: background 0.2s;
+        }
+        .nb-mobile-cta:hover { background: #7dd3fc; }
+
+        /* Scroll Animations */
+        .scroll-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Project Filter Buttons */
+        .filter-btn { transition: all 0.2s ease; }
+        .filter-btn.active { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border-color: #38bdf8; }
+
+        /* Project Cards */
+        .project-card { transition: all 0.3s ease; }
+        .project-card.hidden { display: none; }
+
+        /* Aurora background */
+        .aurora-wrap {
+            position: absolute; inset: -30% -20%; will-change: transform;
+            filter: blur(80px); pointer-events: none; z-index: 0; display: block;
+        }
+        .aurora-wrap .blob { position: absolute; border-radius: 50%; opacity: 0.55; will-change: transform; }
+        .blob-1 {
+            width: 65vw; height: 65vw; top: 5%; left: 10%;
+            background: radial-gradient(ellipse at center, #e100ff 0%, transparent 70%);
+            animation: drift-1 18s ease-in-out infinite alternate;
+        }
+        .blob-2 {
+            width: 55vw; height: 55vw; top: 20%; right: 5%;
+            background: radial-gradient(ellipse at center, #7b00d4 0%, transparent 70%);
+            animation: drift-2 13s ease-in-out infinite alternate; animation-delay: -4s;
+        }
+        .blob-3 {
+            width: 40vw; height: 40vw; bottom: 10%; left: 30%;
+            background: radial-gradient(ellipse at center, #00c8ff 0%, transparent 70%);
+            animation: drift-3 9s ease-in-out infinite alternate; animation-delay: -7s; opacity: 0.35;
+        }
+        .blob-4 {
+            width: 30vw; height: 30vw; top: 50%; left: 50%;
+            background: radial-gradient(ellipse at center, #ff005e 0%, transparent 70%);
+            animation: drift-4 11s ease-in-out infinite alternate; animation-delay: -2s; opacity: 0.3;
+        }
+        .blob-5 {
+            width: 90vw; height: 50vw; bottom: -10%; left: -10%;
+            background: radial-gradient(ellipse at center, #1a0040 0%, transparent 65%);
+            animation: drift-5 18s ease-in-out infinite alternate; animation-delay: -9s; opacity: 0.8;
+        }
+        @keyframes drift-1 {
+            0%   { transform: translate(0, 0) scale(1); }
+            33%  { transform: translate(8vw, -6vh) scale(1.08); }
+            66%  { transform: translate(-4vw, 4vh) scale(0.95); }
+            100% { transform: translate(5vw, 8vh) scale(1.1); }
+        }
+        @keyframes drift-2 {
+            0%   { transform: translate(0, 0) scale(1); }
+            40%  { transform: translate(-10vw, 7vh) scale(1.1); }
+            100% { transform: translate(6vw, -9vh) scale(0.9); }
+        }
+        @keyframes drift-3 {
+            0%   { transform: translate(0, 0) scale(1); }
+            50%  { transform: translate(8vw, -8vh) scale(1.15); }
+            100% { transform: translate(-5vw, 5vh) scale(0.85); }
+        }
+        @keyframes drift-4 {
+            0%   { transform: translate(-50%, -50%) scale(1); }
+            50%  { transform: translate(-40%, -60%) scale(1.2); }
+            100% { transform: translate(-55%, -45%) scale(0.8); }
+        }
+        @keyframes drift-5 {
+            0%   { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(5vw, -4vh) scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            .glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(10, 14, 39, 0.92); }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen selection:bg-accent selection:text-midnight overflow-x-hidden">
+
+    <!-- Aurora Background -->
+    <div class="hero-background" style="position:absolute;top:0;left:0;width:100%;height:100vh;z-index:1;">
+        <div class="aurora-wrap" aria-hidden="true">
+            <div class="blob blob-5"></div>
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+            <div class="blob blob-4"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header id="navbar">
+        <div class="nb-container">
+            <div class="nb-brand">
+                <button class="nb-burger" id="nbBurger" aria-label="Toggle menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+                <a href="index.html" class="nb-logo">
+                    <div class="nb-logo-icon">Y</div>
+                    <span class="nb-logo-name">Yoghesh</span>
+                </a>
+            </div>
+            <nav class="nb-links">
+                <a href="index.html#overview" class="nb-link">About</a>
+                <a href="experience.html" class="nb-link">Experience</a>
+                <a href="#" class="nb-link active">Projects</a>
+                <a href="index.html#contact" class="nb-link">Contact</a>
+            </nav>
+            <div class="nb-right">
+                <div class="nb-socials">
+                    <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer" class="nb-social" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer" class="nb-social" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer" class="nb-social" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+                <a href="index.html#contact" class="nb-cta">Let's Talk</a>
+            </div>
+        </div>
+        <div id="nb-mobile-menu">
+            <div class="nb-mobile-links">
+                <a href="index.html#overview" class="nb-mobile-link"><i class="fas fa-home"></i> About</a>
+                <a href="experience.html" class="nb-mobile-link"><i class="fas fa-briefcase"></i> Experience</a>
+                <a href="#" class="nb-mobile-link" style="color:#38bdf8;"><i class="fas fa-code"></i> Projects</a>
+                <a href="index.html#contact" class="nb-mobile-link"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="index.html#contact" class="nb-mobile-cta">Let's Talk</a>
+                <div class="nb-mobile-socials">
+                    <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer" class="nb-mobile-social" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer" class="nb-mobile-social" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer" class="nb-mobile-social" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 pt-32 pb-20 px-4 max-w-6xl mx-auto">
+
+        <!-- Projects Section with Filter -->
+        <section id="projects" class="mb-32 scroll-reveal">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-white flex items-center mb-4 md:mb-0">
+                    <span class="w-8 h-[2px] bg-accent mr-4"></span> Project Portfolio
+                </h2>
+
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap gap-2">
+                    <button
+                        class="filter-btn active px-4 py-2 rounded-lg border-2 border-accent bg-accent/10 text-accent text-sm font-bold uppercase transition-all hover:bg-accent/20"
+                        data-filter="all">
+                        All Projects
+                    </button>
+                    <button
+                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#fbbf24] bg-transparent text-[#fbbf24] text-sm font-bold uppercase transition-all hover:bg-[#fbbf24]/10"
+                        data-filter="powerbi">
+                        Power BI
+                    </button>
+                    <button
+                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#60a5fa] bg-transparent text-[#60a5fa] text-sm font-bold uppercase transition-all hover:bg-[#60a5fa]/10"
+                        data-filter="python">
+                        Python
+                    </button>
+                    <button
+                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#38bdf8] bg-transparent text-[#38bdf8] text-sm font-bold uppercase transition-all hover:bg-[#38bdf8]/10"
+                        data-filter="autohotkey">
+                        AutoHotkey
+                    </button>
+                    <button
+                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#f87171] bg-transparent text-[#f87171] text-sm font-bold uppercase transition-all hover:bg-[#f87171]/10"
+                        data-filter="n8n">
+                        n8n
+                    </button>
+                    <button
+                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#38bdf8] bg-transparent text-[#38bdf8] text-sm font-bold uppercase transition-all hover:bg-[#38bdf8]/10"
+                        data-filter="sql">
+                        SQL
+                    </button>
+                    <button
+                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#4B32C3] bg-transparent text-[#4B32C3] text-sm font-bold uppercase transition-all hover:bg-[#4B32C3]/10"
+                        data-filter="electron">
+                        Electron
+                    </button>
+                    <button
+                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#ec4899] bg-transparent text-[#ec4899] text-sm font-bold uppercase transition-all hover:bg-[#ec4899]/10"
+                        data-filter="design">
+                        Design
+                    </button>
+                    <button
+                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#f97316] bg-transparent text-[#f97316] text-sm font-bold uppercase transition-all hover:bg-[#f97316]/10"
+                        data-filter="content">
+                        Content
+                    </button>
+                    <button
+                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#10b981] bg-transparent text-[#10b981] text-sm font-bold uppercase transition-all hover:bg-[#10b981]/10"
+                        data-filter="web">
+                        Web
+                    </button>
+                </div>
+            </div>
+
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Project 0: Command-Center Dashboard -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="electron" data-project="cmd-center">
+                    <a href="https://wsnh2022.github.io/blog/post/Command-Center" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="./assets/images/projects/command-center-cover.jpeg"
+                            alt="Command-Center Dashboard"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Command-Center Dashboard</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-[#4B32C3]/95 text-white text-[11px] font-bold rounded-md">Electron</span>
+                                        <span class="px-2.5 py-1 bg-[#61DAFB]/95 text-black text-[11px] font-bold rounded-md">React</span>
+                                        <span class="px-2.5 py-1 bg-[#3178C6]/95 text-white text-[11px] font-bold rounded-md">TypeScript</span>
+                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Daily Driver</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_006</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Project 1: Nexus Launcher -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="electron autohotkey" data-project="nexus">
+                    <a href="https://wsnh2022.github.io/blog/post/Nexus-Launcher" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="./assets/images/projects/nexus-launcher-screenshot.png"
+                            alt="Nexus Launcher"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Nexus Launcher</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-[#4B32C3]/95 text-white text-[11px] font-bold rounded-md">Electron</span>
+                                        <span class="px-2.5 py-1 bg-[#00f2ff]/95 text-black text-[11px] font-bold rounded-md">AutoHotkey v2</span>
+                                        <span class="px-2.5 py-1 bg-[#646CFF]/95 text-white text-[11px] font-bold rounded-md">Vite</span>
+                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Open Source</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_001</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Project 2: Facility Automation Pipeline -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="n8n" data-project="facility">
+                    <a href="https://wsnh2022.github.io/blog/post/n8n-form-to-inbox-automation" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="./assets/images/projects/N8N_Workflow_Form_To_Inbox_Pipeline.png"
+                            alt="Facility Automation Pipeline"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Facility Automation Pipeline</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-[#ea4b71]/95 text-white text-[11px] font-bold rounded-md">n8n</span>
+                                        <span class="px-2.5 py-1 bg-[#0db7ed]/95 text-white text-[11px] font-bold rounded-md">Docker</span>
+                                        <span class="px-2.5 py-1 bg-[#0f9d58]/95 text-white text-[11px] font-bold rounded-md">Google Sheets</span>
+                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">330 hrs/yr saved</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_002</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Project 3: Social Media Content System -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="content" data-project="social">
+                    <div class="relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="https://img.freepik.com/free-vector/social-media-marketing-concept-with-icons_23-2148431524.jpg"
+                            alt="Social Media Content System"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Social Media Content System</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-pink-500/95 text-white text-[11px] font-bold rounded-md">Canva</span>
+                                        <span class="px-2.5 py-1 bg-orange-500/95 text-white text-[11px] font-bold rounded-md">Instagram</span>
+                                        <span class="px-2.5 py-1 bg-green-500/95 text-white text-[11px] font-bold rounded-md">GenAI</span>
+                                        <span class="px-2.5 py-1 bg-amber-500/95 text-black text-[11px] font-bold rounded-md">Branding</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_003</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Personal Portfolio -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="web" data-project="portfolio">
+                    <a href="https://wsnh2022.github.io/" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="./assets/images/meta/og_tag.png"
+                            alt="Personal Portfolio"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Personal Portfolio</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-[#e34c26]/95 text-white text-[11px] font-bold rounded-md">HTML5</span>
+                                        <span class="px-2.5 py-1 bg-[#264de4]/95 text-white text-[11px] font-bold rounded-md">CSS3</span>
+                                        <span class="px-2.5 py-1 bg-[#38bdf8]/95 text-black text-[11px] font-bold rounded-md">Tailwind</span>
+                                        <span class="px-2.5 py-1 bg-emerald-500/95 text-white text-[11px] font-bold rounded-md">GitHub Pages</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_004</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Project 5: Brand Asset Library -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="design" data-project="brand">
+                    <div class="relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="https://img.freepik.com/free-vector/brand-identity-concept-illustration_114360-3180.jpg"
+                            alt="Brand Asset Library"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Brand Asset Library</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-pink-500/95 text-white text-[11px] font-bold rounded-md">Canva Pro</span>
+                                        <span class="px-2.5 py-1 bg-purple-500/95 text-white text-[11px] font-bold rounded-md">Typography</span>
+                                        <span class="px-2.5 py-1 bg-cyan-500/95 text-black text-[11px] font-bold rounded-md">Branding</span>
+                                        <span class="px-2.5 py-1 bg-slate-500/95 text-white text-[11px] font-bold rounded-md">Freelance</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_005</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 7: VisionScribe AI -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="python" data-project="visionscribe">
+                    <a href="https://wsnh2022.github.io/blog/post/VisionScribe-AI" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="https://github.com/wsnh2022/VisionScribe-AI/blob/main/assets/VisionScribe_coverimage.png?raw=true"
+                            alt="VisionScribe AI"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">VisionScribe AI</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-[#3776AB]/95 text-white text-[11px] font-bold rounded-md">Python</span>
+                                        <span class="px-2.5 py-1 bg-[#e05c4b]/95 text-white text-[11px] font-bold rounded-md">Claude API</span>
+                                        <span class="px-2.5 py-1 bg-violet-600/95 text-white text-[11px] font-bold rounded-md">Computer Vision</span>
+                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Open Source</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_007</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Project 8: AHKMenu -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="autohotkey web" data-project="ahkmenu">
+                    <a href="https://wsnh2022.github.io/blog/post/ahkmenu" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/ahkmenu.png?raw=true"
+                            alt="AHKMenu - AutoHotkey Menu Builder"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">AHKMenu – Menu Builder</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-[#00f2ff]/95 text-black text-[11px] font-bold rounded-md">AutoHotkey v2</span>
+                                        <span class="px-2.5 py-1 bg-[#e34c26]/95 text-white text-[11px] font-bold rounded-md">HTML/JS</span>
+                                        <span class="px-2.5 py-1 bg-slate-600/95 text-white text-[11px] font-bold rounded-md">Browser Tool</span>
+                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Live Demo</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_008</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Project 9: Pin Annotator -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="web" data-project="pin-annotator">
+                    <a href="https://wsnh2022.github.io/blog/post/pin-annotator_v8" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/pin-annotator.png?raw=true"
+                            alt="Pin Annotator - Private Image Annotation"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Pin Annotator</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-[#e34c26]/95 text-white text-[11px] font-bold rounded-md">HTML/JS</span>
+                                        <span class="px-2.5 py-1 bg-teal-600/95 text-white text-[11px] font-bold rounded-md">Client-Side</span>
+                                        <span class="px-2.5 py-1 bg-slate-600/95 text-white text-[11px] font-bold rounded-md">Privacy-First</span>
+                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Live Demo</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_009</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Project 10: SQL Quick Reference -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="sql web" data-project="sql-reference">
+                    <a href="https://wsnh2022.github.io/blog/post/sql-reference" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/sql-reference.png?raw=true"
+                            alt="SQL Quick Reference"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">SQL Quick Reference</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-[#336791]/95 text-white text-[11px] font-bold rounded-md">SQL</span>
+                                        <span class="px-2.5 py-1 bg-[#f7df1e]/95 text-black text-[11px] font-bold rounded-md">JavaScript</span>
+                                        <span class="px-2.5 py-1 bg-slate-600/95 text-white text-[11px] font-bold rounded-md">Reference Tool</span>
+                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Live Demo</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_010</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Project 11: US Shopping Behavior Dashboard -->
+                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
+                    data-category="powerbi" data-project="us-shopping">
+                    <div class="relative h-[260px] overflow-hidden bg-[#0a0f1a]">
+                        <img src="https://github.com/wsnh2022/US-Shopping-Behavior-PowerBI/blob/main/dashboard_preview_dark.png?raw=true"
+                            alt="US Shopping Behavior Dashboard"
+                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                            <div class="flex items-end justify-between gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">US Shopping Behavior Dashboard</h3>
+                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-[#F2C811]/95 text-black text-[11px] font-bold rounded-md">Power BI</span>
+                                        <span class="px-2.5 py-1 bg-[#3b82f6]/95 text-white text-[11px] font-bold rounded-md">DAX</span>
+                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Power Query</span>
+                                        <span class="px-2.5 py-1 bg-[#fbbf24]/95 text-black text-[11px] font-bold rounded-md">Case Study</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_011</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- close projectsGrid -->
+
+            <!-- Empty State Message -->
+            <div id="emptyState" class="hidden text-center py-16">
+                <i class="fas fa-folder-open text-6xl text-slate-700 mb-4"></i>
+                <p class="text-slate-500 text-lg">No projects found in this category yet.</p>
+                <p class="text-slate-600 text-sm mt-2">More projects coming soon!</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop"
+        class="fixed bottom-8 right-8 w-12 h-12 bg-accent hover:bg-sky-400 text-midnight rounded-full shadow-lg transition-all transform hover:scale-110 z-50 flex items-center justify-center">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 border-t border-white/5 mt-12 bg-black/20">
+        <p class="text-sm text-slate-600 font-mono">&copy; 2026 Yoghesh. Data Analyst · Automation · Freelance Design &amp; Content.</p>
+        <p class="text-sm text-slate-700 font-mono mt-2">Built with precision. Optimized for impact.</p>
+    </footer>
+
+    <!-- Project Details Modal -->
+    <div id="projectModal" class="fixed inset-0 z-[9998] bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center hidden sm:px-4 py-0 sm:py-8" style="cursor: zoom-out;">
+        <div id="projectModalPanel" class="relative w-full sm:max-w-3xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto glass sm:rounded-2xl rounded-t-2xl border border-white/10 shadow-2xl" style="cursor: default;">
+            <button id="projectModalClose" class="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/60 hover:text-white text-lg transition-all">&times;</button>
+            <div class="w-full overflow-hidden rounded-t-2xl relative bg-[#0a0f1a]">
+                <img id="modalCoverImg" src="" alt="" class="lightbox-trigger w-full h-auto object-contain max-h-[280px] sm:max-h-[400px]" style="cursor: zoom-in;" />
+                <div id="modalProjId" class="absolute bottom-3 left-4 text-[10px] text-slate-500 font-mono"></div>
+            </div>
+            <div class="p-4 sm:p-6 space-y-4 sm:space-y-5">
+                <div>
+                    <h3 id="modalTitle" class="font-display font-bold text-white text-2xl mb-3"></h3>
+                    <div id="modalBadges" class="flex flex-wrap gap-1.5"></div>
+                </div>
+                <div class="terminal-input text-sm p-4">
+                    <p id="modalDesc" class="text-slate-300 leading-relaxed"></p>
+                </div>
+                <div>
+                    <span class="text-accent font-bold text-xs block mb-3">TECHNICAL_SPECIFICATIONS ::</span>
+                    <div id="modalSpecs" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-[11px] text-slate-400"></div>
+                </div>
+                <div class="flex items-start gap-3 pt-2 border-t border-white/5">
+                    <span class="text-success font-bold text-xs uppercase tracking-tighter shrink-0">Impact ::</span>
+                    <p id="modalImpact" class="text-[12px] text-slate-300 italic"></p>
+                </div>
+                <div id="modalButtons" class="flex gap-3 pt-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center hidden" style="cursor: zoom-out;">
+        <button id="lightboxClose" class="absolute top-5 right-6 text-white/60 hover:text-white text-3xl font-light leading-none z-10 transition-colors">&times;</button>
+        <img id="lightboxImg" src="" alt="" class="max-w-[92vw] max-h-[90vh] object-contain rounded-xl shadow-2xl" style="cursor: default;" />
+    </div>
+
+    <script>
+        // ==================================
+        // NAVBAR
+        // ==================================
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        window.addEventListener('scroll', () => {
+            scrollToTopBtn.classList.toggle('show', window.pageYOffset > 300);
+        }, { passive: true });
+        scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        const nbBurger     = document.getElementById('nbBurger');
+        const nbMobileMenu = document.getElementById('nb-mobile-menu');
+        nbBurger.addEventListener('click', () => {
+            const open = nbMobileMenu.classList.toggle('open');
+            nbBurger.classList.toggle('open', open);
+            nbBurger.setAttribute('aria-expanded', String(open));
+        });
+        nbMobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            nbMobileMenu.classList.remove('open');
+            nbBurger.classList.remove('open');
+            nbBurger.setAttribute('aria-expanded', 'false');
+        }));
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && nbMobileMenu.classList.contains('open')) {
+                nbMobileMenu.classList.remove('open');
+                nbBurger.classList.remove('open');
+                nbBurger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // ==================================
+        // SCROLL REVEAL
+        // ==================================
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // ==================================
+        // PROJECT FILTER
+        // ==================================
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards  = document.querySelectorAll('.project-card');
+        const emptyState    = document.getElementById('emptyState');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filterValue = button.getAttribute('data-filter');
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                let visibleCount = 0;
+                projectCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filterValue === 'all' || category.split(' ').includes(filterValue)) {
+                        card.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                if (visibleCount === 0) {
+                    emptyState.classList.remove('hidden');
+                } else {
+                    emptyState.classList.add('hidden');
+                }
+            });
+        });
+
+        // ==================================
+        // PROJECT DATA STORE
+        // ==================================
+        const projectData = {
+            'cmd-center': {
+                id: 'PROJ_006',
+                title: 'Command-Center Dashboard',
+                image: './assets/images/projects/command-center-cover.jpeg',
+                badges: [
+                    { label: 'Electron', color: '#4B32C3', text: 'white' },
+                    { label: 'React 18', color: '#61DAFB', text: 'black' },
+                    { label: 'TypeScript', color: '#3178C6', text: 'white' },
+                    { label: 'Vite', color: '#646CFF', text: 'white' },
+                    { label: 'Tailwind CSS', color: '#38bdf8', text: 'black' },
+                    { label: 'SQLite', color: '#5bc8f5', text: 'black' },
+                    { label: 'Desktop App', color: '#38bdf8', text: 'black' },
+                    { label: 'Windows Only', color: '#f59e0b', text: 'black' },
+                    { label: 'Daily Driver', color: '#10b981', text: 'white' },
+                ],
+                desc: 'A personal Windows desktop control center - every tool, URL, folder, script, and system command in one keyboard-driven hub. One global shortcut (Ctrl+Shift+Space) brings it to the foreground from any app. Items are organized into Groups → Cards → Items. Fuzzy search, drag-to-reorder, webview popups, favorites, recents, and full local SQLite persistence with rolling auto-backup.',
+                specs: [
+                    ['Shortcut', 'Ctrl+Shift+Space (remappable)'],
+                    ['Item Types', 'URL / Software / Folder / Command'],
+                    ['Search', 'Fuse.js fuzzy + SQLite FTS5 notes'],
+                    ['Icons', 'Emoji · Lucide (1,460) · Favicon · Custom'],
+                    ['Webview', 'BrowserView, up to 5 concurrent popups'],
+                    ['Drag', 'Items within/across cards · Cards · Groups'],
+                    ['Backup', 'Auto-snapshot on every write, rolling 10'],
+                    ['Security', 'contextIsolation · Zero telemetry · Local only'],
+                    ['Templates', '11 categories · 57 built-in command templates'],
+                    ['Scale', '~5,000 items smooth · SQLite WAL mode'],
+                    ['Build', 'NSIS installer (~86MB) + portable EXE'],
+                    ['Platform', 'Windows 10 / 11 x64'],
+                ],
+                impact: 'Built and actively used as a daily driver. Every tool, URL, script, and workflow across personal and professional life - organized exactly as I think about them.',
+                links: [
+                    { label: 'View Project', icon: 'fab fa-github', href: 'https://github.com/wsnh2022/command-center', style: 'ghost' },
+                    { label: 'Releases', icon: 'fas fa-download', href: 'https://github.com/wsnh2022/command-center/releases', style: 'accent' },
+                ]
+            },
+            'nexus': {
+                id: 'PROJ_001',
+                title: 'Nexus Launcher',
+                image: './assets/images/projects/nexus-launcher-screenshot.png',
+                badges: [
+                    { label: 'Electron', color: '#4B32C3', text: 'white' },
+                    { label: 'Node.js', color: '#3c873a', text: 'white' },
+                    { label: 'Vite', color: '#646CFF', text: 'white' },
+                    { label: 'Vanilla JS', color: '#f7df1e', text: 'black' },
+                    { label: 'AutoHotkey v2', color: '#00f2ff', text: 'black' },
+                    { label: 'Desktop App', color: '#38bdf8', text: 'black' },
+                    { label: 'Windows Only', color: '#f59e0b', text: 'black' },
+                    { label: 'Open Source', color: '#10b981', text: 'white' },
+                ],
+                desc: 'A context-triggered action launcher for Windows. Select text anywhere, trigger via CapsLock+S, Right-Click Hold, or scroll wheel - and instantly dispatch to any search engine, AI tool, local script, or file. Unlimited providers and categories, keyboard navigation, multi-URL launch, theme presets, and bulk import from Excel/Markdown.',
+                specs: [
+                    ['Portability', '98MB Standalone EXE'],
+                    ['Performance', '60-80MB RAM Idle'],
+                    ['Platform', 'Windows 10+ (64-bit) Only'],
+                    ['Security', 'Zero Telemetry / Local-only'],
+                    ['Providers', 'Unlimited (URL / File / Script)'],
+                    ['Triggers', 'CapsLock+S · Right-Click Hold · Scroll Wheel'],
+                    ['Navigation', 'Full Keyboard + Mouse Sync'],
+                    ['Multi-URL', ';; Separator, Single Click'],
+                    ['Themes', 'Named Presets, Save/Load/Delete'],
+                    ['Import', 'Bulk TSV / Markdown with Dedup'],
+                    ['Config', 'Export / Import as JSON'],
+                    ['Instance', 'Single-instance Lock'],
+                ],
+                impact: 'Open source · 6 GitHub stars · Portable, zero-install · Zero telemetry · Active use across research, dev, and ops workflows.',
+                links: [
+                    { label: 'View Project', icon: 'fab fa-github', href: 'https://github.com/wsnh2022/Nexus-Launcher', style: 'ghost' },
+                    { label: 'Releases', icon: 'fas fa-download', href: 'https://github.com/wsnh2022/Nexus-Launcher/releases', style: 'accent' },
+                ]
+            },
+            'facility': {
+                id: 'PROJ_002',
+                title: 'Facility Automation Pipeline',
+                image: './assets/images/projects/N8N_Workflow_Form_To_Inbox_Pipeline.png',
+                badges: [
+                    { label: 'n8n', color: '#ea4b71', text: 'white' },
+                    { label: 'Vanilla JS', color: '#f7df1e', text: 'black' },
+                    { label: 'HTML', color: '#e34c26', text: 'white' },
+                    { label: 'CSS', color: '#264de4', text: 'white' },
+                    { label: 'Google Sheets', color: '#0f9d58', text: 'white' },
+                    { label: 'Docker', color: '#0db7ed', text: 'white' },
+                    { label: 'Webhooks', color: '#a78bfa', text: 'white' },
+                    { label: 'Automation', color: '#f59e0b', text: 'black' },
+                    { label: 'API Integration', color: '#10b981', text: 'white' },
+                ],
+                desc: 'End-to-end automated ticketing system for office facility requests. Captures web form submissions via n8n webhook, generates unique ticket IDs, logs to Google Sheets, and sends dual email notifications - zero manual intervention.',
+                specs: [
+                    ['Frontend', 'Vanilla JS, responsive CSS, client-side validation'],
+                    ['Backend', 'n8n webhook pipeline, conditional logic, data transform'],
+                    ['Storage', 'Google Sheets via API - live log, no database needed'],
+                    ['Notifications', 'Dual email - requester + facility team'],
+                    ['Ticket ID', 'Auto-generated unique ID per submission'],
+                    ['Infrastructure', 'Docker containerized, self-hosted n8n'],
+                    ['Error Handling', 'Timeout recovery, webhook retry logic'],
+                    ['Deployment', 'Localhost → production migration documented'],
+                ],
+                impact: '330 hours/year saved · ₹1,65,000 annual labor cost reduction · 100% elimination of manual data entry.',
+                links: [
+                    { label: 'View Project', icon: 'fab fa-github', href: 'https://github.com/wsnh2022/n8n-form-to-inbox-automation', style: 'accent' },
+                ]
+            },
+            'social': {
+                id: 'PROJ_003',
+                title: 'Social Media Content System',
+                image: 'https://img.freepik.com/free-vector/social-media-marketing-concept-with-icons_23-2148431524.jpg',
+                badges: [
+                    { label: 'Canva', color: '#ec4899', text: 'white' },
+                    { label: 'Instagram', color: '#f97316', text: 'white' },
+                    { label: 'Meta Suite', color: '#3b82f6', text: 'white' },
+                    { label: 'GenAI', color: '#10b981', text: 'white' },
+                    { label: 'Branding', color: '#f59e0b', text: 'black' },
+                    { label: 'Strategy', color: '#a855f7', text: 'white' },
+                ],
+                desc: 'Designed and maintained a templated content pipeline for @datacraft.yogi on Instagram. Produces data-themed educational posts, carousel breakdowns, and reels covering analytics and automation topics for a technical audience.',
+                specs: [
+                    ['Visuals', 'Custom Canva Templates per content type'],
+                    ['Copy', 'AI-assisted content with manual editing'],
+                    ['Focus', 'Data & Automation education'],
+                    ['Consistency', 'Weekly content loop'],
+                    ['Formats', 'Static posts · Carousels · Reels'],
+                    ['Tools', 'Canva Pro · Meta Business Suite · GenAI'],
+                ],
+                impact: 'Active content operation at @datacraft.yogi. Personal brand for data and automation professionals.',
+                links: [
+                    { label: 'View Feed', icon: 'fab fa-instagram', href: 'https://www.instagram.com/datacraft.yogi/', style: 'accent' },
+                ]
+            },
+            'portfolio': {
+                id: 'PROJ_004',
+                title: 'Personal Portfolio',
+                image: './assets/images/meta/og_tag.png',
+                badges: [
+                    { label: 'HTML5', color: '#e34c26', text: 'white' },
+                    { label: 'CSS3', color: '#264de4', text: 'white' },
+                    { label: 'Vanilla JS', color: '#f7df1e', text: 'black' },
+                    { label: 'Tailwind CSS', color: '#38bdf8', text: 'black' },
+                    { label: 'Web Dev', color: '#10b981', text: 'white' },
+                    { label: 'GitHub Pages', color: '#3b82f6', text: 'white' },
+                ],
+                desc: 'Designed and built this portfolio from scratch as a static site hosted on GitHub Pages. No heavy frameworks, no dependencies. Structured for performance, readability, and long-term maintainability.',
+                specs: [
+                    ['Architecture', 'Static / Vanilla - zero build step'],
+                    ['Styling', 'Custom utility-first CSS + Tailwind CDN'],
+                    ['Performance', '95+ Lighthouse score'],
+                    ['Hosting', 'GitHub Pages with CI/CD via git push'],
+                    ['SEO', 'Schema.org JSON-LD · Open Graph · Twitter Card'],
+                    ['Analytics', 'Google Analytics 4 integrated'],
+                    ['Animations', 'CSS scroll-reveal · counter animations'],
+                    ['Responsive', 'Mobile-first, tested on all breakpoints'],
+                ],
+                impact: 'Live at wsnh2022.github.io. Primary client-facing presence for freelancing outreach.',
+                links: [
+                    { label: 'Source Code', icon: 'fab fa-github', href: 'https://github.com/wsnh2022/wsnh2022.github.io', style: 'ghost' },
+                ]
+            },
+            'us-shopping': {
+                id: 'PROJ_011',
+                title: 'US Shopping Behavior Dashboard',
+                image: 'https://github.com/wsnh2022/US-Shopping-Behavior-PowerBI/blob/main/dashboard_preview_dark.png?raw=true',
+                badges: [
+                    { label: 'Power BI', color: '#F2C811', text: 'black' },
+                    { label: 'DAX', color: '#3b82f6', text: 'white' },
+                    { label: 'Power Query', color: '#10b981', text: 'white' },
+                    { label: 'CSV Dataset', color: '#64748b', text: 'white' },
+                    { label: 'Data Analysis', color: '#8b5cf6', text: 'white' },
+                ],
+                desc: 'End-to-end Power BI dashboard analyzing US customer shopping behavior across 3,900 orders. Dual-mode design (light + dark). Breaks down $233K in revenue by category, season, payment method, demographic, and geography — with actionable recommendations built into the layout.',
+                specs: [
+                    ['Revenue', '$233.1K total · $59.76 avg order value'],
+                    ['Records', '3,900 customer orders analyzed'],
+                    ['Top Category', 'Clothing — $104K (45% of sales)'],
+                    ['Best Season', 'Spring — $68K revenue'],
+                    ['Demographics', '68% male · 39% revenue from ages 20–40'],
+                    ['Subscription Rate', '28% of customers'],
+                    ['Promo Usage', '43% of orders used promo codes'],
+                    ['Modes', 'Light + Dark theme dashboard'],
+                    ['Data Source', 'Shopping Trends Dataset (CSV)'],
+                    ['Tool', 'Power BI Desktop (.pbix)'],
+                ],
+                impact: 'Identifies underperforming states, untapped female shopper segment, and seasonal gaps — actionable insights packaged as a client-ready dashboard.',
+                links: [
+                    { label: 'View on GitHub', icon: 'fab fa-github', href: 'https://github.com/wsnh2022/US-Shopping-Behavior-PowerBI', style: 'accent' },
+                ]
+            },
+            'brand': {
+                id: 'PROJ_005',
+                title: 'Brand Asset Library',
+                image: 'https://img.freepik.com/free-vector/brand-identity-concept-illustration_114360-3180.jpg',
+                badges: [
+                    { label: 'Canva Pro', color: '#ec4899', text: 'white' },
+                    { label: 'Typography', color: '#a855f7', text: 'white' },
+                    { label: 'Branding', color: '#06b6d4', text: 'black' },
+                    { label: 'Design', color: '#ec4899', text: 'white' },
+                    { label: 'Freelance', color: '#64748b', text: 'white' },
+                ],
+                desc: 'Created print and digital brand assets including visiting cards and event flyers for small businesses. Focus on typographic hierarchy, color consistency, and print-ready output without agency overhead.',
+                specs: [
+                    ['Asset', 'Visiting Cards - print-ready 300 DPI'],
+                    ['Asset', 'Event Flyers - digital + print formats'],
+                    ['Tool', 'Canva Pro with custom brand kits'],
+                    ['Output', 'Branded toolkits delivered to clients'],
+                    ['Typography', 'Custom hierarchy per brand identity'],
+                    ['Format', 'PDF export · PNG · Social-ready sizes'],
+                ],
+                impact: 'Freelance design lane maintained separately from automation work. Serves small businesses needing clean print assets without agency cost.',
+                links: [
+                    { label: 'Portfolio Coming Soon', icon: 'fas fa-lock', href: '#', style: 'ghost' },
+                ]
+            }
+        };
+
+        // ==================================
+        // PROJECT MODAL
+        // ==================================
+        const projectModal      = document.getElementById('projectModal');
+        const projectModalClose = document.getElementById('projectModalClose');
+        const projectModalPanel = document.getElementById('projectModalPanel');
+
+        function openProjectModal(key) {
+            const d = projectData[key];
+            if (!d) return;
+
+            document.getElementById('modalCoverImg').src = d.image;
+            document.getElementById('modalCoverImg').alt = d.title;
+            document.getElementById('modalProjId').textContent = 'ID: ' + d.id;
+            document.getElementById('modalTitle').textContent = d.title;
+            document.getElementById('modalDesc').textContent = d.desc;
+            document.getElementById('modalImpact').textContent = d.impact;
+
+            const badgesEl = document.getElementById('modalBadges');
+            badgesEl.innerHTML = d.badges.map(b =>
+                `<span style="background:${b.color}22;color:${b.color};border:1px solid ${b.color}33" class="px-2 py-0.5 text-[10px] font-bold rounded">${b.label}</span>`
+            ).join('');
+
+            const specsEl = document.getElementById('modalSpecs');
+            specsEl.innerHTML = d.specs.map(([k, v]) =>
+                `<div class="flex items-start gap-2">• <span class="text-slate-300 shrink-0">${k}:</span> <span>${v}</span></div>`
+            ).join('');
+
+            const btnsEl = document.getElementById('modalButtons');
+            btnsEl.innerHTML = d.links.map(l => {
+                const cls = l.style === 'accent'
+                    ? 'px-5 py-2.5 bg-accent/10 hover:bg-accent/20 text-accent rounded-lg text-sm font-mono flex items-center gap-2 transition-all border border-accent/20'
+                    : 'px-5 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm font-mono flex items-center gap-2 transition-all border border-white/10';
+                return `<a href="${l.href}" target="_blank" class="${cls}"><i class="${l.icon}"></i> ${l.label}</a>`;
+            }).join('');
+
+            projectModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            projectModalPanel.scrollTop = 0;
+        }
+
+        function closeProjectModal() {
+            projectModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-project]').forEach(card => {
+                card.addEventListener('click', () => openProjectModal(card.getAttribute('data-project')));
+            });
+        });
+
+        projectModal.addEventListener('click', closeProjectModal);
+        projectModalPanel.addEventListener('click', e => e.stopPropagation());
+        projectModalClose.addEventListener('click', closeProjectModal);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProjectModal(); });
+
+        // ==================================
+        // LIGHTBOX
+        // ==================================
+        const lightbox      = document.getElementById('lightbox');
+        const lightboxImg   = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        document.querySelectorAll('.lightbox-trigger').forEach(img => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        lightbox.addEventListener('click', closeLightbox);
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxImg.addEventListener('click', e => e.stopPropagation());
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    </script>
+
+</body>
+
+</html>
