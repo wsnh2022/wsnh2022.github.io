@@ -1242,7 +1242,8 @@
             <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none">
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 relative z-10">
+            <!-- Row 1: Intro text + Visiting Card -->
+            <div class="grid md:grid-cols-2 gap-10 relative z-10 items-start">
                 <div>
                     <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 font-display">Beyond the Terminal</h2>
                     <p class="text-slate-400 leading-relaxed mb-6 text-base">
@@ -1252,16 +1253,14 @@
                     </p>
                     <ul class="space-y-4">
                         <li class="flex items-start text-base text-slate-300">
-                            <div class="mt-1 mr-3 p-2 bg-purple-500/10 rounded"><i
-                                    class="fas fa-paint-brush text-purple-400"></i></div>
+                            <div class="mt-1 mr-3 p-2 bg-purple-500/10 rounded"><i class="fas fa-paint-brush text-purple-400"></i></div>
                             <div>
                                 <strong class="text-white block">Digital Branding</strong>
                                 Visiting cards, event flyers, and social media kits designed with precision and purpose.
                             </div>
                         </li>
                         <li class="flex items-start text-base text-slate-300">
-                            <div class="mt-1 mr-3 p-2 bg-accent/10 rounded"><i class="fab fa-instagram text-accent"></i>
-                            </div>
+                            <div class="mt-1 mr-3 p-2 bg-accent/10 rounded"><i class="fab fa-instagram text-accent"></i></div>
                             <div>
                                 <strong class="text-white block">Content Operation</strong>
                                 Running <a href="https://www.instagram.com/datacraft.yogi/" target="_blank"
@@ -1270,26 +1269,116 @@
                             </div>
                         </li>
                     </ul>
-                </div>
-                <div class="flex flex-col justify-center gap-4">
-                    <div
-                        class="terminal-input flex flex-col justify-center items-center text-center border-dashed border-2 border-white/10 bg-black/20 p-8 rounded-xl">
-                        <i class="fas fa-shapes text-3xl text-purple-400 mb-4 animate-float"></i>
-                        <h4 class="text-white font-bold mb-2">Design Showcase</h4>
-                        <p class="text-xs text-slate-500 max-w-xs mb-6">
-                            Clean hierarchy. No noise. The right information for the right audience.
-                        </p>
-                        <div class="flex flex-wrap justify-center gap-3">
-                            <a href="https://www.instagram.com/datacraft.yogi/" target="_blank"
-                                class="px-4 py-2 bg-[#E1306C] text-white rounded-lg text-xs font-bold hover:scale-105 transition-all">
-                                CONTENT FEED →
-                            </a>
-                            <a href="#"
-                                class="px-4 py-2 bg-white/10 text-white rounded-lg text-xs font-bold border border-white/20 hover:bg-white/20 transition-all opacity-50 cursor-not-allowed">
-                                DESIGN SAMPLES →
-                            </a>
-                        </div>
+                    <div class="flex flex-wrap gap-3 mt-6">
+                        <a href="https://www.instagram.com/datacraft.yogi/" target="_blank"
+                            class="px-4 py-2 bg-[#E1306C] text-white rounded-lg text-xs font-bold hover:scale-105 transition-all">
+                            CONTENT FEED →
+                        </a>
+                        <a href="#"
+                            class="px-4 py-2 bg-white/10 text-white rounded-lg text-xs font-bold border border-white/20 hover:bg-white/20 transition-all opacity-50 cursor-not-allowed">
+                            DESIGN SAMPLES →
+                        </a>
                     </div>
+                </div>
+                <div class="glass rounded-xl p-4 border border-white/5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa-solid fa-id-card text-accent"></i>
+                        <span class="font-semibold text-white text-sm tracking-wide">Visiting Card</span>
+                    </div>
+                    <div style="position: relative; width: 100%; height: 0; padding-top: 141.4286%; overflow: hidden; border-radius: 6px;">
+                        <iframe loading="lazy"
+                            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                            src="https://www.canva.com/design/DAG7CisXuv0/rnvOoFknhQR6KAUI5qFU-w/view?embed"
+                            allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 text-right">
+                        <a href="https://www.canva.com/design/DAG7CisXuv0/rnvOoFknhQR6KAUI5qFU-w/view?utm_content=DAG7CisXuv0&utm_campaign=designshare&utm_medium=embeds&utm_source=link"
+                            target="_blank" rel="noopener" class="hover:text-slate-300 transition-colors">Design</a> by datacraft.yogi
+                    </p>
+                </div>
+            </div>
+
+            <!-- Row 2: Content Gallery -->
+            <div class="relative z-10 mt-10">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-photo-film text-purple-400 text-sm"></i>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-widest">Content Gallery</h3>
+                    <div class="flex-1 h-px bg-white/5"></div>
+                </div>
+
+                <!-- Landscape (57%) - add landscape embeds here -->
+                <p class="text-xs text-slate-600 font-mono uppercase tracking-widest mb-3">Landscape</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="glass rounded-xl p-4 border border-white/5">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fa-solid fa-id-card text-purple-400"></i>
+                            <span class="font-semibold text-white text-sm tracking-wide">Visiting Card - zenfli solutions</span>
+                            <span class="ml-auto text-xs text-slate-500">@datacraft.yogi</span>
+                        </div>
+                        <div style="position: relative; width: 100%; height: 0; padding-top: 57.1429%; overflow: hidden; border-radius: 6px;">
+                            <iframe loading="lazy"
+                                style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                                src="https://www.canva.com/design/DAGj97WbeK0/rfUTWL7DgvOSjwyL6o5USw/view?embed"
+                                allowfullscreen="allowfullscreen" allow="fullscreen">
+                            </iframe>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 text-right">
+                            <a href="https://www.canva.com/design/DAGj97WbeK0/rfUTWL7DgvOSjwyL6o5USw/view?utm_content=DAGj97WbeK0&utm_campaign=designshare&utm_medium=embeds&utm_source=link"
+                                target="_blank" rel="noopener" class="hover:text-slate-300 transition-colors">View on Canva</a>
+                        </p>
+                    </div>
+                    <div class="glass rounded-xl p-4 border border-white/5">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fa-solid fa-id-card text-purple-400"></i>
+                            <span class="font-semibold text-white text-sm tracking-wide">Visiting Card Design</span>
+                            <span class="ml-auto text-xs text-slate-500">@datacraft.yogi</span>
+                        </div>
+                        <div style="position: relative; width: 100%; height: 0; padding-top: 57.1429%; overflow: hidden; border-radius: 6px;">
+                            <iframe loading="lazy"
+                                style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                                src="https://www.canva.com/design/DAG4S9KWxPs/_MYRX-6YFlKFqHOtf6xJGA/view?embed"
+                                allowfullscreen="allowfullscreen" allow="fullscreen">
+                            </iframe>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 text-right">
+                            <a href="https://www.canva.com/design/DAG4S9KWxPs/_MYRX-6YFlKFqHOtf6xJGA/view?utm_content=DAG4S9KWxPs&utm_campaign=designshare&utm_medium=embeds&utm_source=link"
+                                target="_blank" rel="noopener" class="hover:text-slate-300 transition-colors">View on Canva</a>
+                        </p>
+                    </div>
+                    <!-- Add future landscape embeds here -->
+                </div>
+
+                <!-- Portrait (125%) - add portrait/square embeds here -->
+                <p class="text-xs text-slate-600 font-mono uppercase tracking-widest mb-3">Portrait</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass rounded-xl p-4 border border-white/5">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fab fa-instagram text-accent"></i>
+                            <span class="font-semibold text-white text-sm tracking-wide">Bridesmaid Makeover</span>
+                            <span class="ml-auto text-xs text-slate-500">@datacraft.yogi</span>
+                        </div>
+                        <div style="position: relative; width: 100%; height: 0; padding-top: 125%; overflow: hidden; border-radius: 6px;">
+                            <iframe loading="lazy"
+                                style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                                src="https://www.canva.com/design/DAG4drzy84o/3QJxZ9ucpJc57BKymktlag/watch?embed"
+                                allowfullscreen="allowfullscreen" allow="fullscreen">
+                            </iframe>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 text-right">
+                            <a href="https://www.canva.com/design/DAG4drzy84o/3QJxZ9ucpJc57BKymktlag/watch?utm_content=DAG4drzy84o&utm_campaign=designshare&utm_medium=embeds&utm_source=link"
+                                target="_blank" rel="noopener" class="hover:text-slate-300 transition-colors">View on Canva</a>
+                        </p>
+                    </div>
+                    <div style="position: relative; width: 100%; height: 0; padding-top: 125.0000%;
+                         padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+                         border-radius: 8px; will-change: transform;">
+                          <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                            src="https://www.canva.com/design/DAGhzZtyRi4/fa2z5kOGsHtukAM99KjiZA/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                          </iframe>
+                        </div>
+                        <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGhzZtyRi4&#x2F;fa2z5kOGsHtukAM99KjiZA&#x2F;watch?utm_content=DAGhzZtyRi4&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Rupa Insta Post old</a> by datacraft.yogi
+                    <!-- Add future portrait embeds here -->
                 </div>
             </div>
         </section>
@@ -1321,6 +1410,11 @@
                     <a href="mailto:wsnh.code5621@gmail.com"
                         class="px-6 py-4 glass hover:border-accent/50 text-accent font-bold rounded-xl border border-accent/30 transition-all transform hover:scale-105 inline-flex items-center gap-3 text-sm">
                         <i class="fas fa-envelope text-lg w-5 text-center"></i> wsnh.code5621@gmail.com
+                    </a>
+                    <a href="https://www.canva.com/design/DAG7CisXuv0/rnvOoFknhQR6KAUI5qFU-w/view?utm_content=DAG7CisXuv0&utm_campaign=designshare&utm_medium=embeds&utm_source=link"
+                        target="_blank" rel="noopener noreferrer"
+                        class="px-6 py-4 glass hover:border-purple-400/50 text-purple-400 font-bold rounded-xl border border-purple-400/30 transition-all transform hover:scale-105 inline-flex items-center gap-3 text-sm">
+                        <i class="fa-solid fa-id-card text-lg w-5 text-center"></i> Visiting Card
                     </a>
                 </div>
 
