@@ -46,17 +46,23 @@
                         panel: '#111827',
                         surface: '#1f2937',
                         accent: '#38bdf8',
+                        primary: '#38bdf8',
                         success: '#10b981',
                         warning: '#f59e0b',
                     },
                     animation: {
                         'float': 'float 3s ease-in-out infinite',
+                        'fade-up': 'fadeUp 0.5s ease-out both',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
                             '50%': { transform: 'translateY(-10px)' }
-                        }
+                        },
+                        fadeUp: {
+                            '0%':   { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
                     }
                 }
             }
@@ -211,11 +217,38 @@
 
         /* Project Filter Buttons */
         .filter-btn { transition: all 0.2s ease; }
-        .filter-btn.active { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border-color: #38bdf8; }
+        .filter-btn.active { background: hsl(240,10%,16%); border-color: hsl(240,5%,28%); font-weight: 800; }
 
         /* Project Cards */
         .project-card { transition: all 0.3s ease; }
         .project-card.hidden { display: none; }
+
+        /* Glass Card */
+        .glass-card {
+            background: rgba(10, 14, 39, 0.55);
+            backdrop-filter: blur(16px) saturate(160%);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+        }
+        .glass-hover { transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+        .glass-hover:hover {
+            border-color: rgba(255,255,255,0.16);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+            transform: translateY(-2px);
+        }
+
+        /* Modal animation */
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.94) translateY(16px); }
+            to   { opacity: 1; transform: scale(1)    translateY(0);    }
+        }
+        @keyframes modalOut {
+            from { opacity: 1; transform: scale(1)    translateY(0);    }
+            to   { opacity: 0; transform: scale(0.94) translateY(16px); }
+        }
+        .modal-panel-animate { animation: modalIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .modal-panel-closing { animation: modalOut 0.2s ease forwards; }
 
         /* Aurora background */
         .aurora-wrap {
@@ -348,356 +381,364 @@
                 <!-- Filter Buttons -->
                 <div class="flex flex-wrap gap-2">
                     <button
-                        class="filter-btn active px-4 py-2 rounded-lg border-2 border-accent bg-accent/10 text-accent text-sm font-bold uppercase transition-all hover:bg-accent/20"
+                        class="filter-btn active px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[hsl(340,82%,75%)] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
                         data-filter="all">
                         All Projects
                     </button>
                     <button
-                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#fbbf24] bg-transparent text-[#fbbf24] text-sm font-bold uppercase transition-all hover:bg-[#fbbf24]/10"
+                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#fbbf24] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
                         data-filter="powerbi">
                         Power BI
                     </button>
                     <button
-                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#60a5fa] bg-transparent text-[#60a5fa] text-sm font-bold uppercase transition-all hover:bg-[#60a5fa]/10"
+                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#60a5fa] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
                         data-filter="python">
                         Python
                     </button>
                     <button
-                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#38bdf8] bg-transparent text-[#38bdf8] text-sm font-bold uppercase transition-all hover:bg-[#38bdf8]/10"
+                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#38bdf8] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
                         data-filter="autohotkey">
                         AutoHotkey
                     </button>
                     <button
-                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#f87171] bg-transparent text-[#f87171] text-sm font-bold uppercase transition-all hover:bg-[#f87171]/10"
+                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#f87171] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
                         data-filter="n8n">
                         n8n
                     </button>
                     <button
-                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#38bdf8] bg-transparent text-[#38bdf8] text-sm font-bold uppercase transition-all hover:bg-[#38bdf8]/10"
+                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#e2e8f0] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
                         data-filter="sql">
                         SQL
                     </button>
                     <button
-                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#4B32C3] bg-transparent text-[#4B32C3] text-sm font-bold uppercase transition-all hover:bg-[#4B32C3]/10"
+                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#818cf8] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
                         data-filter="electron">
                         Electron
                     </button>
                     <button
-                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#ec4899] bg-transparent text-[#ec4899] text-sm font-bold uppercase transition-all hover:bg-[#ec4899]/10"
+                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#ec4899] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
                         data-filter="design">
                         Design
                     </button>
                     <button
-                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#f97316] bg-transparent text-[#f97316] text-sm font-bold uppercase transition-all hover:bg-[#f97316]/10"
+                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#f97316] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
                         data-filter="content">
                         Content
                     </button>
                     <button
-                        class="filter-btn px-4 py-2 rounded-lg border-2 border-[#10b981] bg-transparent text-[#10b981] text-sm font-bold uppercase transition-all hover:bg-[#10b981]/10"
+                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#10b981] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
                         data-filter="web">
                         Web
                     </button>
                 </div>
             </div>
 
-            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-                <!-- Project 0: Command-Center Dashboard -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="electron" data-project="cmd-center">
-                    <a href="https://wsnh2022.github.io/blog/post/Command-Center" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="./assets/images/projects/command-center-cover.jpeg"
-                            alt="Command-Center Dashboard"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                <!-- Command-Center Dashboard -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 0ms;" data-category="electron" data-project="cmd-center">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="./assets/images/projects/command-center-cover.jpeg" alt="Command-Center Dashboard" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Electron</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">React</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">TypeScript</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">SQLite</div>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Command-Center Dashboard</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#4B32C3]/95 text-white text-[11px] font-bold rounded-md">Electron</span>
-                                        <span class="px-2.5 py-1 bg-[#61DAFB]/95 text-black text-[11px] font-bold rounded-md">React</span>
-                                        <span class="px-2.5 py-1 bg-[#3178C6]/95 text-white text-[11px] font-bold rounded-md">TypeScript</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Daily Driver</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_006</span>
-                            </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Command-Center Dashboard</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Daily Driver</div>
                         </div>
-                    </a>
-                </div>
-
-                <!-- Project 1: Nexus Launcher -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="electron autohotkey" data-project="nexus">
-                    <a href="https://wsnh2022.github.io/blog/post/Nexus-Launcher" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="./assets/images/projects/nexus-launcher-screenshot.png"
-                            alt="Nexus Launcher"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Nexus Launcher</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#4B32C3]/95 text-white text-[11px] font-bold rounded-md">Electron</span>
-                                        <span class="px-2.5 py-1 bg-[#00f2ff]/95 text-black text-[11px] font-bold rounded-md">AutoHotkey v2</span>
-                                        <span class="px-2.5 py-1 bg-[#646CFF]/95 text-white text-[11px] font-bold rounded-md">Vite</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Open Source</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_001</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Project 2: Facility Automation Pipeline -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="n8n" data-project="facility">
-                    <a href="https://wsnh2022.github.io/blog/post/n8n-form-to-inbox-automation" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="./assets/images/projects/N8N_Workflow_Form_To_Inbox_Pipeline.png"
-                            alt="Facility Automation Pipeline"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Facility Automation Pipeline</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#ea4b71]/95 text-white text-[11px] font-bold rounded-md">n8n</span>
-                                        <span class="px-2.5 py-1 bg-[#0db7ed]/95 text-white text-[11px] font-bold rounded-md">Docker</span>
-                                        <span class="px-2.5 py-1 bg-[#0f9d58]/95 text-white text-[11px] font-bold rounded-md">Google Sheets</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">330 hrs/yr saved</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_002</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Project 3: Social Media Content System -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="content" data-project="social">
-                    <div class="relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="https://img.freepik.com/free-vector/social-media-marketing-concept-with-icons_23-2148431524.jpg"
-                            alt="Social Media Content System"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Social Media Content System</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-pink-500/95 text-white text-[11px] font-bold rounded-md">Canva</span>
-                                        <span class="px-2.5 py-1 bg-orange-500/95 text-white text-[11px] font-bold rounded-md">Instagram</span>
-                                        <span class="px-2.5 py-1 bg-green-500/95 text-white text-[11px] font-bold rounded-md">GenAI</span>
-                                        <span class="px-2.5 py-1 bg-amber-500/95 text-black text-[11px] font-bold rounded-md">Branding</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_003</span>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">A keyboard-driven Windows desktop hub — every tool, URL, script, and folder in one global shortcut (Ctrl+Shift+Space).</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <div class="flex gap-1">
+                                <a href="https://github.com/wsnh2022/command-center" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 4: Personal Portfolio -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="web" data-project="portfolio">
-                    <a href="https://wsnh2022.github.io/" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="./assets/images/meta/og_tag.png"
-                            alt="Personal Portfolio"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                <!-- Nexus Launcher -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 100ms;" data-category="electron autohotkey" data-project="nexus">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="./assets/images/projects/nexus-launcher-screenshot.png" alt="Nexus Launcher" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Electron</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">AutoHotkey v2</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Node.js</div>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Personal Portfolio</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#e34c26]/95 text-white text-[11px] font-bold rounded-md">HTML5</span>
-                                        <span class="px-2.5 py-1 bg-[#264de4]/95 text-white text-[11px] font-bold rounded-md">CSS3</span>
-                                        <span class="px-2.5 py-1 bg-[#38bdf8]/95 text-black text-[11px] font-bold rounded-md">Tailwind</span>
-                                        <span class="px-2.5 py-1 bg-emerald-500/95 text-white text-[11px] font-bold rounded-md">GitHub Pages</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_004</span>
-                            </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Nexus Launcher</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
                         </div>
-                    </a>
-                </div>
-
-                <!-- Project 5: Brand Asset Library -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="design" data-project="brand">
-                    <div class="relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="https://img.freepik.com/free-vector/brand-identity-concept-illustration_114360-3180.jpg"
-                            alt="Brand Asset Library"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Brand Asset Library</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-pink-500/95 text-white text-[11px] font-bold rounded-md">Canva Pro</span>
-                                        <span class="px-2.5 py-1 bg-purple-500/95 text-white text-[11px] font-bold rounded-md">Typography</span>
-                                        <span class="px-2.5 py-1 bg-cyan-500/95 text-black text-[11px] font-bold rounded-md">Branding</span>
-                                        <span class="px-2.5 py-1 bg-slate-500/95 text-white text-[11px] font-bold rounded-md">Freelance</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_005</span>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">Context-triggered action launcher for Windows — select text, trigger via CapsLock+S, dispatch to any engine, AI, or script.</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <div class="flex gap-1">
+                                <a href="https://github.com/wsnh2022/Nexus-Launcher" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 7: VisionScribe AI -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="python" data-project="visionscribe">
-                    <a href="https://wsnh2022.github.io/blog/post/VisionScribe-AI" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="https://github.com/wsnh2022/VisionScribe-AI/blob/main/assets/VisionScribe_coverimage.png?raw=true"
-                            alt="VisionScribe AI"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
+                <!-- Facility Automation Pipeline -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 200ms;" data-category="n8n" data-project="facility">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="./assets/images/projects/N8N_Workflow_Form_To_Inbox_Pipeline.png" alt="Facility Automation Pipeline" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">n8n</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Docker</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Google Sheets</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Webhooks</div>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">VisionScribe AI</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#3776AB]/95 text-white text-[11px] font-bold rounded-md">Python</span>
-                                        <span class="px-2.5 py-1 bg-[#e05c4b]/95 text-white text-[11px] font-bold rounded-md">Claude API</span>
-                                        <span class="px-2.5 py-1 bg-violet-600/95 text-white text-[11px] font-bold rounded-md">Computer Vision</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Open Source</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_007</span>
-                            </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Facility Automation Pipeline</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Completed</div>
                         </div>
-                    </a>
-                </div>
-
-                <!-- Project 8: AHKMenu -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="autohotkey web" data-project="ahkmenu">
-                    <a href="https://wsnh2022.github.io/blog/post/ahkmenu" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/ahkmenu.png?raw=true"
-                            alt="AHKMenu - AutoHotkey Menu Builder"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">AHKMenu – Menu Builder</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#00f2ff]/95 text-black text-[11px] font-bold rounded-md">AutoHotkey v2</span>
-                                        <span class="px-2.5 py-1 bg-[#e34c26]/95 text-white text-[11px] font-bold rounded-md">HTML/JS</span>
-                                        <span class="px-2.5 py-1 bg-slate-600/95 text-white text-[11px] font-bold rounded-md">Browser Tool</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Live Demo</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_008</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Project 9: Pin Annotator -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="web" data-project="pin-annotator">
-                    <a href="https://wsnh2022.github.io/blog/post/pin-annotator_v8" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/pin-annotator.png?raw=true"
-                            alt="Pin Annotator - Private Image Annotation"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">Pin Annotator</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#e34c26]/95 text-white text-[11px] font-bold rounded-md">HTML/JS</span>
-                                        <span class="px-2.5 py-1 bg-teal-600/95 text-white text-[11px] font-bold rounded-md">Client-Side</span>
-                                        <span class="px-2.5 py-1 bg-slate-600/95 text-white text-[11px] font-bold rounded-md">Privacy-First</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Live Demo</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_009</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Project 10: SQL Quick Reference -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="sql web" data-project="sql-reference">
-                    <a href="https://wsnh2022.github.io/blog/post/sql-reference" target="_blank" rel="noopener noreferrer" class="block relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/sql-reference.png?raw=true"
-                            alt="SQL Quick Reference"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">SQL Quick Reference</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#336791]/95 text-white text-[11px] font-bold rounded-md">SQL</span>
-                                        <span class="px-2.5 py-1 bg-[#f7df1e]/95 text-black text-[11px] font-bold rounded-md">JavaScript</span>
-                                        <span class="px-2.5 py-1 bg-slate-600/95 text-white text-[11px] font-bold rounded-md">Reference Tool</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Live Demo</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_010</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Project 11: US Shopping Behavior Dashboard -->
-                <div class="project-card group cursor-pointer rounded-2xl overflow-hidden border border-white/5 hover:border-accent/40 transition-all duration-300"
-                    data-category="powerbi" data-project="us-shopping">
-                    <div class="relative h-[260px] overflow-hidden bg-[#0a0f1a]">
-                        <img src="https://github.com/wsnh2022/US-Shopping-Behavior-PowerBI/blob/85563429425d784684828acd380f8609052f3b4f/dashboard_preview_dark.png?raw=true"
-                            alt="US Shopping Behavior Dashboard"
-                            class="w-full h-full object-contain transition-all duration-500 group-hover:scale-[1.04]" />
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="px-4 py-2 rounded-full bg-black/60 border border-accent/40 text-accent text-xs font-mono backdrop-blur-sm">View Details →</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                            <div class="flex items-end justify-between gap-2">
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-sm sm:text-lg leading-tight">US Shopping Behavior Dashboard</h3>
-                                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                                        <span class="px-2.5 py-1 bg-[#F2C811]/95 text-black text-[11px] font-bold rounded-md">Power BI</span>
-                                        <span class="px-2.5 py-1 bg-[#3b82f6]/95 text-white text-[11px] font-bold rounded-md">DAX</span>
-                                        <span class="px-2.5 py-1 bg-[#10b981]/95 text-white text-[11px] font-bold rounded-md">Power Query</span>
-                                        <span class="px-2.5 py-1 bg-[#fbbf24]/95 text-black text-[11px] font-bold rounded-md">Case Study</span>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono shrink-0">PROJ_011</span>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">End-to-end automated ticketing — form submission → ticket ID → Google Sheets log → dual email. 330 hrs/yr saved.</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <div class="flex gap-1">
+                                <a href="https://github.com/wsnh2022/n8n-form-to-inbox-automation" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
+                </article>
+
+                <!-- Social Media Content System -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 300ms;" data-category="content" data-project="social">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://img.freepik.com/free-vector/social-media-marketing-concept-with-icons_23-2148431524.jpg" alt="Social Media Content System" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Canva Pro</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Instagram</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">GenAI</div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Social Media Content System</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Ongoing</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">Templated content pipeline for @datacraft.yogi — data-themed posts, carousels, and reels for analytics professionals.</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <div class="flex gap-1">
+                                <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right w-5 h-5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Personal Portfolio -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 400ms;" data-category="web" data-project="portfolio">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="./assets/images/meta/og_tag.png" alt="Personal Portfolio" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">HTML5</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Tailwind CSS</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">GitHub Pages</div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Personal Portfolio</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Live</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">Zero-dependency static site with 95+ Lighthouse score — Schema.org SEO, GA4, mobile-first, deployed on GitHub Pages.</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <div class="flex gap-1">
+                                <a href="https://github.com/wsnh2022/wsnh2022.github.io" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Brand Asset Library -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 500ms;" data-category="design" data-project="brand">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://img.freepik.com/free-vector/brand-identity-concept-illustration_114360-3180.jpg" alt="Brand Asset Library" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Canva Pro</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Typography</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Branding</div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Brand Asset Library</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Freelance</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">Print-ready visiting cards and event flyers for small businesses — custom brand kits with typographic hierarchy.</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- VisionScribe AI -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 600ms;" data-category="python" data-project="visionscribe">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://github.com/wsnh2022/VisionScribe-AI/blob/main/assets/VisionScribe_coverimage.png?raw=true" alt="VisionScribe AI" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Python</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Claude API</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Computer Vision</div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">VisionScribe AI</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">Python + Claude API tool that analyzes images and auto-generates structured markdown documentation from visual content.</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <div class="flex gap-1">
+                                <a href="https://github.com/wsnh2022/VisionScribe-AI" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- AHKMenu -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 700ms;" data-category="autohotkey web" data-project="ahkmenu">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/ahkmenu.png?raw=true" alt="AHKMenu – Menu Builder" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">AutoHotkey v2</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">HTML/JS</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Browser Tool</div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">AHKMenu – Menu Builder</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">Browser-based visual menu builder for AutoHotkey v2 — design your structure, export a ready-to-run AHK script.</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <div class="flex gap-1">
+                                <a href="https://wsnh2022.github.io/blog/post/ahkmenu" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right w-5 h-5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Pin Annotator -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 800ms;" data-category="web" data-project="pin-annotator">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/pin-annotator.png?raw=true" alt="Pin Annotator" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">HTML/JS</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Canvas API</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Privacy-First</div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Pin Annotator</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">Client-side image annotation — pin, label, and export entirely in-browser. No server, no uploads, full privacy.</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <div class="flex gap-1">
+                                <a href="https://wsnh2022.github.io/blog/post/pin-annotator_v8" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right w-5 h-5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SQL Quick Reference -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 900ms;" data-category="sql web" data-project="sql-reference">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/sql-reference.png?raw=true" alt="SQL Quick Reference" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">SQL</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">JavaScript</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Reference Tool</div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">SQL Quick Reference</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">Interactive SQL reference covering 60+ commands — DDL, DML, joins, aggregates, window functions with live search.</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <div class="flex gap-1">
+                                <a href="https://wsnh2022.github.io/blog/post/sql-reference" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right w-5 h-5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- US Shopping Behavior Dashboard -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1000ms;" data-category="powerbi" data-project="us-shopping">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://github.com/wsnh2022/US-Shopping-Behavior-PowerBI/blob/85563429425d784684828acd380f8609052f3b4f/dashboard_preview_dark.png?raw=true" alt="US Shopping Behavior Dashboard" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap gap-2 pointer-events-none">
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Power BI</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">DAX</div>
+                            <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-white/90 shadow-sm">Power Query</div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">US Shopping Behavior Dashboard</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Completed</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-5 leading-relaxed">Power BI dashboard analyzing 3,900 orders ($233K revenue) — dual light/dark mode with DAX measures and segment insights.</p>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <div class="flex gap-1">
+                                <a href="https://github.com/wsnh2022/US-Shopping-Behavior-PowerBI" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
             </div><!-- close projectsGrid -->
 
@@ -724,30 +765,48 @@
     </footer>
 
     <!-- Project Details Modal -->
-    <div id="projectModal" class="fixed inset-0 z-[9998] bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center hidden sm:px-4 py-0 sm:py-8" style="cursor: zoom-out;">
-        <div id="projectModalPanel" class="relative w-full sm:max-w-3xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto glass sm:rounded-2xl rounded-t-2xl border border-white/10 shadow-2xl" style="cursor: default;">
-            <button id="projectModalClose" class="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/60 hover:text-white text-lg transition-all">&times;</button>
-            <div class="w-full overflow-hidden rounded-t-2xl relative bg-[#0a0f1a]">
-                <img id="modalCoverImg" src="" alt="" class="lightbox-trigger w-full h-auto object-contain max-h-[280px] sm:max-h-[400px]" style="cursor: zoom-in;" />
-                <div id="modalProjId" class="absolute bottom-3 left-4 text-[10px] text-slate-500 font-mono"></div>
+    <div id="projectModal" class="fixed inset-0 z-[9998] bg-black/80 backdrop-blur-md flex items-center justify-center hidden px-3 py-3 sm:px-4 sm:py-8" style="cursor: zoom-out;">
+        <div id="projectModalPanel" class="modal-panel-animate relative w-full max-w-4xl max-h-[94vh] sm:max-h-[90vh] bg-[#0d0d14] rounded-2xl border border-white/10 shadow-2xl flex flex-col sm:flex-row overflow-hidden" style="cursor: default;">
+
+            <!-- Close -->
+            <button id="projectModalClose" class="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/60 hover:text-white text-lg transition-all">&times;</button>
+
+            <!-- LEFT: image -->
+            <div class="sm:w-[42%] shrink-0 bg-black/50 flex flex-col items-center justify-center p-3 sm:p-8 border-b sm:border-b-0 sm:border-r border-white/5">
+                <img id="modalCoverImg" src="" alt=""
+                     class="lightbox-trigger w-full max-h-[22vh] sm:max-h-[55vh] object-contain rounded-lg sm:rounded-xl"
+                     style="cursor: zoom-in;" />
+                <div id="modalDots" class="hidden sm:flex gap-2 mt-4">
+                    <span class="w-2 h-2 rounded-full bg-white/40"></span>
+                </div>
+                <p id="modalProjId" class="hidden sm:block mt-3 text-[10px] text-slate-600 font-mono"></p>
             </div>
-            <div class="p-4 sm:p-6 space-y-4 sm:space-y-5">
+
+            <!-- RIGHT: content -->
+            <div class="flex-1 overflow-y-auto p-4 sm:p-8 space-y-4 sm:space-y-5">
                 <div>
-                    <h3 id="modalTitle" class="font-display font-bold text-white text-2xl mb-3"></h3>
-                    <div id="modalBadges" class="flex flex-wrap gap-1.5"></div>
+                    <h2 id="modalTitle" class="font-display font-bold text-white text-2xl sm:text-3xl mb-1"></h2>
+                    <p id="modalSubtitle" class="text-[hsl(340,82%,72%)] text-sm font-medium"></p>
                 </div>
-                <div class="terminal-input text-sm p-4">
-                    <p id="modalDesc" class="text-slate-300 leading-relaxed"></p>
-                </div>
+
                 <div>
-                    <span class="text-accent font-bold text-xs block mb-3">TECHNICAL_SPECIFICATIONS ::</span>
-                    <div id="modalSpecs" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-[11px] text-slate-400"></div>
+                    <h4 class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Description</h4>
+                    <p id="modalDesc" class="text-slate-300 text-sm leading-relaxed"></p>
                 </div>
-                <div class="flex items-start gap-3 pt-2 border-t border-white/5">
-                    <span class="text-success font-bold text-xs uppercase tracking-tighter shrink-0">Impact ::</span>
-                    <p id="modalImpact" class="text-[12px] text-slate-300 italic"></p>
+
+                <div>
+                    <h4 class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Key Contributions</h4>
+                    <ul id="modalContributions" class="space-y-2 text-sm text-slate-300"></ul>
                 </div>
-                <div id="modalButtons" class="flex gap-3 pt-2"></div>
+
+                <div>
+                    <h4 class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Technologies</h4>
+                    <div id="modalTech" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <div id="modalButtons" class="flex flex-wrap gap-3 pt-3 border-t border-white/5"></div>
+
+                <p id="modalImpact" class="text-[11px] text-slate-500 italic border-t border-white/5 pt-3"></p>
             </div>
         </div>
     </div>
@@ -837,6 +896,8 @@
             'cmd-center': {
                 id: 'PROJ_006',
                 title: 'Command-Center Dashboard',
+                category: 'Desktop Development',
+                status: 'Daily Driver',
                 image: './assets/images/projects/command-center-cover.jpeg',
                 badges: [
                     { label: 'Electron', color: '#4B32C3', text: 'white' },
@@ -850,6 +911,12 @@
                     { label: 'Daily Driver', color: '#10b981', text: 'white' },
                 ],
                 desc: 'A personal Windows desktop control center - every tool, URL, folder, script, and system command in one keyboard-driven hub. One global shortcut (Ctrl+Shift+Space) brings it to the foreground from any app. Items are organized into Groups → Cards → Items. Fuzzy search, drag-to-reorder, webview popups, favorites, recents, and full local SQLite persistence with rolling auto-backup.',
+                contributions: [
+                    'Designed global-shortcut hub (Ctrl+Shift+Space) with URL, Software, Folder, and Command item types across Groups → Cards → Items hierarchy.',
+                    'Implemented Fuse.js fuzzy search + SQLite FTS5 for instant retrieval across ~5,000 items in WAL mode.',
+                    'Built drag-to-reorder for items across cards and groups with auto-snapshot backup on every write (rolling 10).',
+                    'Shipped as NSIS installer (~86MB) with strict contextIsolation, zero telemetry, and 57 built-in command templates.',
+                ],
                 specs: [
                     ['Shortcut', 'Ctrl+Shift+Space (remappable)'],
                     ['Item Types', 'URL / Software / Folder / Command'],
@@ -873,6 +940,8 @@
             'nexus': {
                 id: 'PROJ_001',
                 title: 'Nexus Launcher',
+                category: 'Desktop Development',
+                status: 'Open Source',
                 image: './assets/images/projects/nexus-launcher-screenshot.png',
                 badges: [
                     { label: 'Electron', color: '#4B32C3', text: 'white' },
@@ -885,6 +954,12 @@
                     { label: 'Open Source', color: '#10b981', text: 'white' },
                 ],
                 desc: 'A context-triggered action launcher for Windows. Select text anywhere, trigger via CapsLock+S, Right-Click Hold, or scroll wheel - and instantly dispatch to any search engine, AI tool, local script, or file. Unlimited providers and categories, keyboard navigation, multi-URL launch, theme presets, and bulk import from Excel/Markdown.',
+                contributions: [
+                    'Built context-triggered launcher activated via CapsLock+S, Right-Click Hold, or scroll wheel — no app switching needed.',
+                    'Supports unlimited providers (URL / File / Script) with full keyboard + mouse navigation and named theme presets.',
+                    'Added multi-URL launch with ;; separator and bulk TSV/Markdown import with automatic deduplication.',
+                    'Packaged as 98MB standalone EXE with zero telemetry, single-instance lock, and JSON config export/import.',
+                ],
                 specs: [
                     ['Portability', '98MB Standalone EXE'],
                     ['Performance', '60-80MB RAM Idle'],
@@ -908,6 +983,8 @@
             'facility': {
                 id: 'PROJ_002',
                 title: 'Facility Automation Pipeline',
+                category: 'Automation',
+                status: 'Completed',
                 image: './assets/images/projects/N8N_Workflow_Form_To_Inbox_Pipeline.png',
                 badges: [
                     { label: 'n8n', color: '#ea4b71', text: 'white' },
@@ -921,6 +998,12 @@
                     { label: 'API Integration', color: '#10b981', text: 'white' },
                 ],
                 desc: 'End-to-end automated ticketing system for office facility requests. Captures web form submissions via n8n webhook, generates unique ticket IDs, logs to Google Sheets, and sends dual email notifications - zero manual intervention.',
+                contributions: [
+                    'Designed n8n webhook pipeline: form submission → unique ticket ID generation → Google Sheets log → dual email (requester + team).',
+                    'Built responsive frontend in Vanilla JS with client-side validation and timeout/retry error handling.',
+                    'Containerized n8n instance with Docker for self-hosted deployment with full production migration documentation.',
+                    'Eliminated 330 hours/year of manual data entry, saving ₹1,65,000 in annual labor costs.',
+                ],
                 specs: [
                     ['Frontend', 'Vanilla JS, responsive CSS, client-side validation'],
                     ['Backend', 'n8n webhook pipeline, conditional logic, data transform'],
@@ -939,6 +1022,8 @@
             'social': {
                 id: 'PROJ_003',
                 title: 'Social Media Content System',
+                category: 'Content Creation',
+                status: 'Ongoing',
                 image: 'https://img.freepik.com/free-vector/social-media-marketing-concept-with-icons_23-2148431524.jpg',
                 badges: [
                     { label: 'Canva', color: '#ec4899', text: 'white' },
@@ -949,6 +1034,12 @@
                     { label: 'Strategy', color: '#a855f7', text: 'white' },
                 ],
                 desc: 'Designed and maintained a templated content pipeline for @datacraft.yogi on Instagram. Produces data-themed educational posts, carousel breakdowns, and reels covering analytics and automation topics for a technical audience.',
+                contributions: [
+                    'Designed custom Canva Pro templates for static posts, carousels, and reels with consistent brand identity.',
+                    'Maintained weekly content loop targeting data and automation professionals with AI-assisted copywriting.',
+                    'Managed scheduling and performance tracking via Meta Business Suite.',
+                    'Built a personal brand (@datacraft.yogi) as primary outreach presence for freelance clients.',
+                ],
                 specs: [
                     ['Visuals', 'Custom Canva Templates per content type'],
                     ['Copy', 'AI-assisted content with manual editing'],
@@ -965,6 +1056,8 @@
             'portfolio': {
                 id: 'PROJ_004',
                 title: 'Personal Portfolio',
+                category: 'Web Development',
+                status: 'Live',
                 image: './assets/images/meta/og_tag.png',
                 badges: [
                     { label: 'HTML5', color: '#e34c26', text: 'white' },
@@ -975,6 +1068,12 @@
                     { label: 'GitHub Pages', color: '#3b82f6', text: 'white' },
                 ],
                 desc: 'Designed and built this portfolio from scratch as a static site hosted on GitHub Pages. No heavy frameworks, no dependencies. Structured for performance, readability, and long-term maintainability.',
+                contributions: [
+                    'Built zero-dependency static site with 95+ Lighthouse performance score using custom utility-first CSS + Tailwind CDN.',
+                    'Implemented Schema.org JSON-LD, Open Graph, and Twitter Card meta for full SEO coverage.',
+                    'Added CSS scroll-reveal animations, counter animations, and mobile-first responsive layout across all breakpoints.',
+                    'Integrated Google Analytics 4 and deployed via GitHub Pages with CI/CD on git push.',
+                ],
                 specs: [
                     ['Architecture', 'Static / Vanilla - zero build step'],
                     ['Styling', 'Custom utility-first CSS + Tailwind CDN'],
@@ -993,6 +1092,8 @@
             'us-shopping': {
                 id: 'PROJ_011',
                 title: 'US Shopping Behavior Dashboard',
+                category: 'Data Analytics',
+                status: 'Completed',
                 image: 'https://github.com/wsnh2022/US-Shopping-Behavior-PowerBI/blob/main/dashboard_preview_dark.png?raw=true',
                 badges: [
                     { label: 'Power BI', color: '#F2C811', text: 'black' },
@@ -1002,6 +1103,12 @@
                     { label: 'Data Analysis', color: '#8b5cf6', text: 'white' },
                 ],
                 desc: 'End-to-end Power BI dashboard analyzing US customer shopping behavior across 3,900 orders. Dual-mode design (light + dark). Breaks down $233K in revenue by category, season, payment method, demographic, and geography — with actionable recommendations built into the layout.',
+                contributions: [
+                    'Analyzed 3,900 orders totaling $233.1K revenue using Power Query data transforms and DAX measures.',
+                    'Built dual-mode (light + dark) Power BI dashboard with revenue breakdowns by category, season, and demographics.',
+                    'Identified Clothing ($104K, 45% of sales) and Spring ($68K) as top-performing segments.',
+                    'Delivered actionable insights targeting underperforming states and untapped female shopper segment.',
+                ],
                 specs: [
                     ['Revenue', '$233.1K total · $59.76 avg order value'],
                     ['Records', '3,900 customer orders analyzed'],
@@ -1019,9 +1126,131 @@
                     { label: 'View on GitHub', icon: 'fab fa-github', href: 'https://github.com/wsnh2022/US-Shopping-Behavior-PowerBI', style: 'accent' },
                 ]
             },
+            'visionscribe': {
+                id: 'PROJ_007',
+                title: 'VisionScribe AI',
+                category: 'AI Integration',
+                status: 'Open Source',
+                image: 'https://github.com/wsnh2022/VisionScribe-AI/blob/main/assets/VisionScribe_coverimage.png?raw=true',
+                badges: [
+                    { label: 'Python', color: '#3776AB', text: 'white' },
+                    { label: 'Claude API', color: '#e05c4b', text: 'white' },
+                    { label: 'Computer Vision', color: '#7c3aed', text: 'white' },
+                    { label: 'Open Source', color: '#10b981', text: 'white' },
+                ],
+                desc: 'Python tool that combines Claude\'s vision API with OCR processing to automatically analyze images and generate structured markdown documentation. Handles photos, screenshots, diagrams, and handwritten notes.',
+                contributions: [
+                    'Integrated Claude API vision capabilities for automated image content extraction with 98.5% accuracy.',
+                    'Built multi-format processing pipeline for photos, screenshots, whiteboards, and handwritten notes.',
+                    'Generated structured markdown output with headers, bullet points, and code snippets from visual content.',
+                    'Published as open source with full documentation and example scripts.',
+                ],
+                specs: [
+                    ['Stack', 'Python + Claude API + Computer Vision'],
+                    ['Output', 'Structured markdown documentation'],
+                    ['Input', 'Photos, screenshots, diagrams, handwriting'],
+                    ['License', 'Open Source'],
+                ],
+                impact: 'Automates documentation from visual content — useful for meeting notes, receipts, whiteboards, and technical diagrams.',
+                links: [
+                    { label: 'View on GitHub', icon: 'fab fa-github', href: 'https://github.com/wsnh2022/VisionScribe-AI', style: 'accent' },
+                ]
+            },
+            'ahkmenu': {
+                id: 'PROJ_008',
+                title: 'AHKMenu – Menu Builder',
+                category: 'Desktop Tooling',
+                status: 'Open Source',
+                image: 'https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/ahkmenu.png?raw=true',
+                badges: [
+                    { label: 'AutoHotkey v2', color: '#00f2ff', text: 'black' },
+                    { label: 'HTML/JS', color: '#e34c26', text: 'white' },
+                    { label: 'Browser Tool', color: '#64748b', text: 'white' },
+                    { label: 'Open Source', color: '#10b981', text: 'white' },
+                ],
+                desc: 'A browser-based visual menu builder for AutoHotkey v2. Design your context menu structure, configure hotkeys and actions, then export a ready-to-run AHK script — no coding required.',
+                contributions: [
+                    'Built HTML/JS browser interface for visual menu structure creation with item drag-and-drop ordering.',
+                    'Implemented live AHK v2 script generation engine producing valid, ready-to-run code on export.',
+                    'Added item type support for commands, scripts, URLs, and nested submenus.',
+                    'Deployed as a zero-dependency static web app with offline capability.',
+                ],
+                specs: [
+                    ['Frontend', 'Vanilla HTML/JS, no framework'],
+                    ['Output', 'AutoHotkey v2 .ahk script'],
+                    ['Item Types', 'Command / Script / URL / Submenu'],
+                    ['Deployment', 'Static, offline-capable'],
+                ],
+                impact: 'Lets non-coders build AHK menus visually — lowers the barrier to AutoHotkey adoption.',
+                links: [
+                    { label: 'Live Demo', icon: 'fas fa-external-link-alt', href: 'https://wsnh2022.github.io/blog/post/ahkmenu', style: 'accent' },
+                ]
+            },
+            'pin-annotator': {
+                id: 'PROJ_009',
+                title: 'Pin Annotator',
+                category: 'Web Tool',
+                status: 'Open Source',
+                image: 'https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/pin-annotator.png?raw=true',
+                badges: [
+                    { label: 'HTML/JS', color: '#e34c26', text: 'white' },
+                    { label: 'Client-Side', color: '#0d9488', text: 'white' },
+                    { label: 'Privacy-First', color: '#64748b', text: 'white' },
+                    { label: 'Open Source', color: '#10b981', text: 'white' },
+                ],
+                desc: 'Client-side image annotation tool. Upload any image, drop numbered pins, add labels and notes — then export as an annotated PNG or JSON. Everything runs in-browser; nothing is sent to any server.',
+                contributions: [
+                    'Built entirely client-side with no backend — all image processing done via Canvas API.',
+                    'Implemented pin placement, label editing, color coding, and note attachment per annotation.',
+                    'Added PNG export for annotated images and JSON export for annotation data.',
+                    'Zero-dependency static page with full offline support and complete data privacy.',
+                ],
+                specs: [
+                    ['Architecture', 'Client-side only, Canvas API'],
+                    ['Export', 'PNG (annotated image) + JSON (data)'],
+                    ['Privacy', 'No server, no uploads, no tracking'],
+                    ['License', 'Open Source'],
+                ],
+                impact: 'Privacy-first annotation tool — useful for documentation, bug reports, and design reviews without cloud dependency.',
+                links: [
+                    { label: 'Live Demo', icon: 'fas fa-external-link-alt', href: 'https://wsnh2022.github.io/blog/post/pin-annotator_v8', style: 'accent' },
+                ]
+            },
+            'sql-reference': {
+                id: 'PROJ_010',
+                title: 'SQL Quick Reference',
+                category: 'Web Tool',
+                status: 'Open Source',
+                image: 'https://github.com/wsnh2022/wsnh2022.github.io/blob/main/assets/images/projects/sql-reference.png?raw=true',
+                badges: [
+                    { label: 'SQL', color: '#336791', text: 'white' },
+                    { label: 'JavaScript', color: '#f7df1e', text: 'black' },
+                    { label: 'Reference Tool', color: '#64748b', text: 'white' },
+                    { label: 'Open Source', color: '#10b981', text: 'white' },
+                ],
+                desc: 'Interactive SQL quick-reference covering DDL, DML, joins, aggregates, subqueries, and window functions. Searchable command index with syntax-highlighted examples for fast lookup during development.',
+                contributions: [
+                    'Organized 60+ SQL commands into searchable categories: DDL, DML, Joins, Aggregates, Window Functions.',
+                    'Built instant keyword search with highlight matching across command names and descriptions.',
+                    'Added syntax-highlighted code blocks with one-click copy-to-clipboard.',
+                    'Deployed as a static reference tool optimized for fast lookup without internet dependency.',
+                ],
+                specs: [
+                    ['Coverage', 'DDL, DML, Joins, Aggregates, Window Functions'],
+                    ['Commands', '60+ indexed SQL commands'],
+                    ['Search', 'Instant keyword filtering'],
+                    ['Deployment', 'Static, offline-capable'],
+                ],
+                impact: 'Fast SQL reference for analysts and developers — reduces context-switching during query writing.',
+                links: [
+                    { label: 'Live Demo', icon: 'fas fa-external-link-alt', href: 'https://wsnh2022.github.io/blog/post/sql-reference', style: 'accent' },
+                ]
+            },
             'brand': {
                 id: 'PROJ_005',
                 title: 'Brand Asset Library',
+                category: 'Design',
+                status: 'Freelance',
                 image: 'https://img.freepik.com/free-vector/brand-identity-concept-illustration_114360-3180.jpg',
                 badges: [
                     { label: 'Canva Pro', color: '#ec4899', text: 'white' },
@@ -1031,6 +1260,12 @@
                     { label: 'Freelance', color: '#64748b', text: 'white' },
                 ],
                 desc: 'Created print and digital brand assets including visiting cards and event flyers for small businesses. Focus on typographic hierarchy, color consistency, and print-ready output without agency overhead.',
+                contributions: [
+                    'Designed print-ready visiting cards at 300 DPI with custom typographic hierarchy per client brand identity.',
+                    'Created event flyers in both digital and print formats using Canva Pro brand kits.',
+                    'Maintained color consistency and exported in PDF, PNG, and social-ready sizes for multi-channel use.',
+                    'Operated as a freelance design lane separate from automation/analytics work for small business clients.',
+                ],
                 specs: [
                     ['Asset', 'Visiting Cards - print-ready 300 DPI'],
                     ['Asset', 'Event Flyers - digital + print formats'],
@@ -1059,37 +1294,46 @@
 
             document.getElementById('modalCoverImg').src = d.image;
             document.getElementById('modalCoverImg').alt = d.title;
-            document.getElementById('modalProjId').textContent = 'ID: ' + d.id;
+            document.getElementById('modalProjId').textContent = d.id;
             document.getElementById('modalTitle').textContent = d.title;
+            document.getElementById('modalSubtitle').textContent = (d.category || '') + (d.status ? ' · ' + d.status : '');
             document.getElementById('modalDesc').textContent = d.desc;
             document.getElementById('modalImpact').textContent = d.impact;
 
-            const badgesEl = document.getElementById('modalBadges');
-            badgesEl.innerHTML = d.badges.map(b =>
-                `<span style="background:${b.color}22;color:${b.color};border:1px solid ${b.color}33" class="px-2 py-0.5 text-[10px] font-bold rounded">${b.label}</span>`
+            const contribEl = document.getElementById('modalContributions');
+            contribEl.innerHTML = (d.contributions || []).map(c =>
+                `<li class="flex items-start gap-2"><span class="text-[hsl(340,82%,72%)] mt-0.5 shrink-0">•</span><span>${c}</span></li>`
             ).join('');
 
-            const specsEl = document.getElementById('modalSpecs');
-            specsEl.innerHTML = d.specs.map(([k, v]) =>
-                `<div class="flex items-start gap-2">• <span class="text-slate-300 shrink-0">${k}:</span> <span>${v}</span></div>`
+            const techEl = document.getElementById('modalTech');
+            techEl.innerHTML = d.badges.map(b =>
+                `<span style="background:${b.color}18;color:${b.color};border:1px solid ${b.color}35" class="px-3 py-1 text-[11px] font-bold rounded-full">${b.label}</span>`
             ).join('');
 
             const btnsEl = document.getElementById('modalButtons');
             btnsEl.innerHTML = d.links.map(l => {
                 const cls = l.style === 'accent'
-                    ? 'px-5 py-2.5 bg-accent/10 hover:bg-accent/20 text-accent rounded-lg text-sm font-mono flex items-center gap-2 transition-all border border-accent/20'
-                    : 'px-5 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm font-mono flex items-center gap-2 transition-all border border-white/10';
+                    ? 'px-5 py-2.5 bg-[hsl(340,82%,75%)]/10 hover:bg-[hsl(340,82%,75%)]/20 text-[hsl(340,82%,75%)] rounded-xl text-sm font-semibold flex items-center gap-2 transition-all border border-[hsl(340,82%,75%)]/25'
+                    : 'px-5 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl text-sm font-semibold flex items-center gap-2 transition-all border border-white/10';
                 return `<a href="${l.href}" target="_blank" class="${cls}"><i class="${l.icon}"></i> ${l.label}</a>`;
             }).join('');
 
+            projectModalPanel.classList.remove('modal-panel-closing');
+            projectModalPanel.classList.add('modal-panel-animate');
             projectModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-            projectModalPanel.scrollTop = 0;
+            projectModalPanel.querySelector('.flex-1').scrollTop = 0;
         }
 
         function closeProjectModal() {
-            projectModal.classList.add('hidden');
-            document.body.style.overflow = '';
+            projectModalPanel.classList.remove('modal-panel-animate');
+            projectModalPanel.classList.add('modal-panel-closing');
+            setTimeout(() => {
+                projectModal.classList.add('hidden');
+                projectModalPanel.classList.remove('modal-panel-closing');
+                projectModalPanel.classList.add('modal-panel-animate');
+                document.body.style.overflow = '';
+            }, 200);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
