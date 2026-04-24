@@ -406,7 +406,7 @@
                                 <div class="text-right">
                                     <div class="font-mono text-accent text-sm font-semibold">2024 – Present</div>
                                     <div class="font-mono text-accent/70 text-xs mt-1" id="freelanceDuration"
-                                        data-start-year="2024">1 year</div>
+                                        data-start="2024-03"></div>
                                 </div>
                             </div>
 
@@ -799,6 +799,16 @@
     </footer>
 
     <script>
+        // Dynamic duration for Freelance
+        (function () {
+            const el = document.getElementById('freelanceDuration');
+            const [startYear, startMonth] = el.dataset.start.split('-').map(Number);
+            const now = new Date();
+            const years = now.getFullYear() - startYear - (now.getMonth() + 1 < startMonth ? 1 : 0);
+            const hasRemainder = now.getMonth() + 1 !== startMonth || now.getDate() < 1;
+            el.textContent = years + (hasRemainder ? '+ years' : ' years');
+        })();
+
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
