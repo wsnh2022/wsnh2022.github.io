@@ -71,7 +71,7 @@
 
     <style>
         html { overflow-x: hidden; }
-        body { background-color: #030712; color: #e2e8f0; overflow-x: hidden; }
+        body { background-color: #030712; color: #e2e8f0; overflow-x: clip; }
 
         /* Glassmorphism */
         .glass {
@@ -211,6 +211,10 @@
         }
         .nb-mobile-cta:hover { background: #7dd3fc; }
 
+        /* Mobile Menu */
+        #mobileMenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        #mobileMenu.active { max-height: 500px; }
+
         /* Scroll Animations */
         .scroll-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
@@ -317,10 +321,10 @@
     </style>
 </head>
 
-<body class="min-h-screen selection:bg-accent selection:text-midnight overflow-x-hidden">
+<body class="min-h-screen selection:bg-accent selection:text-midnight">
 
     <!-- Aurora Background -->
-    <div class="hero-background" style="position:absolute;top:0;left:0;width:100%;height:100vh;z-index:1;">
+    <div class="hero-background" style="position:absolute;top:0;left:0;width:100%;height:100vh;z-index:1;overflow:hidden;">
         <div class="aurora-wrap" aria-hidden="true">
             <div class="blob blob-5"></div>
             <div class="blob blob-1"></div>
@@ -331,47 +335,84 @@
     </div>
 
     <!-- Navigation -->
-    <header id="navbar">
-        <div class="nb-container">
-            <div class="nb-brand">
-                <button class="nb-burger" id="nbBurger" aria-label="Toggle menu" aria-expanded="false">
-                    <span></span><span></span><span></span>
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-5xl glass rounded-2xl z-50 shadow-2xl">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-accent to-purple-500 rounded-lg flex items-center justify-center">
+                        <span class="text-midnight font-bold text-sm">Y</span>
+                    </div>
+                    <span class="font-display font-bold text-xl">Yoghesh</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex gap-8 text-sm font-medium text-slate-400 items-center ml-8">
+                    <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                    <a href="experience.html" class="hover:text-white transition-colors">Experience</a>
+                    <a href="projects.html" class="text-accent hover:text-accent/80 transition-colors">Projects</a>
+                    <a href="index.html#contact" class="hover:text-white transition-colors">Contact</a>
+                </div>
+
+                <!-- Desktop Social Icons -->
+                <div class="hidden lg:flex items-center gap-2 pl-4 border-l border-white/10">
+                    <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5" title="LinkedIn">
+                        <i class="fab fa-linkedin text-base"></i>
+                    </a>
+                    <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5" title="GitHub">
+                        <i class="fab fa-github text-base"></i>
+                    </a>
+                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5" title="Instagram">
+                        <i class="fab fa-instagram text-base"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="lg:hidden text-slate-400 hover:text-white">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
-                <a href="index.html" class="nb-logo">
-                    <div class="nb-logo-icon">Y</div>
-                    <span class="nb-logo-name">Yoghesh</span>
-                </a>
             </div>
-            <nav class="nb-links">
-                <a href="index.html#overview" class="nb-link">About</a>
-                <a href="experience.html" class="nb-link">Experience</a>
-                <a href="#" class="nb-link active">Projects</a>
-                <a href="index.html#contact" class="nb-link">Contact</a>
-            </nav>
-            <div class="nb-right">
-                <div class="nb-socials">
-                    <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer" class="nb-social" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer" class="nb-social" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer" class="nb-social" title="Instagram"><i class="fab fa-instagram"></i></a>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="lg:hidden px-6 pb-4">
+                <div class="flex flex-col gap-4 text-sm font-medium text-slate-400 pt-4 border-t border-white/10">
+                    <a href="index.html" class="hover:text-white transition-colors flex items-center gap-3">
+                        <i class="fas fa-home text-accent w-5"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="experience.html" class="hover:text-white transition-colors flex items-center gap-3">
+                        <i class="fas fa-briefcase text-accent w-5"></i>
+                        <span>Experience</span>
+                    </a>
+                    <a href="projects.html" class="text-accent hover:text-accent/80 transition-colors flex items-center gap-3">
+                        <i class="fas fa-code text-accent w-5"></i>
+                        <span>Projects</span>
+                    </a>
+                    <a href="index.html#contact" class="hover:text-white transition-colors flex items-center gap-3">
+                        <i class="fas fa-envelope text-accent w-5"></i>
+                        <span>Contact</span>
+                    </a>
+
+                    <div class="flex gap-4 pt-4 border-t border-white/10">
+                        <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer"
+                            class="w-12 h-12 flex items-center justify-center rounded-xl bg-transparent text-[#0077b5] border-2 border-[#0077b5] transition-all"
+                            title="LinkedIn">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                        <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer"
+                            class="w-12 h-12 flex items-center justify-center rounded-xl bg-transparent text-white border-2 border-white transition-all"
+                            title="GitHub">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer"
+                            class="w-12 h-12 flex items-center justify-center rounded-xl bg-transparent text-[#E1306C] border-2 border-[#E1306C] transition-all"
+                            title="Instagram">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                    </div>
                 </div>
-                <a href="index.html#contact" class="nb-cta">Let's Talk</a>
             </div>
         </div>
-        <div id="nb-mobile-menu">
-            <div class="nb-mobile-links">
-                <a href="index.html#overview" class="nb-mobile-link"><i class="fas fa-home"></i> About</a>
-                <a href="experience.html" class="nb-mobile-link"><i class="fas fa-briefcase"></i> Experience</a>
-                <a href="#" class="nb-mobile-link" style="color:#38bdf8;"><i class="fas fa-code"></i> Projects</a>
-                <a href="index.html#contact" class="nb-mobile-link"><i class="fas fa-envelope"></i> Contact</a>
-                <a href="index.html#contact" class="nb-mobile-cta">Let's Talk</a>
-                <div class="nb-mobile-socials">
-                    <a href="https://www.linkedin.com/in/yoghesh-analytics/" target="_blank" rel="noopener noreferrer" class="nb-mobile-social" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer" class="nb-mobile-social" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer" class="nb-mobile-social" title="Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-    </header>
+    </nav>
 
     <main class="relative z-10 pt-32 pb-20 px-4 max-w-6xl mx-auto">
 
@@ -899,24 +940,19 @@
         }, { passive: true });
         scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-        const nbBurger     = document.getElementById('nbBurger');
-        const nbMobileMenu = document.getElementById('nb-mobile-menu');
-        nbBurger.addEventListener('click', () => {
-            const open = nbMobileMenu.classList.toggle('open');
-            nbBurger.classList.toggle('open', open);
-            nbBurger.setAttribute('aria-expanded', String(open));
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
         });
-        nbMobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-            nbMobileMenu.classList.remove('open');
-            nbBurger.classList.remove('open');
-            nbBurger.setAttribute('aria-expanded', 'false');
-        }));
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && nbMobileMenu.classList.contains('open')) {
-                nbMobileMenu.classList.remove('open');
-                nbBurger.classList.remove('open');
-                nbBurger.setAttribute('aria-expanded', 'false');
-            }
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
         });
 
         // ==================================
