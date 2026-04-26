@@ -121,10 +121,58 @@
         transform: none;
       }
     }
+
+    #mobile-notice {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9999;
+      background: var(--bg);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    @media (max-width: 1024px) {
+      #mobile-notice {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <div id="mobile-notice">
+    <div style="
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 1rem;
+      padding: 2rem 1.5rem;
+      max-width: 340px;
+      width: 100%;
+    ">
+      <div style="font-size: 2.5rem; margin-bottom: 1rem;">🖥️</div>
+      <h2 style="font-family: var(--font-hd); font-size: 1.25rem; color: var(--amber); margin-bottom: 0.75rem;">Desktop Only</h2>
+      <p style="font-family: var(--font-sans); font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.5rem;">
+        AHKMenu Builder generates AutoHotkey v2 scripts for Windows. It's designed for use on a desktop browser — the drag-and-drop interface won't work well on a touchscreen.
+      </p>
+      <button onclick="document.getElementById('mobile-notice').style.display='none'" style="
+        background: var(--cyan-dim);
+        border: 1px solid var(--cyan);
+        color: var(--cyan);
+        font-family: var(--font-ui);
+        font-size: 0.8rem;
+        padding: 0.6rem 1.5rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        width: 100%;
+      ">Continue Anyway</button>
+    </div>
+  </div>
   <div id="root"></div>
   <script type="text/babel">
     const { useState, useRef, useEffect } = React;
