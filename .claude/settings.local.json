@@ -3,7 +3,8 @@
     "allow": [
       "Bash(gh repo *)",
       "WebFetch(domain:github.com)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(sort -t'.' -k1,1)"
     ]
   }
 }

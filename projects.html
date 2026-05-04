@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
 <head>
@@ -231,6 +231,7 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
 
+
         /* Glass Card */
         .glass-card {
             background: rgba(10, 14, 39, 0.55);
@@ -424,79 +425,34 @@
                 </h2>
 
                 <!-- Filter Buttons -->
-                <div class="flex flex-wrap gap-2">
-                    <button
-                        class="filter-btn active px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[hsl(340,82%,75%)] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="all">
-                        All Projects
-                    </button>
-                    <button
-                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#fbbf24] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="powerbi">
-                        Power BI
-                    </button>
-                    <button
-                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#60a5fa] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="python">
-                        Python
-                    </button>
-                    <button
-                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#38bdf8] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="autohotkey">
-                        AutoHotkey
-                    </button>
-                    <button
-                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#f87171] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="n8n">
-                        n8n
-                    </button>
-                    <button
-                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#e2e8f0] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="sql">
-                        SQL
-                    </button>
-                    <button
-                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#818cf8] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="electron">
-                        Electron
-                    </button>
-                    <button
-                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#ec4899] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="design">
-                        Design
-                    </button>
-                    <button
-                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#f97316] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="content">
-                        Content
-                    </button>
-                    <button
-                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#10b981] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="web">
-                        Web
-                    </button>
-                    <button
-                        class="filter-btn px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#a78bfa] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]"
-                        data-filter="ai-tools">
-                        AI Tools
-                    </button>
+                <div class="flex gap-2 overflow-x-auto hide-scrollbar md:flex-wrap pb-1 md:pb-0">
+                    <button class="filter-btn active shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[hsl(340,82%,75%)] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="all">All Projects</button>
+                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#818cf8] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="desktop">Desktop</button>
+                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#f87171] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="automation">Automation</button>
+                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#a78bfa] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="ai-tools">AI Tools</button>
+                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#fbbf24] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="data">Data &amp; Analytics</button>
+                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#10b981] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="web-tools">Web Tools</button>
+                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#ec4899] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="content-design">Content &amp; Design</button>
                 </div>
             </div>
 
             <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-                <!-- Command-Center Dashboard -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 0ms;" data-category="electron" data-project="cmd-center">
-                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                <!-- ★ Featured Project — Command-Center Dashboard -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col md:flex-row animate-fade-up cursor-pointer md:col-span-2" style="animation-delay: 0ms;" data-category="desktop" data-project="cmd-center">
+                    <div class="relative md:w-2/5 aspect-video md:aspect-auto overflow-hidden border-b md:border-b-0 md:border-r border-white/5 bg-black/20 shrink-0">
+                        <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
                         <img src="./assets/images/projects/command-center-cover.jpeg" alt="Command-Center Dashboard" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
                     </div>
-                    <div class="p-5 flex flex-col flex-1">
+                    <div class="p-6 md:p-8 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">★ Featured Project</span>
+                        </div>
                         <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Command-Center Dashboard</h3>
+                            <h3 class="text-2xl font-semibold tracking-tight group-hover:text-primary transition-colors">Command-Center Dashboard</h3>
                             <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Daily Driver</div>
                         </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">A keyboard-driven Windows desktop hub - every tool, URL, script, and folder in one global shortcut (Ctrl+Shift+Space).</p>
+                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">A keyboard-driven Windows desktop hub - every tool, URL, script, and folder in one global shortcut (Ctrl+Shift+Space). Built for daily personal use with Electron, React, TypeScript and SQLite.</p>
                         <div class="flex flex-wrap gap-1.5 mb-4">
                             <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Electron</span>
                             <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">React</span>
@@ -505,17 +461,19 @@
                         </div>
                         <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
                             <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="https://github.com/wsnh2022/command-center" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                                </a>
-                            </div>
+                            <a href="https://github.com/wsnh2022/command-center" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-500/20 to-violet-500/20 hover:from-sky-500/30 hover:to-violet-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
                         </div>
                     </div>
                 </article>
 
+                <!-- Section: Desktop Apps -->
+                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">Desktop Apps</span>
+                    <div class="flex-1 h-px bg-white/5"></div>
+                </div>
+
                 <!-- Nexus Launcher -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 100ms;" data-category="electron autohotkey" data-project="nexus">
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 100ms;" data-category="desktop" data-project="nexus">
                     <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
                         <img src="./assets/images/projects/nexus-launcher-screenshot.png" alt="Nexus Launcher" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
@@ -533,17 +491,19 @@
                         </div>
                         <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
                             <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="https://github.com/wsnh2022/Nexus-Launcher" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                                </a>
-                            </div>
+                            <a href="https://github.com/wsnh2022/Nexus-Launcher" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-500/20 to-violet-500/20 hover:from-sky-500/30 hover:to-violet-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
                         </div>
                     </div>
                 </article>
 
+                <!-- Section: Automation -->
+                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">Automation</span>
+                    <div class="flex-1 h-px bg-white/5"></div>
+                </div>
+
                 <!-- Facility Automation Pipeline -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 200ms;" data-category="n8n" data-project="facility">
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 200ms;" data-category="automation" data-project="facility">
                     <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
                         <img src="./assets/images/projects/N8N_Workflow_Form_To_Inbox_Pipeline.png" alt="Facility Automation Pipeline" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
@@ -562,20 +522,282 @@
                         </div>
                         <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
                             <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="https://github.com/wsnh2022/Facility_Automation_Pipeline" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                                </a>
-                            </div>
+                            <a href="https://github.com/wsnh2022/Facility_Automation_Pipeline" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-500/20 to-violet-500/20 hover:from-sky-500/30 hover:to-violet-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
                         </div>
                     </div>
                 </article>
 
-                <!-- Social Media Content System -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 300ms;" data-category="content" data-project="social">
+                <!-- NSE Stock Alert Bot -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 300ms;" data-category="automation" data-project="nse-alert-bot">
                     <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="https://img.freepik.com/free-vector/social-media-marketing-concept-with-icons_23-2148431524.jpg" alt="Social Media Content System" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <img src="./assets/images/projects/nse-alert-bot.png" alt="NSE Stock Alert Bot" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">NSE Stock Alert Bot</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Private</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Serverless NSE price monitor - runs free on GitHub Actions, sends Telegram alerts when a stock hits your buy or target threshold during market hours.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Python</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">GitHub Actions</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Telegram API</span>
+                        </div>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Insta2MD Bot -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 400ms;" data-category="automation ai-tools" data-project="insta2mdbot">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://raw.githubusercontent.com/wsnh2022/insta2mdbot/main/docs/cover.png" alt="Insta2MD Bot" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Insta2MD Bot</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Paste an Instagram URL and get a fully-structured Obsidian note — AI-extracted text, title, tags, summary, and auto-filed by topic in ~2 minutes.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Python</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">JavaScript</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">AutoHotkey v2</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Cloudflare Workers</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">GitHub Actions</span>
+                        </div>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <a href="https://github.com/wsnh2022/insta2mdbot" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-500/20 to-violet-500/20 hover:from-sky-500/30 hover:to-violet-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Section: AI Tools -->
+                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">AI Tools</span>
+                    <div class="flex-1 h-px bg-white/5"></div>
+                </div>
+
+                <!-- VisionScribe AI -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 500ms;" data-category="ai-tools" data-project="visionscribe">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://raw.githubusercontent.com/wsnh2022/VisionScribe-AI/main/assets/VisionScribe_coverimage.png" alt="VisionScribe AI" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">VisionScribe AI</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Python + Claude API tool that analyzes images and auto-generates structured markdown documentation from visual content.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Python</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Claude API</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Computer Vision</span>
+                        </div>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <a href="https://github.com/wsnh2022/VisionScribe-AI" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-500/20 to-violet-500/20 hover:from-sky-500/30 hover:to-violet-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- DataVault AI -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 600ms;" data-category="ai-tools" data-project="datavault">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://raw.githubusercontent.com/wsnh2022/DataVault-AI/main/showcase/repo_cover_image.png" alt="DataVault AI" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">DataVault AI</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Upload any CSV or Excel file, ask questions in plain English, get SQL-backed answers - LangGraph pipeline with DeepSeek V3 and automatic LLM fallback.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Python</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">LangGraph</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">DuckDB</span>
+                        </div>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <a href="https://github.com/wsnh2022/DataVault-AI" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-500/20 to-violet-500/20 hover:from-sky-500/30 hover:to-violet-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Telegram Semantic Memory Bot -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 700ms;" data-category="ai-tools" data-project="semantic-bot">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://raw.githubusercontent.com/wsnh2022/N8N_Semantic_search_bot/main/cover.png" alt="Telegram Semantic Memory Bot" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Telegram Semantic Memory Bot</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Store anything. Find it by meaning - not keywords. A self-hosted Telegram bot using Gemini embeddings + Qdrant vector search, orchestrated with n8n.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">n8n</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Gemini</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Qdrant</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Telegram</span>
+                        </div>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <a href="https://github.com/wsnh2022/N8N_Semantic_search_bot" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-500/20 to-violet-500/20 hover:from-sky-500/30 hover:to-violet-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Local Document RAG Pipeline -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 800ms;" data-category="ai-tools" data-project="local-rag">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://raw.githubusercontent.com/wsnh2022/Local-Document-RAG-Pipeline/main/docs/cover.png" alt="Local Document RAG Pipeline" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Local Document RAG Pipeline</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Offline-first CLI pipeline to ingest local docs and answer questions via token-aware chunking, SHA256 deduplication, LanceDB vector search, and OpenRouter LLM.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Python</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">LanceDB</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">RAG</span>
+                        </div>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <a href="https://github.com/wsnh2022/Local-Document-RAG-Pipeline" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-500/20 to-violet-500/20 hover:from-sky-500/30 hover:to-violet-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Section: Data & Analytics -->
+                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">Data &amp; Analytics</span>
+                    <div class="flex-1 h-px bg-white/5"></div>
+                </div>
+
+                <!-- US Shopping Behavior Dashboard -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 900ms;" data-category="data" data-project="us-shopping">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://raw.githubusercontent.com/wsnh2022/US-Shopping-Behavior-PowerBI/85563429425d784684828acd380f8609052f3b4f/dashboard_preview_dark.png" alt="US Shopping Behavior Dashboard" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">US Shopping Behavior Dashboard</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Completed</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Power BI dashboard analyzing 3,900 orders ($233K revenue) - dual light/dark mode with DAX measures and segment insights.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Power BI</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">DAX</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Power Query</span>
+                        </div>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <a href="https://github.com/wsnh2022/US-Shopping-Behavior-PowerBI" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-500/20 to-violet-500/20 hover:from-sky-500/30 hover:to-violet-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SQL Quick Reference -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1000ms;" data-category="data" data-project="sql-reference">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://raw.githubusercontent.com/wsnh2022/wsnh2022.github.io/main/assets/images/projects/sql-reference.png" alt="SQL Quick Reference" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">SQL Quick Reference</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Interactive SQL reference covering 60+ commands - DDL, DML, joins, aggregates, window functions with live search.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">SQL</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">JavaScript</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Reference Tool</span>
+                        </div>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <a href="sql-reference.html" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 hover:from-emerald-500/30 hover:to-teal-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Live Demo</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Section: Web Tools -->
+                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">Web Tools</span>
+                    <div class="flex-1 h-px bg-white/5"></div>
+                </div>
+
+                <!-- AHKMenu – Menu Builder -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1100ms;" data-category="web-tools" data-project="ahkmenu">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://raw.githubusercontent.com/wsnh2022/wsnh2022.github.io/main/assets/images/projects/ahkmenu.png" alt="AHKMenu – Menu Builder" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">AHKMenu – Menu Builder</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Browser-based visual menu builder for AutoHotkey v2 - design your structure, export a ready-to-run AHK script.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">AutoHotkey v2</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">HTML/JS</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Browser Tool</span>
+                        </div>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <a href="ahkmenu.html" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 hover:from-emerald-500/30 hover:to-teal-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Live Demo</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Pin Annotator -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1200ms;" data-category="web-tools" data-project="pin-annotator">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="https://raw.githubusercontent.com/wsnh2022/wsnh2022.github.io/main/assets/images/projects/pin-annotator.png" alt="Pin Annotator" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Pin Annotator</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                        </div>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Client-side image annotation - pin, label, and export entirely in-browser. No server, no uploads, full privacy.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">HTML/JS</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Canvas API</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Privacy-First</span>
+                        </div>
+                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
+                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <a href="pin-annotator_v8.html" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 hover:from-emerald-500/30 hover:to-teal-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Live Demo</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Section: Content & Design -->
+                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">Content &amp; Design</span>
+                    <div class="flex-1 h-px bg-white/5"></div>
+                </div>
+
+                <!-- Social Media Content System -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1300ms;" data-category="content-design" data-project="social">
+                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
+                        <img src="./assets/images/projects/datacraft-feed.png" alt="Social Media Content System" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
                     </div>
                     <div class="p-5 flex flex-col flex-1">
                         <div class="flex justify-between items-start gap-2 mb-2">
@@ -590,45 +812,13 @@
                         </div>
                         <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
                             <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right w-5 h-5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Personal Portfolio -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 400ms;" data-category="web" data-project="portfolio">
-                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="./assets/images/meta/og_tag.png" alt="Personal Portfolio" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Personal Portfolio</h3>
-                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Live</div>
-                        </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Zero-dependency static site with 95+ Lighthouse score - Schema.org SEO, GA4, mobile-first, deployed on GitHub Pages.</p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">HTML5</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Tailwind CSS</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">GitHub Pages</span>
-                        </div>
-                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
-                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="https://github.com/wsnh2022/wsnh2022.github.io" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                                </a>
-                            </div>
+                            <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-rose-500/20 to-pink-500/20 hover:from-rose-500/30 hover:to-pink-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><i class="fab fa-instagram text-sm"></i>Instagram</a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Brand Asset Library -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 500ms;" data-category="design" data-project="brand">
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1400ms;" data-category="content-design" data-project="brand">
                     <div class="relative aspect-video border-b border-white/5 bg-black/20 overflow-hidden">
                         <!-- Carousel track -->
                         <div class="brand-slides flex h-full" style="width: 200%; transition: transform 0.35s cubic-bezier(.4,0,.2,1);">
@@ -665,253 +855,32 @@
                             <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Branding</span>
                         </div>
                         <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
-                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
+                            <a href="https://www.canva.com/design/DAG7GnTrO28/7L0e1SVk1TYRc4CfkfiKlQ/view?utm_content=DAG7GnTrO28&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><i class="fas fa-address-card text-sm"></i>Card Design</a>
+                            <a href="https://www.canva.com/design/DAG4N7tef2I/bjtK-h0Z_QbjFYpBf36Gaw/watch?utm_content=DAG4N7tef2I&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-violet-500/20 to-purple-500/20 hover:from-violet-500/30 hover:to-purple-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><i class="fas fa-calendar-alt text-sm"></i>Flyer Design</a>
                         </div>
                     </div>
                 </article>
 
-                <!-- VisionScribe AI -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 600ms;" data-category="python ai-tools" data-project="visionscribe">
+                <!-- Personal Portfolio -->
+                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1500ms;" data-category="content-design" data-project="portfolio">
                     <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="https://raw.githubusercontent.com/wsnh2022/VisionScribe-AI/main/assets/VisionScribe_coverimage.png" alt="VisionScribe AI" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        <img src="./assets/images/meta/og_tag.png" alt="Personal Portfolio" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
                     </div>
                     <div class="p-5 flex flex-col flex-1">
                         <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">VisionScribe AI</h3>
-                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
+                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Personal Portfolio</h3>
+                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Live</div>
                         </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Python + Claude API tool that analyzes images and auto-generates structured markdown documentation from visual content.</p>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Zero-dependency static site with 95+ Lighthouse score - Schema.org SEO, GA4, mobile-first, deployed on GitHub Pages.</p>
                         <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Python</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Claude API</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Computer Vision</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">HTML5</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Tailwind CSS</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">GitHub Pages</span>
                         </div>
                         <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
                             <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="https://github.com/wsnh2022/VisionScribe-AI" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- AHKMenu -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 700ms;" data-category="autohotkey web" data-project="ahkmenu">
-                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="https://raw.githubusercontent.com/wsnh2022/wsnh2022.github.io/main/assets/images/projects/ahkmenu.png" alt="AHKMenu – Menu Builder" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">AHKMenu – Menu Builder</h3>
-                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
-                        </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Browser-based visual menu builder for AutoHotkey v2 - design your structure, export a ready-to-run AHK script.</p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">AutoHotkey v2</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">HTML/JS</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Browser Tool</span>
-                        </div>
-                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
-                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="ahkmenu.html" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right w-5 h-5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Pin Annotator -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 800ms;" data-category="web" data-project="pin-annotator">
-                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="https://raw.githubusercontent.com/wsnh2022/wsnh2022.github.io/main/assets/images/projects/pin-annotator.png" alt="Pin Annotator" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Pin Annotator</h3>
-                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
-                        </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Client-side image annotation - pin, label, and export entirely in-browser. No server, no uploads, full privacy.</p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">HTML/JS</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Canvas API</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Privacy-First</span>
-                        </div>
-                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
-                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="pin-annotator_v8.html" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right w-5 h-5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- SQL Quick Reference -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 900ms;" data-category="sql web" data-project="sql-reference">
-                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="https://raw.githubusercontent.com/wsnh2022/wsnh2022.github.io/main/assets/images/projects/sql-reference.png" alt="SQL Quick Reference" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">SQL Quick Reference</h3>
-                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
-                        </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Interactive SQL reference covering 60+ commands - DDL, DML, joins, aggregates, window functions with live search.</p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">SQL</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">JavaScript</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Reference Tool</span>
-                        </div>
-                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
-                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="sql-reference.html" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right w-5 h-5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- US Shopping Behavior Dashboard -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1000ms;" data-category="powerbi" data-project="us-shopping">
-                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="https://raw.githubusercontent.com/wsnh2022/US-Shopping-Behavior-PowerBI/85563429425d784684828acd380f8609052f3b4f/dashboard_preview_dark.png" alt="US Shopping Behavior Dashboard" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">US Shopping Behavior Dashboard</h3>
-                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Completed</div>
-                        </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Power BI dashboard analyzing 3,900 orders ($233K revenue) - dual light/dark mode with DAX measures and segment insights.</p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Power BI</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">DAX</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Power Query</span>
-                        </div>
-                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
-                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="https://github.com/wsnh2022/US-Shopping-Behavior-PowerBI" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- NSE Stock Alert Bot -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1100ms;" data-category="python" data-project="nse-alert-bot">
-                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="./assets/images/projects/nse-alert-bot.png" alt="NSE Stock Alert Bot" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">NSE Stock Alert Bot</h3>
-                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Private</div>
-                        </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Serverless NSE price monitor — runs free on GitHub Actions, sends Telegram alerts when a stock hits your buy or target threshold during market hours.</p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Python</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">GitHub Actions</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Telegram API</span>
-                        </div>
-                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
-                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- DataVault AI -->
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1200ms;" data-category="python ai-tools" data-project="datavault">
-                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="https://raw.githubusercontent.com/wsnh2022/DataVault-AI/main/showcase/repo_cover_image.png" alt="DataVault AI" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">DataVault AI</h3>
-                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
-                        </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Upload any CSV or Excel file, ask questions in plain English, get SQL-backed answers - LangGraph pipeline with DeepSeek V3 and automatic LLM fallback.</p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Python</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">LangGraph</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">DuckDB</span>
-                        </div>
-                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
-                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="https://github.com/wsnh2022/DataVault-AI" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1300ms;" data-category="n8n ai-tools" data-project="semantic-bot">
-                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="https://raw.githubusercontent.com/wsnh2022/N8N_Semantic_search_bot/main/cover.png" alt="Telegram Semantic Memory Bot" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Telegram Semantic Memory Bot</h3>
-                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
-                        </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Store anything. Find it by meaning — not keywords. A self-hosted Telegram bot using Gemini embeddings + Qdrant vector search, orchestrated with n8n.</p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">n8n</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Gemini</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Qdrant</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Telegram</span>
-                        </div>
-                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
-                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="https://github.com/wsnh2022/N8N_Semantic_search_bot" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card glass-card glass-hover rounded-[1.25rem] overflow-hidden group flex flex-col animate-fade-up cursor-pointer" style="animation-delay: 1400ms;" data-category="python ai-tools" data-project="local-rag">
-                    <div class="relative aspect-video overflow-hidden border-b border-white/5 bg-black/20">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                        <img src="https://raw.githubusercontent.com/wsnh2022/Local-Document-RAG-Pipeline/main/docs/cover.png" alt="Local Document RAG Pipeline" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">Local Document RAG Pipeline</h3>
-                            <div class="shrink-0 inline-flex items-center rounded-full border border-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-400 bg-white/5">Open Source</div>
-                        </div>
-                        <p class="text-slate-400 text-sm line-clamp-2 mb-3 leading-relaxed">Offline-first CLI pipeline to ingest local docs and answer questions via token-aware chunking, SHA256 deduplication, LanceDB vector search, and OpenRouter LLM.</p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">Python</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">LanceDB</span>
-                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">RAG</span>
-                        </div>
-                        <div class="mt-auto flex items-center gap-3 pt-4 border-t border-white/5">
-                            <button class="inline-flex items-center justify-center text-sm font-medium h-9 rounded-md px-3 flex-1 bg-white/10 hover:bg-white/20 text-white border-0 transition-colors">Read More</button>
-                            <div class="flex gap-1">
-                                <a href="https://github.com/wsnh2022/Local-Document-RAG-Pipeline" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                                </a>
-                            </div>
+                            <a href="https://github.com/wsnh2022/wsnh2022.github.io" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" class="inline-flex items-center justify-center gap-1.5 text-sm font-medium h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-500/20 to-violet-500/20 hover:from-sky-500/30 hover:to-violet-500/30 text-white border border-white/10 transition-all whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
                         </div>
                     </div>
                 </article>
@@ -1047,6 +1016,20 @@
                     } else {
                         card.classList.add('hidden');
                     }
+                });
+
+                // Hide section dividers when their section has no visible cards
+                document.querySelectorAll('.section-divider').forEach(divider => {
+                    let sibling = divider.nextElementSibling;
+                    let hasVisible = false;
+                    while (sibling && !sibling.classList.contains('section-divider')) {
+                        if (sibling.classList.contains('project-card') && !sibling.classList.contains('hidden')) {
+                            hasVisible = true;
+                            break;
+                        }
+                        sibling = sibling.nextElementSibling;
+                    }
+                    divider.classList.toggle('hidden', !hasVisible);
                 });
 
                 if (visibleCount === 0) {
@@ -1192,7 +1175,7 @@
                 title: 'Social Media Content System',
                 category: 'Content Creation',
                 status: 'Ongoing',
-                image: 'https://img.freepik.com/free-vector/social-media-marketing-concept-with-icons_23-2148431524.jpg',
+                image: './assets/images/projects/datacraft-feed.png',
                 badges: [
                     { label: 'Canva', color: '#ec4899', text: 'white' },
                     { label: 'Instagram', color: '#f97316', text: 'white' },
@@ -1464,13 +1447,13 @@
                     { label: 'Yahoo Finance', color: '#f59e0b', text: 'black' },
                     { label: 'Serverless', color: '#10b981', text: 'white' },
                 ],
-                desc: 'Serverless NSE stock price monitor that runs entirely on GitHub Actions — no server, no cost. Fetches live prices via Yahoo Finance every 10 minutes during market hours (Mon-Fri, 9:15 AM-3:30 PM IST) and sends instant Telegram alerts when a configurable buy zone or target threshold is hit.',
+                desc: 'Serverless NSE stock price monitor that runs entirely on GitHub Actions - no server, no cost. Fetches live prices via Yahoo Finance every 10 minutes during market hours (Mon-Fri, 9:15 AM-3:30 PM IST) and sends instant Telegram alerts when a configurable buy zone or target threshold is hit.',
                 contributions: [
-                    'Designed a zero-infrastructure alert system using GitHub Actions cron — runs ~660 times per month well within the free tier (2,000 min/month).',
-                    'Built configurable price thresholds (low alert / high alert) with silent operation when price is in-range — no notification noise.',
+                    'Designed a zero-infrastructure alert system using GitHub Actions cron - runs ~660 times per month well within the free tier (2,000 min/month).',
+                    'Built configurable price thresholds (low alert / high alert) with silent operation when price is in-range - no notification noise.',
                     'Integrated Yahoo Finance API for live NSE price fetching with no authentication required and full global accessibility.',
                     'Delivered formatted Telegram alerts with price, threshold, and condition context (BUY ZONE / TARGET HIT) for instant decision-making.',
-                    'Kept the repo private with bot token hardcoded — documented migration path to GitHub Secrets for public deployment.',
+                    'Kept the repo private with bot token hardcoded - documented migration path to GitHub Secrets for public deployment.',
                 ],
                 specs: [
                     ['Trigger', 'GitHub Actions cron every 10 min'],
@@ -1480,7 +1463,7 @@
                     ['Monthly runs', '~660 runs / ~150 min (free tier)'],
                     ['Monthly cost', 'Rs 0'],
                 ],
-                impact: 'Personal trading tool. Eliminates the need to watch charts manually — get alerted the moment a stock enters your buy zone or hits your target, from any device.',
+                impact: 'Personal trading tool. Eliminates the need to watch charts manually - get alerted the moment a stock enters your buy zone or hits your target, from any device.',
                 links: []
             },
             'datavault': {
@@ -1536,11 +1519,11 @@
                     { label: 'Vector Search', color: '#8b5cf6', text: 'white' },
                     { label: 'Self-hosted', color: '#10b981', text: 'white' },
                 ],
-                desc: 'A minimal but powerful semantic memory bot integrated into Telegram. Store text into a Qdrant vector database and retrieve it using natural language — no exact keywords required. Uses pure vector similarity search via Gemini embeddings (3072-dimensional), making it fast, private, and fully self-hosted. One-click import into n8n with no LLM required for retrieval.',
+                desc: 'A minimal but powerful semantic memory bot integrated into Telegram. Store text into a Qdrant vector database and retrieve it using natural language - no exact keywords required. Uses pure vector similarity search via Gemini embeddings (3072-dimensional), making it fast, private, and fully self-hosted. One-click import into n8n with no LLM required for retrieval.',
                 contributions: [
-                    'Designed n8n workflow with Telegram webhook → Auth Gate → /store or semantic search branch — fully event-driven with no polling.',
+                    'Designed n8n workflow with Telegram webhook → Auth Gate → /store or semantic search branch - fully event-driven with no polling.',
                     'Integrated Google Gemini gemini-embedding-001 (3072-dim vectors) for text embedding on both store and query paths.',
-                    'Wired Qdrant Cloud as the vector store — insert on /store, cosine similarity search (threshold 0.5) on any other message.',
+                    'Wired Qdrant Cloud as the vector store - insert on /store, cosine similarity search (threshold 0.5) on any other message.',
                     'Built single-user auth gate using Telegram chat ID to restrict access without requiring a separate login system.',
                     'Packaged as a one-click importable n8n JSON workflow with clear credential setup instructions.',
                 ],
@@ -1554,11 +1537,11 @@
                     ['Search', 'Cosine similarity, threshold 0.5'],
                     ['/store', 'Embed → Qdrant insert → confirm message'],
                     ['Query', 'Embed → Qdrant search → top match returned'],
-                    ['Retrieval', 'Pure vector similarity — no LLM generation'],
+                    ['Retrieval', 'Pure vector similarity - no LLM generation'],
                     ['Deployment', 'Self-hosted n8n + Qdrant Cloud'],
                     ['License', 'MIT'],
                 ],
-                impact: 'Personal semantic second-brain via Telegram. Finds the right note by meaning, not exact wording — no cloud dependency on retrieval path.',
+                impact: 'Personal semantic second-brain via Telegram. Finds the right note by meaning, not exact wording - no cloud dependency on retrieval path.',
                 links: [
                     { label: 'View Project', icon: 'fab fa-github', href: 'https://github.com/wsnh2022/N8N_Semantic_search_bot', style: 'accent' },
                 ]
@@ -1578,9 +1561,9 @@
                     { label: 'RAG', color: '#8b5cf6', text: 'white' },
                     { label: 'Open Source', color: '#10b981', text: 'white' },
                 ],
-                desc: 'A command-line RAG (Retrieval-Augmented Generation) system that ingests local documents and answers questions about them entirely offline — except for the final LLM API call. Supports .txt, .pdf, .docx, and .md files with token-aware chunking via tiktoken, SHA256-based deduplication to skip unchanged files on re-ingestion, and strict context budget enforcement before sending to the LLM. Includes dual prompt modes that auto-detect summary intent and switch between summarisation and RAG modes.',
+                desc: 'A command-line RAG (Retrieval-Augmented Generation) system that ingests local documents and answers questions about them entirely offline - except for the final LLM API call. Supports .txt, .pdf, .docx, and .md files with token-aware chunking via tiktoken, SHA256-based deduplication to skip unchanged files on re-ingestion, and strict context budget enforcement before sending to the LLM. Includes dual prompt modes that auto-detect summary intent and switch between summarisation and RAG modes.',
                 contributions: [
-                    'Built token-aware chunking pipeline using tiktoken + langchain-text-splitters — splits by token count (not character count) for predictable embedding behaviour.',
+                    'Built token-aware chunking pipeline using tiktoken + langchain-text-splitters - splits by token count (not character count) for predictable embedding behaviour.',
                     'Implemented SHA256 file deduplication so unchanged documents are automatically skipped on every re-ingestion run.',
                     'Designed context budget enforcement layer that trims retrieved chunks to fit within MAX_CONTEXT_TOKENS before any LLM call.',
                     'Added dual prompt mode: auto-detects summary intent and routes between summarisation and RAG prompts accordingly.',
@@ -1601,9 +1584,57 @@
                     ['Modes', 'RAG + auto-detected summarisation'],
                     ['License', 'MIT'],
                 ],
-                impact: 'Fully offline document Q&A — ask questions about any local file in plain English without any data leaving the machine until the final LLM call.',
+                impact: 'Fully offline document Q&A - ask questions about any local file in plain English without any data leaving the machine until the final LLM call.',
                 links: [
                     { label: 'View on GitHub', icon: 'fab fa-github', href: 'https://github.com/wsnh2022/Local-Document-RAG-Pipeline', style: 'accent' },
+                ]
+            },
+            'insta2mdbot': {
+                id: 'PROJ_015',
+                title: 'Insta2MD Bot',
+                category: 'AI / Python / Automation',
+                status: 'Open Source',
+                image: 'https://raw.githubusercontent.com/wsnh2022/insta2mdbot/main/docs/cover.png',
+                badges: [
+                    { label: 'Python',             color: '#3776AB', text: 'white' },
+                    { label: 'JavaScript',          color: '#f0db4f', text: '#030712' },
+                    { label: 'AutoHotkey v2',       color: '#38bdf8', text: 'white' },
+                    { label: 'Cloudflare Workers',  color: '#f97316', text: 'white' },
+                    { label: 'GitHub Actions',      color: '#6366f1', text: 'white' },
+                    { label: 'GitHub Pages',        color: '#10b981', text: 'white' },
+                    { label: 'OpenRouter AI',       color: '#8b5cf6', text: 'white' },
+                    { label: 'Open Source',         color: '#10b981', text: 'white' },
+                ],
+                desc: 'Paste an Instagram URL and get a fully-structured Obsidian note in ~2 minutes. The bot scrapes the post, strips tracking parameters, sends images through an AI vision pipeline (OpenRouter: Gemini 2.5 Flash Lite → Qwen 3.5 9B → NVIDIA Nemotron fallback), extracts all text including carousel comparison slides, and returns a YAML-fronted markdown file with an auto-generated title, 3–5 topic tags, a summary callout block, and automatic topic-subfolder routing — all pushed to a private GitHub repo.',
+                contributions: [
+                    'Built a GitHub Pages frontend → Cloudflare Workers API → GitHub Actions backend pipeline that processes posts end-to-end without any persistent server.',
+                    'Designed a three-model AI fallback chain (Gemini 2.5 Flash Lite → Qwen 3.5 9B → NVIDIA Nemotron Nano 12B 2 VL) with automatic retries for reliability.',
+                    'Implemented smart carousel layout parsing that converts two-column comparison slides into markdown tables instead of flat text.',
+                    'Added SHA256-based duplicate detection so re-submitting the same URL is a no-op.',
+                    'Shipped passphrase-protected submission + rate limiting (10 req/min) to prevent abuse on the public endpoint.',
+                    'Wrote an AutoHotkey v2 hotkey (Alt+I) to capture a selected Instagram URL and submit it from the clipboard in one keystroke.',
+                    'Engineered auto topic-routing that files each note into a matching subfolder (e.g. /fitness, /design) based on AI-assigned tags.',
+                ],
+                specs: [
+                    ['Backend language',   'Python 3.x'],
+                    ['Frontend',           'GitHub Pages (vanilla JS)'],
+                    ['API layer',          'Cloudflare Workers'],
+                    ['Automation',         'GitHub Actions'],
+                    ['Note storage',       'Private GitHub repository'],
+                    ['AI provider',        'OpenRouter (multi-model fallback)'],
+                    ['Primary model',      'Gemini 2.5 Flash Lite'],
+                    ['Fallback models',    'Qwen 3.5 9B · NVIDIA Nemotron Nano 12B 2 VL'],
+                    ['Hotkey',             'AutoHotkey v2 (Alt+I)'],
+                    ['Auth',               'Passphrase-protected endpoint'],
+                    ['Rate limiting',      '10 requests / minute'],
+                    ['Deduplication',      'SHA256 per URL'],
+                    ['Output format',      'YAML-fronted Obsidian markdown'],
+                    ['Processing time',    '~2 minutes per post'],
+                    ['License',            'MIT'],
+                ],
+                impact: 'Turns passive Instagram browsing into a searchable personal knowledge base — every saved post becomes a tagged, summarised Obsidian note filed automatically by topic.',
+                links: [
+                    { label: 'View on GitHub', icon: 'fab fa-github', href: 'https://github.com/wsnh2022/insta2mdbot', style: 'accent' },
                 ]
             }
         };
