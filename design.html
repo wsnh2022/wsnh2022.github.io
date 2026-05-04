@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design & Content | Yoghesh | @datacraft.yogi</title>
+    <meta name="description" content="Canva-based brand design, visiting cards, and content work by Yoghesh - @datacraft.yogi.">
+
+    <meta property="og:url" content="https://wsnh2022.github.io/design">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Design & Content | Yoghesh | @datacraft.yogi">
+    <meta property="og:description" content="Canva-based brand design, visiting cards, and content work by Yoghesh.">
+    <meta property="og:image" content="https://wsnh2022.github.io/assets/images/meta/og_tag.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="wsnh2022.github.io">
+    <meta property="twitter:url" content="https://wsnh2022.github.io/design">
+    <meta name="twitter:title" content="Design & Content | Yoghesh | @datacraft.yogi">
+    <meta name="twitter:description" content="Canva-based brand design, visiting cards, and content work by Yoghesh.">
+    <meta name="twitter:image" content="https://wsnh2022.github.io/assets/images/meta/og_tag.png">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%2338bdf8'>Y</text></svg>">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YT5JNT9C24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-YT5JNT9C24');
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        midnight: '#030712',
+                        panel: '#0a0e27',
+                        accent: '#38bdf8',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass {
+            background: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-background {
+            background-color: #030712;
+            background-image: radial-gradient(#1f2937 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .hover-card { transition: all 0.3s ease; }
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(56,189,248,0.3);
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+        .noise::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 9999;
+            filter: contrast(120%) brightness(120%);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(10,14,39,0.5); }
+        ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.5); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(56,189,248,0.7); }
+        #mobileMenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        #mobileMenu.active { max-height: 500px; }
+    </style>
+</head>
+
+<body class="bg-midnight text-white font-sans antialiased noise">
+
+    <div class="hero-background fixed inset-0 z-0"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-5xl glass rounded-2xl z-50 shadow-2xl">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-accent to-purple-500 rounded-lg flex items-center justify-center">
+                        <span class="text-midnight font-bold text-sm">Y</span>
+                    </div>
+                    <span class="font-display font-bold text-xl">Yoghesh</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex gap-8 text-sm font-medium text-slate-400 items-center ml-8">
+                    <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                    <a href="experience.html" class="hover:text-white transition-colors">Experience</a>
+                    <a href="projects.html" class="hover:text-white transition-colors">Projects</a>
+                    <a href="design.html" class="text-accent hover:text-accent/80 transition-colors">Design</a>
+                    <a href="index.html#contact" class="hover:text-white transition-colors">Contact</a>
+                </div>
+
+                <!-- Desktop Social Icons -->
+                <div class="hidden lg:flex items-center gap-2 pl-4 border-l border-white/10">
+                    <a href="https://www.linkedin.com/in/yoghesh369/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5" title="LinkedIn">
+                        <i class="fab fa-linkedin text-base"></i>
+                    </a>
+                    <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5" title="GitHub">
+                        <i class="fab fa-github text-base"></i>
+                    </a>
+                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5" title="Instagram">
+                        <i class="fab fa-instagram text-base"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="lg:hidden text-slate-400 hover:text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="lg:hidden px-6 pb-4">
+                <div class="flex flex-col gap-4 text-sm font-medium text-slate-400 pt-4 border-t border-white/10">
+                    <a href="index.html" class="hover:text-white transition-colors flex items-center gap-3">
+                        <i class="fas fa-home text-accent w-5"></i><span>Home</span>
+                    </a>
+                    <a href="experience.html" class="hover:text-white transition-colors flex items-center gap-3">
+                        <i class="fas fa-briefcase text-accent w-5"></i><span>Experience</span>
+                    </a>
+                    <a href="projects.html" class="hover:text-white transition-colors flex items-center gap-3">
+                        <i class="fas fa-code text-accent w-5"></i><span>Projects</span>
+                    </a>
+                    <a href="design.html" class="text-accent hover:text-accent/80 transition-colors flex items-center gap-3">
+                        <i class="fas fa-paint-brush text-accent w-5"></i><span>Design</span>
+                    </a>
+                    <a href="index.html#contact" class="hover:text-white transition-colors flex items-center gap-3">
+                        <i class="fas fa-envelope text-accent w-5"></i><span>Contact</span>
+                    </a>
+                    <div class="flex gap-4 pt-4 border-t border-white/10">
+                        <a href="https://www.linkedin.com/in/yoghesh369/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center rounded-xl bg-transparent text-[#0077b5] border-2 border-[#0077b5]" title="LinkedIn">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                        <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center rounded-xl bg-transparent text-white border-2 border-white" title="GitHub">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center rounded-xl bg-transparent text-[#E1306C] border-2 border-[#E1306C]" title="Instagram">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10 pt-32 pb-20 px-4 max-w-6xl mx-auto">
+
+        <!-- Page Header -->
+        <header class="text-center mb-16 scroll-reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/15 border border-purple-500/25 text-purple-400 text-xs font-mono mb-6 backdrop-blur-sm">
+                <i class="fas fa-paint-brush text-[9px]"></i> DESIGN & CONTENT WORK
+            </div>
+            <h1 class="font-display text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                Brand Design &<br class="hidden md:block">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400">Content Creation</span>
+            </h1>
+            <p class="text-white/60 text-base max-w-xl mx-auto leading-relaxed">
+                Data & Automation is the anchor. It is not the ceiling. Canva-based brand assets, visiting cards, and content for <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" class="text-accent hover:underline">@datacraft.yogi</a>.
+            </p>
+        </header>
+
+        <!-- Services -->
+        <section class="grid md:grid-cols-3 gap-4 mb-16 scroll-reveal">
+            <div class="glass rounded-2xl p-6 hover-card border border-white/5">
+                <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4">
+                    <i class="fas fa-paint-brush text-purple-400"></i>
+                </div>
+                <h3 class="font-bold text-white mb-2">Visiting Card Design</h3>
+                <p class="text-white/55 text-sm leading-relaxed">Client-ready card designs: personal brand, B&W minimalist, multi-variant formats. Print-ready deliverables for small businesses and independent professionals.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 hover-card border border-white/5">
+                <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+                    <i class="fab fa-instagram text-accent"></i>
+                </div>
+                <h3 class="font-bold text-white mb-2">Content Operation</h3>
+                <p class="text-white/55 text-sm leading-relaxed">Running <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" class="text-accent hover:underline">@datacraft.yogi</a> - a self-produced content channel covering data, design, and the work in between.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 hover-card border border-white/5">
+                <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4">
+                    <i class="fas fa-user-tie text-purple-400"></i>
+                </div>
+                <h3 class="font-bold text-white mb-2">Client Work</h3>
+                <p class="text-white/55 text-sm leading-relaxed">Client design work delivered for independent professionals, including print-ready visiting cards for zenfli & Makeover by Darshinis and more.</p>
+            </div>
+        </section>
+
+        <!-- Visiting Card Multi Design Samples -->
+        <section class="glass rounded-2xl p-6 md:p-10 mb-12 border border-white/5 scroll-reveal">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fa-solid fa-id-card text-accent"></i>
+                <h2 class="text-xl font-bold text-white font-display">Visiting Card Multi Design Samples</h2>
+            </div>
+            <div class="max-w-sm mx-auto">
+                <div style="position: relative; width: 100%; height: 0; padding-top: 141.4286%; overflow: hidden; border-radius: 8px;">
+                    <iframe loading="lazy"
+                        style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                        src="https://www.canva.com/design/DAG7CisXuv0/rnvOoFknhQR6KAUI5qFU-w/view?embed"
+                        allowfullscreen="allowfullscreen" allow="fullscreen">
+                    </iframe>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 text-right">
+                    <a href="https://www.canva.com/design/DAG7CisXuv0/rnvOoFknhQR6KAUI5qFU-w/view?utm_content=DAG7CisXuv0&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener" class="hover:text-slate-300 transition-colors">Design</a> by datacraft.yogi
+                </p>
+            </div>
+        </section>
+
+        <!-- Client Design Samples -->
+        <section class="mb-12 scroll-reveal">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fas fa-photo-film text-purple-400 text-sm"></i>
+                <h2 class="text-sm font-bold text-white uppercase tracking-widest">Client Design Samples</h2>
+                <div class="flex-1 h-px bg-white/5"></div>
+            </div>
+
+            <!-- Landscape -->
+            <p class="text-xs text-slate-600 font-mono uppercase tracking-widest mb-3">Landscape</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="glass rounded-xl p-4 border border-white/5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa-solid fa-id-card text-purple-400"></i>
+                        <span class="font-semibold text-white text-sm tracking-wide">Visiting Card - zenfli solutions</span>
+                        <span class="ml-auto text-xs text-slate-500">@datacraft.yogi</span>
+                    </div>
+                    <div style="position: relative; width: 100%; height: 0; padding-top: 57.1429%; overflow: hidden; border-radius: 6px;">
+                        <iframe loading="lazy"
+                            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                            src="https://www.canva.com/design/DAGj97WbeK0/rfUTWL7DgvOSjwyL6o5USw/view?embed"
+                            allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 text-right">
+                        <a href="https://www.canva.com/design/DAGj97WbeK0/rfUTWL7DgvOSjwyL6o5USw/view?utm_content=DAGj97WbeK0&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener" class="hover:text-slate-300 transition-colors">View on Canva</a>
+                    </p>
+                </div>
+                <div class="glass rounded-xl p-4 border border-white/5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa-solid fa-id-card text-purple-400"></i>
+                        <span class="font-semibold text-white text-sm tracking-wide">Visiting Card - Makeover by Darshinis</span>
+                        <span class="ml-auto text-xs text-slate-500">@datacraft.yogi</span>
+                    </div>
+                    <div style="position: relative; width: 100%; height: 0; padding-top: 57.1429%; overflow: hidden; border-radius: 6px;">
+                        <iframe loading="lazy"
+                            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                            src="https://www.canva.com/design/DAG4S9KWxPs/_MYRX-6YFlKFqHOtf6xJGA/view?embed"
+                            allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 text-right">
+                        <a href="https://www.canva.com/design/DAG4S9KWxPs/_MYRX-6YFlKFqHOtf6xJGA/view?utm_content=DAG4S9KWxPs&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener" class="hover:text-slate-300 transition-colors">View on Canva</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Portrait -->
+            <p class="text-xs text-slate-600 font-mono uppercase tracking-widest mb-3">Portrait</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass rounded-xl p-2 md:p-4 border border-white/5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fab fa-instagram text-accent"></i>
+                        <span class="font-semibold text-white text-sm tracking-wide">Post + flyers discounts offer promotion</span>
+                        <span class="ml-auto text-xs text-slate-500">@datacraft.yogi</span>
+                    </div>
+                    <div style="position: relative; width: 100%; height: 0; padding-top: 125%; overflow: hidden; border-radius: 6px;">
+                        <iframe loading="lazy"
+                            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                            src="https://www.canva.com/design/DAG4drzy84o/3QJxZ9ucpJc57BKymktlag/watch?embed"
+                            allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 text-right">
+                        <a href="https://www.canva.com/design/DAG4drzy84o/3QJxZ9ucpJc57BKymktlag/watch?utm_content=DAG4drzy84o&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener" class="hover:text-slate-300 transition-colors">View on Canva</a>
+                    </p>
+                </div>
+                <div class="glass rounded-xl p-2 md:p-4 border border-white/5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fab fa-instagram text-accent"></i>
+                        <span class="font-semibold text-white text-sm tracking-wide">Zenfli Instagram Carousel</span>
+                        <span class="ml-auto text-xs text-slate-500">@datacraft.yogi</span>
+                    </div>
+                    <div style="position: relative; width: 100%; height: 0; padding-top: 125%; overflow: hidden; border-radius: 6px;">
+                        <iframe loading="lazy"
+                            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                            src="https://www.canva.com/design/DAGhzZtyRi4/fa2z5kOGsHtukAM99KjiZA/watch?embed"
+                            allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 text-right">
+                        <a href="https://www.canva.com/design/DAGhzZtyRi4/fa2z5kOGsHtukAM99KjiZA/watch?utm_content=DAGhzZtyRi4&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener" class="hover:text-slate-300 transition-colors">View on Canva</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="text-center scroll-reveal">
+            <div class="glass rounded-2xl p-10 border border-white/5 max-w-xl mx-auto">
+                <p class="text-white/70 text-sm mb-6 leading-relaxed">Need brand assets, visiting cards, or social media design? Get in touch.</p>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank"
+                        class="px-5 py-2.5 bg-[#E1306C] text-white rounded-lg text-xs font-bold hover:scale-105 transition-all">
+                        <i class="fab fa-instagram mr-2"></i>@datacraft.yogi
+                    </a>
+                    <a href="index.html#contact"
+                        class="px-5 py-2.5 bg-white/10 text-white rounded-lg text-xs font-bold border border-white/20 hover:bg-white/20 transition-all">
+                        <i class="fas fa-envelope mr-2"></i>Get in Touch
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 border-t border-white/5 mt-12 bg-black/20 relative z-10">
+        <p class="text-sm text-slate-600 font-mono">&copy; 2026 Yoghesh. Data Analyst · Automation · Design & Content.</p>
+        <p class="text-sm text-slate-700 font-mono mt-2">Built with precision. Optimized for impact.</p>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('active'));
+        mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('active')));
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }).observe(el);
+        });
+    </script>
+
+</body>
+</html>
