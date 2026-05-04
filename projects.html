@@ -426,13 +426,27 @@
 
                 <!-- Filter Buttons -->
                 <div class="flex gap-2 overflow-x-auto hide-scrollbar md:flex-wrap pb-1 md:pb-0">
-                    <button class="filter-btn active shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[hsl(340,82%,75%)] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="all">All Projects</button>
-                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#818cf8] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="desktop">Desktop</button>
-                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#f87171] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="automation">Automation</button>
-                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#a78bfa] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="ai-tools">AI Tools</button>
-                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#fbbf24] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="data">Data &amp; Analytics</button>
-                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#10b981] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="web-tools">Web Tools</button>
-                    <button class="filter-btn shrink-0 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#ec4899] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="content-design">Content &amp; Design</button>
+                    <button class="filter-btn active shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[hsl(340,82%,75%)] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="all">
+                        <i class="fas fa-layer-group text-xs"></i>All Projects<span class="text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="background: rgb(244 139 174 / 0.18);">16</span>
+                    </button>
+                    <button class="filter-btn shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#818cf8] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="desktop">
+                        <i class="fas fa-desktop text-xs"></i>Desktop<span class="text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="background: rgb(129 140 248 / 0.18);">2</span>
+                    </button>
+                    <button class="filter-btn shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#f87171] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="automation">
+                        <i class="fas fa-robot text-xs"></i>Automation<span class="text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="background: rgb(248 113 113 / 0.18);">3</span>
+                    </button>
+                    <button class="filter-btn shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#a78bfa] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="ai-tools">
+                        <i class="fas fa-brain text-xs"></i>AI Tools<span class="text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="background: rgb(167 139 250 / 0.18);">5</span>
+                    </button>
+                    <button class="filter-btn shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#fbbf24] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="data">
+                        <i class="fas fa-chart-line text-xs"></i>Data &amp; Analytics<span class="text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="background: rgb(251 191 36 / 0.18);">2</span>
+                    </button>
+                    <button class="filter-btn shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#10b981] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="web-tools">
+                        <i class="fas fa-code text-xs"></i>Web Tools<span class="text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="background: rgb(16 185 129 / 0.18);">2</span>
+                    </button>
+                    <button class="filter-btn shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(240,5%,18%)] bg-[hsl(240,10%,10%)] text-[#ec4899] text-sm font-bold uppercase transition-all hover:bg-[hsl(240,10%,15%)]" data-filter="content-design">
+                        <i class="fas fa-palette text-xs"></i>Content &amp; Design<span class="text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="background: rgb(236 72 153 / 0.18);">3</span>
+                    </button>
                 </div>
             </div>
 
@@ -467,9 +481,13 @@
                 </article>
 
                 <!-- Section: Desktop Apps -->
-                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
-                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">Desktop Apps</span>
-                    <div class="flex-1 h-px bg-white/5"></div>
+                <div class="section-divider col-span-full flex items-center gap-4 mt-10 mb-3">
+                    <div class="flex items-center gap-2 shrink-0 bg-white/5 border rounded-full px-3.5 py-1.5" style="border-color: rgb(129 140 248 / 0.35);">
+                        <i class="fas fa-desktop text-xs" style="color: #818cf8;"></i>
+                        <span class="text-xs font-bold tracking-[0.12em] uppercase whitespace-nowrap" style="color: rgba(255,255,255,0.75);">Desktop Apps</span>
+                        <span class="count-badge text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="color: #818cf8; background: rgb(129 140 248 / 0.15);">1</span>
+                    </div>
+                    <div class="flex-1 h-px" style="background: linear-gradient(to right, rgb(129 140 248 / 0.3), transparent);"></div>
                 </div>
 
                 <!-- Nexus Launcher -->
@@ -497,9 +515,13 @@
                 </article>
 
                 <!-- Section: Automation -->
-                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
-                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">Automation</span>
-                    <div class="flex-1 h-px bg-white/5"></div>
+                <div class="section-divider col-span-full flex items-center gap-4 mt-10 mb-3">
+                    <div class="flex items-center gap-2 shrink-0 bg-white/5 border rounded-full px-3.5 py-1.5" style="border-color: rgb(248 113 113 / 0.35);">
+                        <i class="fas fa-robot text-xs" style="color: #f87171;"></i>
+                        <span class="text-xs font-bold tracking-[0.12em] uppercase whitespace-nowrap" style="color: rgba(255,255,255,0.75);">Automation</span>
+                        <span class="count-badge text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="color: #f87171; background: rgb(248 113 113 / 0.15);">3</span>
+                    </div>
+                    <div class="flex-1 h-px" style="background: linear-gradient(to right, rgb(248 113 113 / 0.3), transparent);"></div>
                 </div>
 
                 <!-- Facility Automation Pipeline -->
@@ -577,9 +599,13 @@
                 </article>
 
                 <!-- Section: AI Tools -->
-                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
-                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">AI Tools</span>
-                    <div class="flex-1 h-px bg-white/5"></div>
+                <div class="section-divider col-span-full flex items-center gap-4 mt-10 mb-3">
+                    <div class="flex items-center gap-2 shrink-0 bg-white/5 border rounded-full px-3.5 py-1.5" style="border-color: rgb(167 139 250 / 0.35);">
+                        <i class="fas fa-brain text-xs" style="color: #a78bfa;"></i>
+                        <span class="text-xs font-bold tracking-[0.12em] uppercase whitespace-nowrap" style="color: rgba(255,255,255,0.75);">AI Tools</span>
+                        <span class="count-badge text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="color: #a78bfa; background: rgb(167 139 250 / 0.15);">4</span>
+                    </div>
+                    <div class="flex-1 h-px" style="background: linear-gradient(to right, rgb(167 139 250 / 0.3), transparent);"></div>
                 </div>
 
                 <!-- VisionScribe AI -->
@@ -680,9 +706,13 @@
                 </article>
 
                 <!-- Section: Data & Analytics -->
-                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
-                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">Data &amp; Analytics</span>
-                    <div class="flex-1 h-px bg-white/5"></div>
+                <div class="section-divider col-span-full flex items-center gap-4 mt-10 mb-3">
+                    <div class="flex items-center gap-2 shrink-0 bg-white/5 border rounded-full px-3.5 py-1.5" style="border-color: rgb(251 191 36 / 0.35);">
+                        <i class="fas fa-chart-line text-xs" style="color: #fbbf24;"></i>
+                        <span class="text-xs font-bold tracking-[0.12em] uppercase whitespace-nowrap" style="color: rgba(255,255,255,0.75);">Data &amp; Analytics</span>
+                        <span class="count-badge text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="color: #fbbf24; background: rgb(251 191 36 / 0.15);">2</span>
+                    </div>
+                    <div class="flex-1 h-px" style="background: linear-gradient(to right, rgb(251 191 36 / 0.3), transparent);"></div>
                 </div>
 
                 <!-- US Shopping Behavior Dashboard -->
@@ -734,9 +764,13 @@
                 </article>
 
                 <!-- Section: Web Tools -->
-                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
-                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">Web Tools</span>
-                    <div class="flex-1 h-px bg-white/5"></div>
+                <div class="section-divider col-span-full flex items-center gap-4 mt-10 mb-3">
+                    <div class="flex items-center gap-2 shrink-0 bg-white/5 border rounded-full px-3.5 py-1.5" style="border-color: rgb(16 185 129 / 0.35);">
+                        <i class="fas fa-code text-xs" style="color: #10b981;"></i>
+                        <span class="text-xs font-bold tracking-[0.12em] uppercase whitespace-nowrap" style="color: rgba(255,255,255,0.75);">Web Tools</span>
+                        <span class="count-badge text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="color: #10b981; background: rgb(16 185 129 / 0.15);">2</span>
+                    </div>
+                    <div class="flex-1 h-px" style="background: linear-gradient(to right, rgb(16 185 129 / 0.3), transparent);"></div>
                 </div>
 
                 <!-- AHKMenu – Menu Builder -->
@@ -788,9 +822,13 @@
                 </article>
 
                 <!-- Section: Content & Design -->
-                <div class="section-divider col-span-full flex items-center gap-3 mt-6 mb-1">
-                    <span class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase whitespace-nowrap">Content &amp; Design</span>
-                    <div class="flex-1 h-px bg-white/5"></div>
+                <div class="section-divider col-span-full flex items-center gap-4 mt-10 mb-3">
+                    <div class="flex items-center gap-2 shrink-0 bg-white/5 border rounded-full px-3.5 py-1.5" style="border-color: rgb(236 72 153 / 0.35);">
+                        <i class="fas fa-palette text-xs" style="color: #ec4899;"></i>
+                        <span class="text-xs font-bold tracking-[0.12em] uppercase whitespace-nowrap" style="color: rgba(255,255,255,0.75);">Content &amp; Design</span>
+                        <span class="count-badge text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none" style="color: #ec4899; background: rgb(236 72 153 / 0.15);">3</span>
+                    </div>
+                    <div class="flex-1 h-px" style="background: linear-gradient(to right, rgb(236 72 153 / 0.3), transparent);"></div>
                 </div>
 
                 <!-- Social Media Content System -->
@@ -919,7 +957,7 @@
             </button>
 
             <!-- LEFT: image / embeds -->
-            <div class="bg-black/40 p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-white/10 h-[300px] md:h-auto relative overflow-hidden">
+            <div class="bg-black/40 p-4 md:p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-white/10 h-[200px] sm:h-[260px] md:h-auto relative overflow-hidden">
                 <div class="w-full max-w-md relative z-10">
                     <div id="modalImageSlide" class="rounded-lg overflow-hidden shadow-2xl border border-white/10 bg-black/50">
                         <img id="modalCoverImg" src="" alt="" class="lightbox-trigger w-full h-auto object-cover" style="cursor: zoom-in; opacity: 1;">
@@ -929,9 +967,9 @@
             </div>
 
             <!-- RIGHT: content -->
-            <div id="modalContent" class="p-8 overflow-y-auto hide-scrollbar bg-black/20">
+            <div id="modalContent" class="p-5 md:p-8 overflow-y-auto hide-scrollbar bg-black/20">
                 <div class="mb-6">
-                    <h2 id="modalTitle" class="text-3xl font-bold mb-2"></h2>
+                    <h2 id="modalTitle" class="text-2xl md:text-3xl font-bold mb-2"></h2>
                     <p id="modalSubtitle" class="flex items-center gap-2 text-primary font-medium text-sm"></p>
                 </div>
                 <div class="space-y-6">
@@ -1018,18 +1056,19 @@
                     }
                 });
 
-                // Hide section dividers when their section has no visible cards
+                // Hide section dividers when their section has no visible cards; update count badge
                 document.querySelectorAll('.section-divider').forEach(divider => {
                     let sibling = divider.nextElementSibling;
-                    let hasVisible = false;
+                    let sectionCount = 0;
                     while (sibling && !sibling.classList.contains('section-divider')) {
                         if (sibling.classList.contains('project-card') && !sibling.classList.contains('hidden')) {
-                            hasVisible = true;
-                            break;
+                            sectionCount++;
                         }
                         sibling = sibling.nextElementSibling;
                     }
-                    divider.classList.toggle('hidden', !hasVisible);
+                    divider.classList.toggle('hidden', sectionCount === 0);
+                    const badge = divider.querySelector('.count-badge');
+                    if (badge) badge.textContent = sectionCount;
                 });
 
                 if (visibleCount === 0) {
