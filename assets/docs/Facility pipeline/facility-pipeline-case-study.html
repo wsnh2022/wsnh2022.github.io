@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study - Facility Automation Pipeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --paper: #f5f2ec;
+    --accent: #c94f1a;
+    --muted: #7a7367;
+    --rule: #d8d2c8;
+    --highlight: #fff8e6;
+    --card-bg: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* --- LAYOUT --- */
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 64px 40px 100px;
+  }
+
+  /* --- HEADER --- */
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .headline {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(38px, 6vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 12px;
+    max-width: 620px;
+  }
+
+  .headline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .subline {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 56px;
+    font-weight: 500;
+  }
+
+  /* --- METRICS STRIP --- */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 64px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .metric {
+    background: var(--card-bg);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .metric-value {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .metric-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* --- SECTION --- */
+  .section {
+    margin-bottom: 56px;
+  }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .section-tag::before {
+    content: '';
+    display: inline-block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    color: var(--ink);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .section p {
+    color: #3d3a35;
+    font-size: 15.5px;
+    line-height: 1.75;
+    max-width: 640px;
+  }
+
+  /* --- PAIN POINTS --- */
+  .pain-list {
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pain-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14.5px;
+    color: #3d3a35;
+    line-height: 1.6;
+  }
+
+  .pain-list li::before {
+    content: '—';
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* --- SOLUTION FLOW --- */
+  .flow {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .flow-step {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 0 16px;
+    position: relative;
+  }
+
+  .flow-step:not(:last-child) .flow-line {
+    position: absolute;
+    left: 17px;
+    top: 36px;
+    bottom: -4px;
+    width: 2px;
+    background: var(--rule);
+  }
+
+  .flow-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-body {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+  }
+
+  .flow-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .flow-desc {
+    font-size: 13.5px;
+    color: #3d3a35;
+    line-height: 1.6;
+  }
+
+  /* --- OUTCOME TABLE --- */
+  .outcome-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-size: 14px;
+  }
+
+  .outcome-table thead tr {
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .outcome-table th {
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 0 10px;
+    font-weight: 500;
+  }
+
+  .outcome-table th:not(:first-child),
+  .outcome-table td:not(:first-child) {
+    text-align: center;
+  }
+
+  .outcome-table tbody tr {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .outcome-table td {
+    padding: 13px 0;
+    color: #3d3a35;
+  }
+
+  .outcome-table td:first-child {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .before { color: var(--muted); }
+  .after { color: var(--accent); font-weight: 700; }
+
+  /* --- STACK PILLS --- */
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .stack-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11.5px;
+    background: var(--highlight);
+    border: 1px solid #e8dfc9;
+    border-radius: 3px;
+    padding: 5px 12px;
+    color: #5a4e3a;
+  }
+
+  /* --- DIVIDER --- */
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 56px 0;
+  }
+
+  /* --- FOOTER --- */
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    color: var(--ink);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* --- ANIMATIONS --- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .headline, .eyebrow, .subline, .metrics, .section {
+    animation: fadeUp 0.6s ease both;
+  }
+  .eyebrow   { animation-delay: 0.05s; }
+  .headline  { animation-delay: 0.12s; }
+  .subline   { animation-delay: 0.18s; }
+  .metrics   { animation-delay: 0.25s; }
+  .section:nth-child(4) { animation-delay: 0.32s; }
+  .section:nth-child(5) { animation-delay: 0.38s; }
+  .section:nth-child(6) { animation-delay: 0.44s; }
+
+  /* --- PRINT TWEAKS --- */
+  @media print {
+    body { background: white; }
+    .section, .headline, .eyebrow { animation: none; }
+  }
+
+  @media (max-width: 560px) {
+    .page { padding: 40px 24px 72px; }
+    .metrics { grid-template-columns: 1fr; }
+    .flow-step { grid-template-columns: 30px 1fr; gap: 0 12px; }
+    .flow-num { width: 30px; height: 30px; font-size: 10px; }
+    .flow-line { left: 14px; top: 32px; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <p class="eyebrow">Case Study &nbsp;/&nbsp; Workflow Automation</p>
+
+  <h1 class="headline">Turning a <em>manual chaos</em> into a 60-second pipeline</h1>
+
+  <p class="subline">Facility Request Automation &nbsp;|&nbsp; Yoghesh (wsnh2022) &nbsp;|&nbsp; n8n + Google Sheets + Gmail</p>
+
+  <!-- METRICS -->
+  <div class="metrics">
+    <div class="metric">
+      <span class="metric-value">330</span>
+      <span class="metric-label">Hours saved / year</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">Rs.1.65L</span>
+      <span class="metric-label">Annual cost eliminated</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">&lt;60s</span>
+      <span class="metric-label">Request-to-ticket time</span>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="section">
+    <span class="section-tag">01 &nbsp; Problem</span>
+    <h2 class="section-title">Everything ran through a person's inbox</h2>
+    <p>
+      A mid-size office was fielding 330+ facility requests every month - AC repairs, IT issues, courier pickups, parking slots. Each one required an admin to manually type it into a tracking sheet, send a confirmation email to the employee, and CC the department head. That is 5 minutes of repetitive data entry per request, across 22 working days.
+    </p>
+    <ul class="pain-list">
+      <li>27.5 admin hours burned every month on copy-paste work</li>
+      <li>Employees waited hours - sometimes days - for any acknowledgment</li>
+      <li>Requests buried in email inboxes, no ticket numbers, no audit trail</li>
+      <li>5-10% of requests quietly fell through the cracks</li>
+    </ul>
+  </div>
+
+  <!-- SOLUTION -->
+  <div class="section">
+    <span class="section-tag">02 &nbsp; Solution</span>
+    <h2 class="section-title">A pipeline that runs itself</h2>
+    <p>
+      Built an end-to-end automated ticketing system using n8n as the workflow engine. An employee fills out a web form in 60 seconds. The moment they submit, four things happen automatically - with zero manual work.
+    </p>
+    <div class="flow">
+
+      <div class="flow-step">
+        <div class="flow-line"></div>
+        <div class="flow-num">01</div>
+        <div class="flow-body">
+          <div class="flow-label">Web Form</div>
+          <div class="flow-desc">Employee selects a request type (AC, IT support, courier, parking, etc.), fills in their name, email, department, date needed, and any extra details. Takes about 60 seconds. No phone calls, no emails.</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-line"></div>
+        <div class="flow-num">02</div>
+        <div class="flow-body">
+          <div class="flow-label">Webhook Trigger</div>
+          <div class="flow-desc">The moment the employee hits submit, the form data is sent via HTTP POST to n8n's webhook URL. n8n wakes up instantly and begins processing - no polling, no delay, no human checking an inbox.</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-line"></div>
+        <div class="flow-num">03</div>
+        <div class="flow-body">
+          <div class="flow-label">Unique Ticket ID</div>
+          <div class="flow-desc">n8n generates a timestamp-based reference number (e.g. TKT-1714892341000) unique to that submission. This ID is attached to every downstream action - the spreadsheet row, both emails - so nothing gets mixed up or lost.</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-line"></div>
+        <div class="flow-num">04</div>
+        <div class="flow-body">
+          <div class="flow-label">Google Sheets Log</div>
+          <div class="flow-desc">All form fields plus the ticket ID and timestamp are appended as a new row in a shared Google Sheet. Every request is now searchable, sortable, and visible to anyone with access - a permanent audit trail replacing the old email chaos.</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">05</div>
+        <div class="flow-body">
+          <div class="flow-label">Dual Email Alerts</div>
+          <div class="flow-desc">Two emails fire simultaneously. The employee receives a confirmation showing their ticket number - proof the request is logged. The admin receives the full request details ready to act on. Both arrive in under 60 seconds from form submission.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OUTCOME -->
+  <div class="section">
+    <span class="section-tag">03 &nbsp; Outcome</span>
+    <h2 class="section-title">The numbers speak clearly</h2>
+
+    <table class="outcome-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Before</th>
+          <th>After</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Time per request</td>
+          <td class="before">5 minutes</td>
+          <td class="after">0 minutes</td>
+        </tr>
+        <tr>
+          <td>Employee wait time</td>
+          <td class="before">Hours to days</td>
+          <td class="after">Under 60 seconds</td>
+        </tr>
+        <tr>
+          <td>Monthly admin hours</td>
+          <td class="before">27.5 hours</td>
+          <td class="after">0 hours</td>
+        </tr>
+        <tr>
+          <td>Annual labor cost</td>
+          <td class="before">Rs.1,65,000</td>
+          <td class="after">Rs.0</td>
+        </tr>
+        <tr>
+          <td>Lost requests</td>
+          <td class="before">5 - 10%</td>
+          <td class="after">Eliminated</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="stack">
+      <span class="stack-pill">n8n</span>
+      <span class="stack-pill">HTML / CSS / JS</span>
+      <span class="stack-pill">Google Sheets API</span>
+      <span class="stack-pill">Gmail API</span>
+      <span class="stack-pill">Webhook Architecture</span>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="footer">
+    <span class="footer-name">Yoghesh &nbsp;/ wsnh2022</span>
+    <div class="footer-links">
+      <a href="https://wsnh2022.github.io" target="_blank">Portfolio</a>
+      <a href="https://github.com/wsnh2022/Facility_Automation_Pipeline" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/wsnh2022" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>

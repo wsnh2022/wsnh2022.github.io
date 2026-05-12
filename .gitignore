@@ -31,6 +31,7 @@ build/
 .Trashes
 ehthumbs.db
 Thumbs.db
+desktop.ini
 
 # Logs
 logs
@@ -63,7 +64,6 @@ deploy-log.txt
 .gitsync.lock
 
 # ignore md file
-analytics.google.md
 index_backup.html
 
 # old/renamed project screenshots

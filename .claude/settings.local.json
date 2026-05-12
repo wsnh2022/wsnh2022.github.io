@@ -4,7 +4,13 @@
       "Bash(gh repo *)",
       "WebFetch(domain:github.com)",
       "mcp__Claude_Preview__preview_start",
-      "Bash(sort -t'.' -k1,1)"
+      "Bash(sort -t'.' -k1,1)",
+      "Bash(git worktree *)",
+      "Bash(git branch *)",
+      "Bash(Remove-Item -Recurse -Force \"D:\\\\Library\\\\Code_Env\\\\Github\\\\yogi-porfolio\\\\.claude\\\\worktrees\" -ErrorAction SilentlyContinue)",
+      "Bash(Write-Output \"done\")",
+      "Bash(git restore *)",
+      "Bash(git add *)"
     ]
   }
 }
