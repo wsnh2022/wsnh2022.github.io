@@ -10,7 +10,9 @@
       "Bash(Remove-Item -Recurse -Force \"D:\\\\Library\\\\Code_Env\\\\Github\\\\yogi-porfolio\\\\.claude\\\\worktrees\" -ErrorAction SilentlyContinue)",
       "Bash(Write-Output \"done\")",
       "Bash(git restore *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git commit *)"
     ]
   }
 }
