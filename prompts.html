@@ -253,6 +253,8 @@
       transition: background 0.12s, filter 0.12s;
       white-space: nowrap;
       -webkit-tap-highlight-color: transparent;
+      user-select: none; -webkit-user-select: none;
+      touch-action: manipulation;
     }
     .prompt-name:hover  { background: rgba(255,255,255,0.1); }
     .prompt-name:active { background: rgba(255,255,255,0.18); }
@@ -263,6 +265,7 @@
       color: #edf1ff;
       line-height: 1.4;
       padding: 2px 0;
+      user-select: none; -webkit-user-select: none;
     }
 
     /* ── UNIVERSAL CATEGORY COLOUR TOKENS ──────── */
@@ -315,9 +318,60 @@
       white-space: normal;
       line-height: 1.35;
       -webkit-tap-highlight-color: transparent;
+      user-select: none; -webkit-user-select: none;
+      touch-action: manipulation;
     }
     .col-name:hover  { background: rgba(255,255,255,0.1); }
     .col-name:active { background: rgba(255,255,255,0.18); }
+
+    .last-updated {
+      text-align: center;
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.18);
+      padding: 28px 0 6px;
+    }
+
+    /* ── COPY HISTORY STRIP ─────────────────── */
+    #history-strip {
+      display: none;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 2px 14px;
+    }
+    .history-label {
+      font-size: 0.6rem; font-weight: 700;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-right: 2px;
+    }
+    .history-item {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.66rem;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 3px 9px;
+      transition: background 0.12s, color 0.12s;
+      white-space: nowrap;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .history-item:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .history-item.flashed { background: rgba(255,255,255,0.2); }
+    .history-clear {
+      background: none; border: none;
+      color: rgba(255,255,255,0.2);
+      cursor: pointer; font-size: 0.7rem;
+      padding: 2px 5px; margin-left: 2px;
+      transition: color 0.12s;
+    }
+    .history-clear:hover { color: rgba(255,255,255,0.5); }
 
     /* ── COLLECTION LOADING ───────────────────── */
     .col-loading {
@@ -434,6 +488,10 @@
     @media (max-width: 1080px) { .grid { column-count: 2; } }
     @media (max-width: 700px)  { body { padding: 12px 11px 22px; } }
     @media (max-width: 560px)  { .grid { column-count: 1; } }
+    @media (max-width: 560px) {
+      .modal-overlay { padding: 0; align-items: flex-end; }
+      .modal { width: 100%; max-height: 92vh; border-radius: 12px 12px 0 0; border-bottom: none; }
+    }
   </style>
 </head>
 <body>
@@ -537,6 +595,9 @@
     </div>
   </nav>
 </div>
+
+<!-- ── COPY HISTORY ────────────────────────────── -->
+<div id="history-strip"></div>
 
 <!-- ── NO RESULTS ─────────────────────────────── -->
 <div class="no-results" id="no-results">No prompts match <strong id="no-results-term"></strong></div>
@@ -784,6 +845,8 @@
 <div class="col-loading" id="col-loading">Loading collection...</div>
 <div class="grid" id="collection-grid"></div>
 
+<p class="last-updated">Last updated May 2026</p>
+
 <!-- ── TOAST ──────────────────────────────────── -->
 <div class="toast" id="toast"></div>
 
@@ -892,6 +955,18 @@
   clearEl.addEventListener('click', function() { searchEl.value = ''; applyFilters(); searchEl.focus(); });
 
   /* ── KEYBOARD SHORTCUTS ─────────────────────── */
+  function navigateModal(delta) {
+    var sel = activeTab === 'universal' ? '#grid .prompt-name' : '#collection-grid .col-name';
+    var list = [...document.querySelectorAll(sel)].filter(function(el) {
+      return el.style.display !== 'none';
+    });
+    var cur = document.getElementById('modal-title').textContent;
+    var idx = list.findIndex(function(el) { return el.textContent.trim() === cur; });
+    if (idx === -1) return;
+    var next = list[idx + delta];
+    if (next) next.click();
+  }
+
   document.addEventListener('keydown', function(e) {
     var modalOpen = document.getElementById('modal-overlay').classList.contains('show');
     if (e.key === '/' && document.activeElement !== searchEl && !modalOpen) {
@@ -900,6 +975,10 @@
     if (e.key === 'Escape') {
       if (modalOpen) { closeModal(); }
       else if (document.activeElement === searchEl) { searchEl.value = ''; applyFilters(); searchEl.blur(); }
+    }
+    if (modalOpen && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+      e.preventDefault();
+      navigateModal(e.key === 'ArrowRight' ? 1 : -1);
     }
   });
 
@@ -983,14 +1062,54 @@
     var btn = this;
     var title = document.getElementById('modal-title').textContent;
     var done = function() {
-      btn.classList.add('flashed');
-      setTimeout(function() { btn.classList.remove('flashed'); }, 300);
       showToast('Copied ' + title);
+      addToHistory(title, _modalText);
+      closeModal();
     };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(_modalText).then(done).catch(function() { fallback(_modalText); done(); });
     } else { fallback(_modalText); done(); }
   });
+
+  /* ── COPY HISTORY (session only) ────────────── */
+  var copyHistory = [];
+
+  function addToHistory(label, text) {
+    copyHistory = copyHistory.filter(function(h) { return h.label !== label; });
+    copyHistory.unshift({ label: label, text: text });
+    if (copyHistory.length > 5) copyHistory.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    var strip = document.getElementById('history-strip');
+    if (!copyHistory.length) { strip.style.display = 'none'; return; }
+    strip.style.display = 'flex';
+    strip.innerHTML = '<span class="history-label">Recent</span>'
+      + copyHistory.map(function(h, i) {
+          return '<button class="history-item" data-idx="' + i + '">' + esc(h.label) + '</button>';
+        }).join('')
+      + '<button class="history-clear" title="Clear">✕</button>';
+    strip.querySelectorAll('.history-item').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = copyHistory[+this.dataset.idx];
+        if (!item) return;
+        var b = this;
+        var done = function() {
+          b.classList.add('flashed');
+          setTimeout(function() { b.classList.remove('flashed'); }, 300);
+          showToast('Copied ' + item.label);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(item.text).then(done).catch(function() { fallback(item.text); done(); });
+        } else { fallback(item.text); done(); }
+      });
+    });
+    strip.querySelector('.history-clear').addEventListener('click', function() {
+      copyHistory = [];
+      renderHistory();
+    });
+  }
 
   /* ── TOAST ──────────────────────────────────── */
   var _tt;
