@@ -172,9 +172,9 @@ if !REMOTE_AHEAD! gtr 0 (
     echo.
 )
 
-:: -- Embed prompts data into prompts.html ------------------------------------
+:: -- Regenerate data/my-collection.js from data/my-prompts.md ----------------
 if exist "!REPO_ROOT!\embed-prompts.ps1" (
-    echo Embedding prompts data...
+    echo Generating my-collection.js...
     powershell -ExecutionPolicy Bypass -File "!REPO_ROOT!\embed-prompts.ps1"
     echo.
 )

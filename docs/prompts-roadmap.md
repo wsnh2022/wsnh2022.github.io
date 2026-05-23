@@ -1,64 +1,60 @@
 # prompts.html — Improvement Roadmap
 
-> Quick prompt recollection and usage tool hosted at `wsnh2022.github.io/prompts/`  
+> Quick prompt recollection and usage tool hosted at `wsnh2022.github.io/prompts/`
 > Stack: Pure HTML + CSS + Vanilla JS — no build step, no dependencies
 
 ---
 
-## Current State — Phase 1 ✅ Complete
+## Phase 1 ✅ Complete
 
 - 9 category cards in a 3-column responsive grid
-- 170 prompts total across all categories
-- Each row: `/command` (left col) | `description` (right col)
-- Click any command → copies full structured prompt with `[placeholders]` to clipboard
+- 170 prompts across all categories
+- Each row: `/command` (left) | `description` (right)
+- Click any command → copies full structured prompt to clipboard
 - SVG icons in every category header
-- Dark theme matching Claude Commands reference card style
-- Mobile responsive (3-col → 2-col → 1-col)
+- Dark theme, mobile responsive (3-col → 2-col → 1-col)
 - Toast notification on copy
 - Google Fonts: Inter + JetBrains Mono
 
 ---
 
-## Dead Weight to Remove — Before Phase 2
+## Phase 2 ✅ Complete
 
-These elements take up space but add zero value to quick prompt recollection:
-
-| Element | Location | Reason to Remove |
-|---|---|---|
-| `HOW TO USE` box | Top-right header | Self-evident — users know to click and paste |
-| Description paragraph | Below subtitle | Nobody reads intro text on a reference tool |
-| `"Complete Reference Guide"` subtitle | Below title | Redundant — the page itself is the guide |
-| `TIPS` section | Bottom of page | Generic tips ("be specific") don't help with quick lookup |
-
-**Estimated space recovered:** ~15–20% vertical space freed up, cleaner first impression.
+- Removed dead weight: HOW TO USE box, subtitle, description paragraph, TIPS section
+- Live search bar (sticky, filters cards in real time, matches name + description)
+- Keyboard shortcut: `/` to focus search, `Escape` to clear
+- Category pill nav (color-coded, horizontal scroll on mobile)
+- Toast fixed: now shows `Copied /command` instead of generic message
 
 ---
 
-## Phase 2 — Remove Clutter + Search + Category Nav
+## Phase 4 ✅ Complete
 
-**Goal:** Make it fast to find any of the 170 prompts instantly.
+- "My Collection" tab — 157 personal prompts across 12 categories
+- Data source: `data/my-prompts.md` in repo (plain markdown, no YAML needed)
+- Auto-embed pipeline: edit `.md` → run `gitsync.bat` → site updates automatically
+- `embed-prompts.ps1` splices markdown into `prompts.html` before each commit
+- Clicking a prompt opens a modal with full text + `[PLACEHOLDER]` highlighting
+- Modal: category label, title, scrollable body, Copy button, spring animation
+- Search and category pills work identically on both tabs
+- Works with `file://` (no server needed) — data is embedded inline
 
-### 2a — Remove dead weight (listed above)
+### Update workflow
+1. Edit `data/my-prompts.md` — add prompts using this format:
+```
+## Category Name
 
-### 2b — Live Search Bar
-- Sticky bar below the header
-- Type to filter cards/rows in real time
-- Matches against command name AND description
-- Keyboard shortcut: press `/` anywhere on the page to focus the search
-- Press `Escape` to clear search and show all
-- Show a "no results" state if nothing matches
+**Prompt title**
+> Prompt text here.
+> Continues on next line.
+```
+2. Run `gitsync.bat` — embed script runs automatically before commit
+3. Done. New prompts appear on next page load.
 
-### 2c — Category Jump Nav
-- Horizontal scrollable pill buttons below the search bar
-- One pill per category: `All · Thinking · Writing · Code · Research · Planning · Business · Creative · Communication · Utility`
-- Clicking `All` resets to show everything
-- Clicking a category hides all other cards (or scrolls to that section)
-- Active pill is highlighted in that category's colour
-- On mobile: horizontal scroll with no wrap
-
-### 2d — Fix Toast Message
-- Currently says: `"Prompt copied!"`
-- Change to: `"Copied /debug"` — shows which command was copied so user knows exactly what they got
+### Adding a new category (3 touch-points in prompts.html)
+1. Add `## New Category` section to `data/my-prompts.md`
+2. Add entry to `COL_META` JS object (color + icon)
+3. Add pill button to `#collection-pills` HTML block
 
 ---
 
@@ -68,54 +64,46 @@ These elements take up space but add zero value to quick prompt recollection:
 
 ### 3a — Favourites / Bookmarks
 - Small star icon on hover next to each command name
-- Click star → prompt is saved to `localStorage` as a favourite
-- Add a `★ Favourites` category pill in the nav that filters to only starred prompts
-- Starred state persists across sessions (no login needed)
-- Max ~20 favourites before oldest is auto-dropped (or user clears manually)
+- Click star → saved to `localStorage`
+- Add a `Favourites` pill that filters to only starred prompts
+- Persists across sessions (no login needed)
 
 ### 3b — Prompt Count Badge
-- Small number badge on each category card header e.g. `CODE & DEVELOPMENT (20)`
-- Updates dynamically when search is active (e.g. shows `CODE & DEVELOPMENT (3)` when filtered)
+- Badge on each card header e.g. `CODE & DEVELOPMENT (20)`
+- Updates dynamically when search is active e.g. `(3 of 20)`
 
 ### 3c — Copy History (session only)
-- Small `Recently copied` row above the grid (max 5 entries)
-- Shows the last 5 command names clicked this session
+- `Recently copied` strip above the grid (max 5 entries)
 - Click any to re-copy immediately
-- Clears on page refresh (no persistence needed)
+- Clears on page refresh
 
 ---
 
-## Phase 4 — Personal Prompts Collection
+## Known Issues + Quick Fixes
 
-**Goal:** Add the custom prompts from `ai-prompts-master.md` to the same page.
+### Empty space in My Collection cards
+- **Problem:** CSS grid stretches all cards in a row to match the tallest one, leaving blank space at the bottom of shorter cards
+- **Fix:** Add `align-items: start` to the `.grid` rule (or the outer grid container for `#collection-grid`)
+- **Status:** Pending
 
-### Source file
-```
-D:\Library\Code_Env\Github\insta2mdbot-notes\01-ai-and-tech\ai-prompts\ai-prompts-master.md
-```
+---
 
-### 12 categories to add
-| # | Category | Prompt count |
-|---|---|---|
-| 1 | Thinking & Problem Solving | 14 |
-| 2 | Learning & Education | 15 |
-| 3 | Writing & Copywriting | 11 |
-| 4 | Content Strategy & SEO | 12 |
-| 5 | Social Media Growth | 6 |
-| 6 | Business & Founders | 27 |
-| 7 | Productivity & Planning | 17 |
-| 8 | Code & Development | 13 |
-| 9 | Career & Profile | 11 |
-| 10 | Personal Development | 20 |
-| 11 | AI Image Editing | 9 |
-| 12 | Claude Configuration | 1 |
+## GitHub Pages — Suggested Improvements
 
-### Implementation plan
-- Add a **tab switcher** at the top: `[ Universal Prompts ] [ My Collection ]`
-- Universal Prompts = current 9-category grid (Phase 1–3)
-- My Collection = personal prompts from `ai-prompts-master.md`
-- Personal prompts display the full prompt text on click (already full text, no `/command` format)
-- Both tabs share the same search bar and category nav
+These are possible improvements now that the page is live and publicly hosted.
+
+| # | Improvement | Effort | Value |
+|---|---|---|---|
+| 1 | **Fix card empty space** | 1 line CSS | High — looks unpolished |
+| 2 | **URL hash tabs** | ~10 lines JS | Medium — link directly to `prompts.html#collection` |
+| 3 | **Prompt count in header** | ~5 lines JS | Medium — "157 prompts across 12 categories" shown live |
+| 4 | **OG / meta tags** | ~6 lines HTML | Medium — proper preview when link is shared |
+| 5 | **Keyboard nav in modal** | ~15 lines JS | Medium — arrow keys to previous/next prompt |
+| 6 | **Mobile modal full-screen** | ~5 lines CSS | High — modal is cramped on small screens |
+| 7 | **Prompt count badge on card headers** | Phase 3b | Low-medium |
+| 8 | **Favourites (localStorage)** | Phase 3a | High if used daily |
+| 9 | **Print / export as PDF** | ~10 lines JS | Low |
+| 10 | **Last updated date** | 1 line HTML | Low — trust signal |
 
 ---
 
@@ -124,16 +112,17 @@ D:\Library\Code_Env\Github\insta2mdbot-notes\01-ai-and-tech\ai-prompts\ai-prompt
 | File | Path |
 |---|---|
 | Live page | `D:\Library\Code_Env\Github\yogi-porfolio\prompts.html` |
-| Source prompts | `D:\Library\Code_Env\Github\insta2mdbot-notes\01-ai-and-tech\ai-prompts\ai-prompts-master.md` |
+| My Collection source | `D:\Library\Code_Env\Github\yogi-porfolio\data\my-prompts.md` |
+| Embed script | `D:\Library\Code_Env\Github\yogi-porfolio\embed-prompts.ps1` |
 | This roadmap | `D:\Library\Code_Env\Github\yogi-porfolio\docs\prompts-roadmap.md` |
 
 ---
 
 ## Hosting
 
-- Repo: `wsnh2022/yogi-porfolio` (or `wsnh2022/prompts`)
+- Repo: `wsnh2022/yogi-porfolio`
 - GitHub Pages: Settings → Pages → Branch: main → / (root)
-- URL: `https://wsnh2022.github.io/prompts/` (if repo is named `prompts`)
+- URL: `https://wsnh2022.github.io/yogi-porfolio/prompts.html`
 
 ---
 
