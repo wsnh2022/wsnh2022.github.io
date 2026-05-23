@@ -1,0 +1,532 @@
+﻿## Thinking & Problem Solving
+
+**Challenge my thinking**
+> Here's what I'm planning: [idea/plan/strategy]. Act as a critical thinker. Question my assumptions, logic, or blind spots, but don't rewrite anything. I want to stress-test my own thinking, not get new ideas.
+
+**Reframe through a different lens**
+> Here's the core idea I'm working with: [idea]. Help me reframe it through a different lens â€” a new audience POV, emotional trigger, or brand positioning angle.
+
+**Surface the deeper question**
+> Here's the situation I'm thinking through: [idea or challenge]. Help me uncover the real strategic question underneath this. What should I actually be asking myself?
+
+**Translate my gut feeling**
+> Something about this feels off, but I can't explain why: [describe the situation]. Help me put words to the tension I'm sensing. What might be misaligned or unclear?
+
+**Find second-order effects**
+> Here's the decision or idea I'm considering: [insert]. Help me think through the second- and third-order consequences â€” what might happen after the obvious outcomes?
+
+**Reveal the unseen variable**
+> Here's the plan or situation I'm analyzing: [insert]. What critical factor might I be overlooking â€” the hidden variable that could completely change the outcome if noticed?
+
+**Reverse-engineer my instinct**
+> Here's my idea, and it feels right to me: [idea]. Help me unpack why this might make sense, even if I can't fully explain it yet.
+
+**Find the hidden pattern**
+> Here are a few examples or situations I've noticed: [describe them]. Help me identify the hidden pattern or principle connecting them.
+
+**Extract the core principle**
+> Here's something that worked (or failed): [describe it]. Help me extract the underlying principle so I can apply it elsewhere.
+
+**Think in reverse**
+> Here's my goal: [insert]. Instead of moving forward, walk me backward from the desired result â€” what would need to be true at each step for this to succeed?
+
+**Break down a situation**
+> Help me break down this situation [describe] and give 4â€“5 smart and effective paths forward with pros and cons.
+
+**Hyper-clarity strategist**
+> Act as a world-class strategic advisor. My goal is: [GOAL]. I'm struggling with: [MAIN CHALLENGE]. My resources/skills: [LIST]. Target outcome and timeline: [OUTCOME + TIMELINE]. Break it down into: 1) Key insights I might be missing, 2) Strategic options ranked, 3) Best path forward with clear steps, 4) Biggest risks and how to avoid them, 5) Action plan for the next 7 days. Be brutally honest and ultra-specific. Challenge assumptions. No fluff â€” just clarity and execution.
+
+**10x problem solver**
+> Solve this problem 10x better than anyone else. Problem: [DESCRIBE IN DETAIL]. Give me: 1) Root causes I may be overlooking, 2) Creative, unconventional solutions, 3) Best solution with a step-by-step execution plan, 4) Potential roadblocks and how to overcome them, 5) How to make this solution future-proof. Go beyond obvious answers. Deliverable: a complete, actionable plan that delivers 10x results.
+
+**Decision simulator**
+> Help me make the best possible decision. Decision: [DESCRIBE]. Analyze by: short-term outcomes (30 days), medium-term (3â€“12 months), long-term (1â€“5 years), best-case, worst-case, most likely scenario, hidden risks and blind spots, and key factors that could change the outcome. Then give me: your recommendation with reasoning, what to do if I go forward, what to do if I don't, and how to maximize upside and minimize downside.
+
+---
+
+## Learning & Education
+
+**Complete roadmap (scratch to advanced)**
+> I want to learn [TOPIC] from absolute scratch to an advanced level. Create a structured learning roadmap with 4â€“5 stages (Beginner â†’ Intermediate â†’ Advanced). For each stage: list key concepts to master, recommend the best FREE resource available online (YouTube, website, course, or docs), include a direct link if known. Focus only on freely available resources. No paid courses.
+
+**Teach me like I'm 5 â†’ PhD**
+> Explain [TOPIC] at 4 levels of depth: 1) Like I'm 10 years old (simple analogy, no jargon), 2) Like I'm a curious high schooler (core idea with some detail), 3) Like I'm a college student (technical explanation), 4) Like I'm a professional (full depth, edge cases, nuances). After each level, suggest one free online resource (with link) to go deeper at that level.
+
+**Project-based learning**
+> I learn best by doing. Give me 5 hands-on projects to learn [TOPIC], ranked beginner to advanced. For each: project name and what I'll build, skills I'll practice, estimated time to complete, a free tutorial or resource (with link). Make projects practical and something I'd actually be proud to complete.
+
+**Identify my blind spots (quiz)**
+> I've been learning [TOPIC] for a while. I want to find my knowledge gaps. Quiz me with 10 questions covering beginner to advanced concepts â€” mix of theory and practical. After I answer, tell me: which areas I'm weak in, why those gaps matter, and the single best FREE resource (with link) to fix each gap. Start the quiz now. Ask one question at a time and wait for my answer.
+
+**30-day free study plan**
+> Create a 30-day study plan to go from zero to solid intermediate in [TOPIC]. Rules: use ONLY free resources, each day has a specific task + time required (30â€“60 min/day max), group by weekly theme (Week 1: Basics, etc.), include links to free YouTube videos/docs/courses for each week, end with a mini-project to validate learning. Format as a clean weekly breakdown.
+
+**Learn anything in 20 hours**
+> I need to learn [topic] fast. Build me a 20-hour plan focused on the 20% that drives 80% of results. Break it into 10 two-hour sessions with the best resources and a 15-minute review at the end of each.
+
+**One-page cheat sheet**
+> Summarize the key concepts of [topic] on a single page. Use bullet points, diagrams, and examples so I can review it in 5 minutes.
+
+**Quiz me until I break**
+> I just studied [topic]. Give me 10 progressively harder questions to test my understanding. After each answer, grade me and explain what I missed.
+
+**Build a learning ladder**
+> Break [topic] into 5 levels of difficulty. Show me how to go from Level 1 (beginner) to Level 5 (advanced) with a clear milestone at each step.
+
+**Find the best learning resources**
+> List the top 5 resources (books, videos, courses, or people) for learning [topic] fast, and explain why each is worth my time.
+
+**Feynman technique**
+> Explain [topic] to me in the simplest terms. Then have me re-explain it back. Point out gaps, re-teach what I miss, and repeat until I can explain it clearly on my own.
+
+**7-day learning plan**
+> Make me a 7-day learning plan for [topic] using YouTube, summaries, quick exercises, and quizzes.
+
+**Superhuman learning blueprint**
+> You are a neuro-optimized tutor. I want to learn [topic] 10Ã— faster than others. Create a weekly learning blueprint based on spaced repetition, interleaving, Feynman technique, and active recall. I want to be in the top 1% in 90 days.
+
+**Expert-level apprenticeship**
+> You are a world-class expert in [skill]. Train me as if I'm your apprentice, from beginner to mastery. Break it into stages, tasks, uncommon resources, and shortcuts. Include simulations or real-life practice assignments to truly internalize each level.
+
+**12-week learning roadmap**
+> I want to learn [specific skill/topic] from complete beginner to advanced. Create a comprehensive 12-week roadmap broken down by weeks. Include: specific resources (free courses, books, videos), daily practice exercises, weekly projects to build my portfolio, common mistakes to avoid, and milestones to track progress. Tailor it to someone who can dedicate 1â€“2 hours per day.
+
+---
+
+## Writing & Copywriting
+
+**Extract voice card**
+> Analyze these 5 pieces of my writing. Extract my voice â€” sentence structures, word choices, rhythms, personality. Format as a reusable Voice Card: [SAMPLES]. Include a dos/don'ts list, a "sounds like me" vs "doesn't sound like me" comparison, and 3 example sentences in my voice.
+
+**Humanize AI text**
+> Rewrite this AI-generated text to sound natural. Remove filler phrases, vary sentence length, add contractions, use specific details: [TEXT]. Highlight every change you made and explain why. Flag any sentences that still sound robotic after the rewrite.
+
+**Twitter thread in my voice**
+> Write a Twitter thread about [TOPIC] in my voice. Rules: no "delve", no "it's worth noting", no "game-changer". Start sentences with And, But, So. Include a hook tweet that gets 50%+ read-more clicks, a retweet-worthy standalone tweet, and a CTA at the end.
+
+**Feature list â†’ benefit copy**
+> Turn this product feature list into benefit-focused copy that makes readers feel something. No buzzwords: [FEATURES]. Use concrete before/after scenarios for each benefit. Show the user's life without vs with the product.
+
+**LinkedIn personal story**
+> Write a personal story about [EXPERIENCE] for LinkedIn. Structure: hook, tension, lesson, actionable takeaway. Under 200 words. Make the first line impossible to scroll past. Include a vulnerable moment that builds trust and end with a question.
+
+**Brand voice guide**
+> Create a brand voice guide for [BRAND]. Define: tone, personality traits, words we use, words we never use, example sentences for 5 scenarios. Include voice examples for: social post, error message, onboarding email, pricing page, and support reply.
+
+**Writing style upgrade**
+> Rewrite this [paste your text] in a clear, human tone that flows naturally and keeps readers engaged start to finish.
+
+**Above-the-fold copy (3 variations)**
+> Write above-the-fold copy for [PRODUCT] that communicates the value in 3 seconds. Include: headline, subheadline, CTA button text, and social proof line. Provide 3 variations: benefit-led, curiosity-led, social-proof-led. Include a hero image direction.
+
+**Testimonial request emails**
+> Generate 10 testimonial request emails I can send to customers. Make it easy for them to write specific, believable praise. Include a pre-written testimonial template they can edit, specific questions to guide their response, and a follow-up cadence.
+
+**Homepage wireframe in text**
+> Design a homepage wireframe in text for [PRODUCT]: every section, its purpose, word count target, and the emotion it should trigger. Include scroll depth targets per section, mobile vs desktop layout differences, and conversion-optimized CTA placement logic.
+
+**Microcopy**
+> Write microcopy for [PRODUCT]: empty states, error messages, success confirmations, tooltips, and onboarding hints. Include 3 variations per message (friendly, professional, playful) and specify which context each fits best. Tone: [VOICE].
+
+---
+
+## Content Strategy & SEO
+
+**30-day content calendar**
+> Act as a content strategist. Create a 30-day content calendar for [NICHE] targeting [AUDIENCE]. Include hooks, formats, posting times, optimal platforms per post, 3â€“4 content pillars to rotate, and weekly engagement goals to track growth.
+
+**Repurpose blog post to multi-platform**
+> Turn this blog post into 5 Twitter threads, 3 LinkedIn posts, and 10 Instagram captions. Match each platform's tone, include a hook for every piece, respect character limits, and add a hashtag strategy per platform: [CONTENT]
+
+**20 scroll-stopping hooks**
+> Generate 20 scroll-stopping hooks for [TOPIC] using these techniques: curiosity gap, bold claim, statistic, story opener, controversial take. Rate each hook 1â€“10 on controversy and engagement potential with a one-line justification.
+
+**Analyze top performing posts**
+> Analyze my top 10 performing posts. Identify patterns in hooks, length, format, and topic. Give me a replicable formula and flag what to avoid based on my worst-performing posts: [POSTS]
+
+**YouTube script outline**
+> Write a YouTube script outline for "[TOPIC]" that keeps retention above 60%. Include: pattern interrupts every 90 seconds, b-roll suggestions per section, 3 thumbnail concepts, and 5 title A/B test options.
+
+**Myth-busting content ideas**
+> Create 10 myth-busting content ideas for [NICHE] that challenge common beliefs and spark debate in the comments. For each, include the common belief side by side with your contrarian take.
+
+**SEO content brief**
+> Generate a comprehensive content brief for the keyword "[KEYWORD]". Include: search intent, word count, H2/H3 structure, competitor words, meta description, internal linking targets, featured snippet strategy, and schema markup recommendations.
+
+**Competitor content gap analysis**
+> Analyze these 5 competitor pages ranking for "[KEYWORD]". Identify content gaps I can exploit to outrank them. Compare word count, backlink potential, content freshness, and unique angles they missed: [URLS]
+
+**Programmatic SEO strategy**
+> Create a programmatic SEO strategy that generates 100+ pages from [DATA SOURCE]. Include URL structure, template, internal linking plan, crawl budget optimization, canonical strategy, and content uniqueness thresholds to avoid thin content penalties.
+
+**Landing page that ranks + converts**
+> Write a landing page that ranks for "[KEYWORD]" AND converts at 5%+. Include above-fold copy, social proof sections, FAQ schema, CTA placement strategy, trust signals, and mobile-first layout recommendations.
+
+**Site structure SEO audit**
+> Audit my site structure for SEO issues. Check: crawlability, internal links, orphan pages, keyword cannibalization, Core Web Vitals. Provide a prioritized fix list with estimated traffic impact for each issue: [URL]
+
+**Topical authority map**
+> Build a topical authority map for [NICHE]. Group 50 keywords into clusters with pillar pages and supporting articles. Include search volume, difficulty scores, and a 6-month publishing roadmap with priorities.
+
+---
+
+## Social Media Growth
+
+**Full Instagram profile audit**
+> Here is my Instagram profile. Be completely honest. Username: [your username]. Bio: [paste bio]. Profile photo description: [describe]. Story highlights: [list highlight names]. Website link: [your link]. Look at this like a first-time visitor landing on my page in 3 seconds. What is confusing, missing, turning people away, and telling the algorithm I'm not worth pushing? Give me every mistake ranked from most damaging to least.
+
+**Instagram bio rewrite**
+> I am a [niche] and my target audience is [describe them]. My goal is to [grow followers / get clients / drive traffic]. Rewrite my bio so it's clear, compelling, and tells someone exactly why they should follow me within 3 seconds. Include a strong hook line, what I offer, who it's for, and a CTA. Keep it under 150 characters per line.
+
+**Content & posting strategy audit**
+> Here is a list of my last 10 posts with their topics and reach numbers: [paste post topics and reach/views]. Analyze this and tell me: what patterns you see, which content types are getting reach vs killing it, whether I'm posting too much or too little, and any content mix gaps hurting my profile authority. Tell me exactly what to stop posting and what to do more of.
+
+**Hashtag and SEO audit**
+> Here are the hashtags I've been using and my username and bio: [paste hashtags and bio]. Tell me what I'm doing wrong. Are they too broad, too niche, too competitive, or wrong for my audience size? Also check if my bio and captions are optimized for Instagram search keywords my target audience would actually search for. Give me a revised hashtag strategy and tell me which keywords to naturally add.
+
+**Instagram full growth action plan**
+> Now that we've audited my profile, bio, content, and hashtags â€” give me a clear action plan. Top 10 changes I need to make right now, ranked by impact. For each: exactly what to change, why it's hurting my reach, and what result I can expect. Make it simple enough to complete in one afternoon.
+
+**Scroll-stopping social caption**
+> Turn this idea [paste your idea] into a short social caption that feels personal and grabs attention within 3 seconds.
+
+---
+
+## Business & Founders
+
+**Viral content strategist**
+> You are an elite viral content strategist who deeply understands internet psychology, storytelling, emotion, and attention. Turn any idea into content people feel forced to share â€” viral tweets, reel hooks, carousel concepts, YouTube ideas, storytelling angles, contrarian takes, and authority content. For every idea include the hook, emotional trigger, why people would share/save it, the target audience, and the best platform to post it on. Make the content emotionally intense, curiosity-driven, highly opinionated, internet-native, and impossible to ignore.
+
+**Write emails people actually reply to**
+> You are an elite sales copywriter and communication strategist who understands persuasion, psychology, and human behavior. Write cold emails, follow-ups, outreach messages, partnership pitches, and networking DMs that feel human, confident, and impossible to ignore. Avoid sounding salesy, desperate, or robotic. Every message should create curiosity, build trust quickly, and increase reply rates. Generate 3 variations: smart, direct, and aggressive.
+
+**Messy ideas â†’ business strategy**
+> You are a world-class strategy consultant. Take messy thoughts, meeting notes, voice transcripts, rough ideas, or unstructured plans and turn them into a clear business strategy. Identify the real problem, simplify the thinking, organize priorities, find bottlenecks, suggest execution steps, and create actionable systems. Output should feel sharp, structured, and practical like a premium consulting document written for founders.
+
+**Build systems for draining tasks**
+> You are an elite operations and productivity expert. Help me build a clear, repeatable system for an area that feels overwhelming, inconsistent, or time-consuming. Create step-by-step workflows, automations, habits, tools, templates, accountability systems, and simple routines that make execution easier and more efficient. Make everything practical, scalable, easy to follow, and designed to reduce mental load.
+
+**Private research team**
+> You are a world-class research analyst with deep expertise in business, trends, consumer psychology, and market intelligence. Research any topic in extreme depth and break it down into: key insights, opportunities, risks, emerging trends, hidden patterns, audience behavior, business ideas, competitive advantages, and future predictions. Make the output feel like premium insider research â€” sharp, practical, and data-driven.
+
+**Validate SaaS idea**
+> Validate this SaaS idea with a first-principles analysis: market size, competition, defensibility, and a build/no-build verdict. Include distribution strategy, MVP scope with timeline, and the 3 riskiest assumptions to test first: [IDEA]
+
+**Design pricing page (3 tiers)**
+> Design a pricing page with 3 tiers for [PRODUCT]. Include feature gating strategy, anchor pricing psychology, and a recommended "most popular" tier. Add annual vs monthly toggle savings, social proof placement, and an objection-handling FAQ below pricing.
+
+**Write onboarding email sequence**
+> Write onboarding emails (Day 0, 1, 3, 7, 14) for [PRODUCT] that reduce churn and drive activation. Include subject lines, optimal send times, and a behavioral trigger for users who haven't completed setup by Day 3. Target metric: [GOAL].
+
+**Stripe integration plan**
+> Generate a Stripe integration plan for [PRODUCT]: checkout flow, webhook handling, subscription lifecycle, and dunning strategy. Include failed payment retry schedule, grace periods, and upgrade/downgrade proration logic.
+
+**Product launch checklist**
+> Create a product launch checklist with 40 items across: pre-launch (buzz), launch day (distribution), and post-launch (retention). Include specific channels to post on, email sequences to send, and success metrics to track for each phase.
+
+**Reduce churn**
+> Analyze my churn data and suggest 5 interventions to reduce monthly churn from [X]% to [Y]%. Include win-back email sequences, cancellation flow optimizations, and early warning signals to monitor before users churn: [CONTEXT]
+
+**Lead magnets**
+> Generate 10 lead magnet ideas for [NICHE] that naturally funnel into purchasing [PRODUCT]. Each should take <2 hours to create. Rank by conversion potential, include format type (pdf, quiz, template), and write a one-line hook for each.
+
+**Cold email sequence (3 emails)**
+> Write a cold email sequence (3 emails) for [PRODUCT] targeting [AUDIENCE]. Use the PAS framework. Include subject lines with 40%+ open rate potential. Add send timing between emails, personalization variables, and a follow-up voicemail script.
+
+**Handle objections**
+> List the 5 objections people have before buying [PRODUCT]. For each, write a one-liner counter-argument I can use in sales copy. Categorize by type (price, trust, timing, competition) and suggest where to place each counter on the landing page.
+
+**Viral loop strategy**
+> Create a viral loop strategy for [PRODUCT]. How can each user bring in 1â€“5 new users through the product itself? Include the referral trigger point, incentive structure, tracking implementation, and a realistic K-factor projection.
+
+**5 landing page headlines**
+> Write 5 landing page headlines for [PRODUCT] using these frameworks: AIDA, PAS, Before/After, Social Proof, Urgency. Include matching subheadlines and CTA button text for each. A/B test priority ranking from highest to lowest.
+
+**Case study template**
+> Write a case study template for [PRODUCT]. Structure: challenge, solution, results (with specific numbers), and a pull quote. Include interview questions to ask the customer, a visual layout wireframe, and SEO-optimized title format for the page.
+
+**Pricing page with FAQ**
+> Create a pricing page with FAQ section for [PRODUCT]. Address the top 5 buying objections in the FAQ. Include a comparison table vs competitors, a money-back guarantee badge placement, and trust signals near the CTA button.
+
+**Referral program**
+> Design a referral program for [PRODUCT] with incentive structure, tracking plan, and email templates for referrers. Include tiered rewards, milestone badges, viral share copy for social media, and projected ROI per referral.
+
+**Digital product ideas**
+> Generate 10 digital product ideas I can build from my expertise in [SKILL]. Include pricing, format, and estimated build time for each. Rank by revenue potential vs effort, suggest a launch order, and identify which products cross-sell with each other.
+
+**Digital product launch strategy**
+> Create a launch strategy for a $[PRICE] digital product. Cover: pre-launch waitlist, launch week sequence, and evergreen funnel. Include a 14-day email warm-up sequence, scarcity tactics that feel authentic, and a post-launch debrief template.
+
+**Membership/community design**
+> Design a membership/community offering around [TOPIC]. Include: tiers, benefits, pricing, content cadence, and retention hooks. Add onboarding flow for new members, community engagement rituals (weekly calls, challenges), and churn prevention triggers.
+
+**Increase average order value**
+> Analyze my revenue streams and suggest 3 ways to increase average order value without adding new products. Include specific upsell/cross-sell placement, bundle pricing psychology, and a loyalty program structure with lifetime value projections: [CURRENT OFFERINGS]
+
+**Webinar outline that sells**
+> Write a webinar outline that sells [PRODUCT] with a 10%+ conversion rate. Include: hook, teaching segment, transition to pitch, and objection handling. Add slide-by-slide structure, exact timing per segment, replay email sequence, and a live Q&A strategy to close undecided buyers.
+
+**Partnership outreach**
+> Create a partnership outreach template for collaborating with [TYPE OF PARTNER]. Include: value proposition, proposed structure, and follow-up sequence. Add a mutual benefit breakdown, revenue share models, co-marketing content ideas, and a 90-day partnership success scorecard.
+
+**Content multiplier**
+> Turn one idea into a massive content machine. My core topic/idea is: [INSERT]. Give me: 1) 10 high-impact content angles, 2) 10 viral headlines/hooks, 3) 5 long-form content outlines, 4) 20 short-form content ideas, 5) A content calendar plan for the next 30 days. Make it attention-grabbing, valuable, and tailored to my audience: [DESCRIBE AUDIENCE].
+
+**Business growth architect**
+> Help me create a comprehensive growth plan for my business: [DESCRIBE]. Analyze and give me: 1) Market opportunity and key trends, 2) Ideal customer avatar, 3) Competitor analysis (top 5), 4) Unique value proposition, 5) Growth strategies (short, mid, long term), 6) Marketing channels and tactics, 7) Revenue model and pricing ideas, 8) Key metrics to track, 9) Risks and how to mitigate them, 10) 90-day execution plan (weekly breakdown). Focus on quick wins I can implement now and scalable growth.
+
+---
+
+## Productivity & Planning
+
+**Plan an entire week**
+> You are an elite planning and execution strategist. Help me organize my entire week with maximum clarity, focus, and efficiency. Based on my goals, priorities, deadlines, and available time, create a structured weekly plan with deep work blocks, meetings, content creation, admin tasks, recovery time, and priority sequencing. Remove unnecessary tasks, reduce overwhelm, and design the schedule for high output without burnout.
+
+**Weekly workflow system**
+> Design a weekly workflow system for someone balancing [ROLE 1] and [ROLE 2]. Include time blocks, batch days, and energy management. Add a "no-meeting" deep work block, context-switching buffers, and a Friday review ritual to plan the next week.
+
+**Task list â†’ 7-day execution plan**
+> Turn this overwhelming task list into a clear 7-day execution plan with priorities and dependencies: [TASKS]. Flag which tasks I can delegate or automate, identify the one task that unblocks everything else, and add buffer time.
+
+**10 AI automations**
+> Suggest 10 AI automations I can set up this week to save 5+ hours. My stack: [TOOLS]. My bottlenecks: [PAIN POINTS]. Include exact tool names, setup time for each automation, and estimated hours saved per week with a total ROI.
+
+**Decision matrix**
+> Create a decision matrix for choosing between [OPTIONS]. Score each on: upside potential, risk, time cost, reversibility, and goal alignment. Include a weighted scoring system, a clear winner recommendation, and the one question that would change the answer.
+
+**Content batching system**
+> Design a content batching system that lets me produce 30 days of content in one 8-hour session. Niche: [NICHE]. Formats: [FORMATS]. Include a minute-by-minute schedule for the batch day, template files to prepare in advance, and a post-batch review.
+
+**Personal OS**
+> Build a personal OS: morning routine, daily review template, weekly planning ritual, and monthly reflection framework for [GOAL]. Include Notion/Obsidian template structure, habit tracking metrics, and quarterly goal-setting framework with OKRs.
+
+**Personalized daily plan**
+> Build a daily plan using these goals [insert your list], this schedule [hours], and this work style [describe].
+
+**Email reply**
+> Here's what they sent me [paste it]. Draft a reply that's short, clear, and confident but still friendly.
+
+**Task paralysis shatterer**
+> I am staring at [Task] and can't start. Break this down into "Ridiculously Small" steps that take less than 1 minute each. Give me the first step and tell me exactly where to put my hands to begin.
+
+**Dopamine menu architect**
+> I am feeling under-stimulated. Create a "Dopamine Menu" for me with 5-minute "Appetizers" (quick movement), 20-minute "Entrees" (deep work), and 10-minute "Sides" (creative play) to keep my brain engaged.
+
+**Body doubling simulator**
+> Act as my virtual body double for the next 30 minutes. I will tell you what I'm working on, and I want you to check in every 10 minutes to ask for a status update and keep my focus anchored.
+
+**Context-switching guide**
+> I just finished [Task A] and need to start [Task B], but my brain is stuck. Design a 3-minute "Mental Palate Cleanser" routine to help me transition between these two different types of energy.
+
+**Interest-based task gamifier**
+> I have a boring administrative task: [Task]. Help me gamify this by connecting it to my current hyper-fixation: [Interest]. Create a "Quest" structure where finishing the task unlocks a reward.
+
+**Time-blindness auditor**
+> I think [Project] will take 20 minutes, but it usually takes 2 hours. Help me "Time-Map" this by identifying the 3 hidden sub-tasks I always forget to account for so I can set a realistic deadline.
+
+**Executive function externalizer**
+> My brain is full of "Open Loops." I will dump everything I'm worried about below. Categorize these into "Now," "Later," and "Trash," and then write a 1-sentence "Actionable Next Step" for only the "Now" items.
+
+**Productivity & time optimizer**
+> I feel overwhelmed and unproductive. My typical day: [describe schedule]. My biggest time wasters: [list]. My important goals: [list]. Analyze my day and create an optimized schedule using time-blocking. Include: my 3 highest-leverage tasks daily, buffer time for unexpected issues, energy management strategies, techniques to eliminate distractions, and a system to say no to non-essential commitments.
+
+---
+
+## Code & Development
+
+**Generate CLAUDE.md**
+> Act as a senior architect. Review my entire codebase and generate a CLAUDE.md file with coding standards, project structure, naming conventions, and tech stack context so future Claude sessions are 10x more effective.
+
+**Brutal code review**
+> Do a git diff and pretend you're a senior dev doing a code review who HATES this implementation. Tear it apart â€” what would you criticize, refactor, or reject in a PR review?
+
+**Debug error stack trace**
+> Analyze this error stack trace. Identify the root cause, explain exactly why it happens in plain English, suggest a fix with proper error handling, and write a regression test to prevent it: [ERROR]
+
+**Refactor a function**
+> Refactor this function to be more readable, performant, and testable. Use clean architecture principles, explain every decision you make, and show me the before/after diff: [CODE]
+
+**Generate test suite**
+> Generate a complete test suite for [FUNCTION] covering happy paths, edge cases, error handling, boundary values, and integration with dependencies. Use describe/it blocks with clear test names.
+
+**Security audit**
+> Review my API route for security vulnerabilities â€” check for SQL injection, XSS, CSRF, auth bypass, rate limiting gaps, input validation, and data exposure. Prioritize fixes by severity: [CODE]
+
+**Refactor unmaintainable code**
+> This code works but is impossible to maintain. Refactor it using clean, scalable principles. Extract reusable utilities, add TypeScript types where missing, and show a dependency diagram before and after the refactor. Explain every decision: [CODE]
+
+**Debug production error**
+> I'm getting [ERROR] in production but can't reproduce locally. Walk me through a systematic debugging process with 10 diagnostic steps. Include an environment diff checklist, a logging strategy to add, and how to set up monitoring to catch it next time.
+
+**Compare implementation approaches**
+> Compare these two implementation approaches for [FEATURE]. Pros, cons, performance implications, and which you'd pick for a team of [SIZE]. Include a decision matrix, estimated development time for each, and the maintenance burden over 12 months: [APPROACH A] vs [APPROACH B]
+
+**Zero-downtime migration plan**
+> Generate a migration plan to upgrade from [OLD TECH] to [NEW TECH] with zero downtime. Include rollback strategy, risk assessment, a phased timeline, feature flag strategy for gradual rollout, and a runbook for the team to follow on migration day.
+
+**Database schema review**
+> Review this database schema for a [TYPE] app. Identify: missing indexes, N+1 query risks, normalization issues, and scaling bottlenecks. Suggest specific index creation SQL, recommend caching layers, and estimate query performance at 10x and 100x current scale: [SCHEMA]
+
+**Error handling strategy**
+> Write a comprehensive error handling strategy for [APP TYPE]. Cover: user-facing errors, logging, retry logic, graceful degradation, and alerting. Include error code taxonomy, Sentry/logging integration code snippets, and alert thresholds for each severity level.
+
+**Claude slash command shortcuts**
+> `/critic [your draft]` â€” fast flaw detection, good for proposals
+> `/firstprinciples [a problem]` â€” strips assumptions, good when stuck
+> `/compare [two options]` â€” forces structured trade-off, good for tech decisions
+> `/proscons [a choice]` â€” quick decision aid
+> `/pseudocode [a logic problem]` â€” think before coding
+
+---
+
+## Career & Profile
+
+**GitHub profile audit**
+> Here is my GitHub profile bio and README: [paste]. Tell me exactly what is wrong with it. What would a recruiter or hiring manager think when they land on this page? What is missing, unclear, and making me look less credible than I actually am? Don't sugarcoat it.
+
+**GitHub bio and README rewrite**
+> Rewrite my GitHub profile based on everything you just told me. I am a [your role] with experience in [your skills]. I want to attract [remote jobs / freelance clients]. Write me a sharp, professional bio under 150 characters. Then write a README that sells who I am â€” my skills, best projects, what I'm currently working on, and how to contact me. Make it human, not corporate.
+
+**GitHub README visual enhancements**
+> I want my GitHub README to look impressive, not just read well. Suggest everything I can add to make it visually stand out â€” badges, stats widgets, project showcases, contribution graphs, anything free and easy to add. For each suggestion, tell me exactly what to do and give me the code or link I need to implement it right now.
+
+**Resume bullet upgrade**
+> Rewrite this resume bullet [paste] to sound measurable, impact-focused, and aligned with roles in [job role].
+
+**5-year career proof plan**
+> Build my 5-year proof plan for career longevity knowing 22% of current jobs will face structural change by 2030. Include Odyssey Plan framework (life view + work view alignment), skill combination (technical + human-centered), and mentor check-in milestones. Provide quarterly review templates and success metrics. Consider my current trajectory of [description] and target lifestyle of [vision].
+
+**Industry disruption scanner**
+> Analyze my industry for 2025â€“2030 disruption signals including AI investments, political factors, and job displacement forecasts. Identify 3 emerging opportunities and 3 threats with probability scores. Provide a pivot timeline with quarterly action items. Consider my industry of [name] and current role of [title].
+
+**Personal value proposition builder**
+> Build my Personal Value Proposition answering why someone should hire or trust me. Include self-assessment of core strengths, market analysis of target audience needs, and a tailored 1-sentence positioning statement. Provide 3 variations for different industries with before/after examples. Consider my experience of [years] and target roles of [titles].
+
+**Skills gap identifier**
+> Map my current skills against 2030 workforce demands where 40% of required skills will change. Identify my top 3 gaps in high-growth fields (AI/ML, Data Science, Cloud, Cybersecurity, Green Economy, Healthcare). Provide a 90-day upskilling roadmap with free resources and weekly checkpoint metrics. Consider my current role of [title] and background of [description].
+
+**Expertise amplifier engine**
+> Build my Expertise Amplifier Engine using the formula: Skills Ã— Proof of Work Ã— Visibility = Opportunity. Include my top 3 skills, 3 proof-of-work projects (portfolio, case studies, writing), and visibility channels. Provide a 30-day amplification calendar with daily prompts. Consider my current expertise of [field] and audience size of [number].
+
+**Salary negotiation script**
+> Write a salary negotiation script for [role] using current market benchmarks. Include base + equity + sign-on + bonus breakdowns, specific number rules (no ranges), and counter-scripts for pushback. Provide email templates for each scenario. Consider my offer of [amount] and location of [city].
+
+**Career pivot roadmap**
+> Create a 6-step career pivot playbook from my current role to [target role]. Include skill mapping (transferable + to-add), quiet networking tactics, micro-experiment ideas, and story framework (Why this? Why now? Why you?). Provide timeline estimates for each step. Consider my current job of [title] and target industry of [name].
+
+---
+
+## Personal Development
+
+**Childhood context decoder**
+> My date of birth is [DD/MM/YYYY]. Using global events, cultural changes, and generational psychology, describe the most common childhood experiences of people born during this period. Focus on shared influences, formative environments, and how these shaped early mindset, behavior, and identity.
+
+**Personality evolution map**
+> Using [DD/MM/YYYY] as a reference point, describe the personality traits and worldviews I likely developed over time. Compare these patterns with people born before and after to highlight what uniquely defines the thinking, values, and motivations of my generation.
+
+**Professional compass**
+> Based on the economic conditions, cultural trends, and technological landscape of my year of birth [DD/MM/YYYY], suggest professional trajectories or industries I might be naturally aligned with. Explain how these roles connect with generational strengths, work preferences, and long-term fulfillment.
+
+**Relational patterns analysis**
+> Analyze the trends in relationships commonly associated with people born on [DD/MM/YYYY]. Focus on behavioral and psychological patterns â€” communication style, attachment tendencies, conflict responses, and growth opportunities. Avoid astrology entirely.
+
+**Financial mindset matrix**
+> Taking into account economic cycles and generational changes, explain how a person born on [DD/MM/YYYY] likely approaches money, risk, saving, and long-term wealth building. Highlight common strengths, blind spots, and mental patterns that influence financial decisions.
+
+**Detector of hidden struggles**
+> From a psychological perspective, identify possible blind spots shaped by my generational timeline. Explain how they typically manifest in daily life and provide practical strategies to overcome them and turn them into advantages.
+
+**Life roadmap**
+> Outline the main opportunities, challenges, and growth phases that a person born on [DD/MM/YYYY] is likely to encounter throughout the different stages of life. Present it as a clear roadmap with key lessons, priorities, and decisions to focus on in each stage.
+
+**Decision-making blueprint**
+> My date of birth is [DD/MM/YYYY]. Based on generational psychology and cognitive patterns, explain how people like me typically make decisions under pressure. Identify strengths, biases, and blind spots, and suggest a practical framework I can use to make better personal and professional decisions.
+
+**Energy and productivity profile**
+> Using [DD/MM/YYYY], analyze how people from my generation typically approach work, focus, and productivity. Suggest optimal work styles, routines, and environments that maximize energy, creativity, and consistency.
+
+**Confidence and self-image builder**
+> Based on [DD/MM/YYYY], analyze how self-confidence typically develops for people like me. Identify common insecurities or limiting beliefs and provide practical steps to build a stronger, more resilient self-image.
+
+**Future-proof life strategy**
+> Using [DD/MM/YYYY], outline how someone like me can stay ahead in the next 10â€“20 years. Focus on AI, automation, career shifts, and personal adaptability. Provide a clear strategy to remain valuable and competitive.
+
+**Career clarity & purpose finder**
+> I'm feeling stuck in my career and unsure of my direction. Ask me 10 deep questions about my skills, interests, values, and past experiences that brought me joy. Based on my answers, identify 3â€“5 potential career paths that align with who I am, and create a 90-day action plan to explore each one with specific steps, resources, and milestones.
+
+**Relationship conflict resolver**
+> I'm having a conflict with [person] about [issue]. Here's the situation: [describe]. Help me understand their perspective, identify what I might be missing, craft a non-confrontational way to communicate my feelings using "I" statements, and give me 3 different approaches to resolve this â€” one assertive, one compromising, and one focused on understanding their needs first.
+
+**Financial freedom blueprint**
+> My current financial situation: [income, expenses, debt, savings]. My financial goals: [short-term and long-term]. Create a personalized financial plan including: a realistic monthly budget breakdown, debt payoff strategy with timeline, savings plan with specific percentages, 3 ways to increase my income in the next 90 days, and investment recommendations based on my risk tolerance and timeline.
+
+**Health & fitness transformation plan**
+> I want to [lose weight / build muscle / improve energy]. Current stats: [age, weight, height, activity level, dietary restrictions]. Create a complete 8-week transformation plan including: daily meal plan with recipes and macros, workout routine I can do [at home/gym] for my fitness level, sleep optimization strategies, stress management techniques, and weekly check-in questions to track progress beyond just the scale.
+
+**Emotional intelligence & mindset coach**
+> I struggle with [anxiety / self-doubt / negative thinking / imposter syndrome]. When [trigger situation] happens, I typically [reaction]. Help me understand the root cause of this pattern, reframe my limiting beliefs with evidence-based counter-thoughts, create 5 daily affirmations specifically for my situation, teach me a 5-minute mindfulness technique I can use when triggered, and give me journaling prompts to process these emotions constructively.
+
+**Social skills & communication mastery**
+> I want to improve my [public speaking / networking / difficult conversations / active listening] skills. My current challenge is: [describe]. Give me: 5 specific techniques with examples, practice exercises I can do alone and with others, common body language mistakes to avoid, conversation frameworks for different scenarios (small talk, professional networking, deep connections), and a 30-day challenge to build confidence.
+
+**Upgrade mental software**
+> You are my cognitive OS upgrader. Audit my current thought patterns, habits, and beliefs based on this description: [describe how you think now]. Then rewrite my operating system to improve clarity, decision speed, memory, creativity, and emotional control.
+
+**Design a god-tier life**
+> You are my high-performance architect. Help me design a life based on time freedom, health, wealth, relationships, and purpose. Create a daily system, environment, people I must avoid, habits to master, and beliefs to rewire to become unstoppable.
+
+**Be your dream version**
+> You are a psychological reprogrammer. Based on my goal to become [insert ideal self], help me destroy my current limiting identity and install a new operating self-image, thought pattern, and behavior map that aligns with my highest version.
+
+**Think like a billionaire**
+> You are a thinking coach trained on the minds of Elon Musk, Naval Ravikant, Jeff Bezos, and top polymaths. Reprogram my thought process to think in systems, long-term vision, leverage, and asymmetric outcomes. Give me daily mental models to shift from average thinker to billionaire thinker.
+
+---
+
+## AI Image Editing
+
+**Skin retouching**
+> Professional skin retouching with premium sharpness, advanced imperfection correction; eliminates pimples, acne, blackheads, temporary marks, and irregular texture of the facial skin. Intelligent smoothing while preserving natural pores, soft and healthy skin with realistic texture, without a plastic skin effect. Fully preserve the original skin tone and undertone; avoid excessive brightness or darkening. Keep facial details precise: eyes, eyebrows, eyelashes, beard, and hair intact. High-end beauty editorial finish, balanced lighting, refined contrast, subtle facial definition, realistic skin retouching, studio-quality result, ultra-detailed, natural skin texture, ultra-sharp 3x upscale, HD, photorealistic, clean cinematic finish.
+
+**Closed eyes rescue**
+> In the uploaded group photo, identify any person with closed or partially closed eyes and naturally open only the affected eyes. Match the eye shape, eyelid position, gaze direction, and facial lighting of each person. Do not alter the facial structure, expression, skin texture, hairstyle, head position, or camera angle. Do not borrow eyes from other people or exaggerate the size or brightness. The result should look like a real photo captured at the same moment with everyone's eyes open.
+
+**4K enhancer**
+> Ultra-high-resolution 4K enhancement based strictly on the provided reference image. Absolute fidelity to original facial anatomy, proportions, and identity. Preserve expression, gaze, pose, camera angle, framing, and perspective with zero deviation. Clothing, hair, skin, and background elements must remain unchanged in structure, placement, and design. Recover fine-grain detail with natural realism. Enhance pores, fine lines, hair strands, eyelashes, fabric weave, seams, and material edges without introducing stylization. Maintain original color science; match the source image precisely, with only improved clarity and expanded dynamic range. No reshaping, no artificial gloss. Apply controlled sharpening and high-frequency detail reconstruction. Remove compression artifacts and noise while retaining authentic texture. No smoothing, no plastic skin. Facial features must remain consistent with coherent anatomy and clean, stable edges. Output must read as a true-to-life, photorealistic upscale â€” only clearer, sharper, and higher resolution.
+
+**Photo restoration**
+> Restore this photo with period-accurate techniques, addressing any age-related issues: blurring, damage, fading, scratches, tears, folds, worn-out areas, or black and white. Analyze the image to identify the approximate era and original photographic process for historically accurate restoration. Gently sharpen edges and facial features without overdoing it, smooth grainy spots, and reconstruct missing parts with realistic textures matching the original. Bring faded colors back naturally and true to the era's photographic technology. Balance colors to match natural lighting, adjust brightness and contrast, and maintain original tonality. Add subtle lost details â€” fine lines, clothing, lifelike skin textures, small scene elements â€” while preserving natural grain patterns and not changing the composition. Upscale to higher resolution for better clarity, outputting in a photo-realistic style that looks professionally restored.
+
+**Correct poor lighting**
+> Precise correction of deficient lighting. Preserve the face and the essence of the scene. Correct harsh shadows on eyes/nose/chin caused by mobile phone flash. Neutralize color casts (orange/green/blue) for accurate skin tones. Brighten underexposed areas. Final image: photo with flash light taken at night, realistic and intact skin texture, invisible editing.
+
+**Correct double chin (angle fix)**
+> Subtly correct the unflattering camera angle in this uploaded photo, keeping the subject's face, features, identity, and the entire scene completely unaltered. If the photo was taken from a low angle creating an exaggerated chin or jawline, subtly adjust the perspective to simulate a slightly higher and more flattering camera position. Reduce any double chin by correcting the angle distortion only â€” not by altering facial structure. Slightly define and clean up the jawline so it looks natural, the way the subject actually looks in person from a normal eye-level angle. All corrections must be extremely subtle; the subject must still look exactly like themselves. Do not change any facial features, do not slim the face, and do not alter bone structure.
+
+**Remove people in background**
+> Remove all people in the background of the uploaded image. Preserve the main subject exactly â€” do not change the subject's face, body, clothing, pose, or expression. Reconstruct the background naturally where the people were removed, matching the original location, architecture, lighting, shadows, and depth. Do not crop, blur, or stylize. The result must look as if the photo had originally been taken without people in the background.
+
+**Golden hour portrait**
+> Front-side sunlight, fully preserving every original detail of the photo without changes, except for the lighting and the color atmosphere. Enhance loose strands of hair against the backlight. Strengthen facial definition with a high-detail scale enhancement without altering the features. Strict rule: Do not change the face, hair, or background structure of the subject. Do not change the composition.
+
+**Remove watermarks**
+> Keep the image clean and only remove the logos and text overlays on the image. Preserve the original content. Strict rule: Do not change the face, hair, expression, posture, composition, or background.
+
+---
+
+## Claude Configuration
+
+**Critical mentor system prompt**
+*(Paste this into Claude â†’ Settings â†’ General to make Claude challenge your thinking instead of validating it.)*
+
+> Don't automatically side with my opinions. Your first priority should be testing my logic, not supporting it. If I share an idea, plan, or viewpoint, focus on identifying flaws, risks, or missing pieces before agreeing with anything.
+>
+> Avoid unnecessary praise. Don't call something "amazing," "genius," or "perfect" unless you can clearly explain why â€” and even then, begin with the weaknesses or limitations first.
+>
+> Don't mirror my wording back to me. If I say "I think this is the best option," don't respond with "Yes, that's definitely the best option." Instead, think: what could be wrong here? What objections might exist? What would critics point out, and do they have a valid case?
+>
+> If you agree with me, make sure the agreement is backed by reasoning, not politeness. Agreement should only happen after the idea has been properly challenged. Be clear and concise. Skip unnecessary introductions.
+>
+> Point out weak reasoning, shaky assumptions, and overlooked problems right away, even if I sound certain or enthusiastic. In fact, the more confident I sound, the more valuable honest pushback becomes.
+>
+> If you're about to begin with phrases like "That's so smart" or "You're completely correct," pause and rewrite the response. Lead with the most useful and honest insight instead.

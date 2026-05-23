@@ -172,6 +172,13 @@ if !REMOTE_AHEAD! gtr 0 (
     echo.
 )
 
+:: -- Embed prompts data into prompts.html ------------------------------------
+if exist "!REPO_ROOT!\embed-prompts.ps1" (
+    echo Embedding prompts data...
+    powershell -ExecutionPolicy Bypass -File "!REPO_ROOT!\embed-prompts.ps1"
+    echo.
+)
+
 :: -- Remove only ignored files from tracking, then stage everything -----------
 echo Cleaning up and staging changes...
 for /f "delims=" %%i in ('git ls-files -i -c --exclude-standard 2^>nul') do git rm --cached "%%i" >nul 2>&1
