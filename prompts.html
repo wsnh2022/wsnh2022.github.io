@@ -559,6 +559,7 @@
 <div class="tab-bar">
   <button class="tab active" data-tab="universal">Universal Prompts</button>
   <button class="tab" data-tab="collection">My Collection</button>
+  <button class="tab" data-tab="eatfrog">Eat The Frog</button>
 </div>
 
 <!-- ── FILTER BAR ─────────────────────────────── -->
@@ -598,6 +599,14 @@
       <button class="pill" data-cat="col-personal" style="--pill-color:#ff6b35">Personal</button>
       <button class="pill" data-cat="col-image" style="--pill-color:#74b9ff">Image</button>
       <button class="pill" data-cat="col-claude" style="--pill-color:#8aafc4">Claude</button>
+      <button class="pill" data-cat="favourites" style="--pill-color:#ffc300">★ Saved</button>
+    </div>
+    <!-- Eat The Frog pills -->
+    <div class="pill-set" id="eatfrog-pills" style="display:none">
+      <button class="pill active" data-cat="all">All</button>
+      <button class="pill" data-cat="frog-find" style="--pill-color:#ff9a00">Find Your Frog</button>
+      <button class="pill" data-cat="frog-start" style="--pill-color:#3ecf5a">Start Immediately</button>
+      <button class="pill" data-cat="frog-resist" style="--pill-color:#7c5ff5">Break Resistance</button>
       <button class="pill" data-cat="favourites" style="--pill-color:#ffc300">★ Saved</button>
     </div>
   </nav>
@@ -852,6 +861,10 @@
 <div class="col-loading" id="col-loading">Loading collection...</div>
 <div class="grid" id="collection-grid"></div>
 
+<!-- ── EAT THE FROG ─────────────────────────────── -->
+<div class="col-loading" id="frog-loading" style="display:none">Loading...</div>
+<div class="grid" id="eatfrog-grid" style="display:none"></div>
+
 <p class="last-updated">Last updated May 2026</p>
 
 <!-- ── TOAST ──────────────────────────────────── -->
@@ -876,6 +889,7 @@
 
 <script src="data/universal-prompts.js"></script>
 <script src="data/my-collection.js"></script>
+<script src="data/eat-that-frog.js"></script>
 <script>
   /* ── UNIVERSAL PROMPTS loaded from data/universal-prompts.js ── */
 
@@ -899,6 +913,14 @@
     'Claude Configuration':       { slug:'col-claude',      color:'#8aafc4', icon:'#ic-wrench'  }
   };
 
+  var FROG_META = {
+    'Find Your Frog':    { slug:'frog-find',   color:'#ff9a00', icon:'#ic-target'  },
+    'Start Immediately': { slug:'frog-start',  color:'#3ecf5a', icon:'#ic-sparkle' },
+    'Break Resistance':  { slug:'frog-resist', color:'#7c5ff5', icon:'#ic-brain'   }
+  };
+  var FROG_PROMPTS_DATA = [];
+  var frogLoaded = false;
+
   /* ── HELPERS ────────────────────────────────── */
   function esc(s) {
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -917,9 +939,11 @@
 
   function applyFilters() {
     if (activeTab === 'collection' && !collectionLoaded) return;
+    if (activeTab === 'eatfrog' && !frogLoaded) return;
     var q       = searchEl.value.trim().toLowerCase();
     var isFavs  = activeCat === 'favourites';
-    var gridEl  = document.getElementById(activeTab === 'universal' ? 'grid' : 'collection-grid');
+    var gridId  = activeTab === 'universal' ? 'grid' : activeTab === 'collection' ? 'collection-grid' : 'eatfrog-grid';
+    var gridEl  = document.getElementById(gridId);
     var nameClass = activeTab === 'universal' ? '.prompt-name' : '.col-name';
     var visibleCards = 0;
 
@@ -963,7 +987,7 @@
 
   /* ── KEYBOARD SHORTCUTS ─────────────────────── */
   function navigateModal(delta) {
-    var sel = activeTab === 'universal' ? '#grid .prompt-name' : '#collection-grid .col-name';
+    var sel = activeTab === 'universal' ? '#grid .prompt-name' : activeTab === 'collection' ? '#collection-grid .col-name' : '#eatfrog-grid .col-name';
     var list = [...document.querySelectorAll(sel)].filter(function(el) {
       return el.style.display !== 'none';
     });
@@ -1009,26 +1033,34 @@
     document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
     tab.classList.add('active');
 
-    var isUniversal = activeTab === 'universal';
-    document.getElementById('grid').style.display = isUniversal ? '' : 'none';
-    document.getElementById('universal-pills').style.display = isUniversal ? '' : 'none';
-    document.getElementById('collection-pills').style.display = isUniversal ? 'none' : '';
+    var isUniversal  = activeTab === 'universal';
+    var isCollection = activeTab === 'collection';
+    var isFrog       = activeTab === 'eatfrog';
 
-    if (!isUniversal) {
-      if (collectionLoaded) {
-        document.getElementById('col-loading').style.display = 'none';
-        document.getElementById('collection-grid').style.display = '';
-      } else {
-        document.getElementById('col-loading').style.display = '';
-        document.getElementById('collection-grid').style.display = 'none';
-      }
+    document.getElementById('grid').style.display            = isUniversal  ? '' : 'none';
+    document.getElementById('universal-pills').style.display  = isUniversal  ? '' : 'none';
+    document.getElementById('collection-pills').style.display = isCollection ? '' : 'none';
+    document.getElementById('eatfrog-pills').style.display    = isFrog       ? '' : 'none';
+
+    if (isCollection) {
+      document.getElementById('col-loading').style.display     = collectionLoaded ? 'none' : '';
+      document.getElementById('collection-grid').style.display = collectionLoaded ? '' : 'none';
     } else {
-      document.getElementById('col-loading').style.display = 'none';
+      document.getElementById('col-loading').style.display     = 'none';
       document.getElementById('collection-grid').style.display = 'none';
     }
 
+    if (isFrog) {
+      document.getElementById('frog-loading').style.display  = frogLoaded ? 'none' : '';
+      document.getElementById('eatfrog-grid').style.display  = frogLoaded ? '' : 'none';
+    } else {
+      document.getElementById('frog-loading').style.display  = 'none';
+      document.getElementById('eatfrog-grid').style.display  = 'none';
+    }
+
     activeCat = 'all';
-    var pillsEl = document.getElementById(isUniversal ? 'universal-pills' : 'collection-pills');
+    var pillsId = isUniversal ? 'universal-pills' : isCollection ? 'collection-pills' : 'eatfrog-pills';
+    var pillsEl = document.getElementById(pillsId);
     pillsEl.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
     pillsEl.querySelector('[data-cat="all"]').classList.add('active');
     searchEl.value = '';
@@ -1262,6 +1294,49 @@
     });
   }
 
+  /* ── RENDER EAT THE FROG ────────────────────── */
+  function renderFrogGrid(cats) {
+    FROG_PROMPTS_DATA = [];
+    var grid = document.getElementById('eatfrog-grid');
+    grid.innerHTML = '';
+    cats.forEach(function(cat) {
+      var meta = FROG_META[cat.name] || { slug:'frog-unknown', color:'#888888', icon:'#ic-wrench' };
+      var card = document.createElement('div');
+      card.className = 'cat-card col-card ' + meta.slug;
+      card.style.setProperty('--cat-color', meta.color);
+      var hdr = '<div class="cat-header" style="color:' + meta.color + ';background:' + hexRgba(meta.color,0.09) + '">'
+              + '<svg class="cat-icon"><use href="' + meta.icon + '"/></svg>'
+              + esc(cat.name.toUpperCase())
+              + '<span class="cat-badge">(' + cat.prompts.length + ')</span></div>';
+      var body = '<div class="cat-body col-body">';
+      cat.prompts.forEach(function(p) {
+        var idx = FROG_PROMPTS_DATA.length;
+        FROG_PROMPTS_DATA.push({ title: p.title, text: p.text, cat: cat.name, color: meta.color });
+        var plain = p.text.replace(/\n/g,' ');
+        var preview = plain.slice(0,62) + (plain.length > 62 ? '…' : '');
+        body += '<span class="prompt-name col-name" data-idx="' + idx + '" style="color:' + meta.color + '">'
+              + esc(p.title) + '</span>'
+              + '<span class="prompt-desc">' + esc(preview) + '</span>'
+              + '<button class="fav-btn' + (FAVS.has(p.title) ? ' fav-active' : '') + '" data-fav="' + esc(p.title) + '" title="Save">★</button>';
+      });
+      body += '</div>';
+      card.innerHTML = hdr + body;
+      grid.appendChild(card);
+    });
+    grid.querySelectorAll('.col-name').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var d = FROG_PROMPTS_DATA[+this.dataset.idx];
+        openModal(d.title, d.text, d.cat, d.color);
+      });
+    });
+    grid.addEventListener('click', function(e) {
+      var btn = e.target.closest('.fav-btn');
+      if (!btn) return;
+      e.stopPropagation();
+      toggleFav(btn.dataset.fav, btn);
+    });
+  }
+
   /* ── LOAD MY COLLECTION DATA (from data/my-collection.js, works with file://) ── */
   document.addEventListener('DOMContentLoaded', function() {
     if (typeof MY_PROMPTS_MD === 'undefined') {
@@ -1274,6 +1349,19 @@
     if (activeTab === 'collection') {
       document.getElementById('col-loading').style.display = 'none';
       document.getElementById('collection-grid').style.display = '';
+      applyFilters();
+    }
+  });
+
+  /* ── LOAD EAT THE FROG DATA (from data/eat-that-frog.js) ── */
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof EAT_FROG_MD === 'undefined') return;
+    var cats = parseMyPrompts(EAT_FROG_MD);
+    frogLoaded = true;
+    renderFrogGrid(cats);
+    if (activeTab === 'eatfrog') {
+      document.getElementById('frog-loading').style.display = 'none';
+      document.getElementById('eatfrog-grid').style.display = '';
       applyFilters();
     }
   });
