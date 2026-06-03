@@ -1,0 +1,25 @@
+{
+  "name": "AI Prompts Reference",
+  "short_name": "AI Prompts",
+  "description": "170+ curated AI prompts for coding, writing, research, planning, and more.",
+  "start_url": "./prompts.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#080a18",
+  "theme_color": "#080a18",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
