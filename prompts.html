@@ -67,13 +67,22 @@
       gap: 12px;
       letter-spacing: -0.02em;
     }
-    .title-burst {
-      width: 42px; height: 42px; min-width: 42px;
-      background: var(--thinking);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: #fff;
+    .site-logo {
+      width: 44px; height: 44px; min-width: 44px;
+      border-radius: 10px;
+      object-fit: cover;
     }
+    .site-byline {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.38);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+      line-height: 1;
+    }
+    .site-byline:hover { color: rgba(255,255,255,0.7); text-decoration: underline; }
 
     /* ── TAB BAR ──────────────────────────────── */
     .tab-bar {
@@ -815,10 +824,11 @@
 <!-- ── HEADER ─────────────────────────────────── -->
 <header class="header">
   <h1 class="site-title">
-    <span class="title-burst">
-      <svg class="cat-icon" style="width:22px;height:22px"><use href="#ic-burst"/></svg>
+    <img src="assets/images/logo/freelance.png" class="site-logo" alt="datacraft.yogi">
+    <span>
+      AI Prompts
+      <a href="index.html" class="site-byline">by datacraft.yogi</a>
     </span>
-    AI Prompts
   </h1>
 </header>
 
