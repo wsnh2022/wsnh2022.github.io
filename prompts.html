@@ -499,6 +499,273 @@
       .modal-overlay { padding: 0; align-items: flex-end; }
       .modal { width: 100%; max-height: 92vh; border-radius: 12px 12px 0 0; border-bottom: none; }
     }
+
+    /* ── MOBILE: hide desktop grid, show accordion ─── */
+    @media (max-width: 767px) {
+      .tab-bar { display: none; }
+      .grid, #collection-grid, #eatfrog-grid, .col-loading { display: none !important; }
+      body { padding-bottom: 74px; }
+    }
+    @media (min-width: 768px) {
+      #mobile-accordion-wrap, #mobile-bottom-nav { display: none !important; }
+    }
+
+    /* ── MOBILE BOTTOM NAV ──────────────────────── */
+    #mobile-bottom-nav {
+      display: flex;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #0c0e22;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      z-index: 100;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+    .mob-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 4px 10px;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      gap: 3px;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.15s;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+    .mob-tab.active { color: #ffffff; }
+    .mob-tab-icon { font-size: 1.1rem; line-height: 1; }
+
+    /* ── ACCORDION: GLOBAL CONTROLS ─────────────── */
+    .acc-global-controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .acc-global-btn {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 7px;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 9px 8px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s;
+    }
+    .acc-global-btn:active { background: rgba(255,255,255,0.13); color: #fff; }
+
+    /* ── ACCORDION: CATEGORY SECTION ────────────── */
+    .acc-section {
+      border-radius: 8px;
+      border: 1.5px solid rgba(255,255,255,0.07);
+      background: var(--card-bg);
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .acc-cat-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 13px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none; -webkit-user-select: none;
+      font-size: 0.69rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      min-height: 46px;
+    }
+    .acc-cat-name { flex: 1; }
+    .acc-cat-count { font-size: 0.6rem; font-weight: 500; opacity: 0.5; letter-spacing: 0; margin-right: 4px; }
+    .acc-cat-chevron {
+      font-size: 1rem; line-height: 1; opacity: 0.45; flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .acc-section.open .acc-cat-chevron { transform: rotate(90deg); }
+
+    /* ── ACCORDION: PROMPT LIST ──────────────────── */
+    .acc-list { display: none; border-top: 1px solid rgba(255,255,255,0.06); }
+    .acc-section.open .acc-list { display: block; }
+
+    /* ── ACCORDION: ITEM ROW ─────────────────────── */
+    .acc-item { border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .acc-item:last-child { border-bottom: none; }
+
+    .acc-item-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 13px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none; -webkit-user-select: none;
+      min-height: 46px;
+    }
+    .acc-cmd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .acc-item-desc {
+      font-size: 0.66rem;
+      color: rgba(255,255,255,0.38);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .acc-item-arrow {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.22);
+      transition: transform 0.18s ease;
+      flex-shrink: 0;
+    }
+    .acc-item.open .acc-item-arrow { transform: rotate(180deg); }
+
+    /* ── ACCORDION: EXPANDED BODY ────────────────── */
+    .acc-item-body {
+      display: none;
+      padding: 0 13px 13px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .acc-item.open .acc-item-body { display: block; }
+
+    .acc-full-text {
+      font-size: 0.86rem;
+      color: #d0daff;
+      line-height: 1.78;
+      padding: 11px 0 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .acc-actions { display: flex; align-items: center; gap: 10px; }
+
+    .acc-copy-btn {
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.14);
+      border-radius: 6px;
+      color: #fff;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 0.77rem;
+      font-weight: 600;
+      padding: 7px 20px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.12s;
+    }
+    .acc-copy-btn:active, .acc-copy-btn.copied { background: rgba(255,255,255,0.17); }
+
+    .acc-fav-mob {
+      background: none; border: none;
+      color: rgba(255,255,255,0.25);
+      font-size: 1.15rem; line-height: 1;
+      cursor: pointer; padding: 4px 5px;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.12s;
+    }
+    .acc-fav-mob.fav-active { color: #ffc300; }
+
+    /* ── MOBILE CATEGORY DROPDOWN ───────────────── */
+    @media (max-width: 767px) { .cat-nav { display: none; } }
+    @media (min-width: 768px) { #mob-filter-wrap { display: none; } }
+
+    #mob-filter-wrap { margin-bottom: 0; }
+
+    .mob-filter-btn {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 7px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 13px;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.15s;
+    }
+    .mob-filter-btn.open { border-color: rgba(255,255,255,0.28); border-radius: 7px 7px 0 0; }
+    .mob-filter-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--fdot-color, rgba(255,255,255,0.4));
+      flex-shrink: 0;
+    }
+    .mob-filter-label { flex: 1; text-align: left; }
+    .mob-filter-chevron {
+      font-size: 0.68rem; opacity: 0.45;
+      transition: transform 0.2s ease;
+    }
+    .mob-filter-btn.open .mob-filter-chevron { transform: rotate(180deg); }
+
+    .mob-filter-dropdown {
+      display: none;
+      background: #0d0f24;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+      max-height: 55vh;
+      overflow-y: auto;
+    }
+    .mob-filter-dropdown.open { display: block; }
+
+    .mob-fitem {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 14px;
+      background: none;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: 'Inter', -apple-system, sans-serif;
+      cursor: pointer;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.1s;
+    }
+    .mob-fitem:last-child { border-bottom: none; }
+    .mob-fitem:active { background: rgba(255,255,255,0.06); }
+    .mob-fitem.active { color: #fff; font-weight: 700; }
+    .mob-fitem .fitem-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--fitem-color, rgba(255,255,255,0.3));
+      flex-shrink: 0;
+    }
+    .mob-fitem.active .fitem-dot { box-shadow: 0 0 0 2px rgba(255,255,255,0.14); }
+    .mob-fitem .fitem-count {
+      margin-left: auto;
+      font-size: 0.64rem;
+      opacity: 0.38;
+      font-weight: 500;
+    }
+
+    /* ── SAVED BUTTON ACTIVE ─────────────────────── */
+    .acc-saved-btn { flex: 0.8; }
+    .acc-saved-btn.active {
+      background: rgba(255,195,0,0.12);
+      border-color: rgba(255,195,0,0.35);
+      color: #ffc300;
+    }
   </style>
 </head>
 <body>
@@ -569,6 +836,16 @@
     <input type="text" id="search" class="search-input" placeholder="Search prompts... (press / to focus)" autocomplete="off" spellcheck="false" />
     <button class="search-clear" id="search-clear" aria-label="Clear search">&times;</button>
   </div>
+  <!-- mobile category dropdown (hidden on desktop) -->
+  <div id="mob-filter-wrap">
+    <button class="mob-filter-btn" id="mob-filter-btn">
+      <span class="mob-filter-dot" id="mob-filter-dot"></span>
+      <span class="mob-filter-label" id="mob-filter-label">All Categories</span>
+      <span class="mob-filter-chevron">&#9660;</span>
+    </button>
+    <div class="mob-filter-dropdown" id="mob-filter-dropdown"></div>
+  </div>
+
   <nav class="cat-nav" id="cat-nav">
     <!-- Universal Prompts pills -->
     <div class="pill-set" id="universal-pills">
@@ -867,6 +1144,34 @@
 
 <p class="last-updated">Last updated May 2026</p>
 
+<!-- ── MOBILE ACCORDION ───────────────────────────── -->
+<div id="mobile-accordion-wrap">
+  <div class="acc-global-controls">
+    <button class="acc-global-btn" id="acc-expand-all">&#9660; Expand All</button>
+    <button class="acc-global-btn" id="acc-collapse-all">&#9650; Collapse All</button>
+    <button class="acc-global-btn acc-saved-btn" id="acc-saved-btn">&#9733; Saved</button>
+  </div>
+  <div id="acc-universal"></div>
+  <div id="acc-collection" style="display:none"></div>
+  <div id="acc-eatfrog" style="display:none"></div>
+</div>
+
+<!-- ── MOBILE BOTTOM NAV ──────────────────────────── -->
+<nav id="mobile-bottom-nav">
+  <button class="mob-tab active" data-tab="universal">
+    <span class="mob-tab-icon">&#10022;</span>
+    <span>Universal</span>
+  </button>
+  <button class="mob-tab" data-tab="collection">
+    <span class="mob-tab-icon">&#9733;</span>
+    <span>Collection</span>
+  </button>
+  <button class="mob-tab" data-tab="eatfrog">
+    <span class="mob-tab-icon">&#9679;</span>
+    <span>Eat Frog</span>
+  </button>
+</nav>
+
 <!-- ── TOAST ──────────────────────────────────── -->
 <div class="toast" id="toast"></div>
 
@@ -980,6 +1285,7 @@
     noResultsEl.style.display = visibleCards === 0 ? '' : 'none';
     noResultsTermEl.textContent = '"' + searchEl.value + '"';
     clearEl.style.display = searchEl.value ? '' : 'none';
+    if (typeof filterMobileAccordion === 'function') filterMobileAccordion();
   }
 
   searchEl.addEventListener('input', applyFilters);
@@ -1346,6 +1652,7 @@
     var cats = parseMyPrompts(MY_PROMPTS_MD);
     collectionLoaded = true;
     renderCollectionGrid(cats);
+    if (typeof buildCollectionAccordion === 'function') buildCollectionAccordion(cats);
     if (activeTab === 'collection') {
       document.getElementById('col-loading').style.display = 'none';
       document.getElementById('collection-grid').style.display = '';
@@ -1359,6 +1666,7 @@
     var cats = parseMyPrompts(EAT_FROG_MD);
     frogLoaded = true;
     renderFrogGrid(cats);
+    if (typeof buildFrogAccordion === 'function') buildFrogAccordion(cats);
     if (activeTab === 'eatfrog') {
       document.getElementById('frog-loading').style.display = 'none';
       document.getElementById('eatfrog-grid').style.display = '';
@@ -1366,6 +1674,365 @@
     }
   });
 </script>
+<script>
+  /* ═══════════════════════════════════════════════
+     MOBILE ACCORDION
+  ═══════════════════════════════════════════════ */
+
+  function stripHeaderText(headerEl) {
+    var c = headerEl.cloneNode(true);
+    c.querySelectorAll('svg, .cat-badge').forEach(function(x) { x.remove(); });
+    return c.textContent.trim();
+  }
+
+  /* build accordion for Universal Prompts (from static grid DOM) */
+  function buildUniversalAccordion() {
+    var container = document.getElementById('acc-universal');
+    if (!container || container.children.length) return;
+    document.querySelectorAll('#grid .cat-card').forEach(function(card) {
+      var useEl = card.querySelector('.cat-header svg use');
+      var iconHref = useEl ? useEl.getAttribute('href') : '#ic-wrench';
+      var catSlug = Array.prototype.filter.call(card.classList, function(c) { return c !== 'cat-card'; })[0] || 'utility';
+      var catColor = CAT_COLORS[catSlug] || '#ffffff';
+      var catName = stripHeaderText(card.querySelector('.cat-header'));
+      var nameEls = card.querySelectorAll('.prompt-name');
+      var section = makeAccSection(catSlug, catColor, iconHref, catName, nameEls.length);
+      var list = section.querySelector('.acc-list');
+      nameEls.forEach(function(nameEl) {
+        var cmd = nameEl.textContent.trim();
+        var descEl = nameEl.nextElementSibling;
+        var desc = descEl ? descEl.textContent.trim() : '';
+        list.appendChild(makeAccItem(cmd, desc, PROMPTS[cmd] || cmd, cmd, catColor));
+      });
+      container.appendChild(section);
+    });
+  }
+
+  /* build accordion for My Collection */
+  function buildCollectionAccordion(cats) {
+    var container = document.getElementById('acc-collection');
+    if (!container) return;
+    container.innerHTML = '';
+    cats.forEach(function(cat) {
+      var meta = COL_META[cat.name] || { slug: 'col-unknown', color: '#888', icon: '#ic-wrench' };
+      var section = makeAccSection(meta.slug, meta.color, meta.icon, cat.name.toUpperCase(), cat.prompts.length);
+      var list = section.querySelector('.acc-list');
+      cat.prompts.forEach(function(p) {
+        var preview = p.text.replace(/\n/g, ' ').slice(0, 58) + (p.text.length > 58 ? '…' : '');
+        list.appendChild(makeAccItem(p.title, preview, p.text, p.title, meta.color));
+      });
+      container.appendChild(section);
+    });
+  }
+
+  /* build accordion for Eat The Frog */
+  function buildFrogAccordion(cats) {
+    var container = document.getElementById('acc-eatfrog');
+    if (!container) return;
+    container.innerHTML = '';
+    cats.forEach(function(cat) {
+      var meta = FROG_META[cat.name] || { slug: 'frog-unknown', color: '#888', icon: '#ic-wrench' };
+      var section = makeAccSection(meta.slug, meta.color, meta.icon, cat.name.toUpperCase(), cat.prompts.length);
+      var list = section.querySelector('.acc-list');
+      cat.prompts.forEach(function(p) {
+        var preview = p.text.replace(/\n/g, ' ').slice(0, 58) + (p.text.length > 58 ? '…' : '');
+        list.appendChild(makeAccItem(p.title, preview, p.text, p.title, meta.color));
+      });
+      container.appendChild(section);
+    });
+  }
+
+  /* create a category section element */
+  function makeAccSection(catSlug, catColor, iconHref, catName, count) {
+    var section = document.createElement('div');
+    section.className = 'acc-section';
+    section.dataset.cat = catSlug;
+    var hdr = document.createElement('div');
+    hdr.className = 'acc-cat-header';
+    hdr.style.cssText = 'color:' + catColor + ';background:' + hexRgba(catColor, 0.08);
+    hdr.innerHTML =
+      '<svg class="cat-icon" style="width:13px;height:13px;flex-shrink:0"><use href="' + iconHref + '"/></svg>' +
+      '<span class="acc-cat-name">' + esc(catName) + '</span>' +
+      '<span class="acc-cat-count">(' + count + ')</span>' +
+      '<span class="acc-cat-chevron">&#8250;</span>';
+    hdr.addEventListener('click', function() { section.classList.toggle('open'); });
+    var list = document.createElement('div');
+    list.className = 'acc-list';
+    section.appendChild(hdr);
+    section.appendChild(list);
+    return section;
+  }
+
+  /* create one prompt item row */
+  function makeAccItem(label, desc, fullText, favId, catColor) {
+    var item = document.createElement('div');
+    item.className = 'acc-item';
+    item.dataset.search = (label + ' ' + desc + ' ' + fullText).toLowerCase();
+    item.dataset.favid = favId;
+
+    var hdr = document.createElement('div');
+    hdr.className = 'acc-item-header';
+    hdr.innerHTML =
+      '<span class="acc-cmd" style="color:' + catColor + '">' + esc(label) + '</span>' +
+      '<span class="acc-item-desc">' + esc(desc) + '</span>' +
+      '<span class="acc-item-arrow">&#9660;</span>';
+    hdr.addEventListener('click', function() { item.classList.toggle('open'); });
+
+    var body = document.createElement('div');
+    body.className = 'acc-item-body';
+
+    var textEl = document.createElement('p');
+    textEl.className = 'acc-full-text';
+    textEl.innerHTML = highlightPlaceholders(esc(fullText));
+
+    var actions = document.createElement('div');
+    actions.className = 'acc-actions';
+
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'acc-copy-btn';
+    copyBtn.textContent = 'Copy';
+    copyBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var btn = this;
+      var done = function() {
+        showToast('Copied!');
+        addToHistory(label, fullText);
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullText).then(done).catch(function() { fallback(fullText); done(); });
+      } else { fallback(fullText); done(); }
+    });
+
+    var favBtn = document.createElement('button');
+    favBtn.className = 'acc-fav-mob' + (FAVS.has(favId) ? ' fav-active' : '');
+    favBtn.textContent = '★';
+    favBtn.title = 'Save';
+    favBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (FAVS.has(favId)) { FAVS.delete(favId); this.classList.remove('fav-active'); }
+      else                 { FAVS.add(favId);    this.classList.add('fav-active'); }
+      saveFavs();
+      if (activeCat === 'favourites') filterMobileAccordion();
+    });
+
+    actions.appendChild(copyBtn);
+    actions.appendChild(favBtn);
+    body.appendChild(textEl);
+    body.appendChild(actions);
+    item.appendChild(hdr);
+    item.appendChild(body);
+    return item;
+  }
+
+  /* filter accordion items by search + category pill */
+  function filterMobileAccordion() {
+    var wrap = document.getElementById('mobile-accordion-wrap');
+    if (!wrap || wrap.offsetParent === null) return;
+    var panelMap = { universal: 'acc-universal', collection: 'acc-collection', eatfrog: 'acc-eatfrog' };
+    var container = document.getElementById(panelMap[activeTab]);
+    if (!container) return;
+
+    var q = searchEl.value.trim().toLowerCase();
+    var isFavs = activeCat === 'favourites';
+    var totalVisible = 0;
+
+    container.querySelectorAll('.acc-section').forEach(function(section) {
+      var catSlug = section.dataset.cat;
+      var catMatch = activeCat === 'all' || isFavs || catSlug === activeCat;
+      var sectionVisible = 0;
+      section.querySelectorAll('.acc-item').forEach(function(item) {
+        var favMatch = !isFavs || FAVS.has(item.dataset.favid || '');
+        var searchMatch = !q || (item.dataset.search || '').includes(q);
+        var show = catMatch && favMatch && searchMatch;
+        item.style.display = show ? '' : 'none';
+        if (show) sectionVisible++;
+      });
+      var show = catMatch && sectionVisible > 0;
+      section.style.display = show ? '' : 'none';
+      if (show) totalVisible += sectionVisible;
+      var countEl = section.querySelector('.acc-cat-count');
+      if (countEl && show) {
+        var total = section.querySelectorAll('.acc-item').length;
+        countEl.textContent = sectionVisible === total ? '(' + total + ')' : '(' + sectionVisible + ' of ' + total + ')';
+      }
+      if (q && sectionVisible > 0) section.classList.add('open');
+    });
+
+    noResultsEl.style.display = totalVisible === 0 && (q || isFavs) ? '' : 'none';
+    noResultsTermEl.textContent = '"' + searchEl.value + '"';
+    clearEl.style.display = searchEl.value ? '' : 'none';
+  }
+
+  /* ── CATEGORY DROPDOWN ─────────────────────────── */
+
+  var CAT_COLOR_MAP = (function() {
+    var m = { all: 'rgba(255,255,255,0.45)', favourites: '#ffc300' };
+    Object.keys(CAT_COLORS).forEach(function(k) { m[k] = CAT_COLORS[k]; });
+    Object.values(COL_META).forEach(function(v) { m[v.slug] = v.color; });
+    Object.values(FROG_META).forEach(function(v) { m[v.slug] = v.color; });
+    return m;
+  })();
+
+  function buildMobDropdown() {
+    var pillsId = activeTab === 'universal' ? 'universal-pills'
+                : activeTab === 'collection' ? 'collection-pills' : 'eatfrog-pills';
+    var pillsEl = document.getElementById(pillsId);
+    var dropdown = document.getElementById('mob-filter-dropdown');
+    dropdown.innerHTML = '';
+
+    pillsEl.querySelectorAll('.pill:not([data-cat="favourites"])').forEach(function(pill) {
+      var cat = pill.dataset.cat;
+      var label = pill.textContent.trim();
+      var color = CAT_COLOR_MAP[cat] || 'rgba(255,255,255,0.4)';
+
+      var countEl = '';
+      if (cat !== 'all') {
+        var accId = { universal: 'acc-universal', collection: 'acc-collection', eatfrog: 'acc-eatfrog' }[activeTab];
+        var section = document.querySelector('#' + accId + ' [data-cat="' + cat + '"]');
+        if (section) {
+          var cnt = section.querySelectorAll('.acc-item').length;
+          countEl = '<span class="fitem-count">(' + cnt + ')</span>';
+        }
+      }
+
+      var btn = document.createElement('button');
+      btn.className = 'mob-fitem' + (cat === activeCat ? ' active' : '');
+      btn.dataset.cat = cat;
+      btn.style.setProperty('--fitem-color', color);
+      btn.innerHTML = '<span class="fitem-dot"></span>' + esc(label) + countEl;
+      btn.addEventListener('click', function() {
+        selectMobFilter(cat, label, color);
+      });
+      dropdown.appendChild(btn);
+    });
+  }
+
+  function selectMobFilter(cat, label, color) {
+    activeCat = cat;
+    closeMobDropdown();
+
+    document.getElementById('mob-filter-label').textContent = label;
+    document.getElementById('mob-filter-dot').style.setProperty('--fdot-color', color || 'rgba(255,255,255,0.4)');
+    document.getElementById('mob-filter-dropdown').querySelectorAll('.mob-fitem').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.cat === cat);
+    });
+
+    var savedBtn = document.getElementById('acc-saved-btn');
+    savedBtn.classList.remove('active');
+    savedBtn.textContent = '★ Saved' + (FAVS.size > 0 ? ' (' + FAVS.size + ')' : '');
+
+    var pillsId = activeTab === 'universal' ? 'universal-pills'
+                : activeTab === 'collection' ? 'collection-pills' : 'eatfrog-pills';
+    var pillsEl = document.getElementById(pillsId);
+    pillsEl.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+    var syncPill = pillsEl.querySelector('[data-cat="' + cat + '"]');
+    if (syncPill) syncPill.classList.add('active');
+
+    filterMobileAccordion();
+  }
+
+  function openMobDropdown() {
+    buildMobDropdown();
+    document.getElementById('mob-filter-btn').classList.add('open');
+    document.getElementById('mob-filter-dropdown').classList.add('open');
+  }
+  function closeMobDropdown() {
+    document.getElementById('mob-filter-btn').classList.remove('open');
+    document.getElementById('mob-filter-dropdown').classList.remove('open');
+  }
+
+  document.getElementById('mob-filter-btn').addEventListener('click', function() {
+    var isOpen = document.getElementById('mob-filter-dropdown').classList.contains('open');
+    isOpen ? closeMobDropdown() : openMobDropdown();
+  });
+
+  /* ── SAVED BUTTON ──────────────────────────────── */
+  document.getElementById('acc-saved-btn').addEventListener('click', function() {
+    if (activeCat === 'favourites') {
+      selectMobFilter('all', 'All Categories', 'rgba(255,255,255,0.45)');
+      this.classList.remove('active');
+    } else {
+      activeCat = 'favourites';
+      closeMobDropdown();
+      document.getElementById('mob-filter-label').textContent = 'All Categories';
+      this.classList.add('active');
+      this.textContent = '★ Saved (' + FAVS.size + ')';
+      var pillsId = activeTab === 'universal' ? 'universal-pills'
+                  : activeTab === 'collection' ? 'collection-pills' : 'eatfrog-pills';
+      var pillsEl = document.getElementById(pillsId);
+      pillsEl.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+      var favPill = pillsEl.querySelector('[data-cat="favourites"]');
+      if (favPill) favPill.classList.add('active');
+      filterMobileAccordion();
+    }
+  });
+
+  /* expand all / collapse all */
+  document.getElementById('acc-expand-all').addEventListener('click', function() {
+    var panelMap = { universal: 'acc-universal', collection: 'acc-collection', eatfrog: 'acc-eatfrog' };
+    var container = document.getElementById(panelMap[activeTab]);
+    if (!container) return;
+    container.querySelectorAll('.acc-section').forEach(function(s) {
+      if (s.style.display !== 'none') s.classList.add('open');
+    });
+  });
+
+  document.getElementById('acc-collapse-all').addEventListener('click', function() {
+    var panelMap = { universal: 'acc-universal', collection: 'acc-collection', eatfrog: 'acc-eatfrog' };
+    var container = document.getElementById(panelMap[activeTab]);
+    if (!container) return;
+    container.querySelectorAll('.acc-section').forEach(function(s) {
+      s.classList.remove('open');
+      s.querySelectorAll('.acc-item.open').forEach(function(i) { i.classList.remove('open'); });
+    });
+  });
+
+  /* mobile bottom tab nav */
+  document.getElementById('mobile-bottom-nav').addEventListener('click', function(e) {
+    var btn = e.target.closest('.mob-tab');
+    if (!btn || btn.dataset.tab === activeTab) return;
+    var newTab = btn.dataset.tab;
+    activeTab = newTab;
+
+    document.querySelectorAll('.mob-tab').forEach(function(t) { t.classList.remove('active'); });
+    btn.classList.add('active');
+
+    ['acc-universal', 'acc-collection', 'acc-eatfrog'].forEach(function(id) {
+      document.getElementById(id).style.display = 'none';
+    });
+    var panelMap = { universal: 'acc-universal', collection: 'acc-collection', eatfrog: 'acc-eatfrog' };
+    document.getElementById(panelMap[newTab]).style.display = '';
+
+    document.getElementById('universal-pills').style.display  = newTab === 'universal'  ? '' : 'none';
+    document.getElementById('collection-pills').style.display = newTab === 'collection' ? '' : 'none';
+    document.getElementById('eatfrog-pills').style.display    = newTab === 'eatfrog'    ? '' : 'none';
+
+    activeCat = 'all';
+    var pillsId = newTab === 'universal' ? 'universal-pills' : newTab === 'collection' ? 'collection-pills' : 'eatfrog-pills';
+    var pillsEl = document.getElementById(pillsId);
+    pillsEl.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+    pillsEl.querySelector('[data-cat="all"]').classList.add('active');
+    searchEl.value = '';
+    clearEl.style.display = 'none';
+    noResultsEl.style.display = 'none';
+    closeMobDropdown();
+    document.getElementById('mob-filter-label').textContent = 'All Categories';
+    document.getElementById('mob-filter-dot').style.setProperty('--fdot-color', 'rgba(255,255,255,0.45)');
+    var savedBtn = document.getElementById('acc-saved-btn');
+    savedBtn.classList.remove('active');
+    savedBtn.textContent = '★ Saved' + (FAVS.size > 0 ? ' (' + FAVS.size + ')' : '');
+    filterMobileAccordion();
+  });
+
+  /* init on load */
+  document.addEventListener('DOMContentLoaded', function() {
+    buildUniversalAccordion();
+  });
+</script>
+
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
