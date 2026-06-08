@@ -516,7 +516,7 @@
       body { padding-bottom: 74px; }
     }
     @media (min-width: 768px) {
-      #mobile-accordion-wrap, #mobile-bottom-nav { display: none !important; }
+      #mobile-accordion-wrap, #mobile-bottom-nav, #mob-saved-fab { display: none !important; }
     }
 
     /* ── MOBILE BOTTOM NAV ──────────────────────── */
@@ -768,13 +768,65 @@
       font-weight: 500;
     }
 
-    /* ── SAVED BUTTON ACTIVE ─────────────────────── */
-    .acc-saved-btn { flex: 0.8; }
-    .acc-saved-btn.active {
-      background: rgba(255,195,0,0.12);
-      border-color: rgba(255,195,0,0.35);
+    /* ── SAVED FAB ───────────────────────────────── */
+    #mob-saved-fab {
+      position: fixed;
+      bottom: 78px;
+      right: 16px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(16,18,42,0.95);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.5);
+      font-size: 1.35rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 99;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.45);
+      padding: 0;
+    }
+    #mob-saved-fab.active {
+      background: rgba(255,195,0,0.15);
+      border-color: rgba(255,195,0,0.5);
       color: #ffc300;
     }
+    .fab-badge {
+      position: absolute;
+      top: -3px; right: -3px;
+      background: #ffc300;
+      color: #111;
+      font-size: 0.52rem;
+      font-weight: 800;
+      min-width: 17px; height: 17px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3px;
+      line-height: 1;
+    }
+    .saved-src-header {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      padding: 14px 4px 6px;
+    }
+    .saved-src-header:first-child { padding-top: 0; }
+    .acc-empty-saved {
+      text-align: center;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.85rem;
+      padding: 40px 0;
+      line-height: 1.6;
+    }
+    @media (max-width: 767px) { #mob-saved-fab { display: flex; } }
   </style>
 </head>
 <body>
@@ -1159,11 +1211,11 @@
   <div class="acc-global-controls">
     <button class="acc-global-btn" id="acc-expand-all">&#9660; Expand All</button>
     <button class="acc-global-btn" id="acc-collapse-all">&#9650; Collapse All</button>
-    <button class="acc-global-btn acc-saved-btn" id="acc-saved-btn">&#9733; Saved</button>
   </div>
   <div id="acc-universal"></div>
   <div id="acc-collection" style="display:none"></div>
   <div id="acc-eatfrog" style="display:none"></div>
+  <div id="acc-saved-panel" style="display:none"></div>
 </div>
 
 <!-- ── MOBILE BOTTOM NAV ──────────────────────────── -->
@@ -1181,6 +1233,7 @@
     <span>Eat Frog</span>
   </button>
 </nav>
+<button id="mob-saved-fab" aria-label="Saved prompts">&#9733;<span id="fab-badge" class="fab-badge" style="display:none"></span></button>
 
 <!-- ── TOAST ──────────────────────────────────── -->
 <div class="toast" id="toast"></div>
@@ -1774,7 +1827,7 @@
   }
 
   /* create one prompt item row */
-  function makeAccItem(label, desc, fullText, favId, catColor) {
+  function makeAccItem(label, desc, fullText, favId, catColor, onFavChange) {
     var item = document.createElement('div');
     item.className = 'acc-item';
     item.dataset.search = (label + ' ' + desc + ' ' + fullText).toLowerCase();
@@ -1825,7 +1878,9 @@
       if (FAVS.has(favId)) { FAVS.delete(favId); this.classList.remove('fav-active'); }
       else                 { FAVS.add(favId);    this.classList.add('fav-active'); }
       saveFavs();
-      if (activeCat === 'favourites') filterMobileAccordion();
+      updateFabBadge();
+      if (typeof onFavChange === 'function') onFavChange(favId);
+      else if (activeCat === 'favourites') filterMobileAccordion();
     });
 
     actions.appendChild(copyBtn);
@@ -1837,8 +1892,77 @@
     return item;
   }
 
+  var activeSavedFab = false;
+
+  function updateFabBadge() {
+    var badge = document.getElementById('fab-badge');
+    if (!badge) return;
+    if (FAVS.size > 0) { badge.textContent = FAVS.size; badge.style.display = ''; }
+    else { badge.style.display = 'none'; }
+  }
+
+  function syncAllFavBtns() {
+    document.querySelectorAll('.acc-item').forEach(function(item) {
+      var favId = item.dataset.favid;
+      if (!favId) return;
+      var btn = item.querySelector('.acc-fav-mob');
+      if (btn) btn.classList.toggle('fav-active', FAVS.has(favId));
+    });
+  }
+
+  function buildSavedPanel() {
+    var panel = document.getElementById('acc-saved-panel');
+    if (!panel) return;
+    panel.innerHTML = '';
+    var sources = [
+      { id: 'acc-universal',  label: 'Universal Prompts', icon: '✶' },
+      { id: 'acc-collection', label: 'My Collection',     icon: '★' },
+      { id: 'acc-eatfrog',    label: 'Eat The Frog',      icon: '●' }
+    ];
+    var totalSaved = 0;
+    sources.forEach(function(src) {
+      var container = document.getElementById(src.id);
+      if (!container) return;
+      var savedData = [];
+      container.querySelectorAll('.acc-item').forEach(function(item) {
+        if (!FAVS.has(item.dataset.favid || '')) return;
+        var cmdEl  = item.querySelector('.acc-cmd');
+        var descEl = item.querySelector('.acc-item-desc');
+        var textEl = item.querySelector('.acc-full-text');
+        savedData.push({
+          favId:    item.dataset.favid,
+          label:    cmdEl  ? cmdEl.textContent  : '',
+          color:    cmdEl  ? cmdEl.style.color  : '',
+          desc:     descEl ? descEl.textContent : '',
+          fullText: textEl ? textEl.textContent : ''
+        });
+      });
+      if (savedData.length === 0) return;
+      totalSaved += savedData.length;
+      var srcHeader = document.createElement('div');
+      srcHeader.className = 'saved-src-header';
+      srcHeader.textContent = src.icon + ' ' + src.label + ' (' + savedData.length + ')';
+      panel.appendChild(srcHeader);
+      savedData.forEach(function(d) {
+        var item = makeAccItem(d.label, d.desc, d.fullText, d.favId, d.color, function() {
+          syncAllFavBtns();
+          updateFabBadge();
+          buildSavedPanel();
+        });
+        panel.appendChild(item);
+      });
+    });
+    if (totalSaved === 0) {
+      var empty = document.createElement('p');
+      empty.className = 'acc-empty-saved';
+      empty.innerHTML = 'No saved prompts yet.<br><small>Tap ★ on any prompt to save it.</small>';
+      panel.appendChild(empty);
+    }
+  }
+
   /* filter accordion items by search + category pill */
   function filterMobileAccordion() {
+    if (activeSavedFab) return;
     var wrap = document.getElementById('mobile-accordion-wrap');
     if (!wrap || wrap.offsetParent === null) return;
     var panelMap = { universal: 'acc-universal', collection: 'acc-collection', eatfrog: 'acc-eatfrog' };
@@ -1930,10 +2054,6 @@
       b.classList.toggle('active', b.dataset.cat === cat);
     });
 
-    var savedBtn = document.getElementById('acc-saved-btn');
-    savedBtn.classList.remove('active');
-    savedBtn.textContent = '★ Saved' + (FAVS.size > 0 ? ' (' + FAVS.size + ')' : '');
-
     var pillsId = activeTab === 'universal' ? 'universal-pills'
                 : activeTab === 'collection' ? 'collection-pills' : 'eatfrog-pills';
     var pillsEl = document.getElementById(pillsId);
@@ -1959,24 +2079,34 @@
     isOpen ? closeMobDropdown() : openMobDropdown();
   });
 
-  /* ── SAVED BUTTON ──────────────────────────────── */
-  document.getElementById('acc-saved-btn').addEventListener('click', function() {
-    if (activeCat === 'favourites') {
-      selectMobFilter('all', 'All Categories', 'rgba(255,255,255,0.45)');
-      this.classList.remove('active');
-    } else {
-      activeCat = 'favourites';
-      closeMobDropdown();
-      document.getElementById('mob-filter-label').textContent = 'All Categories';
-      this.classList.add('active');
-      this.textContent = '★ Saved (' + FAVS.size + ')';
-      var pillsId = activeTab === 'universal' ? 'universal-pills'
-                  : activeTab === 'collection' ? 'collection-pills' : 'eatfrog-pills';
+  /* ── SAVED FAB ─────────────────────────────────── */
+  document.getElementById('mob-saved-fab').addEventListener('click', function() {
+    var fab = this;
+    var panel = document.getElementById('acc-saved-panel');
+    var panelMap = { universal: 'acc-universal', collection: 'acc-collection', eatfrog: 'acc-eatfrog' };
+    if (activeSavedFab) {
+      activeSavedFab = false;
+      fab.classList.remove('active');
+      panel.style.display = 'none';
+      document.getElementById(panelMap[activeTab]).style.display = '';
+      activeCat = 'all';
+      var pillsId = activeTab === 'universal' ? 'universal-pills' : activeTab === 'collection' ? 'collection-pills' : 'eatfrog-pills';
       var pillsEl = document.getElementById(pillsId);
       pillsEl.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
-      var favPill = pillsEl.querySelector('[data-cat="favourites"]');
-      if (favPill) favPill.classList.add('active');
+      var allPill = pillsEl.querySelector('[data-cat="all"]');
+      if (allPill) allPill.classList.add('active');
+      document.getElementById('mob-filter-label').textContent = 'All Categories';
+      document.getElementById('mob-filter-dot').style.setProperty('--fdot-color', 'rgba(255,255,255,0.45)');
       filterMobileAccordion();
+    } else {
+      activeSavedFab = true;
+      fab.classList.add('active');
+      closeMobDropdown();
+      ['acc-universal', 'acc-collection', 'acc-eatfrog'].forEach(function(id) {
+        document.getElementById(id).style.display = 'none';
+      });
+      buildSavedPanel();
+      panel.style.display = '';
     }
   });
 
@@ -2031,15 +2161,18 @@
     closeMobDropdown();
     document.getElementById('mob-filter-label').textContent = 'All Categories';
     document.getElementById('mob-filter-dot').style.setProperty('--fdot-color', 'rgba(255,255,255,0.45)');
-    var savedBtn = document.getElementById('acc-saved-btn');
-    savedBtn.classList.remove('active');
-    savedBtn.textContent = '★ Saved' + (FAVS.size > 0 ? ' (' + FAVS.size + ')' : '');
+    if (activeSavedFab) {
+      activeSavedFab = false;
+      document.getElementById('mob-saved-fab').classList.remove('active');
+      document.getElementById('acc-saved-panel').style.display = 'none';
+    }
     filterMobileAccordion();
   });
 
   /* init on load */
   document.addEventListener('DOMContentLoaded', function() {
     buildUniversalAccordion();
+    updateFabBadge();
   });
 </script>
 
