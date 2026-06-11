@@ -438,11 +438,22 @@
 
     .modal-header {
       padding: 13px 15px 12px;
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+      display: flex; align-items: center; gap: 8px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       flex-shrink: 0;
     }
-    .modal-meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+    .modal-meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
+    .modal-nav {
+      background: none; border: none;
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      font-size: 1.7rem; line-height: 1;
+      padding: 0 3px;
+      flex-shrink: 0;
+      transition: color 0.12s;
+    }
+    .modal-nav:hover:not(:disabled) { color: rgba(255,255,255,0.85); }
+    .modal-nav:disabled { color: rgba(255,255,255,0.1); cursor: default; }
     .modal-cat {
       font-size: 0.65rem; font-weight: 700;
       letter-spacing: 0.1em;
@@ -549,6 +560,7 @@
     @media (max-width: 560px) {
       .modal-overlay { padding: 0; align-items: flex-end; }
       .modal { width: 100%; max-height: 92vh; border-radius: 12px 12px 0 0; border-bottom: none; }
+      .modal-nav { display: none; }
     }
 
     /* ── MOBILE: hide desktop grid, show accordion ─── */
@@ -1288,10 +1300,12 @@
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal" id="modal">
     <div class="modal-header" id="modal-header">
+      <button class="modal-nav" id="modal-prev" aria-label="Previous prompt">&#8249;</button>
       <div class="modal-meta">
         <span class="modal-cat" id="modal-cat"></span>
         <span class="modal-title" id="modal-title"></span>
       </div>
+      <button class="modal-nav" id="modal-next" aria-label="Next prompt">&#8250;</button>
       <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
     </div>
     <div class="modal-body" id="modal-body"></div>
@@ -1561,16 +1575,30 @@
   clearEl.addEventListener('click', function() { searchEl.value = ''; applyFilters(); searchEl.focus(); });
 
   /* ── KEYBOARD SHORTCUTS ─────────────────────── */
-  function navigateModal(delta) {
-    var sel = activeTab === 'universal' ? '#grid .prompt-name' : activeTab === 'collection' ? '#collection-grid .col-name' : '#eatfrog-grid .col-name';
-    var list = [...document.querySelectorAll(sel)].filter(function(el) {
+  var _navList = [];
+  var _navIdx  = -1;
+
+  function buildNavList() {
+    if (searchEl.value.trim()) {
+      return Array.prototype.slice.call(document.querySelectorAll('#search-all .prompt-name'));
+    }
+    var sel = activeTab === 'universal'  ? '#grid .prompt-name'
+            : activeTab === 'collection' ? '#collection-grid .col-name'
+            :                              '#eatfrog-grid .col-name';
+    return Array.prototype.filter.call(document.querySelectorAll(sel), function(el) {
       return el.style.display !== 'none';
     });
-    var cur = document.getElementById('modal-title').textContent;
-    var idx = list.findIndex(function(el) { return el.textContent.trim() === cur; });
-    if (idx === -1) return;
-    var next = list[idx + delta];
-    if (next) next.click();
+  }
+
+  function updateNavArrows() {
+    document.getElementById('modal-prev').disabled = (_navIdx <= 0);
+    document.getElementById('modal-next').disabled = (_navIdx >= _navList.length - 1);
+  }
+
+  function navigateModal(delta) {
+    var newIdx = _navIdx + delta;
+    if (newIdx < 0 || newIdx >= _navList.length) return;
+    _navList[newIdx].click();
   }
 
   document.addEventListener('keydown', function(e) {
@@ -1653,6 +1681,12 @@
 
   function openModal(title, text, catName, color) {
     _modalText = text;
+    _navList = buildNavList();
+    _navIdx = -1;
+    for (var i = 0; i < _navList.length; i++) {
+      if (_navList[i].textContent.trim() === title) { _navIdx = i; break; }
+    }
+    updateNavArrows();
     document.getElementById('modal-cat').textContent = catName.toUpperCase();
     document.getElementById('modal-cat').style.color = color;
     document.getElementById('modal-title').textContent = title;
@@ -1676,6 +1710,8 @@
     if (e.target === this) closeModal();
   });
   document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-prev').addEventListener('click', function() { navigateModal(-1); });
+  document.getElementById('modal-next').addEventListener('click', function() { navigateModal(1); });
 
   document.getElementById('modal-copy-btn').addEventListener('click', function() {
     var btn = this;
