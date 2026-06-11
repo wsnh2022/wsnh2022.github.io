@@ -1351,7 +1351,8 @@
         var descEl = nameEl.nextElementSibling;
         var name = nameEl.textContent.trim();
         var desc = descEl ? descEl.textContent.trim() : '';
-        if (name.toLowerCase().includes(q) || desc.toLowerCase().includes(q)) {
+        var fullText = (PROMPTS[name] || '').toLowerCase();
+        if (name.toLowerCase().includes(q) || desc.toLowerCase().includes(q) || fullText.includes(q)) {
           univMatches.push({ name: name, desc: desc, catName: catName, color: color });
         }
       });
