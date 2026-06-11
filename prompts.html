@@ -206,6 +206,20 @@
     }
     .no-results strong { color: rgba(255,255,255,0.65); font-weight: 600; }
 
+    .search-src-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.3);
+      padding: 4px 11px 3px;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     /* ── GRID ─────────────────────────────────── */
     .grid {
       column-count: 3;
@@ -450,17 +464,25 @@
     .modal-close:hover { color: rgba(255,255,255,0.8); }
 
     .modal-body {
-      padding: 16px;
+      padding: 14px;
       overflow-y: auto;
-      font-size: 0.84rem;
-      color: #d0daff;
+      flex: 1;
+    }
+    .prompt-pre {
+      background: #0a0b14;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.8rem;
+      color: #cdd6f4;
       line-height: 1.8;
       white-space: pre-wrap;
       word-break: break-word;
-      flex: 1;
+      margin: 0;
     }
     .placeholder {
-      color: #ffc300;
+      color: #fbbf24;
       font-weight: 600;
     }
 
@@ -957,6 +979,9 @@
 <!-- ── NO RESULTS ─────────────────────────────── -->
 <div class="no-results" id="no-results">No prompts match <strong id="no-results-term"></strong></div>
 
+<!-- ── COMBINED SEARCH RESULTS ────────────────── -->
+<div class="grid" id="search-all" style="display:none"></div>
+
 <!-- ── UNIVERSAL GRID ─────────────────────────── -->
 <main class="grid" id="grid">
 
@@ -1305,14 +1330,151 @@
   var noResultsTermEl = document.getElementById('no-results-term');
   var activeCat = 'all';
 
+  function applyCombinedSearch(q) {
+    var resultsEl = document.getElementById('search-all');
+    resultsEl.innerHTML = '';
+
+    // Hide all individual grids
+    document.getElementById('grid').style.display = 'none';
+    document.getElementById('collection-grid').style.display = 'none';
+    document.getElementById('eatfrog-grid').style.display = 'none';
+    document.getElementById('col-loading').style.display = 'none';
+    document.getElementById('frog-loading').style.display = 'none';
+
+    // Search Universal (via DOM)
+    var univMatches = [];
+    document.querySelectorAll('#grid .cat-card').forEach(function(card) {
+      var catName = card.querySelector('.cat-header').textContent.trim().replace(/\(\d+.*?\)\s*$/, '').trim();
+      var color = '#ffffff';
+      Object.keys(CAT_COLORS).forEach(function(c) { if (card.classList.contains(c)) color = CAT_COLORS[c]; });
+      card.querySelectorAll('.prompt-name').forEach(function(nameEl) {
+        var descEl = nameEl.nextElementSibling;
+        var name = nameEl.textContent.trim();
+        var desc = descEl ? descEl.textContent.trim() : '';
+        if (name.toLowerCase().includes(q) || desc.toLowerCase().includes(q)) {
+          univMatches.push({ name: name, desc: desc, catName: catName, color: color });
+        }
+      });
+    });
+
+    // Search My Collection
+    var colMatches = MY_PROMPTS_DATA.filter(function(p) {
+      return p.title.toLowerCase().includes(q) || p.text.toLowerCase().includes(q);
+    });
+
+    // Search Eat The Frog
+    var frogMatches = FROG_PROMPTS_DATA.filter(function(p) {
+      return p.title.toLowerCase().includes(q) || p.text.toLowerCase().includes(q);
+    });
+
+    var total = univMatches.length + colMatches.length + frogMatches.length;
+
+    if (total === 0) {
+      noResultsEl.style.display = 'block';
+      noResultsTermEl.textContent = '"' + searchEl.value + '"';
+      resultsEl.style.display = 'none';
+      clearEl.style.display = 'block';
+      return;
+    }
+
+    noResultsEl.style.display = 'none';
+    resultsEl.style.display = '';
+    clearEl.style.display = 'block';
+
+    function makeSection(labelText, items, renderRow) {
+      if (items.length === 0) return;
+      var card = document.createElement('div');
+      card.className = 'cat-card';
+      card.style.borderColor = 'rgba(255,255,255,0.08)';
+      var lbl = document.createElement('div');
+      lbl.className = 'search-src-label';
+      lbl.innerHTML = labelText + '<span class="cat-badge">(' + items.length + ')</span>';
+      var body = document.createElement('div');
+      body.className = 'cat-body';
+      items.forEach(function(item) { renderRow(body, item); });
+      card.appendChild(lbl);
+      card.appendChild(body);
+      resultsEl.appendChild(card);
+    }
+
+    makeSection('Universal Prompts', univMatches, function(body, item) {
+      var n = document.createElement('span');
+      n.className = 'prompt-name';
+      n.textContent = item.name;
+      n.addEventListener('click', function() {
+        openModal(item.name, PROMPTS[item.name] || item.name, item.catName, item.color);
+      });
+      var d = document.createElement('span');
+      d.className = 'prompt-desc';
+      d.textContent = item.desc;
+      var f = makeFavBtn(item.name);
+      body.appendChild(n);
+      body.appendChild(d);
+      body.appendChild(f);
+    });
+
+    makeSection('My Collection', colMatches, function(body, item) {
+      var n = document.createElement('span');
+      n.className = 'prompt-name col-name';
+      n.style.color = item.color;
+      n.textContent = item.title;
+      n.addEventListener('click', function() {
+        openModal(item.title, item.text, item.cat, item.color);
+      });
+      var d = document.createElement('span');
+      d.className = 'prompt-desc';
+      d.textContent = item.text.replace(/\n/g, ' ').slice(0, 62) + (item.text.length > 62 ? '…' : '');
+      var f = makeFavBtn(item.title);
+      body.appendChild(n);
+      body.appendChild(d);
+      body.appendChild(f);
+    });
+
+    makeSection('Eat The Frog', frogMatches, function(body, item) {
+      var n = document.createElement('span');
+      n.className = 'prompt-name col-name';
+      n.style.color = item.color;
+      n.textContent = item.title;
+      n.addEventListener('click', function() {
+        openModal(item.title, item.text, item.cat, item.color);
+      });
+      var d = document.createElement('span');
+      d.className = 'prompt-desc';
+      d.textContent = item.text.replace(/\n/g, ' ').slice(0, 62) + (item.text.length > 62 ? '…' : '');
+      var f = makeFavBtn(item.title);
+      body.appendChild(n);
+      body.appendChild(d);
+      body.appendChild(f);
+    });
+
+    if (typeof filterMobileAccordion === 'function') filterMobileAccordion();
+  }
+
   function applyFilters() {
+    var q = searchEl.value.trim().toLowerCase();
+
+    if (q) {
+      applyCombinedSearch(q);
+      return;
+    }
+
+    // No search -- ensure only the active tab's grid is visible
+    document.getElementById('search-all').style.display = 'none';
+    var isUniversal  = activeTab === 'universal';
+    var isCollection = activeTab === 'collection';
+    var isFrog       = activeTab === 'eatfrog';
+    document.getElementById('grid').style.display              = isUniversal ? '' : 'none';
+    document.getElementById('col-loading').style.display       = (isCollection && !collectionLoaded) ? '' : 'none';
+    document.getElementById('collection-grid').style.display   = (isCollection && collectionLoaded)  ? '' : 'none';
+    document.getElementById('frog-loading').style.display      = (isFrog && !frogLoaded) ? '' : 'none';
+    document.getElementById('eatfrog-grid').style.display      = (isFrog && frogLoaded)  ? '' : 'none';
+
     if (activeTab === 'collection' && !collectionLoaded) return;
     if (activeTab === 'eatfrog' && !frogLoaded) return;
-    var q       = searchEl.value.trim().toLowerCase();
     var isFavs  = activeCat === 'favourites';
-    var gridId  = activeTab === 'universal' ? 'grid' : activeTab === 'collection' ? 'collection-grid' : 'eatfrog-grid';
+    var gridId  = isUniversal ? 'grid' : isCollection ? 'collection-grid' : 'eatfrog-grid';
     var gridEl  = document.getElementById(gridId);
-    var nameClass = activeTab === 'universal' ? '.prompt-name' : '.col-name';
+    var nameClass = isUniversal ? '.prompt-name' : '.col-name';
     var visibleCards = 0;
 
     gridEl.querySelectorAll('.cat-card').forEach(function(card) {
@@ -1345,8 +1507,12 @@
       if (visRows > 0) visibleCards++;
     });
 
-    noResultsEl.style.display = visibleCards === 0 ? '' : 'none';
-    noResultsTermEl.textContent = '"' + searchEl.value + '"';
+    if (visibleCards === 0) {
+      noResultsEl.style.display = 'block';
+      noResultsTermEl.textContent = isFavs ? 'your saved prompts' : '"' + searchEl.value + '"';
+    } else {
+      noResultsEl.style.display = 'none';
+    }
     clearEl.style.display = searchEl.value ? '' : 'none';
     if (typeof filterMobileAccordion === 'function') filterMobileAccordion();
   }
@@ -1446,7 +1612,7 @@
     document.getElementById('modal-cat').textContent = catName.toUpperCase();
     document.getElementById('modal-cat').style.color = color;
     document.getElementById('modal-title').textContent = title;
-    document.getElementById('modal-body').innerHTML = highlightPlaceholders(esc(text));
+    document.getElementById('modal-body').innerHTML = '<pre class="prompt-pre">' + highlightPlaceholders(esc(text)) + '</pre>';
     document.getElementById('modal-header').style.borderBottomColor = hexRgba(color, 0.2);
     document.getElementById('modal-overlay').classList.add('show');
     document.body.style.overflow = 'hidden';
@@ -1995,8 +2161,12 @@
       if (q && sectionVisible > 0) section.classList.add('open');
     });
 
-    noResultsEl.style.display = totalVisible === 0 && (q || isFavs) ? '' : 'none';
-    noResultsTermEl.textContent = '"' + searchEl.value + '"';
+    if (totalVisible === 0 && (q || isFavs)) {
+      noResultsEl.style.display = 'block';
+      noResultsTermEl.textContent = isFavs ? 'your saved prompts' : '"' + searchEl.value + '"';
+    } else {
+      noResultsEl.style.display = 'none';
+    }
     clearEl.style.display = searchEl.value ? '' : 'none';
   }
 
