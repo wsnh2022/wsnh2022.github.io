@@ -485,12 +485,32 @@
       color: #fbbf24;
       font-weight: 600;
     }
+    .search-match {
+      background: rgba(251,191,36,0.18);
+      color: #fbbf24;
+      border-radius: 2px;
+      padding: 0 1px;
+      font-weight: 600;
+    }
+    #search-count {
+      display: none;
+      font-size: 0.73rem;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 10px;
+      padding-left: 2px;
+    }
+    #search-count strong { color: rgba(255,255,255,0.6); font-weight: 600; }
 
     .modal-footer {
       padding: 11px 15px;
       border-top: 1px solid rgba(255,255,255,0.08);
-      display: flex; justify-content: flex-end;
+      display: flex; justify-content: space-between; align-items: center;
       flex-shrink: 0;
+    }
+    .modal-char-count {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 0.02em;
     }
     .modal-copy-btn {
       background: rgba(255,255,255,0.08);
@@ -980,6 +1000,7 @@
 <div class="no-results" id="no-results">No prompts match <strong id="no-results-term"></strong></div>
 
 <!-- ── COMBINED SEARCH RESULTS ────────────────── -->
+<div id="search-count"></div>
 <div class="grid" id="search-all" style="display:none"></div>
 
 <!-- ── UNIVERSAL GRID ─────────────────────────── -->
@@ -1275,6 +1296,7 @@
     </div>
     <div class="modal-body" id="modal-body"></div>
     <div class="modal-footer">
+      <span class="modal-char-count" id="modal-char-count"></span>
       <button class="modal-copy-btn" id="modal-copy-btn">Copy Prompt</button>
     </div>
   </div>
@@ -1330,6 +1352,12 @@
   var noResultsTermEl = document.getElementById('no-results-term');
   var activeCat = 'all';
 
+  function highlightMatch(escapedText, q) {
+    if (!q) return escapedText;
+    var safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return escapedText.replace(new RegExp('(' + safe + ')', 'gi'), '<span class="search-match">$1</span>');
+  }
+
   function applyCombinedSearch(q) {
     var resultsEl = document.getElementById('search-all');
     resultsEl.innerHTML = '';
@@ -1370,17 +1398,21 @@
 
     var total = univMatches.length + colMatches.length + frogMatches.length;
 
+    var countEl = document.getElementById('search-count');
     if (total === 0) {
       noResultsEl.style.display = 'block';
       noResultsTermEl.textContent = '"' + searchEl.value + '"';
       resultsEl.style.display = 'none';
       clearEl.style.display = 'block';
+      countEl.style.display = 'none';
       return;
     }
 
     noResultsEl.style.display = 'none';
     resultsEl.style.display = '';
     clearEl.style.display = 'block';
+    countEl.style.display = 'block';
+    countEl.innerHTML = '<strong>' + total + '</strong> result' + (total === 1 ? '' : 's') + ' for &ldquo;' + esc(searchEl.value) + '&rdquo; &mdash; ' + [univMatches.length ? univMatches.length + ' Universal' : '', colMatches.length ? colMatches.length + ' Collection' : '', frogMatches.length ? frogMatches.length + ' Eat The Frog' : ''].filter(Boolean).join(', ');
 
     function makeSection(labelText, items, renderRow) {
       if (items.length === 0) return;
@@ -1401,13 +1433,13 @@
     makeSection('Universal Prompts', univMatches, function(body, item) {
       var n = document.createElement('span');
       n.className = 'prompt-name';
-      n.textContent = item.name;
+      n.innerHTML = highlightMatch(esc(item.name), q);
       n.addEventListener('click', function() {
         openModal(item.name, PROMPTS[item.name] || item.name, item.catName, item.color);
       });
       var d = document.createElement('span');
       d.className = 'prompt-desc';
-      d.textContent = item.desc;
+      d.innerHTML = highlightMatch(esc(item.desc), q);
       var f = makeFavBtn(item.name);
       body.appendChild(n);
       body.appendChild(d);
@@ -1418,13 +1450,14 @@
       var n = document.createElement('span');
       n.className = 'prompt-name col-name';
       n.style.color = item.color;
-      n.textContent = item.title;
+      n.innerHTML = highlightMatch(esc(item.title), q);
       n.addEventListener('click', function() {
         openModal(item.title, item.text, item.cat, item.color);
       });
       var d = document.createElement('span');
       d.className = 'prompt-desc';
-      d.textContent = item.text.replace(/\n/g, ' ').slice(0, 62) + (item.text.length > 62 ? '…' : '');
+      var preview = item.text.replace(/\n/g, ' ').slice(0, 62) + (item.text.length > 62 ? '…' : '');
+      d.innerHTML = highlightMatch(esc(preview), q);
       var f = makeFavBtn(item.title);
       body.appendChild(n);
       body.appendChild(d);
@@ -1435,13 +1468,14 @@
       var n = document.createElement('span');
       n.className = 'prompt-name col-name';
       n.style.color = item.color;
-      n.textContent = item.title;
+      n.innerHTML = highlightMatch(esc(item.title), q);
       n.addEventListener('click', function() {
         openModal(item.title, item.text, item.cat, item.color);
       });
       var d = document.createElement('span');
       d.className = 'prompt-desc';
-      d.textContent = item.text.replace(/\n/g, ' ').slice(0, 62) + (item.text.length > 62 ? '…' : '');
+      var preview = item.text.replace(/\n/g, ' ').slice(0, 62) + (item.text.length > 62 ? '…' : '');
+      d.innerHTML = highlightMatch(esc(preview), q);
       var f = makeFavBtn(item.title);
       body.appendChild(n);
       body.appendChild(d);
@@ -1461,6 +1495,7 @@
 
     // No search -- ensure only the active tab's grid is visible
     document.getElementById('search-all').style.display = 'none';
+    document.getElementById('search-count').style.display = 'none';
     var isUniversal  = activeTab === 'universal';
     var isCollection = activeTab === 'collection';
     var isFrog       = activeTab === 'eatfrog';
@@ -1518,7 +1553,11 @@
     if (typeof filterMobileAccordion === 'function') filterMobileAccordion();
   }
 
-  searchEl.addEventListener('input', applyFilters);
+  var _searchTimer;
+  searchEl.addEventListener('input', function() {
+    clearTimeout(_searchTimer);
+    _searchTimer = setTimeout(applyFilters, 150);
+  });
   clearEl.addEventListener('click', function() { searchEl.value = ''; applyFilters(); searchEl.focus(); });
 
   /* ── KEYBOARD SHORTCUTS ─────────────────────── */
@@ -1538,6 +1577,10 @@
     var modalOpen = document.getElementById('modal-overlay').classList.contains('show');
     if (e.key === '/' && document.activeElement !== searchEl && !modalOpen) {
       e.preventDefault(); searchEl.focus();
+    }
+    if (e.key === 'Enter' && modalOpen) {
+      e.preventDefault();
+      document.getElementById('modal-copy-btn').click();
     }
     if (e.key === 'Escape') {
       if (modalOpen) { closeModal(); }
@@ -1615,6 +1658,7 @@
     document.getElementById('modal-title').textContent = title;
     document.getElementById('modal-body').innerHTML = '<pre class="prompt-pre">' + highlightPlaceholders(esc(text)) + '</pre>';
     document.getElementById('modal-header').style.borderBottomColor = hexRgba(color, 0.2);
+    document.getElementById('modal-char-count').textContent = text.length + ' chars';
     document.getElementById('modal-overlay').classList.add('show');
     document.body.style.overflow = 'hidden';
   }
