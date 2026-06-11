@@ -377,6 +377,58 @@
 > `/proscons [a choice]` — quick decision aid
 > `/pseudocode [a logic problem]` — think before coding
 
+**Jupyter notebook markdown cell**
+> Given the following Python code, generate a markdown cell for a Jupyter notebook (.ipynb). This cell will be placed directly ABOVE the code cell containing this code, so do not repeat or include the code itself in your output. Use exactly this format:
+>
+> ## [Function/Script Name]: [One-line description]
+>
+> ---
+>
+> ### What I Learned
+> - **[Concept]:** [Brief explanation of what was learned]
+> (3–5 bullet points covering key concepts used in the code)
+>
+> ---
+>
+> ### Project Overview
+> [1–2 sentences describing what the code does and why it's useful]
+>
+> ---
+>
+> ### Purpose
+> - **Why use this?** [What problem does it solve or what task does it simplify]
+> - **When to use it?** [Situations or scenarios where this code is most helpful]
+> - **Real-world use case:** [A practical example of where this would be applied]
+>
+> ---
+>
+> ### Useful In
+> - **File type:** [e.g. .py script, .ipynb notebook, module, utility file]
+> - **Project type:** [e.g. data analysis, automation, web scraping, CLI tool]
+> - **Best suited for:** [e.g. beginners learning Python, data pipelines, quick scripts]
+>
+> ---
+>
+> ### How It Works
+> 1. [Step 1]
+> 2. [Step 2]
+> 3. [Step 3]
+>
+> | Step | Expression | Result/Purpose |
+> |------|------------|-----------------|
+> | ...  | ...        | ...             |
+>
+> ---
+>
+> ### Code Highlights
+> - [Key syntax or technique used]
+> - [Another highlight]
+> - [Another highlight]
+>
+> ---
+>
+> Code:
+
 ---
 
 ## Career & Profile
