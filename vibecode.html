@@ -57,6 +57,11 @@
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
 
+        /* Sidebar Specific Scrollbar (Hides until hover) */
+        .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+        .sidebar-scroll::-webkit-scrollbar-thumb { background: transparent; }
+        .sidebar-scroll:hover::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+
         /* Prose / Markdown styling - Premium Look */
         .markdown-body { font-size: 0.95rem; }
         .markdown-body h1 { 
@@ -155,17 +160,11 @@
 
     <header class="lg:hidden fixed top-0 w-full h-16 glass-panel border-b-0 border-surface-800 flex items-center justify-between px-4 z-50">
         <div class="flex items-center gap-2 text-zinc-100 font-medium tracking-tight">
-            <div class="flex items-center justify-center drop-shadow-[0_0_6px_rgba(168,85,247,0.4)]">
+            <div class="flex items-center justify-center drop-shadow-[0_0_8px_rgba(168,85,247,0.6)]">
                 <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L3 7L12 12L21 7L12 2Z" fill="url(#grad_logo_m)" stroke="#a855f7" stroke-width="1.5" stroke-linejoin="round"/>
-                    <path d="M3 12L12 17L21 12" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M3 17L12 22L21 17" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <defs>
-                        <linearGradient id="grad_logo_m" x1="12" y1="2" x2="12" y2="12" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#a855f7" stop-opacity="0.4"/>
-                            <stop offset="1" stop-color="#06b6d4" stop-opacity="0.1"/>
-                        </linearGradient>
-                    </defs>
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#a855f7" fill-opacity="0.2" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
             Blueprint Hub
@@ -176,18 +175,12 @@
     </header>
 
     <aside id="sidebar" class="fixed inset-y-0 left-0 w-72 glass-panel border-r-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40 flex flex-col mt-16 lg:mt-0 lg:bg-transparent lg:border-r lg:border-white/5">
-        <div class="hidden lg:flex h-20 items-center gap-3 px-6 text-zinc-100 font-medium tracking-tight">
-            <div class="flex items-center justify-center drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]">
+        <div class="hidden lg:flex h-20 items-center gap-3 px-6 text-zinc-100 font-bold tracking-tight">
+            <div class="flex items-center justify-center drop-shadow-[0_0_12px_rgba(168,85,247,0.6)]">
                 <svg viewBox="0 0 24 24" fill="none" class="w-7 h-7" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L3 7L12 12L21 7L12 2Z" fill="url(#grad_logo)" stroke="#a855f7" stroke-width="1.5" stroke-linejoin="round"/>
-                    <path d="M3 12L12 17L21 12" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M3 17L12 22L21 17" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <defs>
-                        <linearGradient id="grad_logo" x1="12" y1="2" x2="12" y2="12" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#a855f7" stop-opacity="0.4"/>
-                            <stop offset="1" stop-color="#06b6d4" stop-opacity="0.1"/>
-                        </linearGradient>
-                    </defs>
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#a855f7" fill-opacity="0.2" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
             <span class="text-[17px]">Vibe Coding</span>
@@ -210,6 +203,14 @@
                     <button onclick="app.navigate('workflows')" id="nav-workflows" class="nav-link w-full flex items-center gap-3 px-3 py-3 lg:py-2 text-sm font-medium rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/5 transition-all text-left group relative">
                         <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-brand-400 rounded-r-full transition-all duration-300 nav-indicator"></div>
                         <i class="ph-duotone ph-git-merge text-lg group-hover:text-brand-400 transition-colors shrink-0"></i> Workflows & Rules
+                    </button>
+                    <button onclick="app.navigate('structure')" id="nav-structure" class="nav-link w-full flex items-center gap-3 px-3 py-3 lg:py-2 text-sm font-medium rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/5 transition-all text-left group relative">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-brand-400 rounded-r-full transition-all duration-300 nav-indicator"></div>
+                        <i class="ph-duotone ph-tree-structure text-lg group-hover:text-brand-400 transition-colors shrink-0"></i> Project Setup
+                    </button>
+                    <button onclick="app.navigate('mistakes')" id="nav-mistakes" class="nav-link w-full flex items-center gap-3 px-3 py-3 lg:py-2 text-sm font-medium rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/5 transition-all text-left group relative">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-brand-400 rounded-r-full transition-all duration-300 nav-indicator"></div>
+                        <i class="ph-duotone ph-bug text-lg group-hover:text-rose-400 transition-colors shrink-0"></i> Common Mistakes
                     </button>
                     <button onclick="app.navigate('checklist')" id="nav-checklist" class="nav-link w-full flex items-center justify-between px-3 py-3 lg:py-2 text-sm font-medium rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/5 transition-all text-left group relative">
                         <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-brand-400 rounded-r-full transition-all duration-300 nav-indicator"></div>
@@ -247,7 +248,7 @@
     <!-- Overlay for mobile sidebar -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 hidden lg:hidden transition-opacity"></div>
 
-    <main class="flex-1 h-full overflow-y-auto pt-16 lg:pt-0 w-full relative z-10 scroll-smooth" id="mainScroll">
+    <main class="flex-1 h-full overflow-y-auto pt-16 lg:pt-0 w-full lg:w-[calc(100%-18rem)] lg:ml-72 relative z-10 scroll-smooth" id="mainScroll">
         <div class="max-w-4xl mx-auto p-6 lg:p-16 pb-32 min-h-full" id="contentStage">
             <!-- Dynamic content injected here -->
         </div>
@@ -274,30 +275,47 @@
                         
                         <div class="markdown-body">
                             <h2>The Core Problem</h2>
-                            <p>Vibe coding makes it incredibly easy to go from an idea to working software. But as your application becomes more complex, a different problem appears:</p>
+                            <p>Vibe coding makes it incredibly easy to go from an idea to working software. You describe what you want. AI writes the code. You run it. You fix something. You ask AI to change it. Repeat. And this works surprisingly well for small experiments.</p>
+                            <p>But as your application becomes more complex, a different problem appears:</p>
                             <blockquote class="text-lg">
                                 <strong>Your AI coding agent starts guessing.</strong><br>
-                                <span class="text-zinc-500 text-base mt-2 block">It guesses what a feature should do. It guesses the UI. It guesses the database. It guesses authentication.</span>
+                                <span class="text-zinc-400 text-base mt-2 block">It guesses what a feature should do. It guesses how the UI should look. It guesses how your database should work. It guesses how authentication should work. It guesses where a file belongs. It guesses how the API should behave.</span>
                             </blockquote>
-                            <p>The goal of this guide is simple: Give your AI coding agent enough context that it spends less time guessing and more time implementing.</p>
+                            <p>And eventually, different parts of your application start following different assumptions. That's where documentation becomes extremely powerful.</p>
+                            <p>The goal of this guide is simple: <strong>Give your AI coding agent enough context that it spends less time guessing and more time implementing.</strong></p>
                             
                             <h2>The Mental Model</h2>
+                            <p>Don't just give AI a prompt. Give AI: <strong>Context + Rules + Constraints + Architecture + Examples + Validation</strong>.</p>
+                            
                             <div class="glass-panel p-8 my-10 rounded-2xl relative overflow-hidden group hover:border-brand-500/20 transition-colors duration-500">
                                 <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 <div class="flex flex-wrap justify-center gap-2 items-center font-mono text-xs font-medium">
                                     <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">Idea</span> 
                                     <i class="ph ph-caret-right text-zinc-600"></i>
-                                    <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">Requirements</span> 
-                                    <i class="ph ph-caret-right text-zinc-600"></i>
-                                    <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">UX Flows</span> 
-                                    <i class="ph ph-caret-right text-zinc-600"></i>
-                                    <span class="text-brand-cyan bg-brand-cyan/10 border border-brand-cyan/20 px-4 py-1.5 rounded-md shadow-glow-cyan">Context (Docs)</span>
+                                    <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">Context (Docs)</span>
                                     <i class="ph ph-caret-right text-zinc-600"></i>
                                     <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">Plan</span> 
                                     <i class="ph ph-caret-right text-zinc-600"></i>
                                     <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">Code</span> 
+                                    <i class="ph ph-caret-right text-zinc-600"></i>
+                                    <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">Validate</span> 
+                                    <i class="ph ph-caret-right text-zinc-600"></i>
+                                    <span class="text-brand-cyan bg-brand-cyan/10 border border-brand-cyan/20 px-4 py-1.5 rounded-md shadow-glow-cyan">Ship 🚀</span>
                                 </div>
                             </div>
+
+                            <h2>The Most Important Principle</h2>
+                            <p>Documentation is <strong>not bureaucracy</strong>. The purpose isn't to write hundreds of pages nobody reads. The purpose is to eliminate ambiguity.</p>
+                            <p>A good document should help answer:</p>
+                            <ul>
+                                <li><strong>What should happen?</strong></li>
+                                <li><strong>Why should it happen?</strong></li>
+                                <li><strong>How should it work?</strong></li>
+                                <li><strong>What constraints exist?</strong></li>
+                                <li><strong>What should the AI never assume?</strong></li>
+                                <li><strong>How do we know it works?</strong></li>
+                            </ul>
+                            <p>That's the real value of documentation in AI-assisted development.</p>
 
                             <h2>The 8 Core Documents</h2>
                             <p>Start with these eight files in your <code>/docs</code> folder. They form the foundation of truth for any AI agent.</p>
@@ -321,67 +339,40 @@
                 render: () => `
                     <div class="fade-in markdown-body">
                         <h1>AI Interaction Prompts</h1>
-                        <p>Copy and paste these master prompts into your AI coding environment (Cursor, Windsurf, Copilot, etc.) to establish context and workflow.</p>
+                        <p>Copy and paste these master prompts into your AI coding environment to establish context and workflow.</p>
                         
                         <h2>1. The Master Agent Prompt</h2>
-                        <p>Use this as a general starting prompt or place it in your agent's system instructions.</p>
-                        ${uiHelpers.createCodeBlock('master_agent_prompt.txt', `You are working inside an existing software project.
+                        <p>Use this as a general starting prompt or place it in your agent's system instructions (highly optimized for Claude).</p>
+                        ${uiHelpers.createCodeBlock('master_agent_prompt.txt', `You are an expert developer powered by Claude. 
+Before writing any code, you MUST ingest the context from our documentation folder.
 
-Before making any significant changes, inspect the project documentation and relevant source code.
+<documentation_map>
+- <prd>: Read \`docs/PRD.md\` for product requirements.
+- <design>: Read \`docs/DESIGN_SYSTEM.md\` for visual styling.
+- <architecture>: Read \`docs/ARCHITECTURE.md\` for file structure and patterns.
+- <database>: Read \`docs/DATABASE.md\` before making schema changes.
+- <security>: Read \`docs/SECURITY.md\` for authentication and data protection.
+- <style>: Read \`docs/CODE_STYLE.md\` for coding conventions.
+- <testing>: Read \`docs/TESTING.md\` for validation rules.
+</documentation_map>
 
-Treat the documentation as the source of truth for:
-- Product requirements
-- User experience
-- Design system
-- Architecture
-- Database
-- API contracts
-- Security
-- Code conventions
-- Testing
-- Agent behavior
-
-Do not invent business requirements when they are already documented.
-Do not invent database fields, APIs, components, or architectural patterns when the project already defines them.
+<output_rules>
+- NEVER apologize.
+- NEVER say "I understand" or "Here is the code".
+- Do not explain your thought process unless explicitly asked.
+- Provide only the requested code, plans, or direct answers.
+- When generating code, output the complete file without skipping lines. Do not use comments like \`// ... existing code ...\` unless explicitly told to do so.
+</output_rules>
 
 Before implementing a non-trivial change:
-1. Read the relevant documentation.
+1. Review the relevant documents in the <documentation_map>.
 2. Inspect the existing implementation.
-3. Identify affected files.
-4. Identify dependencies.
-5. Identify database/API changes.
-6. Identify security considerations.
-7. Identify tests that should be added or updated.
-8. Create an implementation plan.
+3. Identify affected files, dependencies, and tests.
+4. Create an implementation plan.
 
-After the plan is approved:
-1. Implement the smallest correct change.
-2. Reuse existing patterns.
-3. Follow the design system.
-4. Follow the architecture.
-5. Preserve existing behavior.
-6. Avoid unrelated changes.
-7. Avoid unnecessary dependencies.
+After the plan is approved, implement the smallest correct change adhering to the rules.
 
-After implementation:
-1. Run tests.
-2. Run linting.
-3. Run type checking.
-4. Run the build.
-5. Review the diff.
-6. Look for regressions.
-7. Look for security issues.
-8. Check whether documentation needs updating.
-
-If something important is undefined or requirements conflict, do not guess. Ask for clarification.
-
-At the end, summarize:
-- What changed
-- Files changed
-- Tests run
-- Validation results
-- Remaining issues
-- Documentation updates required`)}
+If something important is undefined or requirements conflict, do not guess. Ask for clarification.`)}
 
                         <h2>2. Project Bootstrap Prompt</h2>
                         <p>Use this when starting a completely new project to generate your foundation.</p>
@@ -418,26 +409,21 @@ Do not generate application code until the documentation has been reviewed and a
                         <h2>3. Feature Implementation Prompt</h2>
                         <p>Use this whenever you want to add a specific new feature.</p>
                         ${uiHelpers.createCodeBlock('feature_prompt.txt', `I want to add this feature:
+
+<feature_description>
 [FEATURE DESCRIPTION HERE]
+</feature_description>
 
 Before changing code:
-1. Read the relevant documentation.
+1. Read the relevant documentation in our /docs folder.
 2. Identify which documents are affected.
 3. Inspect the existing implementation.
 4. Explain the current architecture relevant to this feature.
-5. Identify affected frontend files.
-6. Identify affected backend/API files.
-7. Identify database changes.
-8. Identify security considerations.
-9. Identify tests required.
-10. Create an implementation plan.
+5. Create a concise implementation plan covering frontend, backend, database, security, and tests.
 
 Do not modify unrelated parts of the project.
 
-After implementation:
-- Run tests, lint, type checking, build
-- Review the final diff
-- Update documentation if required`)}
+After implementation, validate the changes (test, lint, build) and review the final diff.`)}
 
                         <h2>4. Code Review Prompt</h2>
                         <p>Use this after AI finishes a feature to review its own work.</p>
@@ -478,10 +464,9 @@ First provide:
                 render: () => `
                     <div class="fade-in markdown-body">
                         <h1>Workflows & Golden Rules</h1>
-                        <p>Mastering AI-assisted development is about process, not just prompts. Follow these established workflows.</p>
                         
                         <h2>The Golden Rules of AI-Assisted Development</h2>
-                        <ul class="space-y-2 mt-4 text-slate-300">
+                        <ul class="space-y-2 mt-4 text-zinc-300">
                             <li><strong>Rule #1:</strong> Context before code.</li>
                             <li><strong>Rule #2:</strong> Architecture before implementation.</li>
                             <li><strong>Rule #3:</strong> Define important decisions instead of repeatedly re-deciding them.</li>
@@ -493,71 +478,230 @@ First provide:
                             <li><strong>Rule #9:</strong> Use AI to accelerate implementation, not to replace product thinking.</li>
                         </ul>
 
-                        <h2>The Complete Flow</h2>
-                        <div class="bg-surface-900 border border-surface-800 p-6 rounded-xl font-mono text-sm text-center shadow-lg my-6 max-w-md mx-auto text-brand-400">
-                            <div>YOUR IDEA</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>PRD.md</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>UX_FLOWS.md</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>DESIGN_SYSTEM.md</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>ARCHITECTURE.md</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>DATABASE.md</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>API.md</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>SECURITY.md</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>CODE_STYLE.md</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>TESTING.md</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>AGENTS.md</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div class="text-emerald-400 font-bold">AI CODING AGENT</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>IMPLEMENTATION</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>TESTING</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>CODE REVIEW</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div>DOCUMENTATION UPDATE</div>
-                            <div class="text-slate-600 my-1">↓</div>
-                            <div class="text-white font-bold mt-2">SHIP 🚀</div>
+                        <h2>How to Work With Your AI Coding Agent</h2>
+                        <p>This is where most people make a mistake. They immediately say: <em>"Build me a SaaS dashboard."</em> Instead, create a structured process.</p>
+                        
+                        <div class="space-y-6 mt-6">
+                            <div class="glass-panel p-5 rounded-xl">
+                                <h3 class="text-brand-400 font-bold mt-0 text-sm">STEP 1 — GIVE THE AGENT CONTEXT</h3>
+                                <p class="text-sm text-zinc-400 mb-0">Use: "Read the documentation inside /docs before making any code changes. Understand the project requirements, UX flows, design system, architecture, database, security requirements, coding conventions, testing strategy, and agent instructions. Do not modify code yet. After reading the documentation, summarize your understanding of the project and identify any conflicts or missing information."</p>
+                            </div>
+                            <div class="glass-panel p-5 rounded-xl">
+                                <h3 class="text-brand-400 font-bold mt-0 text-sm">STEP 2 — ASK FOR A PLAN</h3>
+                                <p class="text-sm text-zinc-400 mb-0">Use: "Based on the documentation and existing codebase, create an implementation plan for this feature. Do not modify code yet. Include: Requirements affected, Files likely to change, Components affected, API changes, Database changes, Security considerations, Tests required, Potential edge cases, Potential risks."</p>
+                            </div>
+                            <div class="glass-panel p-5 rounded-xl">
+                                <h3 class="text-brand-400 font-bold mt-0 text-sm">STEP 3 — REVIEW THE PLAN</h3>
+                                <p class="text-sm text-zinc-400 mb-0">This is where <strong>you stay in control</strong>. You review what AI intends to change before allowing it to implement.</p>
+                            </div>
+                            <div class="glass-panel p-5 rounded-xl">
+                                <h3 class="text-brand-400 font-bold mt-0 text-sm">STEP 4 — IMPLEMENT</h3>
+                                <p class="text-sm text-zinc-400 mb-0">Use: "Implement the approved plan. Follow the project documentation as the source of truth. Reuse existing components, utilities, patterns, and conventions. Do not introduce unnecessary dependencies. Do not modify unrelated parts of the application."</p>
+                            </div>
+                            <div class="glass-panel p-5 rounded-xl">
+                                <h3 class="text-brand-400 font-bold mt-0 text-sm">STEP 5 — VALIDATE</h3>
+                                <p class="text-sm text-zinc-400 mb-0">Run Tests, Lint, Type checking, Build. Then inspect the final diff. Identify what changed, what was validated, remaining issues, and docs that need updating.</p>
+                            </div>
+                            <div class="glass-panel p-5 rounded-xl">
+                                <h3 class="text-brand-400 font-bold mt-0 text-sm">STEP 6 — UPDATE THE DOCUMENTATION</h3>
+                                <p class="text-sm text-zinc-400 mb-0">Review whether this implementation changed any documented requirements, architecture, API contracts, database rules, security requirements, or coding conventions. If yes, update the appropriate documentation.</p>
+                            </div>
+                        </div>
+
+                        <h2>The Documentation Workflow</h2>
+                        <p>Don't create documentation and then forget about it. Your documentation should evolve with the application. Use this lifecycle:</p>
+                        <div class="bg-black/40 border border-white/5 p-4 rounded-xl font-mono text-sm text-center text-zinc-300 my-6">
+                            CREATE → REVIEW → BUILD → VALIDATE → UPDATE → BUILD AGAIN
                         </div>
 
                         <h2>When Should You Update Each Document?</h2>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse mt-4">
                                 <thead>
-                                    <tr class="border-b border-surface-800 text-slate-300">
+                                    <tr class="border-b border-white/10 text-zinc-300">
                                         <th class="py-2 px-4 font-semibold">Change</th>
                                         <th class="py-2 px-4 font-semibold">Update Document</th>
                                     </tr>
                                 </thead>
-                                <tbody class="text-sm text-slate-400">
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Product requirement changes</td><td class="py-2 px-4 font-mono text-brand-400">PRD.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">User journey changes</td><td class="py-2 px-4 font-mono text-brand-400">UX_FLOWS.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Visual changes</td><td class="py-2 px-4 font-mono text-brand-400">DESIGN_SYSTEM.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">New architecture</td><td class="py-2 px-4 font-mono text-brand-400">ARCHITECTURE.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Database changes</td><td class="py-2 px-4 font-mono text-brand-400">DATABASE.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">API changes</td><td class="py-2 px-4 font-mono text-brand-400">API.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Security changes</td><td class="py-2 px-4 font-mono text-brand-400">SECURITY.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Coding convention changes</td><td class="py-2 px-4 font-mono text-brand-400">CODE_STYLE.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Testing strategy changes</td><td class="py-2 px-4 font-mono text-brand-400">TESTING.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">AI behavior changes</td><td class="py-2 px-4 font-mono text-brand-400">AGENTS.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Environment changes</td><td class="py-2 px-4 font-mono text-brand-400">ENVIRONMENT.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Failure behavior changes</td><td class="py-2 px-4 font-mono text-brand-400">ERROR_HANDLING.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Production process changes</td><td class="py-2 px-4 font-mono text-brand-400">DEPLOYMENT.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Architecture decision</td><td class="py-2 px-4 font-mono text-brand-400">DECISIONS.md</td></tr>
-                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Future priorities</td><td class="py-2 px-4 font-mono text-brand-400">ROADMAP.md</td></tr>
+                                <tbody class="text-sm text-zinc-400">
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Product requirement changes</td><td class="py-2 px-4 font-mono text-brand-400">PRD.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">User journey changes</td><td class="py-2 px-4 font-mono text-brand-400">UX_FLOWS.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Visual changes</td><td class="py-2 px-4 font-mono text-brand-400">DESIGN_SYSTEM.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">New architecture</td><td class="py-2 px-4 font-mono text-brand-400">ARCHITECTURE.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Database changes</td><td class="py-2 px-4 font-mono text-brand-400">DATABASE.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">API changes</td><td class="py-2 px-4 font-mono text-brand-400">API.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Security changes</td><td class="py-2 px-4 font-mono text-brand-400">SECURITY.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Coding convention changes</td><td class="py-2 px-4 font-mono text-brand-400">CODE_STYLE.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Testing strategy changes</td><td class="py-2 px-4 font-mono text-brand-400">TESTING.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">AI behavior changes</td><td class="py-2 px-4 font-mono text-brand-400">AGENTS.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Environment changes</td><td class="py-2 px-4 font-mono text-brand-400">ENVIRONMENT.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Failure behavior changes</td><td class="py-2 px-4 font-mono text-brand-400">ERROR_HANDLING.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Production process changes</td><td class="py-2 px-4 font-mono text-brand-400">DEPLOYMENT.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Architecture decision</td><td class="py-2 px-4 font-mono text-brand-400">DECISIONS.md</td></tr>
+                                    <tr class="border-b border-white/5"><td class="py-2 px-4">Future priorities</td><td class="py-2 px-4 font-mono text-brand-400">ROADMAP.md</td></tr>
                                     <tr><td class="py-2 px-4">Release changes</td><td class="py-2 px-4 font-mono text-brand-400">CHANGELOG.md</td></tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                `
+            },
+            'structure': {
+                type: 'html',
+                title: 'Project Setup & Structure',
+                render: () => `
+                    <div class="fade-in markdown-body">
+                        <h1>Project Setup & Structure</h1>
+                        <p>You don't need to create 17 documents before building a simple project. Use this progression.</p>
+                        
+                        <h2>Which Document Should You Create First? (The Stack)</h2>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+                            <!-- Small Stack -->
+                            <div class="glass-panel p-6 rounded-2xl border-t-2 border-brand-400/60 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 shadow-lg">
+                                <div class="absolute -right-10 -top-10 w-32 h-32 bg-brand-400/10 rounded-full blur-2xl group-hover:bg-brand-400/20 transition-all"></div>
+                                <div class="relative z-10">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="ph-duotone ph-rocket-launch text-brand-400 text-xl"></i>
+                                        <h3 class="text-white text-base font-bold !mt-0 !mb-0">Small Project</h3>
+                                    </div>
+                                    <p class="text-xs text-zinc-400 mb-5 h-8 leading-relaxed">The absolute minimum for quick experiments.</p>
+                                    <div class="flex flex-col gap-2">
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-brand-300"><i class="ph-duotone ph-file-md text-brand-500/70 text-lg"></i> PRD.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-brand-300"><i class="ph-duotone ph-file-md text-brand-500/70 text-lg"></i> DESIGN_SYSTEM.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-brand-300"><i class="ph-duotone ph-file-md text-brand-500/70 text-lg"></i> ARCHITECTURE.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-brand-300"><i class="ph-duotone ph-file-md text-brand-500/70 text-lg"></i> AGENTS.md</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Medium Stack -->
+                            <div class="glass-panel p-6 rounded-2xl border-t-2 border-brand-cyan/60 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 shadow-lg">
+                                <div class="absolute -right-10 -top-10 w-32 h-32 bg-brand-cyan/10 rounded-full blur-2xl group-hover:bg-brand-cyan/20 transition-all"></div>
+                                <div class="relative z-10">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="ph-duotone ph-buildings text-brand-cyan text-xl"></i>
+                                        <h3 class="text-white text-base font-bold !mt-0 !mb-0">Medium Project</h3>
+                                    </div>
+                                    <p class="text-xs text-zinc-400 mb-5 h-8 leading-relaxed">Add these for standard applications.</p>
+                                    <div class="flex flex-col gap-2">
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-brand-cyan/80"><i class="ph-duotone ph-file-md text-brand-cyan/50 text-lg"></i> DATABASE.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-brand-cyan/80"><i class="ph-duotone ph-file-md text-brand-cyan/50 text-lg"></i> SECURITY.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-brand-cyan/80"><i class="ph-duotone ph-file-md text-brand-cyan/50 text-lg"></i> API.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-brand-cyan/80"><i class="ph-duotone ph-file-md text-brand-cyan/50 text-lg"></i> TESTING.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-brand-cyan/80"><i class="ph-duotone ph-file-md text-brand-cyan/50 text-lg"></i> UX_FLOWS.md</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Production Stack -->
+                            <div class="glass-panel p-6 rounded-2xl border-t-2 border-emerald-500/60 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 shadow-lg">
+                                <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
+                                <div class="relative z-10">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="ph-duotone ph-factory text-emerald-500 text-xl"></i>
+                                        <h3 class="text-white text-base font-bold !mt-0 !mb-0">Production</h3>
+                                    </div>
+                                    <p class="text-xs text-zinc-400 mb-5 h-8 leading-relaxed">Add these for serious scale.</p>
+                                    <div class="flex flex-col gap-2">
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-emerald-400"><i class="ph-duotone ph-file-md text-emerald-500/50 text-lg"></i> ENVIRONMENT.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-emerald-400"><i class="ph-duotone ph-file-md text-emerald-500/50 text-lg"></i> ERROR_HANDLING.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-emerald-400"><i class="ph-duotone ph-file-md text-emerald-500/50 text-lg"></i> DEPLOYMENT.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-emerald-400"><i class="ph-duotone ph-file-md text-emerald-500/50 text-lg"></i> OBSERVABILITY.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-emerald-400"><i class="ph-duotone ph-file-md text-emerald-500/50 text-lg"></i> DECISIONS.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-emerald-400"><i class="ph-duotone ph-file-md text-emerald-500/50 text-lg"></i> ROADMAP.md</div>
+                                        <div class="flex items-center gap-2.5 text-[13px] font-mono bg-black/40 border border-white/5 rounded-lg px-3 py-2.5 text-emerald-400"><i class="ph-duotone ph-file-md text-emerald-500/50 text-lg"></i> CHANGELOG.md</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2>Recommended Project Structure</h2>
+                        <p>For a serious AI-assisted project, structure your root directory to keep documentation distinct from application code.</p>
+                        ${uiHelpers.createCodeBlock('directory-tree.txt', `my-app/
+│
+├── src/
+├── public/
+├── tests/
+├── scripts/
+│
+├── docs/
+│   │
+│   ├── PRD.md
+│   ├── DESIGN_SYSTEM.md
+│   ├── UX_FLOWS.md
+│   ├── ARCHITECTURE.md
+│   ├── DATABASE.md
+│   ├── API.md
+│   ├── SECURITY.md
+│   ├── CODE_STYLE.md
+│   ├── TESTING.md
+│   ├── AGENTS.md
+│   │
+│   ├── ENVIRONMENT.md
+│   ├── ERROR_HANDLING.md
+│   ├── DEPLOYMENT.md
+│   ├── OBSERVABILITY.md
+│   ├── DECISIONS.md
+│   ├── ROADMAP.md
+│   └── CHANGELOG.md
+│
+├── .env.example
+├── README.md
+└── package.json`)}
+                    </div>
+                `
+            },
+            'mistakes': {
+                type: 'html',
+                title: 'Common Vibe Coding Mistakes',
+                render: () => `
+                    <div class="fade-in markdown-body">
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="p-2 bg-rose-500/10 border border-rose-500/20 rounded-lg text-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.15)]">
+                                <i class="ph-duotone ph-bug text-2xl"></i>
+                            </div>
+                            <h1 class="!mb-0 !text-3xl lg:!text-4xl text-white">Common Vibe Coding Mistakes</h1>
+                        </div>
+                        <p class="text-lg text-zinc-400 border-l-2 border-rose-500/40 pl-5 mb-10 mt-6 leading-relaxed font-light">Avoid these 9 pitfalls when working with AI coding agents.</p>
+                        
+                        <div class="space-y-4 mt-8">
+                            <div class="border-l-2 border-rose-500/50 glass-panel p-5 rounded-r-xl hover:border-rose-400/80 transition-colors duration-300">
+                                <h3 class="text-rose-100 mt-0 mb-2 flex items-center gap-2">Mistake 1 — Starting with a giant prompt</h3>
+                                <p class="text-zinc-400 !mb-0 text-sm">You're asking AI to understand product, design, architecture, database, authentication, APIs, and business rules all from one paragraph. That creates ambiguity.</p>
+                            </div>
+                            <div class="border-l-2 border-rose-500/50 glass-panel p-5 rounded-r-xl hover:border-rose-400/80 transition-colors duration-300">
+                                <h3 class="text-rose-100 mt-0 mb-2 flex items-center gap-2">Mistake 2 — No source of truth</h3>
+                                <p class="text-zinc-400 !mb-0 text-sm">If the rules exist only inside your chat history, they're easy to lose. Put important decisions into files.</p>
+                            </div>
+                            <div class="border-l-2 border-rose-500/50 glass-panel p-5 rounded-r-xl hover:border-rose-400/80 transition-colors duration-300">
+                                <h3 class="text-rose-100 mt-0 mb-2 flex items-center gap-2">Mistake 3 — Letting AI invent requirements</h3>
+                                <p class="text-zinc-400 !mb-0 text-sm">If something isn't defined, the AI may make an assumption. Not every assumption will match your intention.</p>
+                            </div>
+                            <div class="border-l-2 border-rose-500/50 glass-panel p-5 rounded-r-xl hover:border-rose-400/80 transition-colors duration-300">
+                                <h3 class="text-rose-100 mt-0 mb-2 flex items-center gap-2">Mistake 4 — Building UI before defining flows</h3>
+                                <p class="text-zinc-400 !mb-0 text-sm">This can produce screens that look correct individually but don't make sense as a complete user journey.</p>
+                            </div>
+                            <div class="border-l-2 border-rose-500/50 glass-panel p-5 rounded-r-xl hover:border-rose-400/80 transition-colors duration-300">
+                                <h3 class="text-rose-100 mt-0 mb-2 flex items-center gap-2">Mistake 5 — Letting AI redesign every screen</h3>
+                                <p class="text-zinc-400 !mb-0 text-sm">Without a design system, visual inconsistency accumulates quickly.</p>
+                            </div>
+                            <div class="border-l-2 border-rose-500/50 glass-panel p-5 rounded-r-xl hover:border-rose-400/80 transition-colors duration-300">
+                                <h3 class="text-rose-100 mt-0 mb-2 flex items-center gap-2">Mistake 6 — Letting AI create the database as it goes</h3>
+                                <p class="text-zinc-400 !mb-0 text-sm">This can lead to inconsistent naming, duplicate fields, incorrect relationships, unnecessary tables, and difficult migrations.</p>
+                            </div>
+                            <div class="border-l-2 border-rose-500/50 glass-panel p-5 rounded-r-xl hover:border-rose-400/80 transition-colors duration-300">
+                                <h3 class="text-rose-100 mt-0 mb-2 flex items-center gap-2">Mistake 7 — Treating security as a final step</h3>
+                                <p class="text-zinc-400 !mb-0 text-sm">Security requirements should influence architecture and implementation from the beginning.</p>
+                            </div>
+                            <div class="border-l-2 border-rose-500/50 glass-panel p-5 rounded-r-xl hover:border-rose-400/80 transition-colors duration-300">
+                                <h3 class="text-rose-100 mt-0 mb-2 flex items-center gap-2">Mistake 8 — No testing strategy</h3>
+                                <p class="text-zinc-400 !mb-0 text-sm">A successful build means more than: "The page loaded." Define what success means.</p>
+                            </div>
+                            <div class="border-l-2 border-rose-500/50 glass-panel p-5 rounded-r-xl hover:border-rose-400/80 transition-colors duration-300">
+                                <h3 class="text-rose-100 mt-0 mb-2 flex items-center gap-2">Mistake 9 — Never updating documentation</h3>
+                                <p class="text-zinc-400 !mb-0 text-sm">Stale documentation can become misleading. Your documentation should evolve with your application.</p>
+                            </div>
                         </div>
                     </div>
                 `
@@ -581,259 +725,1008 @@ First provide:
         const docTemplates = {
             'prd': { id: '01', title: 'PRD.md', desc: 'What are we building?', content: `# Product Requirements Document
 
+## Purpose
+The PRD defines the **product itself**.
+It should explain:
+- What you're building
+- Why you're building it
+- Who will use it
+- What the core features are
+- What is in scope
+- What is out of scope
+- What success looks like
+
+Your AI should be able to read this document and understand the product without needing a 30-minute explanation from you.
+
+## When to create it
+Create the PRD **before implementation**.
+Update it when requirements change, features are added/removed, user flows change, or the product scope changes.
+
+---
+
 ## 1. Product Overview
-Product Name: [Name]
-One-Line Description: [Explain the product in one sentence.]
-Product Type: [SaaS / Mobile App / Marketplace / Internal Tool / etc.]
-Primary Platform: [Web / iOS / Android / Desktop]
+Product Name:
+[Name]
+
+One-Line Description:
+[Explain the product in one sentence.]
+
+Product Type:
+[SaaS / Mobile App / Marketplace / Internal Tool / etc.]
+
+Primary Platform:
+[Web / iOS / Android / Desktop]
+
+---
 
 ## 2. Problem
-What problem are we solving? [Describe]
-Why does this matter? [Explain]
-Current alternatives? [Alternatives]
+What problem are we solving?
+[Describe the problem.]
+
+Why does this problem matter?
+[Explain the importance.]
+
+How are users solving this today?
+[Current alternatives.]
+
+---
 
 ## 3. Goal
-Primary Goal: [What should this achieve?]
+Primary Goal:
+[What should this product achieve?]
+
 Secondary Goals:
-- [Goal 1]
-- [Goal 2]
+- [Goal]
+- [Goal]
+
+---
 
 ## 4. Target Users
-Name: [Persona]
-Description: [Who are they?]
-Needs: [List needs]
-Pain Points: [List pains]
+### User Type 1
+Name:
+[Persona]
+
+Description:
+[Who are they?]
+
+Needs:
+- [Need]
+- [Need]
+
+Pain Points:
+- [Pain point]
+- [Pain point]
+
+---
 
 ## 5. User Stories
-As a [user], I want to [action] so that [outcome].
-- Example: As a user, I want to create an account to save data.
+As a [user],
+I want to [action]
+so that [outcome].
+
+Examples:
+- As a user, I want to create an account so that I can save my data.
+- As a user, I want to create a project so that I can organize my work.
+- As a user, I want to invite teammates so that we can collaborate.
+
+---
 
 ## 6. Core Features
-Feature 1 — [Feature Name]
-Purpose: [What does it do?]
-User Flow: [Describe the flow.]
+### Feature 1 — [Feature Name]
+Purpose:
+[What does it do?]
+
+User Flow:
+[Describe the flow.]
+
+Inputs:
+[List inputs.]
+
+Outputs:
+[List outputs.]
+
 Acceptance Criteria:
 - [Requirement]
+- [Requirement]
+- [Requirement]
 
-## 7. MVP Scope
-Must Have: [Features]
-Nice to Have: [Features]
+Edge Cases:
+- [Edge case]
+- [Edge case]
 
-## 8. Definition of Done
-- [ ] Requirements implemented
-- [ ] Critical flows work
+---
+### Feature 2 — [Feature Name]
+Purpose:
+[What does it do?]
+
+User Flow:
+[Describe the flow.]
+
+Acceptance Criteria:
+- [Requirement]
+- [Requirement]
+
+---
+
+## 7. Non-Goals
+The following are intentionally NOT part of this version:
+- [Feature]
+- [Feature]
+- [Feature]
+
+---
+
+## 8. MVP Scope
+Must Have:
+- [Feature]
+- [Feature]
+
+Nice to Have:
+- [Feature]
+- [Feature]
+
+Future:
+- [Feature]
+- [Feature]
+
+---
+
+## 9. Success Metrics
+Primary Metrics:
+- [Metric]
+- [Metric]
+
+Secondary Metrics:
+- [Metric]
+- [Metric]
+
+---
+
+## 10. Constraints
+Technical:
+- [Constraint]
+
+Business:
+- [Constraint]
+
+Design:
+- [Constraint]
+
+Timeline:
+- [Constraint]
+
+---
+
+## 11. Assumptions
+- [Assumption]
+- [Assumption]
+
+---
+
+## 12. Open Questions
+- [Question]
+- [Question]
+
+---
+
+## 13. Definition of Done
+The feature/product is considered complete when:
+- [ ] Requirements are implemented
+- [ ] Critical user flows work
 - [ ] Tests pass
-- [ ] Docs updated`},
+- [ ] Build succeeds
+- [ ] Security requirements are satisfied
+- [ ] Documentation is updated`},
             'design': { id: '02', title: 'DESIGN_SYSTEM.md', desc: 'What should it look and feel like?', content: `# Design System
 
-## 1. Design Direction
-Style: [Minimal / Editorial / Premium / Playful / Technical]
-Mood: [Describe overall feeling]
-Principles: [List principles]
+## Purpose
+This document defines the **visual language of your product**.
+Without one, AI can generate one screen with rounded cards, another with sharp cards, inconsistent fonts, spacing, colors, and buttons.
+The design system gives your coding agent a consistent visual vocabulary.
 
-## 2. Color Palette
+---
+
+## 1. Design Direction
+Style:
+[Minimal / Editorial / Premium / Playful / Technical / etc.]
+
+Mood:
+[Describe the overall feeling.]
+
+Design Principles:
+- [Principle]
+- [Principle]
+- [Principle]
+
+---
+
+## 2. Brand
+Brand Name:
+[Name]
+
+Logo:
+[Rules]
+
+Brand Voice:
+[Description]
+
+---
+
+## 3. Color Palette
 Primary: #HEX
 Secondary: #HEX
 Background: #HEX
 Surface: #HEX
 Text: #HEX
+Muted Text: #HEX
 Border: #HEX
-Status (Success/Warning/Error): #HEX
+Success: #HEX
+Warning: #HEX
+Error: #HEX
 
-## 3. Typography
+---
+
+## 4. Typography
 Font Family: [Font]
-H1: [Size/Weight/LH]
-H2: [Size/Weight/LH]
-Body: [Size/Weight/LH]
+Heading Font: [Font]
+Body Font: [Font]
 
-## 4. Spacing & Borders
-Base Unit: [e.g., 4px]
-Scale: 4, 8, 12, 16, 24, 32, 48, 64
-Radius: Small [val], Medium [val], Large [val]
+H1: [Size / Weight / Line Height]
+H2: [Size / Weight / Line Height]
+H3: [Size / Weight / Line Height]
+Body: [Size / Weight / Line Height]
+Small: [Size / Weight / Line Height]
 
-## 5. Components
-Buttons (Primary/Secondary/Danger): [Rules]
-Inputs (Default/Focus/Error): [Rules]
-Cards: [Rules]
+---
 
-## 6. Accessibility
+## 5. Spacing
+Base Unit: [Example: 4px]
+
+Spacing Scale:
+4px
+8px
+12px
+16px
+24px
+32px
+48px
+64px
+96px
+
+---
+
+## 6. Border Radius
+Small: [Value]
+Medium: [Value]
+Large: [Value]
+Pill: [Value]
+
+---
+
+## 7. Shadows
+Small: [Rule]
+Medium: [Rule]
+Large: [Rule]
+
+---
+
+## 8. Buttons
+Primary Button: [Rules]
+Secondary Button: [Rules]
+Danger Button: [Rules]
+Disabled: [Rules]
+Loading: [Rules]
+
+---
+
+## 9. Inputs
+Default: [Rules]
+Focus: [Rules]
+Error: [Rules]
+Disabled: [Rules]
+Placeholder: [Rules]
+
+---
+
+## 10. Cards
+[Define card padding, border, radius, shadow.]
+
+---
+
+## 11. Navigation
+Header: [Rules]
+Sidebar: [Rules]
+Mobile Navigation: [Rules]
+
+---
+
+## 12. States
+Loading: [Rules]
+Empty: [Rules]
+Error: [Rules]
+Success: [Rules]
+Disabled: [Rules]
+
+---
+
+## 13. Icons
+Icon Library: [Library]
+Default Size: [Size]
+Icon Style: [Outline / Filled / Rounded]
+
+---
+
+## 14. Responsive Design
+Mobile: [Rules]
+Tablet: [Rules]
+Desktop: [Rules]
+
+Breakpoints:
+Mobile: [Range]
+Tablet: [Range]
+Desktop: [Range]
+
+---
+
+## 15. Accessibility
 - Use semantic HTML
-- Maintain contrast
-- Visible focus states`},
+- Maintain sufficient contrast
+- Support keyboard navigation
+- Provide visible focus states
+- Provide accessible labels
+- Do not rely only on color`},
             'architecture': { id: '03', title: 'ARCHITECTURE.md', desc: 'How should the system work?', content: `# Architecture
 
+## Purpose
+This document defines **how the application is technically structured**.
+It should answer: Where does everything go, how does everything communicate, and why was this architecture chosen?
+
+---
+
 ## 1. System Overview
-[High level description of system]
+[Describe the system at a high level.]
 
-## 2. Technology Stack
-Frontend: [Tech]
-Backend: [Tech]
-Database: [Tech]
-Auth: [Tech]
-Hosting: [Tech]
+---
 
-## 3. Components
-Frontend Responsibilities: [List]
-Backend Responsibilities: [List]
+## 2. Architecture Pattern
+Pattern:
+[Monolith / Modular Monolith / Microservices / Serverless / etc.]
 
-## 4. Data Flow
+Reason:
+[Why?]
+
+---
+
+## 3. Technology Stack
+Frontend: [Technology]
+Backend: [Technology]
+Database: [Technology]
+Authentication: [Technology]
+Storage: [Technology]
+Hosting: [Technology]
+Payments: [Technology]
+Email: [Technology]
+Analytics: [Technology]
+Other Services: [List]
+
+---
+
+## 4. System Components
+### Frontend
+Responsibilities:
+- [Responsibility]
+- [Responsibility]
+
+### Backend
+Responsibilities:
+- [Responsibility]
+
+### Database
+Responsibilities:
+- [Responsibility]
+
+---
+
+## 5. Architecture Diagram
+[Insert diagram here.]
+
+Example:
+User
+ ↓
+Frontend
+ ↓
+API
+ ↓
+Service Layer
+ ↓
+Database
+
+---
+
+## 6. Data Flow
+Example:
 1. User submits form
-2. Frontend validates
-3. Request sent to API
-4. API authenticates & business logic runs
-5. DB updated
-6. Response returned & UI updates
+2. Frontend validates input
+3. Request is sent to API
+4. API authenticates user
+5. Service validates business rules
+6. Database is updated
+7. Response is returned
+8. UI updates
 
-## 5. Project Structure
+---
+
+## 7. Project Structure
+\`\`\`text
 src/
 ├── components/
+├── pages/
 ├── services/
+├── hooks/
 ├── utils/
 ├── types/
+├── middleware/
 └── config/
+\`\`\`
 
-## 6. Rules & Constraints
-- UI components must not access DB directly.
-- [Other dependency rules]
+---
 
-## 7. Failure Scenarios
-Document behavior if DB fails, API times out, etc.`},
+## 8. Dependency Rules
+- [Rule]
+- [Rule]
+- [Rule]
+
+Example: UI components should not directly access the database.
+
+---
+
+## 9. Key Technical Decisions
+Decision:
+[Decision]
+
+Context:
+[Why did we need to decide?]
+
+Alternatives:
+[Alternatives]
+
+Reason:
+[Why this approach?]
+
+---
+
+## 10. Performance Considerations
+- [Requirement]
+- [Requirement]
+
+---
+
+## 11. Scalability Considerations
+- [Requirement]
+- [Requirement]
+
+---
+
+## 12. Failure Scenarios
+What happens if:
+- Database is unavailable?
+- API times out?
+- Third-party service fails?
+- Authentication fails?
+
+Document expected behavior.`},
             'database': { id: '04', title: 'DATABASE.md', desc: 'What data exists and relates?', content: `# Database
 
-## 1. Engine & Conventions
-Engine: [PostgreSQL / MongoDB / etc.]
-Naming: Tables [convention], Columns [convention]
+## Purpose
+This document is the source of truth for your **data model**.
+AI should not randomly invent tables, relationships, fields, or naming conventions.
 
-## 2. Tables
-### users
-Columns: id, email, name, created_at
-### projects
-Columns: id, user_id, status, created_at
+---
 
-## 3. Relationships
-users -> projects (One-to-Many)
+## 1. Database Engine
+Database:
+[PostgreSQL / MySQL / SQLite / MongoDB / etc.]
 
-## 4. Constraints & Validation
-Required fields: [List]
-Unique fields: [List]
+Hosting:
+[Provider]
 
-## 5. Auditing & Soft Delete
-Soft delete enabled: [Yes/No]
-Audit fields: Created by, Updated by
-
-## 6. Migration Rules
-1. Must be documented
-2. Must have a migration file
-3. Avoid breaking existing production data`},
-            'security': { id: '05', title: 'SECURITY.md', desc: 'What must be protected?', content: `# Security Guidelines
-
-## 1. Authentication
-Provider: [Provider]
-Methods: [Email / OAuth / etc.]
-
-## 2. Authorization
-Roles: Admin, User
-Permissions matrix: [Define who can do what]
-*Must enforce server-side.*
-
-## 3. Secrets Management
-- Never hard-code credentials
-- Use env variables (.env)
-- Never expose private secrets to client bundle
-
-## 4. API Security
-- Validate all inputs
-- Rate limiting rules
-- CORS rules
-
-## 5. Data Protection
-Sensitive data list: [List]
-Encryption rules: [Rules]
-
-## 6. Checklist
-- [ ] Auth implemented
-- [ ] Server-side validation active
-- [ ] Secrets out of version control`},
-            'code': { id: '06', title: 'CODE_STYLE.md', desc: 'How should code be written?', content: `# Code Style & Conventions
-
-## 1. Principles
-- Prefer readable code
-- Keep functions focused (Single Responsibility)
-- Avoid premature abstraction
+---
 
 ## 2. Naming Conventions
-Components: [e.g., PascalCase]
-Functions: [e.g., camelCase]
-Files: [e.g., kebab-case]
+Tables: [Convention]
+Columns: [Convention]
+Primary Keys: [Convention]
+Foreign Keys: [Convention]
+Timestamps: [Convention]
 
-## 3. Component Rules
-- Reusable patterns over custom one-offs
-- Separate logic from presentation where possible
+---
 
-## 4. Error Handling
-- Use try/catch blocks
-- standardized API error responses
-- Never swallow errors silently
+## 3. Tables
+### users
+Purpose: [Description]
+Columns:
+- id
+- email
+- name
+- created_at
+- updated_at
 
-## 5. Tools
-Formatter: [Prettier]
-Linter: [ESLint]
-Type Checking: [TypeScript]`},
-            'testing': { id: '07', title: 'TESTING.md', desc: 'How will we know it works?', content: `# Testing Strategy
+### projects
+Purpose: [Description]
+Columns:
+- id
+- user_id
+- name
+- description
+- status
+- created_at
+- updated_at
 
-## 1. Goals
-Critical flows to test:
-- User signup/login
-- Core data mutation (creation/editing)
+---
+
+## 4. Relationships
+users -> projects
+One user can have many projects.
+
+projects -> tasks
+One project can have many tasks.
+
+---
+
+## 5. Constraints
+Required:
+- [Field]
+
+Unique:
+- [Field]
+
+Foreign Keys:
+- [Relationship]
+
+---
+
+## 6. Indexes
+Index: [Column]
+Reason: [Reason]
+
+---
+
+## 7. Data Validation
+- [Rule]
+- [Rule]
+
+---
+
+## 8. Soft Delete
+Does the system use soft deletion?
+[Yes / No]
+If yes: [Explain implementation.]
+
+---
+
+## 9. Auditing
+Do we record:
+- Created by?
+- Updated by?
+- Deleted by?
+- Activity history?
+[Rules]
+
+---
+
+## 10. Sensitive Data
+Sensitive fields:
+- [Field]
+
+Protection:
+[Rules]
+
+---
+
+## 11. Migration Rules
+Schema changes must:
+1. Be documented
+2. Have a migration
+3. Be tested
+4. Avoid breaking existing production data
+
+---
+
+## 12. Seed Data
+[Describe development/demo seed data.]`},
+            'security': { id: '05', title: 'SECURITY.md', desc: 'What must be protected?', content: `# Security Guidelines
+
+## Purpose
+Security should be treated as a **project requirement**, not a final polish step.
+This document defines authentication, authorization, secrets, API protection, data security, and other important rules.
+
+*Note: Instructions are framed positively to ensure AI safety filters (like Claude's refusal reflex) are not falsely triggered.*
+
+---
+
+## 1. Authentication
+Authentication Provider:
+[Provider]
+
+Methods:
+- Implement robust, industry-standard email/password flows.
+- Implement secure OAuth integrations.
+- [Other]
+
+---
+
+## 2. Authorization
+Roles:
+- Admin
+- User
+- [Role]
+
+Permissions:
+### Admin
+- [Permission]
+
+### User
+- [Permission]
+
+Ensure authorization is strictly enforced server-side for all protected resources.
+
+---
+
+## 3. Secrets
+Rules:
+- Securely store all credentials using environment variables.
+- Maintain strict separation between client-safe variables and private server secrets.
+- Implement automated rotation for critical credentials.
+- Utilize secure secret managers for production deployment.
+
+---
+
+## 4. Environment Variables
+Public (Safe for Client):
+[Variables]
+
+Private (Server Only):
+[Variables]
+
+---
+
+## 5. API Security
+Input validation: [Implement strict schema validation for all inputs]
+Rate limiting: [Implement rate limiting to prevent abuse]
+CORS: [Configure CORS policies to allow authorized origins]
+Authentication: [Require secure tokens for all restricted endpoints]
+Authorization: [Verify permissions on every protected request]
+
+---
+
+## 6. Data Protection
+Sensitive data: [List]
+Encryption: [Encrypt sensitive data at rest and in transit]
+Retention: [Rules]
+Deletion: [Ensure complete removal for user deletion requests]
+
+---
+
+## 7. Logging
+Rules:
+- Implement secure logging that redacts passwords, API keys, tokens, and sensitive personal information.
+- Log all authentication events, important mutations, and security anomalies.
+
+---
+
+## 8. File Uploads
+Allowed file types: [List]
+Maximum size: [Limit]
+Validation: [Validate MIME types securely on the server]
+Storage: [Location]
+
+---
+
+## 9. Security Checklist
+- [ ] Authentication implemented
+- [ ] Authorization implemented
+- [ ] Server-side validation
+- [ ] Secrets protected
+- [ ] Sensitive data protected
+- [ ] Rate limiting considered
+- [ ] File uploads validated
+- [ ] Errors omit sensitive internal details`},
+            'code': { id: '06', title: 'CODE_STYLE.md', desc: 'How should code be written?', content: `# Code Style & Conventions
+
+## Purpose
+This document keeps generated code consistent across your entire project.
+
+---
+
+## 1. General Principles
+- Prefer readable code
+- Keep functions focused
+- Avoid unnecessary abstractions
+- Reuse existing components
+- Reuse existing utilities
+- Prefer consistency over novelty
+
+---
+
+## 2. Naming
+Components: [Convention]
+Functions: [Convention]
+Variables: [Convention]
+Constants: [Convention]
+Files: [Convention]
+Database fields: [Convention]
+API routes: [Convention]
+
+---
+
+## 3. Folder Structure
+[Describe rules.]
+
+---
+
+## 4. Imports
+Rules:
+- [Rule]
+- [Rule]
+
+---
+
+## 5. Components
+Components should:
+- Have a single responsibility
+- Prefer reusable patterns
+- Avoid unnecessary duplication
+
+---
+
+## 6. Functions
+Functions should:
+- Do one logical thing
+- Have clear names
+- Avoid unnecessary complexity
+
+---
+
+## 7. Error Handling
+Use:
+[Pattern]
+
+Do not:
+[Pattern]
+
+---
+
+## 8. Comments
+Comments should explain:
+- Why something exists
+- Important tradeoffs
+- Non-obvious behavior
+
+Avoid comments that simply repeat the code.
+
+---
+
+## 9. Logging
+Use:
+[Logging library]
+
+Rules:
+- [Rule]
+- [Rule]
+
+---
+
+## 10. Formatting
+Formatter: [Tool]
+Linter: [Tool]
+Type Checking: [Tool]
+
+---
+
+## 11. Do
+- Reuse existing patterns
+- Keep changes focused
+- Follow project conventions
+- Remove dead code
+
+---
+
+## 12. Don't
+- Create duplicate utilities
+- Introduce unnecessary dependencies
+- Ignore existing architecture
+- Change unrelated files`},
+            'testing': { id: '07', title: 'TESTING.md', desc: 'How will we know it works?', content: `# Testing
+
+## Purpose
+This document defines **how your application will be validated**.
+AI should not stop at: "The code looks correct." The application should be tested.
+
+---
+
+## 1. Testing Goals
+Critical functionality:
+- [Feature]
+- [Feature]
+- [Feature]
+
+---
 
 ## 2. Test Types
-Unit: Utility functions, complex logic
-Integration: APIs, DB interactions
-E2E: Critical user journeys
+### Unit Testing
+Test:
+- Utility functions
+- Business logic
+- Components where appropriate
 
-## 3. Tools
-Unit/Integration: [e.g., Jest/Vitest]
-E2E: [e.g., Cypress/Playwright]
+### Integration Testing
+Test:
+- APIs
+- Database interactions
+- Authentication flows
+- Service integrations
 
-## 4. Structure
+### End-to-End Testing
+Test critical user journeys:
+- Sign up
+- Sign in
+- Create project
+- Complete checkout
+- [Other critical flows]
+
+---
+
+## 3. Testing Tools
+Unit: [Tool]
+Integration: [Tool]
+E2E: [Tool]
+
+---
+
+## 4. Test File Structure
+\`\`\`text
 tests/
 ├── unit/
 ├── integration/
 └── e2e/
+\`\`\`
 
-## 5. Definition of Done
+---
+
+## 5. Critical User Flows
+Flow:
+[Name]
+
+Steps:
+1. [Step]
+2. [Step]
+3. [Step]
+
+Expected result:
+[Result]
+
+---
+
+## 6. Coverage
+Target: [Practical target]
+
+Prioritize:
+- Critical business logic
+- Authentication
+- Payments
+- Data mutations
+- Important user journeys
+
+---
+
+## 7. Commands
+Test: [test command]
+Lint: [lint command]
+Build: [build command]
+Type Check: [typecheck command]
+
+---
+
+## 8. Definition of Done
+- Tests pass
 - Build passes
-- Lint & Typecheck passes
-- Automated tests pass
-- No blocking console errors`},
-            'agents': { id: '08', title: 'AGENTS.md', desc: 'Instructions for AI agents (Critical)', content: `# AI Coding Agent Instructions
+- Lint passes
+- Type checking passes
+- Critical flow verified
+- No blocking errors`},
+            'agents': { id: '08', title: 'AGENTS.md', desc: 'Instructions for AI agents', content: `# AI Coding Agent Instructions
 
-## 1. Source of Truth
-Before making changes, READ the documentation in \`/docs\`.
-Do not contradict these docs without identifying the conflict.
+## Purpose
+This document provides **operational instructions for your AI coding agent**, highly optimized for Claude's cognitive strengths (XML tag parsing and strict output formatting).
 
-## 2. General Rules
-- Understand existing code before modifying.
-- Reuse existing components/utilities.
-- Do not invent business requirements.
-- Avoid unrelated file changes (keep PRs focused).
+---
 
-## 3. Planning Workflow
-1. Inspect docs & relevant code.
-2. Identify affected files & dependencies.
-3. Formulate an implementation plan.
-4. Wait for approval if required.
+## 1. Project Context
+Project: [Name]
+Purpose: [Description]
+Primary Users: [Users]
 
-## 4. Implementation Workflow
+---
+
+## 2. Source of Truth
+Before making significant changes, you MUST ingest the context from our documentation folder.
+
+<documentation_map>
+- <prd>: Read \`docs/PRD.md\` to understand product requirements.
+- <design>: Read \`docs/DESIGN_SYSTEM.md\` for visual guidelines.
+- <architecture>: Read \`docs/ARCHITECTURE.md\` for system structure.
+- <database>: Read \`docs/DATABASE.md\` before making schema changes.
+- <security>: Read \`docs/SECURITY.md\` for security protocols.
+- <style>: Read \`docs/CODE_STYLE.md\` for coding conventions.
+- <testing>: Read \`docs/TESTING.md\` for validation rules.
+</documentation_map>
+
+Do not contradict these documents without first identifying the conflict.
+
+---
+
+## 3. Output & Behavior Rules
+<output_rules>
+- NEVER apologize.
+- NEVER say "I understand" or "Here is the code".
+- Do not explain your thought process unless explicitly asked.
+- Provide only the requested code, plans, or direct answers.
+- When generating code, output the complete file without skipping lines unless explicitly told otherwise.
+- Avoid modifying unrelated files.
+- Do not invent business requirements or database fields.
+</output_rules>
+
+---
+
+## 4. Planning
+Before implementing a non-trivial task:
+1. Inspect relevant documentation in the <documentation_map>.
+2. Inspect relevant code.
+3. Identify affected files, dependencies, database/API changes, and tests required.
+4. Create a concise implementation plan.
+
+---
+
+## 5. Implementation
+During implementation:
 - Make focused changes.
+- Reuse established patterns and existing components.
 - Preserve existing behavior.
-- Write/update tests alongside code.
+- Keep code maintainable.
 
-## 5. Completion Criteria
-Task is done when: Requirements met, Tests pass, Build succeeds, Docs updated if architecture changed.`},
+---
+
+## 6. Validation
+After implementation:
+1. Run tests.
+2. Run linting and type checking.
+3. Run the build.
+4. Review changed files for unintended modifications.
+
+---
+
+## 7. Conflict Handling
+If requirements conflict:
+Do not guess.
+Identify the conflict and explicitly ask the user for clarification.
+
+---
+
+## 8. Completion Criteria
+A task is complete only when:
+- Requirements are satisfied.
+- Tests and builds pass.
+- Security rules are respected.
+- Documentation is updated when necessary.`},
             
             // Advanced Docs
             'uxflows': { id: '09', title: 'UX_FLOWS.md', desc: 'User journeys step-by-step', content: `# UX Flows
+
+This documents the **actual user journeys**.
+
+Example: Landing Page -> Sign Up -> Onboarding -> Dashboard -> Create Project -> Project Details -> Invite Team -> Complete Project
+
+---
 
 ## Flow 1 — User Registration
 1. User opens signup page
@@ -869,6 +1762,8 @@ Error State:
 Empty State:
 [Behavior]` },
             'api': { id: '10', title: 'API.md', desc: 'API Contracts', content: `# API Documentation
+
+This becomes the source of truth for your API contracts.
 
 ## GET /projects
 Authentication:
@@ -919,6 +1814,7 @@ Validation:
 - Return consistent error responses
 - Do not expose internal implementation details` },
             'env': { id: '11', title: 'ENVIRONMENT.md', desc: 'Variables & Secrets', content: `# Environment Configuration
+Document every environment variable.
 
 ## Public Variables
 NEXT_PUBLIC_APP_URL=
@@ -939,6 +1835,8 @@ STRIPE_SECRET_KEY=
 - Keep local and production configuration separate
 - Document newly introduced variables` },
             'decisions': { id: '12', title: 'DECISIONS.md', desc: 'Architectural Decisions', content: `# Architecture Decisions
+
+Use this to record important technical decisions.
 
 ## Decision 001
 
@@ -974,6 +1872,7 @@ Tradeoff:
 
 This prevents you from repeatedly making the same architectural decision.` },
             'roadmap': { id: '13', title: 'ROADMAP.md', desc: 'Now, Next, Later', content: `# Roadmap
+This is particularly useful when AI starts suggesting features.
 
 ## NOW
 - [Feature]
@@ -991,10 +1890,9 @@ This prevents you from repeatedly making the same architectural decision.` },
 - [Feature]
 
 ## NOT PLANNED
-- [Feature]
-
-This is particularly useful when AI starts suggesting features.` },
+- [Feature]` },
             'errors': { id: '14', title: 'ERROR_HANDLING.md', desc: 'Failure behavior', content: `# Error Handling
+Document how your system handles failure. Include: validation errors, API failures, network errors, authentication errors, permission errors, database failures, third-party failures, timeouts, empty states, loading states, retry behavior, user-facing messages.
 
 ## API Errors
 
@@ -1014,27 +1912,11 @@ Resource not found
 Rate limit exceeded
 
 500:
-Unexpected server error
-
----
-## System Failures
-Include:
-- validation errors
-- API failures
-- network errors
-- authentication errors
-- permission errors
-- database failures
-- third-party failures
-- timeouts
-- empty states
-- loading states
-- retry behavior
-- user-facing messages` },
+Unexpected server error` },
             'obs': { id: '15', title: 'OBSERVABILITY.md', desc: 'Logs and Metrics', content: `# Observability
+For production applications, document: Logging, Metrics, Monitoring, Alerts, Performance tracking, Important business events, Error tracking.
 
 ## Logging
-
 Log:
 - Application errors
 - Authentication events
@@ -1049,7 +1931,6 @@ Never log:
 ---
 
 ## Monitoring
-
 Monitor:
 - Error rate
 - API latency
@@ -1058,7 +1939,6 @@ Monitor:
             'deploy': { id: '16', title: 'DEPLOYMENT.md', desc: 'Deployment process', content: `# Deployment
 
 ## Environments
-
 Development:
 [URL]
 
@@ -1092,6 +1972,7 @@ Production:
 - [ ] Monitoring enabled
 - [ ] Smoke tests pass` },
             'changelog': { id: '17', title: 'CHANGELOG.md', desc: 'Version history', content: `# Changelog
+Track meaningful changes.
 
 ## [1.1.0]
 
