@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased text-slate-400 bg-slate-950">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding Blueprint Hub V2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            400: '#a855f7', // Purple
+                            500: '#8b5cf6', // Violet
+                            900: '#4c1d95',
+                            cyan: '#06b6d4'
+                        },
+                        surface: {
+                            50: '#fafafa',
+                            800: '#27272a',
+                            900: '#18181b',
+                            950: '#09090b',
+                            deep: '#050505'
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(168, 85, 247, 0.15)',
+                        'glow-cyan': '0 0 20px rgba(6, 182, 212, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #050505;
+            color: #a1a1aa; /* zinc-400 */
+        }
+        
+        /* Selection */
+        ::selection { background: rgba(168, 85, 247, 0.3); color: #fff; }
+
+        /* Custom IDE-like Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+        /* Prose / Markdown styling - Premium Look */
+        .markdown-body { font-size: 0.95rem; }
+        .markdown-body h1 { 
+            font-size: 2.5rem; 
+            font-weight: 700; 
+            letter-spacing: -0.025em;
+            color: #fff; 
+            margin-bottom: 1.5rem; 
+            background: linear-gradient(to right, #fff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .markdown-body h2 { 
+            font-size: 1.25rem; 
+            font-weight: 600; 
+            color: #f4f4f5; 
+            margin-top: 2.5rem; 
+            margin-bottom: 1rem; 
+            padding-bottom: 0.5rem; 
+            letter-spacing: -0.01em;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .markdown-body p { margin-bottom: 1.5rem; line-height: 1.8; color: #a1a1aa; }
+        .markdown-body ul { list-style-type: none; padding-left: 0; margin-bottom: 1.5rem; }
+        .markdown-body li { 
+            margin-bottom: 0.75rem; 
+            position: relative; 
+            padding-left: 1.5rem; 
+            line-height: 1.6;
+        }
+        .markdown-body li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #a855f7;
+            font-size: 1.2rem;
+            line-height: 1;
+            top: 2px;
+        }
+        .markdown-body strong { color: #f4f4f5; font-weight: 600; }
+        .markdown-body blockquote { 
+            border-left: 2px solid #a855f7; 
+            color: #d4d4d8; 
+            font-style: italic; 
+            background: linear-gradient(90deg, rgba(168,85,247,0.1) 0%, transparent 100%);
+            padding: 1.25rem 1.5rem; 
+            border-radius: 0 0.5rem 0.5rem 0; 
+            margin-bottom: 1.5rem;
+        }
+        .markdown-body table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 1.5rem; margin-bottom: 1.5rem; }
+        .markdown-body th, .markdown-body td { 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+            padding: 1rem 0.75rem; 
+            text-align: left; 
+        }
+        .markdown-body th { color: #f4f4f5; font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .markdown-body code:not(pre code) {
+            background: rgba(255,255,255,0.05);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em;
+            color: #d4d4d8;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Animation utilities */
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(10px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        
+        /* Custom Checkbox - Hidden default */
+        .task-checkbox { display: none; }
+        
+        /* Prevent body scroll when mobile menu is open */
+        body.menu-open { overflow: hidden; }
+
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background: rgba(24, 24, 27, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-zinc-400 bg-surface-deep relative">
+    
+    <!-- Ambient Background Gradients -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-900/20 blur-[120px]"></div>
+        <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brand-cyan/10 blur-[120px]"></div>
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMiIvPjwvc3ZnPg==')] opacity-30"></div>
+    </div>
+
+    <header class="lg:hidden fixed top-0 w-full h-16 glass-panel border-b-0 border-surface-800 flex items-center justify-between px-4 z-50">
+        <div class="flex items-center gap-2 text-zinc-100 font-medium tracking-tight">
+            <i class="ph-duotone ph-magic-wand text-brand-400 text-xl"></i>
+            Blueprint Hub
+        </div>
+        <button id="mobileMenuBtn" class="text-zinc-400 hover:text-zinc-100 p-2 focus:outline-none transition-colors">
+            <i class="ph ph-list text-2xl"></i>
+        </button>
+    </header>
+
+    <aside id="sidebar" class="fixed inset-y-0 left-0 w-72 glass-panel border-r-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40 flex flex-col mt-16 lg:mt-0 lg:bg-transparent lg:border-r lg:border-white/5">
+        <div class="hidden lg:flex h-20 items-center gap-3 px-6 text-zinc-100 font-medium tracking-tight">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-cyan flex items-center justify-center shadow-glow">
+                <i class="ph-bold ph-magic-wand text-white text-sm"></i>
+            </div>
+            Vibe Coding
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-2 px-4 space-y-8 sidebar-scroll">
+            
+            <!-- Nav Group: Core -->
+            <div>
+                <h3 class="px-3 text-[10px] font-semibold text-zinc-500 uppercase tracking-[0.15em] mb-3">Foundation</h3>
+                <nav class="space-y-1">
+                    <button onclick="app.navigate('overview')" id="nav-overview" class="nav-link w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/5 transition-all text-left active group relative">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-brand-400 rounded-r-full transition-all duration-300 nav-indicator"></div>
+                        <i class="ph-duotone ph-book-open text-lg group-hover:text-brand-400 transition-colors"></i> Mental Model
+                    </button>
+                    <button onclick="app.navigate('prompts')" id="nav-prompts" class="nav-link w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/5 transition-all text-left group relative">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-brand-400 rounded-r-full transition-all duration-300 nav-indicator"></div>
+                        <i class="ph-duotone ph-terminal-window text-lg group-hover:text-brand-400 transition-colors"></i> Core Prompts
+                    </button>
+                    <button onclick="app.navigate('workflows')" id="nav-workflows" class="nav-link w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/5 transition-all text-left group relative">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-brand-400 rounded-r-full transition-all duration-300 nav-indicator"></div>
+                        <i class="ph-duotone ph-git-merge text-lg group-hover:text-brand-400 transition-colors"></i> Workflows & Rules
+                    </button>
+                    <button onclick="app.navigate('checklist')" id="nav-checklist" class="nav-link w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/5 transition-all text-left group relative">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-brand-400 rounded-r-full transition-all duration-300 nav-indicator"></div>
+                        <div class="flex items-center gap-3"><i class="ph-duotone ph-check-square-offset text-lg group-hover:text-brand-400 transition-colors"></i> Pre-Flight</div>
+                        <span id="checklistProgress" class="text-[10px] font-mono bg-black/30 border border-white/5 text-zinc-400 px-1.5 py-0.5 rounded-md transition-colors duration-300">0/0</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Nav Group: Core Docs -->
+            <div>
+                <h3 class="px-3 text-[10px] font-semibold text-zinc-500 uppercase tracking-[0.15em] mb-3">Core Documents</h3>
+                <nav class="space-y-1" id="navGroupCore">
+                    <!-- Injected via JS -->
+                </nav>
+            </div>
+
+            <!-- Nav Group: Advanced Docs -->
+            <div>
+                <h3 class="px-3 text-[10px] font-semibold text-zinc-500 uppercase tracking-[0.15em] mb-3">Advanced Layer</h3>
+                <nav class="space-y-1" id="navGroupAdvanced">
+                    <!-- Injected via JS -->
+                </nav>
+            </div>
+        </div>
+        
+        <div class="p-5 border-t border-white/5 bg-black/20 backdrop-blur-md">
+            <div class="flex items-center gap-3 text-xs text-zinc-500 font-medium">
+                <div class="w-2 h-2 rounded-full bg-brand-cyan animate-pulse shadow-glow-cyan"></div>
+                Build faster. Guess less.
+            </div>
+        </div>
+    </aside>
+
+    <!-- Overlay for mobile sidebar -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 hidden lg:hidden transition-opacity"></div>
+
+    <main class="flex-1 h-full overflow-y-auto pt-16 lg:pt-0 w-full relative z-10 scroll-smooth" id="mainScroll">
+        <div class="max-w-4xl mx-auto p-6 lg:p-16 pb-32 min-h-full" id="contentStage">
+            <!-- Dynamic content injected here -->
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-8 right-8 transform translate-y-24 opacity-0 transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) z-50 glass-panel border border-brand-500/30 text-zinc-100 px-4 py-3 rounded-xl shadow-glow font-medium flex items-center gap-3">
+        <i class="ph-fill ph-check-circle text-brand-400 text-xl"></i>
+        <span class="text-sm">Copied to clipboard</span>
+    </div>
+
+    <script>
+        // Database of all documents and views
+        const contentDB = {
+            'overview': {
+                type: 'html',
+                title: 'Mental Model',
+                render: () => `
+                    <div class="fade-in flex flex-col gap-12">
+                        <div>
+                            <h1 class="text-4xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 via-zinc-300 to-zinc-500 tracking-tight mb-4 leading-tight">The Vibe Coding Blueprint</h1>
+                            <p class="text-lg lg:text-xl text-zinc-400 font-light leading-relaxed max-w-2xl">The Complete Documentation System for Building Apps With AI.</p>
+                        </div>
+                        
+                        <div class="markdown-body">
+                            <h2>The Core Problem</h2>
+                            <p>Vibe coding makes it incredibly easy to go from an idea to working software. But as your application becomes more complex, a different problem appears:</p>
+                            <blockquote class="text-lg">
+                                <strong>Your AI coding agent starts guessing.</strong><br>
+                                <span class="text-zinc-500 text-base mt-2 block">It guesses what a feature should do. It guesses the UI. It guesses the database. It guesses authentication.</span>
+                            </blockquote>
+                            <p>The goal of this guide is simple: Give your AI coding agent enough context that it spends less time guessing and more time implementing.</p>
+                            
+                            <h2>The Mental Model</h2>
+                            <div class="glass-panel p-8 my-10 rounded-2xl relative overflow-hidden group hover:border-brand-500/20 transition-colors duration-500">
+                                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                <div class="flex flex-wrap justify-center gap-2 items-center font-mono text-xs font-medium">
+                                    <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">Idea</span> 
+                                    <i class="ph ph-caret-right text-zinc-600"></i>
+                                    <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">Requirements</span> 
+                                    <i class="ph ph-caret-right text-zinc-600"></i>
+                                    <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">UX Flows</span> 
+                                    <i class="ph ph-caret-right text-zinc-600"></i>
+                                    <span class="text-brand-cyan bg-brand-cyan/10 border border-brand-cyan/20 px-4 py-1.5 rounded-md shadow-glow-cyan">Context (Docs)</span>
+                                    <i class="ph ph-caret-right text-zinc-600"></i>
+                                    <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">Plan</span> 
+                                    <i class="ph ph-caret-right text-zinc-600"></i>
+                                    <span class="text-zinc-300 bg-black/40 border border-white/10 px-3 py-1.5 rounded-md">Code</span> 
+                                </div>
+                            </div>
+
+                            <h2>The 8 Core Documents</h2>
+                            <p>Start with these eight files in your <code>/docs</code> folder. They form the foundation of truth for any AI agent.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                                ${Object.keys(docTemplates).slice(0, 8).map((key, i) => `
+                                    <div onclick="app.navigate('${key}')" style="animation-delay: ${i * 50}ms" class="fade-in glass-panel p-5 rounded-xl cursor-pointer hover:-translate-y-1 hover:border-brand-400/40 hover:bg-white/5 transition-all duration-300 group relative overflow-hidden">
+                                        <div class="absolute -right-4 -top-4 w-16 h-16 bg-brand-400/10 rounded-full blur-xl group-hover:bg-brand-400/20 transition-colors"></div>
+                                        <div class="text-brand-400 font-mono text-[10px] tracking-wider mb-2 font-bold">${docTemplates[key].id}</div>
+                                        <div class="text-zinc-100 font-medium tracking-tight mb-1 group-hover:text-brand-300 transition-colors">${docTemplates[key].title}</div>
+                                        <div class="text-zinc-500 text-xs leading-relaxed">${docTemplates[key].desc}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'prompts': {
+                type: 'html',
+                title: 'Core Prompts',
+                render: () => `
+                    <div class="fade-in markdown-body">
+                        <h1>AI Interaction Prompts</h1>
+                        <p>Copy and paste these master prompts into your AI coding environment (Cursor, Windsurf, Copilot, etc.) to establish context and workflow.</p>
+                        
+                        <h2>1. The Master Agent Prompt</h2>
+                        <p>Use this as a general starting prompt or place it in your agent's system instructions.</p>
+                        ${uiHelpers.createCodeBlock('master_agent_prompt.txt', `You are working inside an existing software project.
+
+Before making any significant changes, inspect the project documentation and relevant source code.
+
+Treat the documentation as the source of truth for:
+- Product requirements
+- User experience
+- Design system
+- Architecture
+- Database
+- API contracts
+- Security
+- Code conventions
+- Testing
+- Agent behavior
+
+Do not invent business requirements when they are already documented.
+Do not invent database fields, APIs, components, or architectural patterns when the project already defines them.
+
+Before implementing a non-trivial change:
+1. Read the relevant documentation.
+2. Inspect the existing implementation.
+3. Identify affected files.
+4. Identify dependencies.
+5. Identify database/API changes.
+6. Identify security considerations.
+7. Identify tests that should be added or updated.
+8. Create an implementation plan.
+
+After the plan is approved:
+1. Implement the smallest correct change.
+2. Reuse existing patterns.
+3. Follow the design system.
+4. Follow the architecture.
+5. Preserve existing behavior.
+6. Avoid unrelated changes.
+7. Avoid unnecessary dependencies.
+
+After implementation:
+1. Run tests.
+2. Run linting.
+3. Run type checking.
+4. Run the build.
+5. Review the diff.
+6. Look for regressions.
+7. Look for security issues.
+8. Check whether documentation needs updating.
+
+If something important is undefined or requirements conflict, do not guess. Ask for clarification.
+
+At the end, summarize:
+- What changed
+- Files changed
+- Tests run
+- Validation results
+- Remaining issues
+- Documentation updates required`)}
+
+                        <h2>2. Project Bootstrap Prompt</h2>
+                        <p>Use this when starting a completely new project to generate your foundation.</p>
+                        ${uiHelpers.createCodeBlock('bootstrap_prompt.txt', `I want to build a new application.
+
+Do not start coding yet.
+
+First, help me create the project documentation.
+Create the following documentation:
+
+1. PRD.md
+2. DESIGN_SYSTEM.md
+3. UX_FLOWS.md
+4. ARCHITECTURE.md
+5. DATABASE.md
+6. API.md
+7. SECURITY.md
+8. CODE_STYLE.md
+9. TESTING.md
+10. AGENTS.md
+
+For each document:
+- Clearly explain its purpose
+- Identify assumptions
+- Identify unresolved questions
+- Keep requirements explicit
+- Avoid inventing business decisions
+- Reuse decisions consistently across documents
+
+Start with PRD.md.
+Ask me only the questions that are necessary to define the product correctly.
+Do not generate application code until the documentation has been reviewed and approved.`)}
+
+                        <h2>3. Feature Implementation Prompt</h2>
+                        <p>Use this whenever you want to add a specific new feature.</p>
+                        ${uiHelpers.createCodeBlock('feature_prompt.txt', `I want to add this feature:
+[FEATURE DESCRIPTION HERE]
+
+Before changing code:
+1. Read the relevant documentation.
+2. Identify which documents are affected.
+3. Inspect the existing implementation.
+4. Explain the current architecture relevant to this feature.
+5. Identify affected frontend files.
+6. Identify affected backend/API files.
+7. Identify database changes.
+8. Identify security considerations.
+9. Identify tests required.
+10. Create an implementation plan.
+
+Do not modify unrelated parts of the project.
+
+After implementation:
+- Run tests, lint, type checking, build
+- Review the final diff
+- Update documentation if required`)}
+
+                        <h2>4. Code Review Prompt</h2>
+                        <p>Use this after AI finishes a feature to review its own work.</p>
+                        ${uiHelpers.createCodeBlock('code_review_prompt.txt', `Review the changes you just made as a senior engineer.
+
+Check for:
+- Incorrect requirements
+- Architecture violations
+- Duplicate logic
+- Unnecessary abstractions
+- Security issues
+- Database issues
+- API inconsistencies
+- Accessibility issues
+- Responsive UI issues
+- Error handling issues
+- Missing loading/empty/error states
+- Missing tests
+- Regressions
+- Unnecessary dependencies
+- Unintended file changes
+
+Compare the implementation against /docs.
+
+Do not modify anything yet.
+
+First provide:
+1. Findings
+2. Severity
+3. Recommended fixes
+4. Documentation that should be updated`)}
+                    </div>
+                `
+            },
+            'workflows': {
+                type: 'html',
+                title: 'Workflows & Rules',
+                render: () => `
+                    <div class="fade-in markdown-body">
+                        <h1>Workflows & Golden Rules</h1>
+                        <p>Mastering AI-assisted development is about process, not just prompts. Follow these established workflows.</p>
+                        
+                        <h2>The Golden Rules of AI-Assisted Development</h2>
+                        <ul class="space-y-2 mt-4 text-slate-300">
+                            <li><strong>Rule #1:</strong> Context before code.</li>
+                            <li><strong>Rule #2:</strong> Architecture before implementation.</li>
+                            <li><strong>Rule #3:</strong> Define important decisions instead of repeatedly re-deciding them.</li>
+                            <li><strong>Rule #4:</strong> Make requirements explicit.</li>
+                            <li><strong>Rule #5:</strong> Don't let AI guess when the answer can be documented.</li>
+                            <li><strong>Rule #6:</strong> Keep your documentation close to your code.</li>
+                            <li><strong>Rule #7:</strong> Validate AI-generated code instead of blindly trusting it.</li>
+                            <li><strong>Rule #8:</strong> Update your documentation when your system changes.</li>
+                            <li><strong>Rule #9:</strong> Use AI to accelerate implementation, not to replace product thinking.</li>
+                        </ul>
+
+                        <h2>The Complete Flow</h2>
+                        <div class="bg-surface-900 border border-surface-800 p-6 rounded-xl font-mono text-sm text-center shadow-lg my-6 max-w-md mx-auto text-brand-400">
+                            <div>YOUR IDEA</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>PRD.md</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>UX_FLOWS.md</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>DESIGN_SYSTEM.md</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>ARCHITECTURE.md</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>DATABASE.md</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>API.md</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>SECURITY.md</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>CODE_STYLE.md</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>TESTING.md</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>AGENTS.md</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div class="text-emerald-400 font-bold">AI CODING AGENT</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>IMPLEMENTATION</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>TESTING</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>CODE REVIEW</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div>DOCUMENTATION UPDATE</div>
+                            <div class="text-slate-600 my-1">↓</div>
+                            <div class="text-white font-bold mt-2">SHIP 🚀</div>
+                        </div>
+
+                        <h2>When Should You Update Each Document?</h2>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse mt-4">
+                                <thead>
+                                    <tr class="border-b border-surface-800 text-slate-300">
+                                        <th class="py-2 px-4 font-semibold">Change</th>
+                                        <th class="py-2 px-4 font-semibold">Update Document</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-sm text-slate-400">
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Product requirement changes</td><td class="py-2 px-4 font-mono text-brand-400">PRD.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">User journey changes</td><td class="py-2 px-4 font-mono text-brand-400">UX_FLOWS.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Visual changes</td><td class="py-2 px-4 font-mono text-brand-400">DESIGN_SYSTEM.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">New architecture</td><td class="py-2 px-4 font-mono text-brand-400">ARCHITECTURE.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Database changes</td><td class="py-2 px-4 font-mono text-brand-400">DATABASE.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">API changes</td><td class="py-2 px-4 font-mono text-brand-400">API.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Security changes</td><td class="py-2 px-4 font-mono text-brand-400">SECURITY.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Coding convention changes</td><td class="py-2 px-4 font-mono text-brand-400">CODE_STYLE.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Testing strategy changes</td><td class="py-2 px-4 font-mono text-brand-400">TESTING.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">AI behavior changes</td><td class="py-2 px-4 font-mono text-brand-400">AGENTS.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Environment changes</td><td class="py-2 px-4 font-mono text-brand-400">ENVIRONMENT.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Failure behavior changes</td><td class="py-2 px-4 font-mono text-brand-400">ERROR_HANDLING.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Production process changes</td><td class="py-2 px-4 font-mono text-brand-400">DEPLOYMENT.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Architecture decision</td><td class="py-2 px-4 font-mono text-brand-400">DECISIONS.md</td></tr>
+                                    <tr class="border-b border-surface-800/50"><td class="py-2 px-4">Future priorities</td><td class="py-2 px-4 font-mono text-brand-400">ROADMAP.md</td></tr>
+                                    <tr><td class="py-2 px-4">Release changes</td><td class="py-2 px-4 font-mono text-brand-400">CHANGELOG.md</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            'checklist': {
+                type: 'html',
+                title: 'Pre-Flight Checklist',
+                render: () => `
+                    <div class="fade-in markdown-body">
+                        <h1>Pre-Flight Checklist</h1>
+                        <p>Before you tell your AI: <strong>"Build the app"</strong>, make sure you can answer these questions. Your progress is saved automatically.</p>
+                        
+                        <div class="mt-8 space-y-8" id="checklistContainer">
+                            <!-- Injected by app.renderChecklist() -->
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        const docTemplates = {
+            'prd': { id: '01', title: 'PRD.md', desc: 'What are we building?', content: `# Product Requirements Document
+
+## 1. Product Overview
+Product Name: [Name]
+One-Line Description: [Explain the product in one sentence.]
+Product Type: [SaaS / Mobile App / Marketplace / Internal Tool / etc.]
+Primary Platform: [Web / iOS / Android / Desktop]
+
+## 2. Problem
+What problem are we solving? [Describe]
+Why does this matter? [Explain]
+Current alternatives? [Alternatives]
+
+## 3. Goal
+Primary Goal: [What should this achieve?]
+Secondary Goals:
+- [Goal 1]
+- [Goal 2]
+
+## 4. Target Users
+Name: [Persona]
+Description: [Who are they?]
+Needs: [List needs]
+Pain Points: [List pains]
+
+## 5. User Stories
+As a [user], I want to [action] so that [outcome].
+- Example: As a user, I want to create an account to save data.
+
+## 6. Core Features
+Feature 1 — [Feature Name]
+Purpose: [What does it do?]
+User Flow: [Describe the flow.]
+Acceptance Criteria:
+- [Requirement]
+
+## 7. MVP Scope
+Must Have: [Features]
+Nice to Have: [Features]
+
+## 8. Definition of Done
+- [ ] Requirements implemented
+- [ ] Critical flows work
+- [ ] Tests pass
+- [ ] Docs updated`},
+            'design': { id: '02', title: 'DESIGN_SYSTEM.md', desc: 'What should it look and feel like?', content: `# Design System
+
+## 1. Design Direction
+Style: [Minimal / Editorial / Premium / Playful / Technical]
+Mood: [Describe overall feeling]
+Principles: [List principles]
+
+## 2. Color Palette
+Primary: #HEX
+Secondary: #HEX
+Background: #HEX
+Surface: #HEX
+Text: #HEX
+Border: #HEX
+Status (Success/Warning/Error): #HEX
+
+## 3. Typography
+Font Family: [Font]
+H1: [Size/Weight/LH]
+H2: [Size/Weight/LH]
+Body: [Size/Weight/LH]
+
+## 4. Spacing & Borders
+Base Unit: [e.g., 4px]
+Scale: 4, 8, 12, 16, 24, 32, 48, 64
+Radius: Small [val], Medium [val], Large [val]
+
+## 5. Components
+Buttons (Primary/Secondary/Danger): [Rules]
+Inputs (Default/Focus/Error): [Rules]
+Cards: [Rules]
+
+## 6. Accessibility
+- Use semantic HTML
+- Maintain contrast
+- Visible focus states`},
+            'architecture': { id: '03', title: 'ARCHITECTURE.md', desc: 'How should the system work?', content: `# Architecture
+
+## 1. System Overview
+[High level description of system]
+
+## 2. Technology Stack
+Frontend: [Tech]
+Backend: [Tech]
+Database: [Tech]
+Auth: [Tech]
+Hosting: [Tech]
+
+## 3. Components
+Frontend Responsibilities: [List]
+Backend Responsibilities: [List]
+
+## 4. Data Flow
+1. User submits form
+2. Frontend validates
+3. Request sent to API
+4. API authenticates & business logic runs
+5. DB updated
+6. Response returned & UI updates
+
+## 5. Project Structure
+src/
+├── components/
+├── services/
+├── utils/
+├── types/
+└── config/
+
+## 6. Rules & Constraints
+- UI components must not access DB directly.
+- [Other dependency rules]
+
+## 7. Failure Scenarios
+Document behavior if DB fails, API times out, etc.`},
+            'database': { id: '04', title: 'DATABASE.md', desc: 'What data exists and relates?', content: `# Database
+
+## 1. Engine & Conventions
+Engine: [PostgreSQL / MongoDB / etc.]
+Naming: Tables [convention], Columns [convention]
+
+## 2. Tables
+### users
+Columns: id, email, name, created_at
+### projects
+Columns: id, user_id, status, created_at
+
+## 3. Relationships
+users -> projects (One-to-Many)
+
+## 4. Constraints & Validation
+Required fields: [List]
+Unique fields: [List]
+
+## 5. Auditing & Soft Delete
+Soft delete enabled: [Yes/No]
+Audit fields: Created by, Updated by
+
+## 6. Migration Rules
+1. Must be documented
+2. Must have a migration file
+3. Avoid breaking existing production data`},
+            'security': { id: '05', title: 'SECURITY.md', desc: 'What must be protected?', content: `# Security Guidelines
+
+## 1. Authentication
+Provider: [Provider]
+Methods: [Email / OAuth / etc.]
+
+## 2. Authorization
+Roles: Admin, User
+Permissions matrix: [Define who can do what]
+*Must enforce server-side.*
+
+## 3. Secrets Management
+- Never hard-code credentials
+- Use env variables (.env)
+- Never expose private secrets to client bundle
+
+## 4. API Security
+- Validate all inputs
+- Rate limiting rules
+- CORS rules
+
+## 5. Data Protection
+Sensitive data list: [List]
+Encryption rules: [Rules]
+
+## 6. Checklist
+- [ ] Auth implemented
+- [ ] Server-side validation active
+- [ ] Secrets out of version control`},
+            'code': { id: '06', title: 'CODE_STYLE.md', desc: 'How should code be written?', content: `# Code Style & Conventions
+
+## 1. Principles
+- Prefer readable code
+- Keep functions focused (Single Responsibility)
+- Avoid premature abstraction
+
+## 2. Naming Conventions
+Components: [e.g., PascalCase]
+Functions: [e.g., camelCase]
+Files: [e.g., kebab-case]
+
+## 3. Component Rules
+- Reusable patterns over custom one-offs
+- Separate logic from presentation where possible
+
+## 4. Error Handling
+- Use try/catch blocks
+- standardized API error responses
+- Never swallow errors silently
+
+## 5. Tools
+Formatter: [Prettier]
+Linter: [ESLint]
+Type Checking: [TypeScript]`},
+            'testing': { id: '07', title: 'TESTING.md', desc: 'How will we know it works?', content: `# Testing Strategy
+
+## 1. Goals
+Critical flows to test:
+- User signup/login
+- Core data mutation (creation/editing)
+
+## 2. Test Types
+Unit: Utility functions, complex logic
+Integration: APIs, DB interactions
+E2E: Critical user journeys
+
+## 3. Tools
+Unit/Integration: [e.g., Jest/Vitest]
+E2E: [e.g., Cypress/Playwright]
+
+## 4. Structure
+tests/
+├── unit/
+├── integration/
+└── e2e/
+
+## 5. Definition of Done
+- Build passes
+- Lint & Typecheck passes
+- Automated tests pass
+- No blocking console errors`},
+            'agents': { id: '08', title: 'AGENTS.md', desc: 'Instructions for AI agents (Critical)', content: `# AI Coding Agent Instructions
+
+## 1. Source of Truth
+Before making changes, READ the documentation in \`/docs\`.
+Do not contradict these docs without identifying the conflict.
+
+## 2. General Rules
+- Understand existing code before modifying.
+- Reuse existing components/utilities.
+- Do not invent business requirements.
+- Avoid unrelated file changes (keep PRs focused).
+
+## 3. Planning Workflow
+1. Inspect docs & relevant code.
+2. Identify affected files & dependencies.
+3. Formulate an implementation plan.
+4. Wait for approval if required.
+
+## 4. Implementation Workflow
+- Make focused changes.
+- Preserve existing behavior.
+- Write/update tests alongside code.
+
+## 5. Completion Criteria
+Task is done when: Requirements met, Tests pass, Build succeeds, Docs updated if architecture changed.`},
+            
+            // Advanced Docs
+            'uxflows': { id: '09', title: 'UX_FLOWS.md', desc: 'User journeys step-by-step', content: `# UX Flows
+
+## Flow 1 — User Registration
+1. User opens signup page
+2. User enters email
+3. User creates password
+4. Validation runs
+5. Account is created
+6. User is redirected to onboarding
+
+Success:
+[Expected result]
+
+Failure:
+[Expected behavior]
+
+---
+
+## Flow 2 — Create Project
+1. User clicks Create Project
+2. Modal opens
+3. User enters name
+4. User submits
+5. API validates data
+6. Project is created
+7. User is redirected
+
+Loading State:
+[Behavior]
+
+Error State:
+[Behavior]
+
+Empty State:
+[Behavior]` },
+            'api': { id: '10', title: 'API.md', desc: 'API Contracts', content: `# API Documentation
+
+## GET /projects
+Authentication:
+Required
+
+Response:
+\`\`\`json
+{
+  "projects": []
+}
+\`\`\`
+
+---
+
+## POST /projects
+Authentication:
+Required
+
+Request:
+\`\`\`json
+{
+  "name": "My Project"
+}
+\`\`\`
+
+Validation:
+- name is required
+- name must be unique per user
+
+---
+
+## Error Format
+\`\`\`json
+{
+  "error": {
+    "code": "PROJECT_NOT_FOUND",
+    "message": "Project not found"
+  }
+}
+\`\`\`
+
+---
+
+## API Rules
+- Validate all inputs
+- Authenticate protected endpoints
+- Authorize resource access
+- Return consistent error responses
+- Do not expose internal implementation details` },
+            'env': { id: '11', title: 'ENVIRONMENT.md', desc: 'Variables & Secrets', content: `# Environment Configuration
+
+## Public Variables
+NEXT_PUBLIC_APP_URL=
+NEXT_PUBLIC_API_URL=
+
+---
+
+## Private Variables
+DATABASE_URL=
+AUTH_SECRET=
+STRIPE_SECRET_KEY=
+
+---
+
+## Rules
+- Never commit real secrets
+- Never expose private variables to client-side code
+- Keep local and production configuration separate
+- Document newly introduced variables` },
+            'decisions': { id: '12', title: 'DECISIONS.md', desc: 'Architectural Decisions', content: `# Architecture Decisions
+
+## Decision 001
+
+Title:
+[Decision]
+
+Date:
+[Date]
+
+Status:
+Accepted
+
+Context:
+[What problem existed?]
+
+Decision:
+[What was decided?]
+
+Alternatives:
+- [Alternative]
+- [Alternative]
+
+Reason:
+[Why?]
+
+Consequences:
+
+Positive:
+[Benefit]
+
+Tradeoff:
+[Tradeoff]
+
+This prevents you from repeatedly making the same architectural decision.` },
+            'roadmap': { id: '13', title: 'ROADMAP.md', desc: 'Now, Next, Later', content: `# Roadmap
+
+## NOW
+- [Feature]
+- [Feature]
+
+## NEXT
+- [Feature]
+- [Feature]
+
+## LATER
+- [Feature]
+- [Feature]
+
+## DEFERRED
+- [Feature]
+
+## NOT PLANNED
+- [Feature]
+
+This is particularly useful when AI starts suggesting features.` },
+            'errors': { id: '14', title: 'ERROR_HANDLING.md', desc: 'Failure behavior', content: `# Error Handling
+
+## API Errors
+
+400:
+Validation error
+
+401:
+Authentication required
+
+403:
+Permission denied
+
+404:
+Resource not found
+
+429:
+Rate limit exceeded
+
+500:
+Unexpected server error
+
+---
+## System Failures
+Include:
+- validation errors
+- API failures
+- network errors
+- authentication errors
+- permission errors
+- database failures
+- third-party failures
+- timeouts
+- empty states
+- loading states
+- retry behavior
+- user-facing messages` },
+            'obs': { id: '15', title: 'OBSERVABILITY.md', desc: 'Logs and Metrics', content: `# Observability
+
+## Logging
+
+Log:
+- Application errors
+- Authentication events
+- Important business events
+
+Never log:
+- Passwords
+- Tokens
+- API keys
+- Sensitive personal data
+
+---
+
+## Monitoring
+
+Monitor:
+- Error rate
+- API latency
+- Database performance
+- Availability` },
+            'deploy': { id: '16', title: 'DEPLOYMENT.md', desc: 'Deployment process', content: `# Deployment
+
+## Environments
+
+Development:
+[URL]
+
+Staging:
+[URL]
+
+Production:
+[URL]
+
+---
+
+## Deployment Process
+1. Run tests
+2. Run lint
+3. Run build
+4. Deploy
+5. Run smoke tests
+6. Verify monitoring
+
+---
+
+## Rollback
+[Rollback process]
+
+---
+
+## Production Checklist
+- [ ] Build succeeds
+- [ ] Environment variables configured
+- [ ] Database migrations applied
+- [ ] Monitoring enabled
+- [ ] Smoke tests pass` },
+            'changelog': { id: '17', title: 'CHANGELOG.md', desc: 'Version history', content: `# Changelog
+
+## [1.1.0]
+
+### Added
+- [Feature]
+
+### Changed
+- [Change]
+
+### Fixed
+- [Bug]
+
+### Removed
+- [Feature]` }
+        };
+
+        const checklistData = [
+            { id: 'c-prod', title: 'Product', items: [
+                { id: 'c1', label: 'Product idea is clearly defined' },
+                { id: 'c2', label: 'Problem is defined' },
+                { id: 'c3', label: 'Target user is defined' },
+                { id: 'c4', label: 'User stories are written' },
+                { id: 'c5', label: 'Core features are identified' },
+                { id: 'c6', label: 'Non-goals are defined' },
+                { id: 'c7', label: 'MVP scope is defined' }
+            ]},
+            { id: 'c-ux', title: 'UX', items: [
+                { id: 'c8', label: 'Major user flows are mapped' },
+                { id: 'c9', label: 'Loading states are defined' },
+                { id: 'c10', label: 'Empty states are defined' },
+                { id: 'c11', label: 'Error states are defined' },
+                { id: 'c12', label: 'Success states are defined' }
+            ]},
+            { id: 'c-design', title: 'Design', items: [
+                { id: 'c13', label: 'Colors are defined' },
+                { id: 'c14', label: 'Typography is defined' },
+                { id: 'c15', label: 'Spacing is defined' },
+                { id: 'c16', label: 'Components are defined' },
+                { id: 'c17', label: 'Responsive behavior is defined' },
+                { id: 'c18', label: 'Accessibility requirements are defined' }
+            ]},
+            { id: 'c-tech', title: 'Technical', items: [
+                { id: 'c19', label: 'Tech stack is defined' },
+                { id: 'c20', label: 'Architecture is documented' },
+                { id: 'c21', label: 'Project structure is documented' },
+                { id: 'c22', label: 'Data flow is documented' },
+                { id: 'c23', label: 'Database schema is planned' },
+                { id: 'c24', label: 'API contracts are defined' }
+            ]},
+            { id: 'c-sec', title: 'Security', items: [
+                { id: 'c25', label: 'Authentication is defined' },
+                { id: 'c26', label: 'Authorization is defined' },
+                { id: 'c27', label: 'Secrets strategy is defined' },
+                { id: 'c28', label: 'Sensitive data is identified' },
+                { id: 'c29', label: 'API security requirements are documented' }
+            ]},
+            { id: 'c-code', title: 'Code', items: [
+                { id: 'c30', label: 'Naming conventions are defined' },
+                { id: 'c31', label: 'Folder conventions are defined' },
+                { id: 'c32', label: 'Formatting rules are defined' },
+                { id: 'c33', label: 'Error handling is defined' },
+                { id: 'c34', label: 'Logging rules are defined' }
+            ]},
+            { id: 'c-test', title: 'Testing', items: [
+                { id: 'c35', label: 'Critical user flows identified' },
+                { id: 'c36', label: 'Test strategy defined' },
+                { id: 'c37', label: 'Test tools selected' },
+                { id: 'c38', label: 'Definition of done defined' },
+                { id: 'c39', label: 'Build validation defined' }
+            ]},
+            { id: 'c-ai', title: 'AI', items: [
+                { id: 'c40', label: 'AGENTS.md exists' },
+                { id: 'c41', label: 'AI workflow defined' },
+                { id: 'c42', label: 'Source of truth defined' },
+                { id: 'c43', label: 'Validation process defined' },
+                { id: 'c44', label: 'Documentation update process defined' }
+            ]}
+        ];
+
+        const state = {
+            activeView: 'overview',
+            checklist: JSON.parse(localStorage.getItem('vibeChecklist')) || {}
+        };
+
+        const uiHelpers = {
+            createCodeBlock: (filename, code) => {
+                // Sanitize code for HTML insertion
+                const safeCode = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                const uniqueId = 'code-' + Math.random().toString(36).substr(2, 9);
+                return `
+                    <div class="my-8 rounded-xl overflow-hidden glass-panel border border-white/10 group relative transition-all duration-300 hover:border-white/20 hover:shadow-2xl">
+                        <!-- IDE Header -->
+                        <div class="flex items-center justify-between px-4 py-3 bg-black/40 border-b border-white/5">
+                            <div class="flex items-center gap-4">
+                                <!-- Mac Window Controls -->
+                                <div class="flex items-center gap-1.5">
+                                    <div class="w-3 h-3 rounded-full bg-zinc-700 group-hover:bg-red-500/80 transition-colors duration-300"></div>
+                                    <div class="w-3 h-3 rounded-full bg-zinc-700 group-hover:bg-yellow-500/80 transition-colors duration-300 delay-75"></div>
+                                    <div class="w-3 h-3 rounded-full bg-zinc-700 group-hover:bg-green-500/80 transition-colors duration-300 delay-150"></div>
+                                </div>
+                                <div class="flex items-center gap-2 text-zinc-500 border-l border-white/10 pl-4">
+                                    <i class="ph-duotone ph-file-code"></i>
+                                    <span class="text-[11px] font-mono tracking-wide text-zinc-300">${filename}</span>
+                                </div>
+                            </div>
+                            <button onclick="app.copyToClipboard('${uniqueId}')" class="flex items-center gap-1.5 text-[11px] font-medium text-zinc-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/5 px-2.5 py-1 rounded-md">
+                                <i class="ph ph-copy"></i> Copy
+                            </button>
+                        </div>
+                        <!-- Code Content -->
+                        <div class="p-5 overflow-x-auto relative bg-[#050505]/50 backdrop-blur-sm">
+                            <pre id="${uniqueId}" class="text-[13px] font-mono text-zinc-300 leading-relaxed m-0 selection:bg-brand-500/30 selection:text-white">${safeCode}</pre>
+                        </div>
+                    </div>
+                `;
+            },
+            
+            updateChecklistProgress: () => {
+                const total = checklistData.reduce((acc, group) => acc + group.items.length, 0);
+                const completed = Object.values(state.checklist).filter(v => v).length;
+                document.getElementById('checklistProgress').textContent = `${completed}/${total}`;
+                
+                if(completed === total && total > 0) {
+                    document.getElementById('checklistProgress').classList.add('bg-emerald-500/20', 'text-emerald-400');
+                    document.getElementById('checklistProgress').classList.remove('bg-surface-800', 'text-slate-300');
+                } else {
+                    document.getElementById('checklistProgress').classList.remove('bg-emerald-500/20', 'text-emerald-400');
+                    document.getElementById('checklistProgress').classList.add('bg-surface-800', 'text-slate-300');
+                }
+            }
+        };
+
+        const app = {
+            init: () => {
+                app.buildSidebar();
+                app.navigate(state.activeView);
+                uiHelpers.updateChecklistProgress();
+                app.setupMobileMenu();
+            },
+
+            buildSidebar: () => {
+                const coreNav = document.getElementById('navGroupCore');
+                const advNav = document.getElementById('navGroupAdvanced');
+                
+                let coreHtml = '';
+                let advHtml = '';
+
+                Object.keys(docTemplates).forEach((key, index) => {
+                    const doc = docTemplates[key];
+                    const btnHtml = `
+                        <button onclick="app.navigate('${key}')" id="nav-${key}" class="nav-link w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/5 transition-all text-left group relative">
+                            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-brand-400 rounded-r-full transition-all duration-300 nav-indicator"></div>
+                            <span class="text-[9px] font-mono bg-black/30 border border-white/5 px-1.5 py-0.5 rounded text-zinc-500 group-hover:text-brand-400 transition-colors">${doc.id}</span>
+                            <span class="truncate tracking-tight">${doc.title}</span>
+                        </button>
+                    `;
+                    if (index < 8) coreHtml += btnHtml;
+                    else advHtml += btnHtml;
+                });
+
+                coreNav.innerHTML = coreHtml;
+                advNav.innerHTML = advHtml;
+            },
+
+            navigate: (viewId) => {
+                state.activeView = viewId;
+                
+                // Update active state in sidebar
+                document.querySelectorAll('.nav-link').forEach(el => {
+                    el.classList.remove('bg-brand-500/10', 'text-brand-300', 'active');
+                    el.classList.add('text-zinc-400');
+                    el.querySelector('.nav-indicator').classList.remove('h-4');
+                    el.querySelector('.nav-indicator').classList.add('h-0');
+                });
+                const activeLink = document.getElementById(`nav-${viewId}`);
+                if (activeLink) {
+                    activeLink.classList.remove('text-zinc-400');
+                    activeLink.classList.add('bg-brand-500/10', 'text-brand-300', 'active');
+                    activeLink.querySelector('.nav-indicator').classList.remove('h-0');
+                    activeLink.querySelector('.nav-indicator').classList.add('h-4');
+                }
+
+                // Render Content
+                const stage = document.getElementById('contentStage');
+                const scrollArea = document.getElementById('mainScroll');
+                
+                // Check if view is a document template
+                if (docTemplates[viewId]) {
+                    const doc = docTemplates[viewId];
+                    stage.innerHTML = `
+                        <div class="fade-in markdown-body pb-12">
+                            <div class="mb-8 flex items-center gap-4">
+                                <span class="bg-gradient-to-br from-brand-500 to-brand-cyan text-white shadow-glow font-mono font-bold px-2.5 py-1 rounded-md text-xs tracking-wider">${doc.id}</span>
+                                <h1 class="!mb-0 !mt-0 !text-3xl">${doc.title}</h1>
+                            </div>
+                            <p class="text-lg text-zinc-400 border-l-2 border-brand-500/50 pl-5 mb-10 leading-relaxed font-light">${doc.desc}</p>
+                            ${uiHelpers.createCodeBlock(doc.title, doc.content)}
+                        </div>
+                    `;
+                } else if (contentDB[viewId]) {
+                    // Render static view
+                    stage.innerHTML = contentDB[viewId].render();
+                    if(viewId === 'checklist') app.renderChecklist();
+                }
+
+                // Reset scroll and close mobile menu if open
+                scrollArea.scrollTop = 0;
+                if (window.innerWidth < 1024) {
+                    app.toggleMobileMenu(false);
+                }
+            },
+
+            renderChecklist: () => {
+                const container = document.getElementById('checklistContainer');
+                if(!container) return;
+                
+                let html = '';
+                checklistData.forEach((group, groupIndex) => {
+                    html += `
+                        <div class="glass-panel rounded-2xl p-6 fade-in" style="animation-delay: ${groupIndex * 50}ms">
+                            <h3 class="text-brand-400 font-bold mb-5 uppercase tracking-[0.15em] text-xs flex items-center gap-2">
+                                <i class="ph-duotone ph-target"></i> ${group.title}
+                            </h3>
+                            <div class="space-y-1">
+                    `;
+                    group.items.forEach(item => {
+                        const isChecked = state.checklist[item.id] ? 'checked' : '';
+                        const textClass = isChecked ? 'text-zinc-600 line-through' : 'text-zinc-300';
+                        html += `
+                            <label class="group flex items-start gap-4 cursor-pointer p-2 -mx-2 rounded-lg hover:bg-white/5 transition-colors">
+                                <div class="relative flex items-center justify-center w-5 h-5 mt-0.5 rounded border border-white/20 bg-black/40 transition-colors duration-300 ${isChecked ? 'bg-brand-500 border-brand-500 shadow-glow' : 'group-hover:border-white/40'}">
+                                    <input type="checkbox" id="${item.id}" class="task-checkbox" ${isChecked} onchange="app.toggleChecklist('${item.id}', this, this.nextElementSibling)">
+                                    ${isChecked ? '<i class="ph-bold ph-check text-white text-xs"></i>' : ''}
+                                </div>
+                                <span class="text-sm select-none transition-all duration-300 ${textClass}">${item.label}</span>
+                            </label>
+                        `;
+                    });
+                    html += `</div></div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            toggleChecklist: (id, inputEl, textEl) => {
+                const isChecked = inputEl.checked;
+                state.checklist[id] = isChecked;
+                localStorage.setItem('vibeChecklist', JSON.stringify(state.checklist));
+                uiHelpers.updateChecklistProgress();
+                
+                // Re-render the specific group to update the checkmark SVG smoothly
+                app.renderChecklist();
+            },
+
+            navigate: (viewId) => {
+                state.activeView = viewId;
+                
+                // Update active state in sidebar
+                document.querySelectorAll('.nav-link').forEach(el => {
+                    el.classList.remove('bg-brand-500/10', 'text-brand-400', 'active');
+                    el.classList.add('text-slate-400');
+                });
+                const activeLink = document.getElementById(`nav-${viewId}`);
+                if (activeLink) {
+                    activeLink.classList.remove('text-slate-400');
+                    activeLink.classList.add('bg-brand-500/10', 'text-brand-400', 'active');
+                }
+
+                // Render Content
+                const stage = document.getElementById('contentStage');
+                const scrollArea = document.getElementById('mainScroll');
+                
+                // Check if view is a document template
+                if (docTemplates[viewId]) {
+                    const doc = docTemplates[viewId];
+                    stage.innerHTML = `
+                        <div class="fade-in markdown-body">
+                            <div class="mb-6 flex items-center gap-3">
+                                <span class="bg-brand-500 text-slate-950 font-mono font-bold px-2 py-1 rounded text-sm">${doc.id}</span>
+                                <h1 class="!mb-0 !mt-0">${doc.title}</h1>
+                            </div>
+                            <p class="text-lg text-slate-400 border-l-2 border-surface-800 pl-4 mb-8">${doc.desc}</p>
+                            ${uiHelpers.createCodeBlock(doc.title, doc.content)}
+                        </div>
+                    `;
+                } else if (contentDB[viewId]) {
+                    // Render static view
+                    stage.innerHTML = contentDB[viewId].render();
+                    if(viewId === 'checklist') app.renderChecklist();
+                }
+
+                // Reset scroll and close mobile menu if open
+                scrollArea.scrollTop = 0;
+                if (window.innerWidth < 1024) {
+                    app.toggleMobileMenu(false);
+                }
+            },
+
+            renderChecklist: () => {
+                const container = document.getElementById('checklistContainer');
+                if(!container) return;
+                
+                let html = '';
+                checklistData.forEach(group => {
+                    html += `
+                        <div class="bg-surface-900 border border-surface-800 rounded-xl p-6">
+                            <h3 class="text-brand-400 font-bold mb-4 uppercase tracking-wider text-sm flex items-center gap-2">
+                                <i class="ph ph-target"></i> ${group.title}
+                            </h3>
+                            <div class="space-y-3">
+                    `;
+                    group.items.forEach(item => {
+                        const isChecked = state.checklist[item.id] ? 'checked' : '';
+                        html += `
+                            <div class="flex items-start gap-3">
+                                <input type="checkbox" id="${item.id}" class="task-checkbox mt-1 w-4 h-4 rounded border-surface-700 bg-surface-950 text-brand-500 focus:ring-brand-500 focus:ring-offset-surface-900 cursor-pointer" ${isChecked} onchange="app.toggleChecklist('${item.id}', this.checked)">
+                                <label for="${item.id}" class="text-sm cursor-pointer select-none leading-relaxed">${item.label}</label>
+                            </div>
+                        `;
+                    });
+                    html += `</div></div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            toggleChecklist: (id, isChecked) => {
+                state.checklist[id] = isChecked;
+                localStorage.setItem('vibeChecklist', JSON.stringify(state.checklist));
+                uiHelpers.updateChecklistProgress();
+            },
+
+            copyToClipboard: (elementId) => {
+                const preElement = document.getElementById(elementId);
+                // Extract raw text, replacing common HTML entities back to raw form if necessary
+                const text = preElement.innerText || preElement.textContent;
+                
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(text).then(app.showToast).catch(err => app.fallbackCopy(text));
+                } else {
+                    app.fallbackCopy(text);
+                }
+            },
+
+            fallbackCopy: (text) => {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.opacity = "0";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    app.showToast();
+                } catch (err) {
+                    console.error('Copy failed', err);
+                }
+                document.body.removeChild(textArea);
+            },
+
+            showToast: () => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 2500);
+            },
+
+            setupMobileMenu: () => {
+                const btn = document.getElementById('mobileMenuBtn');
+                const overlay = document.getElementById('sidebarOverlay');
+                btn.addEventListener('click', () => app.toggleMobileMenu());
+                overlay.addEventListener('click', () => app.toggleMobileMenu(false));
+            },
+
+            toggleMobileMenu: (forceState) => {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('sidebarOverlay');
+                const isCurrentlyClosed = sidebar.classList.contains('-translate-x-full');
+                
+                const open = forceState !== undefined ? forceState : isCurrentlyClosed;
+
+                if (open) {
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.remove('hidden');
+                    document.body.classList.add('menu-open'); // Scroll lock
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.add('hidden');
+                    document.body.classList.remove('menu-open');
+                }
+            }
+        };
+
+        // Initialize application on load
+        document.addEventListener('DOMContentLoaded', app.init);
+    </script>
+</body>
+</html>
