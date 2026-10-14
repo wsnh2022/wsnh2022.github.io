@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library | Yoghesh | @datacraft.yogi</title>
+    <meta name="description"
+        content="Cheatsheets, prompt libraries and small browser tools by Yoghesh. Free to use, searchable, and built to be quick.">
+
+    <meta property="og:url" content="https://wsnh2022.github.io/library">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Library | Yoghesh | @datacraft.yogi">
+    <meta property="og:description" content="Cheatsheets, prompt libraries and small browser tools by Yoghesh.">
+    <meta property="og:image" content="https://wsnh2022.github.io/assets/images/meta/og_tag.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="wsnh2022.github.io">
+    <meta property="twitter:url" content="https://wsnh2022.github.io/library">
+    <meta name="twitter:title" content="Library | Yoghesh | @datacraft.yogi">
+    <meta name="twitter:description" content="Cheatsheets, prompt libraries and small browser tools by Yoghesh.">
+    <meta name="twitter:image" content="https://wsnh2022.github.io/assets/images/meta/og_tag.png">
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%2338bdf8'>Y</text></svg>">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YT5JNT9C24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-YT5JNT9C24');
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        midnight: '#030712',
+                        panel: '#0a0e27',
+                        accent: '#38bdf8',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass {
+            background: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-background {
+            background-color: #030712;
+            background-image: radial-gradient(#1f2937 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .hover-card {
+            transition: all 0.3s ease;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .noise::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 9999;
+            filter: contrast(120%) brightness(120%);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(10, 14, 39, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.7);
+        }
+
+        /* ─── FAB Navigation (Mobile/Tablet Only) ─── */
+        #fab-menu {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            pointer-events: none;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+        }
+
+        #fab-menu.open {
+            max-height: 600px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .fab-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            border-radius: 9999px;
+            background: rgba(3, 7, 18, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: border-color 0.2s, transform 0.15s;
+        }
+
+        .fab-item i {
+            color: #38bdf8;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .fab-item:hover {
+            border-color: #38bdf8;
+            transform: translateX(-3px);
+        }
+
+        /* Hire Me CTA - Aurora Gradient */
+        .btn-hire {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #38bdf8, #8b5cf6, #ec4899);
+            background-size: 200% 200%;
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 9999px;
+            box-shadow: 0 8px 24px -6px rgba(139, 92, 246, 0.55);
+            transition: all 0.3s ease;
+        }
+
+        .btn-hire:hover {
+            background-position: 100% 50%;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -6px rgba(236, 72, 153, 0.65);
+        }
+
+        .btn-hire-nav {
+            padding: 0.4375rem 1.25rem;
+            font-size: 0.8125rem;
+        }
+
+        .btn-hire-hero {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+        }
+
+        .btn-hire-sm {
+            padding: 0.625rem 1.25rem;
+            font-size: 0.75rem;
+        }
+
+        .fab-socials {
+            display: flex;
+            gap: 8px;
+        }
+
+        .fab-social {
+            width: 38px;
+            height: 38px;
+            border-radius: 9999px;
+            background: rgba(3, 7, 18, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: border-color 0.2s, color 0.2s, transform 0.15s;
+        }
+
+        .fab-social:hover {
+            transform: scale(1.1);
+        }
+
+        .fab-social.linkedin:hover {
+            border-color: #0077b5;
+            color: #0077b5;
+        }
+
+        .fab-social.github:hover {
+            border-color: #e2e8f0;
+            color: #e2e8f0;
+        }
+
+        .fab-social.insta:hover {
+            border-color: #E1306C;
+            color: #E1306C;
+        }
+
+        #fab-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 9999px;
+            background: #38bdf8;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #030712;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        #fab-btn:hover {
+            background: #7dd3fc;
+            transform: scale(1.05);
+        }
+
+        #fab-btn:active {
+            transform: scale(0.95);
+        }
+
+        #fab-icon {
+            transition: transform 0.3s ease;
+        }
+
+        /* Mobile Tab Bar */
+        .tab-scroll {
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tab-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-link {
+            position: relative;
+            padding: 0.5rem 0.5rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: #94a3b8;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .tab-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            right: 50%;
+            height: 2px;
+            background: #38bdf8;
+            border-radius: 2px 2px 0 0;
+            transition: left 0.2s, right 0.2s;
+        }
+
+        .tab-link.active {
+            color: #38bdf8;
+        }
+
+        .tab-link.active::after {
+            left: 0.5rem;
+            right: 0.5rem;
+        }
+
+        .tab-link:hover {
+            color: #e2e8f0;
+        }
+
+        /* Mobile Social Circles */
+        .nb-mob-social {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 9999px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .nb-mob-social.li:hover {
+            color: #0077b5;
+            border-color: rgba(0, 119, 181, 0.5);
+            background: rgba(0, 119, 181, 0.08);
+        }
+
+        .nb-mob-social.gh:hover {
+            color: #e2e8f0;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nb-mob-social.ig:hover {
+            color: #E1306C;
+            border-color: rgba(225, 48, 108, 0.5);
+            background: rgba(225, 48, 108, 0.08);
+        }
+    
+        .lib-card { display: flex; flex-direction: column; height: 100%; text-decoration: none; }
+        .lib-card .go { transition: transform 0.2s, color 0.2s; }
+        .lib-card:hover .go { transform: translateX(4px); color: #38bdf8; }
+        .lib-card:focus-visible { outline: 2px solid #38bdf8; outline-offset: 3px; }
+    </style>
+</head>
+
+<body class="bg-midnight text-white font-sans antialiased noise">
+
+    <div class="hero-background fixed inset-0 z-0"></div>
+    <div
+        class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none z-0">
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-5xl glass rounded-2xl z-50 shadow-2xl">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="./assets/images/logo/freelance.png" alt="Yoghesh" class="w-8 h-8 rounded-lg object-cover">
+                    <span class="font-display font-bold text-xl text-white">Yoghesh</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex gap-8 text-sm font-medium text-slate-400 items-center ml-8">
+                    <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                    <a href="experience.html" class="hover:text-white transition-colors">Experience</a>
+                    <a href="projects.html" class="hover:text-white transition-colors">Projects</a>
+                    <a href="design.html" class="hover:text-white transition-colors">Design</a>
+                    <a href="library.html" class="text-accent hover:text-accent/80 transition-colors">Library</a>
+                    <a href="index.html#contact" class="hover:text-white transition-colors">Contact</a>
+                </div>
+
+                <!-- Desktop Social Icons -->
+                <div class="hidden lg:flex items-center gap-2 pl-4 border-l border-white/10">
+                    <a href="https://www.linkedin.com/in/yoghesh369/" target="_blank" rel="noopener noreferrer"
+                        class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5"
+                        title="LinkedIn">
+                        <i class="fab fa-linkedin text-base"></i>
+                    </a>
+                    <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer"
+                        class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5"
+                        title="GitHub">
+                        <i class="fab fa-github text-base"></i>
+                    </a>
+                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer"
+                        class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5"
+                        title="Instagram">
+                        <i class="fab fa-instagram text-base"></i>
+                    </a>
+                </div>
+
+                <!-- Hire Me CTA -->
+                <div class="hidden lg:flex items-center pl-4 ml-2">
+                    <a href="index.html#contact" class="btn-hire btn-hire-nav">Hire Me</a>
+                </div>
+
+                <!-- Mobile Social Icons -->
+                <div class="flex lg:hidden items-center gap-1.5">
+                    <a href="https://www.linkedin.com/in/yoghesh369/" target="_blank" rel="noopener noreferrer"
+                        class="nb-mob-social li" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer"
+                        class="nb-mob-social gh" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer"
+                        class="nb-mob-social ig" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <!-- Mobile Menu Button (hidden – FAB handles mobile nav) -->
+                <button id="mobileMenuBtn" class="hidden text-slate-400 hover:text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Tab Bar -->
+            <div class="tab-scroll flex lg:hidden items-center -mx-6 px-2 border-t border-white/5">
+                <a href="experience.html" class="tab-link">Experience</a>
+                <a href="projects.html" class="tab-link">Projects</a>
+                <a href="design.html" class="tab-link">Design</a>
+                <a href="library.html" class="tab-link active">Library</a>
+                <a href="index.html#contact" class="tab-link">Contact</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <main class="relative z-10 pt-32 pb-20 px-4 max-w-6xl mx-auto">
+
+        <header class="text-center mb-14 scroll-reveal">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/25 text-accent text-xs font-mono mb-6 backdrop-blur-sm">
+                <i class="fas fa-book-open text-[9px]"></i> LIBRARY
+            </div>
+            <h1 class="font-display text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                Cheatsheets, prompts &<br class="hidden md:block">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400">small
+                    tools</span>
+            </h1>
+            <p class="text-white/60 text-base max-w-xl mx-auto leading-relaxed">
+                Quick references and browser tools I built for my own work and keep open for anyone. Each one is a single
+                page: search it, copy from it, or use it.
+            </p>
+        </header>
+
+        <div id="libraryGroups"></div>
+        <noscript>
+            <p class="text-center text-white/60 text-sm">This page draws its cards with JavaScript. The pages are:
+                <a class="text-accent" href="prompts.html">Prompts</a>,
+                <a class="text-accent" href="vibecode.html">Vibe Coding</a>,
+                <a class="text-accent" href="agentic-ai.html">Agentic AI</a>,
+                <a class="text-accent" href="sql-reference.html">SQL</a>,
+                <a class="text-accent" href="ahkmenu.html">AHKMenu</a>,
+                <a class="text-accent" href="pin-annotator_v8.html">Pin Annotator</a>.</p>
+        </noscript>
+
+        <section class="text-center mt-16 scroll-reveal">
+            <div class="glass rounded-2xl p-8 border border-white/5 max-w-xl mx-auto">
+                <p class="text-white/70 text-sm mb-5 leading-relaxed">Looking for bigger builds, like bots, dashboards and
+                    desktop apps?</p>
+                <a href="projects.html" class="btn-hire btn-hire-sm"><i class="fas fa-code"></i>See Projects</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 border-t border-white/5 mt-12 bg-black/20 relative z-10">
+        <p class="text-sm text-slate-600 font-mono">&copy; 2026 Yoghesh. Data Analyst · Automation · Design & Content.
+        </p>
+        <p class="text-sm text-slate-700 font-mono mt-2">Built with precision. Optimized for impact.</p>
+    </footer>
+
+    <script src="assets/hub.js"></script>
+    <script>
+        const HUB = window.HUB;
+        const tone = {
+            purple: ['bg-purple-500/10', 'text-purple-400'],
+            sky: ['bg-accent/10', 'text-accent'],
+            emerald: ['bg-emerald-500/10', 'text-emerald-400']
+        };
+        const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+        document.getElementById('libraryGroups').innerHTML = HUB.groups.map((g, gi) => {
+            const [bg, fg] = tone[g.c];
+            const cards = HUB.pages.filter(p => p.g === gi).map(p => `
+                <a href="${p.href}" class="lib-card glass rounded-2xl p-6 hover-card border border-white/5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-xl ${bg} flex items-center justify-center shrink-0">
+                            <i class="fas ${p.ic} ${fg}"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-lg leading-tight">${esc(p.t)}</h3>
+                    </div>
+                    <p class="text-white/60 text-sm leading-relaxed mb-4">${esc(p.s)}</p>
+                    <div class="flex flex-wrap gap-1.5 mb-5">
+                        ${p.tags.map(t => `<span class="text-xs bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-400">${esc(t)}</span>`).join('')}
+                    </div>
+                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-white/5 text-sm font-medium text-white/80">
+                        <span>Open</span><i class="fas fa-arrow-right go text-xs"></i>
+                    </div>
+                </a>`).join('');
+            return `
+            <section class="mb-12 scroll-reveal">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas ${g.ic} ${fg} text-sm"></i>
+                    <h2 class="text-sm font-bold text-white uppercase tracking-widest">${esc(g.t)}</h2>
+                    <div class="flex-1 h-px bg-white/5"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5">${cards}</div>
+            </section>`;
+        }).join('');
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }).observe(el);
+        });
+    </script>
+
+    <!-- FAB Navigation - Mobile/Tablet Only -->
+    <div id="fab-nav" class="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3 lg:hidden">
+        <div id="fab-menu" class="flex flex-col gap-2 items-end">
+            <div class="fab-socials">
+                <a href="https://www.linkedin.com/in/yoghesh369/" target="_blank" rel="noopener noreferrer"
+                    class="fab-social linkedin"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/wsnh2022" target="_blank" rel="noopener noreferrer"
+                    class="fab-social github"><i class="fab fa-github"></i></a>
+                <a href="https://www.instagram.com/datacraft.yogi/" target="_blank" rel="noopener noreferrer"
+                    class="fab-social insta"><i class="fab fa-instagram"></i></a>
+            </div>
+            <a href="index.html#contact" class="fab-item"
+                style="background:linear-gradient(135deg, #38bdf8, #8b5cf6, #ec4899);color:#fff;border-color:transparent;"><i
+                    class="fas fa-handshake" style="color:#fff;"></i><span>Hire Me</span></a>
+            <a href="design.html" class="fab-item"><i class="fas fa-paint-brush"></i><span>Design</span></a>
+            <a href="library.html" class="fab-item"><i class="fas fa-book-open"></i><span>Library</span></a>
+            <a href="projects.html" class="fab-item"><i class="fas fa-code"></i><span>Projects</span></a>
+            <a href="experience.html" class="fab-item"><i class="fas fa-briefcase"></i><span>Experience</span></a>
+            <a href="index.html" class="fab-item"><i class="fas fa-home"></i><span>Home</span></a>
+        </div>
+        <button id="fab-btn" aria-label="Navigation menu">
+            <i id="fab-icon" class="fas fa-compass"></i>
+        </button>
+    </div>
+    <script>
+        (function () {
+            const fabBtn = document.getElementById('fab-btn');
+            const fabMenu = document.getElementById('fab-menu');
+            const fabIcon = document.getElementById('fab-icon');
+            let isOpen = false;
+            function fabOpen() { isOpen = true; fabMenu.classList.add('open'); fabIcon.style.transform = 'rotate(90deg)'; }
+            function fabClose() { isOpen = false; fabMenu.classList.remove('open'); fabIcon.style.transform = 'rotate(0deg)'; }
+            fabBtn.addEventListener('click', (e) => { e.stopPropagation(); isOpen ? fabClose() : fabOpen(); });
+            fabMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', fabClose));
+            document.addEventListener('click', (e) => { if (isOpen && !document.getElementById('fab-nav').contains(e.target)) fabClose(); });
+        })();
+    </script>
+
+</body>
+
+</html>

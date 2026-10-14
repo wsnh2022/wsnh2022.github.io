@@ -836,10 +836,19 @@
         }
 
         /* Mobile Tab Bar */
+        .tab-scroll {
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tab-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
         .tab-link {
             position: relative;
-            padding: 0.5rem 0.875rem;
-            font-size: 0.8125rem;
+            padding: 0.5rem 0.5rem;
+            font-size: 0.78rem;
             font-weight: 500;
             color: #94a3b8;
             text-decoration: none;
@@ -864,8 +873,8 @@
         }
 
         .tab-link.active::after {
-            left: 0.875rem;
-            right: 0.875rem;
+            left: 0.5rem;
+            right: 0.5rem;
         }
 
         .tab-link:hover {
@@ -936,6 +945,7 @@
                     <a href="experience.html" class="hover:text-white transition-colors">Experience</a>
                     <a href="projects.html" class="text-accent hover:text-accent/80 transition-colors">Projects</a>
                     <a href="design.html" class="hover:text-white transition-colors">Design</a>
+                    <a href="library.html" class="hover:text-white transition-colors">Library</a>
                     <a href="index.html#contact" class="hover:text-white transition-colors">Contact</a>
                 </div>
 
@@ -980,10 +990,11 @@
             </div>
 
             <!-- Mobile Tab Bar -->
-            <div class="flex lg:hidden items-center -mx-6 px-2 border-t border-white/5 overflow-hidden">
+            <div class="tab-scroll flex lg:hidden items-center -mx-6 px-2 border-t border-white/5">
                 <a href="experience.html" class="tab-link">Experience</a>
                 <a href="projects.html" class="tab-link active">Projects</a>
                 <a href="design.html" class="tab-link">Design</a>
+                <a href="library.html" class="tab-link">Library</a>
                 <a href="index.html#contact" class="tab-link">Contact</a>
             </div>
 
@@ -2909,6 +2920,7 @@
                 style="background:linear-gradient(135deg, #38bdf8, #8b5cf6, #ec4899);color:#fff;border-color:transparent;"><i
                     class="fas fa-handshake" style="color:#fff;"></i><span>Hire Me</span></a>
             <a href="design.html" class="fab-item"><i class="fas fa-paint-brush"></i><span>Design</span></a>
+            <a href="library.html" class="fab-item"><i class="fas fa-book-open"></i><span>Library</span></a>
             <a href="projects.html" class="fab-item"><i class="fas fa-code"></i><span>Projects</span></a>
             <a href="experience.html" class="fab-item"><i class="fas fa-briefcase"></i><span>Experience</span></a>
             <a href="index.html" class="fab-item"><i class="fas fa-home"></i><span>Home</span></a>
