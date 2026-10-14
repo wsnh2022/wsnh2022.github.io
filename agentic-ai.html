@@ -400,6 +400,28 @@ body:not(.anim) .rp{display:none}
 .cosrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .cosrow svg{width:130px;height:auto;flex:none;border:2px solid #111;background:#faf8f0}
 .cosrow p{flex:1 1 180px;margin:0;font-size:13.5px}
+/* embeddings walk-through */
+.em-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.em-flow .ic{width:18px;height:18px}
+.em-m{background:#ffd84d}
+.em-v{font:600 13px/1.3 var(--mono);background:#fff;border:2px solid #111;padding:3px 8px;overflow-wrap:anywhere}
+.em-hr{border:0;border-top:2px dashed #111;margin:2px 0;width:100%}
+.em-t{border-collapse:separate;border-spacing:3px;width:100%;font-size:13px}
+.em-t th{font:800 10px/1.2 var(--body);letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:3px 2px;color:#444}
+.em-t td{border:2px solid #111;text-align:center;font:700 13px/1 var(--mono);padding:8px 4px;min-width:34px}
+.em-t td.em-w{text-align:left;background:#f6f3e8;font:800 14px/1 var(--body);padding:8px 10px;white-space:nowrap}
+.em-t td.em-s{font:600 12px/1.2 var(--body);background:#fff;white-space:nowrap;padding:8px 8px}
+.em-t td.em-s b{font:800 14px/1 var(--mono)}
+.em-t td.em-s.near{background:#9be7c4}
+.em-t td.em-s.far{background:#ff8fb8}
+.em-t th:last-child{white-space:normal}
+@media (max-width:560px){
+  .em-t{border-spacing:2px}
+  .em-t td{padding:7px 1px;min-width:0;font-size:12px}
+  .em-t td.em-w{padding:7px 5px;font-size:13px}
+  .em-t td.em-s{white-space:normal;padding:4px 3px;font-size:10.5px;line-height:1.15}
+  .em-t td.em-s b{display:block;font-size:13px}
+}
 /* chunk explorer */
 .fg-chunk{display:grid;gap:10px}
 .cg-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
@@ -1667,6 +1689,23 @@ const FIGS = {
       `<text x="185" y="192" style="font-size:10.5px">more traffic →</text><text x="14" y="95" style="font-size:10.5px" transform="rotate(-90 14 95)">monthly cost →</text></svg>` +
       (s.cap ? `<p class="fg-c">${fmt(s.cap)}</p>` : "");
   },
+  embed(s){
+    const cos = (a, b) => { let d = 0, x = 0, y = 0; a.forEach((v, i) => { d += v * b[i]; x += v * v; y += b[i] * b[i]; }); return d / Math.sqrt(x * y); };
+    const base = s.words[0];
+    const arrow = ic("i-arrow");
+    const flow = `<div class="em-flow"><span class="chip">"${esc(s.sample)}"</span>${arrow}<span class="chip em-m">Embedding model</span>${arrow}<code class="em-v">[${s.words.find(w => w.w === s.sample).v.map(v => v.toFixed(1)).join(", ")}, ...]</code></div>` +
+      `<p class="fg-c"><b>1. Text goes in, a list of numbers comes out.</b> Real ones have hundreds or thousands of numbers. Here they are cut down to ${s.words[0].v.length}, and made up, so you can see them.</p>`;
+    const head = `<tr><th>Word</th>${base.v.map((_, i) => `<th>#${i + 1}</th>`).join("")}<th>Match with "${esc(base.w)}"</th></tr>`;
+    const rows = s.words.map((w, wi) => {
+      const sc = cos(base.v, w.v);
+      const tag = wi === 0 ? "itself" : sc > 0.8 ? "close" : "far apart";
+      return `<tr><td class="em-w">${esc(w.w)}</td>${w.v.map(v => `<td style="background:rgba(59,91,255,${(0.1 + 0.8 * v).toFixed(2)});color:${v > 0.5 ? "#fff" : "#111"}">${v.toFixed(1)}</td>`).join("")}<td class="em-s ${wi === 0 ? "" : sc > 0.8 ? "near" : "far"}"><b>${wi === 0 ? "1.00" : sc.toFixed(2)}</b> ${tag}</td></tr>`;
+    }).join("");
+    const table = `<div class="ftw"><table class="em-t"><thead>${head}</thead><tbody>${rows}</tbody></table></div>` +
+      `<p class="fg-c"><b>2. Similar meaning gives a similar pattern of numbers.</b> The match score runs from 0 to 1. Higher means closer in meaning.</p>`;
+    const map = `<p class="fg-c"><b>3. The same numbers, drawn as a map.</b> Close dots mean close meaning. Tap or hover a dot.</p>` + FIGS.map(s.map);
+    return flow + `<hr class="em-hr">` + table + `<hr class="em-hr">` + map;
+  },
   chunk(){ return `<div class="fg-chunk"></div>`; },
   hnsw(s){
     const lay = [[14,"Few points: highways"],[81,"More points: main roads"],[148,"Every point: local streets"]];
@@ -1727,12 +1766,14 @@ const PIC = {
            { w:"bot", t:`"Sorry, I only help with billing questions."` } ],
     cap:"The user never sees the top box, but it shapes every answer below it." },
   /* ----- 03 Vector Databases ----- */
-  "3:Embeddings": { k:"map", mode:"explore", w:1, alt:"map where similar words sit close together",
-    top:"Tap or hover a dot. Meaning becomes position: similar things sit close together.",
-    pts:[ {l:"dog",x:70,y:62,g:0}, {l:"puppy",x:112,y:88,g:0}, {l:"cat",x:52,y:108,g:0},
-          {l:"invoice",x:335,y:182,g:1}, {l:"receipt",x:296,y:134,g:1}, {l:"payment",x:238,y:140,g:1},
-          {l:"flight",x:300,y:48,g:2}, {l:"hotel",x:232,y:66,g:2} ],
-    cap:"" },
+  "3:Embeddings": { k:"embed", w:1, alt:"words become lists of numbers and similar meaning gives similar numbers then a map",
+    sample:"puppy",
+    words:[ { w:"dog", v:[0.9, 0.8, 0.1, 0.7, 0.1] }, { w:"puppy", v:[0.7, 0.9, 0.2, 0.8, 0.3] }, { w:"invoice", v:[0.1, 0.0, 0.9, 0.1, 0.8] } ],
+    map:{ k:"map", mode:"explore", alt:"map where similar words sit close together",
+      pts:[ {l:"dog",x:70,y:62,g:0}, {l:"puppy",x:112,y:88,g:0}, {l:"cat",x:52,y:108,g:0},
+            {l:"invoice",x:335,y:182,g:1}, {l:"receipt",x:296,y:134,g:1}, {l:"payment",x:238,y:140,g:1},
+            {l:"flight",x:300,y:48,g:2}, {l:"hotel",x:232,y:66,g:2} ],
+      cap:"" } },
   "3:Semantic search": { k:"map", w:1, alt:"question lands next to the matching page on the meaning map",
     top:`Question: "How do I get my money back?"`,
     q:{ l:"your question", x:232, y:118 }, nn:1,
