@@ -29,7 +29,10 @@
       tags: ["AutoHotkey v2", "Builder"] },
     { href: "pin-annotator_v8.html", t: "Pin Annotator", g: 2, ic: "fa-location-dot",
       s: "Pin, label and export image annotations entirely in your browser. No server, no uploads.",
-      tags: ["Privacy-first", "Canvas"] }
+      tags: ["Privacy-first", "Canvas"] },
+    { href: "morning-affirmation.html", t: "Morning Companion", g: 2, ic: "fa-sun",
+      s: "A five-minute morning routine: read ten short statements, set one intention, close the day in the evening. Private, saved only on your device.",
+      tags: ["Routine", "Private", "No account"] }
   ];
 
   window.HUB = { groups: GROUPS, pages: PAGES };

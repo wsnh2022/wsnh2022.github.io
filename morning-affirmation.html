@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F7F3EA">
+<meta name="description" content="Read the ten, set one intention, close the day. Private, on this device.">
+<title>Morning</title>
+<style>
+/* ---------- Tokens ---------- */
+:root {
+  color-scheme: light;
+  --paper: #F7F3EA;      /* warm page in daylight */
+  --surface: #FFFDF8;    /* fields */
+  --ink: #221E18;        /* text */
+  --muted: #5F574C;      /* secondary text */
+  --accent: #9A4A14;     /* burnt sienna: links, current marks */
+  --line: #E2D9C8;       /* hairlines (decorative) */
+  --field: #857C6D;      /* control borders, 3:1 even on dawn */
+  --btn: #221E18;
+  --btn-ink: #FBF8F1;
+  --sel: #EFE6D4;
+  --track: #D9CFBD;      /* empty progress */
+
+  --serif: "Iowan Old Style", "Charter", "Bitstream Charter", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+
+  /* 1.25 scale on 16px */
+  --t-xs: .8rem; --t-s: .875rem; --t-m: 1rem; --t-l: 1.25rem; --t-xl: 1.5625rem; --t-2xl: 1.953rem; --t-3xl: 2.441rem;
+  --gutter: 1.25rem;
+}
+:root[data-theme="dim"] {
+  color-scheme: dark;
+  --paper: #1A1814;
+  --surface: #24211C;
+  --ink: #EEE7D9;
+  --muted: #B0A795;
+  --accent: #E6AE73;
+  --line: #34302A;
+  --field: #7D7565;
+  --btn: #EEE7D9;
+  --btn-ink: #1A1814;
+  --sel: #2E2A23;
+  --track: #3D372F;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html { background: var(--paper); -webkit-text-size-adjust: 100%; }
+html.large-text { font-size: 112.5%; }
+html, body { transition: background-color .9s ease; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: var(--t-m); line-height: 1.5; }
+h1, h2, h3, p, ol, ul, fieldset { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+fieldset { border: 0; min-width: 0; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+a { color: var(--accent); text-underline-offset: .2em; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: var(--gutter); top: -4rem; background: var(--btn); color: var(--btn-ink); padding: .75rem .9rem; border-radius: 8px; z-index: 50; }
+.skip:focus { top: .75rem; }
+
+/* ---------- Layout ---------- */
+.view { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; width: 100%; max-width: 36rem; margin: 0 auto; padding: max(1rem, env(safe-area-inset-top)) var(--gutter) 0; }
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; column-gap: 1rem; min-height: 2.75rem; }
+.bar > :last-child:not(:first-child) { margin-left: auto; }
+.date { min-width: 0; font-family: var(--serif); font-variant: all-small-caps; letter-spacing: .06em; font-size: var(--t-l); color: var(--muted); }
+.links { display: flex; gap: .25rem; }
+.links a, .textlink { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 .5rem; color: var(--muted); text-decoration: none; font-size: var(--t-m); background: none; border: 0; }
+.links a:hover, .textlink:hover { color: var(--ink); text-decoration: underline; }
+.textlink.u { text-decoration: underline; text-decoration-color: var(--field); }
+.body { flex: 1; padding: clamp(2rem, 9vh, 5rem) 0 2rem; }
+.dock { position: sticky; bottom: 0; display: flex; gap: .625rem; align-items: center; padding: 1rem 0 max(1rem, env(safe-area-inset-bottom)); background: linear-gradient(to bottom, transparent, var(--paper) 1rem); }
+.dock:empty { display: none; }
+.dock { flex-wrap: wrap; }
+.dock .btn:not(.grow) { flex: 0 1 auto; }
+.dock .btn.grow { flex: 1 1 auto; }
+.dock.flow { position: static; background: none; }   /* when large text makes the dock tall, let it scroll with the page */
+
+/* ---------- Type ---------- */
+.greet { font-family: var(--serif); font-weight: 400; font-size: var(--t-3xl); line-height: 1.1; letter-spacing: -.01em; }
+.lede { margin-top: 1rem; font-family: var(--serif); font-size: var(--t-l); line-height: 1.5; color: var(--muted); max-width: 26em; }
+.kicker { margin-top: 2.25rem; font-family: var(--serif); font-style: italic; color: var(--muted); font-size: var(--t-m); }
+.intent { margin-top: .5rem; font-family: var(--serif); font-size: var(--t-xl); line-height: 1.35; overflow-wrap: anywhere; white-space: pre-wrap; }
+.meta { margin-top: 1rem; font-size: var(--t-s); color: var(--muted); }
+.rule { border: 0; border-top: 1px solid var(--line); margin: 2.25rem 0; }
+h2.section { font-family: var(--serif); font-weight: 400; font-size: var(--t-xl); line-height: 1.2; }
+.view-title { font-family: var(--serif); font-weight: 400; font-size: var(--t-2xl); line-height: 1.15; margin-top: 1.25rem; }
+
+/* ---------- Buttons ---------- */
+.btn { min-height: 3.25rem; padding: .75rem 1.25rem; border-radius: 14px; border: 1px solid var(--field); background: transparent; color: var(--ink); font-weight: 600; font-size: var(--t-m); display: inline-flex; align-items: center; justify-content: center; gap: .5rem; text-decoration: none; }
+.btn.primary { background: var(--btn); color: var(--btn-ink); border-color: var(--btn); }
+.btn.grow { flex: 1; }
+.btn:disabled { opacity: .4; cursor: default; }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn.small { min-height: 2.75rem; padding: .5rem 1rem; font-size: var(--t-s); }
+.btn.danger { color: #9B2C1F; border-color: #9B2C1F; }
+:root[data-theme="dim"] .btn.danger { color: #F2A595; border-color: #F2A595; }
+
+/* ---------- Reader ---------- */
+.progress { display: flex; gap: 4px; margin-top: .25rem; }
+.progress i { flex: 1; height: 3px; border-radius: 2px; background: var(--track); }
+.progress i.on { background: var(--ink); }
+.progress i.now { background: var(--accent); }
+.read-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 2.5rem 0 1.5rem; touch-action: pan-y; }
+.aff-title { font-family: var(--serif); font-weight: 400; font-size: var(--t-2xl); line-height: 1.2; letter-spacing: -.005em; outline: none; }
+.aff-body { margin-top: 1.25rem; font-family: var(--serif); font-size: var(--t-l); line-height: 1.6; color: var(--muted); max-width: 30em; }
+.hint { margin-top: .75rem; font-size: var(--t-s); color: var(--muted); }
+.fade { animation: fade .35s ease both; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Look test ---------- */
+.art { display: block; width: min(14.25rem, 80%); height: auto; color: var(--muted); margin-bottom: 1.25rem; overflow: visible; }
+.art * { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.art.hero { width: min(15rem, 72%); color: var(--accent); margin-bottom: 1.75rem; }
+.art.sm { width: 6rem; margin-bottom: .75rem; }
+.body.hero { display: flex; flex-direction: column; justify-content: center; padding-top: 1rem; padding-bottom: 4rem; }
+.path { display: flex; margin-top: 2rem; max-width: 24rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.path li { flex: 1 1 0; padding: .875rem .5rem; text-align: center; border-left: 1px solid var(--line); }
+.path li:first-child { border-left: 0; padding-left: 0; text-align: left; }
+.path b { display: block; font-family: var(--serif); font-weight: 400; font-size: var(--t-2xl); line-height: 1.1; }
+.path span { display: block; margin-top: .125rem; font-size: var(--t-xs); color: var(--muted); }
+.photo { margin: 0 0 1.5rem; }
+.photo img { display: block; width: 100%; aspect-ratio: 4 / 3; max-height: 38vh; object-fit: cover; border-radius: 6px; background: var(--line); }
+.mood-row { display: flex; gap: .5rem; margin-top: .75rem; max-width: 20rem; }
+.mood-row .btn { flex: 1 1 0; min-width: 0; min-height: 2.75rem; padding: .375rem 0; border-radius: 999px; font-family: var(--serif); font-size: var(--t-l); font-weight: 400; }
+.mood-ends { display: flex; justify-content: space-between; max-width: 20rem; margin-top: .375rem; font-size: var(--t-s); color: var(--muted); }
+.echo { margin-bottom: 1.75rem; padding-left: .875rem; border-left: 2px solid var(--track); }
+.echo p { font-size: var(--t-s); color: var(--muted); overflow-wrap: anywhere; }
+.echo p + p { margin-top: .375rem; }
+.echo b { color: var(--ink); font-weight: 600; }
+.out-bar { display: flex; gap: 3px; height: .75rem; margin-top: 1.25rem; max-width: 24rem; }
+.out-bar i { display: block; border-radius: 2px; }
+.out-bar .o-done { background: var(--ink); } .out-bar .o-partly { background: var(--accent); }
+.out-bar .o-not { background: var(--field); } .out-bar .o-open { background: var(--track); }
+.key { display: flex; flex-wrap: wrap; gap: .25rem 1rem; margin-top: .625rem; font-size: var(--t-s); color: var(--muted); }
+.key span { white-space: nowrap; }
+.key i { display: inline-block; width: .625rem; height: .625rem; border-radius: 2px; margin-right: .375rem; }
+.finding { margin-top: 1rem; font-family: var(--serif); font-size: var(--t-l); line-height: 1.45; }
+.wk-list { margin-top: 1rem; }
+.wk-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .625rem; padding: .625rem 0; border-top: 1px solid var(--line); }
+.wk-list li:first-child { border-top: 0; }
+.wk-list .e-date { min-width: 2.75rem; }
+.wk-i { flex: 1 1 10rem; font-family: var(--serif); overflow-wrap: anywhere; }
+.wk-none { color: var(--muted); font-size: var(--t-s); }
+details.photos { margin-top: 2rem; }
+details.photos summary { cursor: pointer; padding: .5rem 0; font-family: var(--serif); font-size: var(--t-l); }
+
+.results { margin-top: .75rem; }
+.results li { padding: .875rem 0; border-top: 1px solid var(--line); }
+.results li:first-child { border-top: 0; }
+.results b { font-family: var(--serif); font-weight: 400; font-size: var(--t-l); }
+.results p { color: var(--muted); font-size: var(--t-s); margin-top: .125rem; }
+.sub { font-family: var(--serif); font-weight: 400; font-size: var(--t-l); margin-top: 2rem; }
+.photo-list { margin-top: .75rem; }
+.photo-list li { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; padding: .625rem 0; border-top: 1px solid var(--line); }
+.photo-list li:first-child { border-top: 0; }
+.thumb { width: 3.5rem; height: 3.5rem; flex-shrink: 0; border-radius: 6px; border: 1px dashed var(--field); object-fit: cover; background: var(--sel); display: block; }
+.photo-list .name { flex: 1 1 8rem; min-width: 0; font-family: var(--serif); font-size: var(--t-s); }
+.photo-list .btns { display: flex; gap: .375rem; margin-left: auto; }
+
+/* ---------- Fields ---------- */
+.field { display: block; margin-top: 1.75rem; margin-bottom: .5rem; font-size: var(--t-m); }
+.opt { color: var(--muted); font-size: var(--t-s); }
+textarea { width: 100%; min-height: 3.25rem; padding: .75rem .875rem; border: 1px solid var(--field); border-radius: 12px; background: var(--surface); font-family: var(--serif); font-size: 1.125rem; line-height: 1.45; resize: vertical; }
+textarea::placeholder { color: var(--muted); opacity: 1; }
+.intent-input { margin-top: 1.5rem; font-size: var(--t-l); }
+select { max-width: 100%; min-height: 2.75rem; padding: .4rem .6rem; border: 1px solid var(--field); border-radius: 10px; background: var(--surface); }
+
+/* segmented choice */
+.seg { margin-top: 1.75rem; }
+.seg legend { font-size: var(--t-m); margin-bottom: .5rem; padding: 0; }
+.seg-row { display: flex; flex-wrap: wrap; gap: .5rem; }
+.seg label { flex: 1 1 auto; min-width: 5.5rem; position: relative; }
+.seg input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.seg span { display: flex; align-items: center; justify-content: center; min-height: 3rem; padding: .5rem .75rem; border: 1px solid var(--field); border-radius: 12px; font-weight: 600; text-align: center; white-space: nowrap; }
+.seg input:checked + span { background: var(--btn); color: var(--btn-ink); border-color: var(--btn); }
+.seg input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+/* ---------- History ---------- */
+.dots { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 1.25rem; max-width: 22rem; }
+.dots li { aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--field); }
+.dots li.on { background: var(--ink); border-color: var(--ink); }
+.dots li.today { box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--accent); }
+.dots li.later { border-style: dashed; opacity: .55; }
+.entries > li { padding: 1.25rem 0; border-top: 1px solid var(--line); }
+.entries > li:first-child { border-top: 0; }
+.e-date { font-family: var(--serif); font-variant: all-small-caps; letter-spacing: .06em; color: var(--muted); font-size: var(--t-m); }
+.e-intent { margin-top: .25rem; font-family: var(--serif); font-size: var(--t-l); line-height: 1.4; overflow-wrap: anywhere; white-space: pre-wrap; }
+.e-line { margin-top: .375rem; color: var(--muted); font-size: var(--t-s); overflow-wrap: anywhere; white-space: pre-wrap; }
+.e-line b { color: var(--ink); font-weight: 600; }
+.tag { display: inline-block; margin-left: .375rem; font-family: var(--sans); font-size: var(--t-xs); color: var(--muted); border: 1px solid var(--field); border-radius: 6px; padding: 0 .375rem; vertical-align: .2em; white-space: nowrap; }
+.prose { margin-top: .75rem; color: var(--muted); max-width: 32em; }
+.empty { color: var(--muted); padding: 1rem 0; }
+
+/* ---------- Settings layout ---------- */
+.row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--line); }
+.row:first-of-type { border-top: 0; }
+.row small { display: block; color: var(--muted); font-size: var(--t-s); }
+.row input[type="checkbox"] { width: 1.5rem; height: 1.5rem; accent-color: var(--ink); flex-shrink: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: .625rem; margin-top: 1rem; }
+.status { min-height: 1.5em; margin-top: .75rem; font-size: var(--t-s); color: var(--muted); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; width: max-content; bottom: calc(5.5rem + env(safe-area-inset-bottom)); transform: translate(-50%, 8px); background: var(--btn); color: var(--btn-ink); padding: .625rem 1rem; border-radius: 10px; font-size: var(--t-s); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; max-width: calc(100vw - 2rem); z-index: 40; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+body.reduce-motion *, body.reduce-motion *::before, body.reduce-motion *::after { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+@media (max-width: 380px) { :root { --gutter: 1rem; --t-3xl: 2.1rem; --t-2xl: 1.75rem; } .btn { padding: .75rem .9rem; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<main id="main">
+
+  <!-- Home -->
+  <section id="v-home" class="view" aria-labelledby="homeTitle">
+    <header class="bar">
+      <p class="date" id="date"></p>
+      <nav class="links" aria-label="More"><a href="#history">History</a><a href="#settings">Settings</a></nav>
+    </header>
+    <div class="body" id="homeBody"></div>
+    <div class="dock" id="homeDock"></div>
+  </section>
+
+  <!-- Reader -->
+  <section id="v-read" class="view" aria-label="The ten" hidden>
+    <header class="bar">
+      <button class="textlink" type="button" id="listenBtn" data-act="listen" hidden>Listen</button>
+      <a class="textlink" href="#" id="readClose">Close</a>
+    </header>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+    <div class="read-body" id="readBody"></div>
+    <div class="dock" id="readDock"></div>
+  </section>
+
+  <!-- Weekly -->
+  <section id="v-week" class="view" aria-labelledby="weekTitle" hidden>
+    <header class="bar"><a class="textlink" href="#">← Today</a></header>
+    <div class="body" style="padding-top:1rem">
+      <h1 class="view-title" id="weekTitle">The week</h1>
+      <p class="lede" id="weekRange"></p>
+      <div id="weekDays"></div>
+      <label class="field" for="wWins">What went well?</label>
+      <textarea id="wWins" rows="3" maxlength="1500" placeholder="Small wins count"></textarea>
+      <label class="field" for="wPattern">What pattern or obstacle did you notice?</label>
+      <textarea id="wPattern" rows="3" maxlength="1500"></textarea>
+      <label class="field" for="wNext">One adjustment for next week</label>
+      <textarea id="wNext" rows="2" maxlength="1500" placeholder="Next week I will…"></textarea>
+    </div>
+    <div class="dock"><button class="btn primary grow" id="saveWeek" type="button">Save the week</button></div>
+  </section>
+
+  <!-- History -->
+  <section id="v-history" class="view" aria-labelledby="histTitle" hidden>
+    <header class="bar"><a class="textlink" href="#">← Today</a></header>
+    <div class="body" style="padding-top:1rem" id="histBody"></div>
+  </section>
+
+  <!-- Settings -->
+  <section id="v-settings" class="view" aria-labelledby="setTitle" hidden>
+    <header class="bar"><a class="textlink" href="#">← Today</a></header>
+    <div class="body" style="padding-top:1rem">
+      <h1 class="view-title" id="setTitle">Settings</h1>
+
+      <fieldset class="seg" style="margin-top:2rem">
+        <legend>Appearance</legend>
+        <div class="seg-row" id="themeSeg">
+          <label><input type="radio" name="theme" value="auto"><span>By time</span></label>
+          <label><input type="radio" name="theme" value="light"><span>Light</span></label>
+          <label><input type="radio" name="theme" value="dim"><span>Dim</span></label>
+        </div>
+        <p class="hint">“By time” is light from 5 am to 7 pm, dim otherwise.</p>
+      </fieldset>
+
+      <div style="margin-top:1.5rem">
+        <label class="row" for="eveningHour"><span>Evening check-in starts<small>When the home screen switches to closing the day.</small></span>
+          <select id="eveningHour"></select></label>
+        <label class="row" for="largeText"><span>Larger text<small>Bigger reading size everywhere.</small></span><input type="checkbox" id="largeText"></label>
+        <label class="row" for="reduceMotion"><span>Reduce motion<small>No fades between statements.</small></span><input type="checkbox" id="reduceMotion"></label>
+      </div>
+
+      <hr class="rule">
+      <h2 class="section">Look while reading</h2>
+      <p class="prose" id="lookNow"></p>
+      <div class="actions"><a class="btn small" href="#test">Open the look test</a></div>
+
+      <hr class="rule">
+      <h2 class="section">Your data</h2>
+      <p class="prose">Everything stays in this browser on this device. There's no account and nothing is sent anywhere. Clearing browser data erases it, so export a backup now and then.</p>
+      <div class="actions">
+        <button class="btn small" id="exportBtn" type="button">Export backup</button>
+        <button class="btn small" id="importBtn" type="button">Restore backup</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+      </div>
+      <p class="status" id="dataStatus" role="status"></p>
+
+      <hr class="rule">
+      <h2 class="section">Cycle</h2>
+      <p class="prose" id="cycleText"></p>
+      <div class="actions"><button class="btn small" id="resetCycle" type="button">Start a new 30 days</button></div>
+
+      <hr class="rule">
+      <h2 class="section">Delete</h2>
+      <p class="prose">Removes every intention, reflection, photo and record from this browser. Can't be undone without a backup.</p>
+      <div class="actions" style="margin-bottom:3rem"><button class="btn small danger" id="deleteAll" type="button">Delete all data</button></div>
+    </div>
+  </section>
+
+  <!-- Look test -->
+  <section id="v-test" class="view" aria-labelledby="testTitle" hidden>
+    <header class="bar"><a class="textlink" href="#history">← History</a></header>
+    <div class="body" style="padding-top:1rem">
+      <h1 class="view-title" id="testTitle">The look test</h1>
+      <p class="finding" id="testVerdict"></p>
+      <div id="testResults"></div>
+
+      <hr class="rule">
+      <h2 class="section">Look while reading</h2>
+      <p class="prose">Rotate changes the look every 3 days, plain included, so you can compare fairly. Or hold one look.</p>
+      <fieldset class="seg" style="margin-top:1rem"><legend class="sr">Look while reading</legend><div class="seg-row" id="visualSeg"></div></fieldset>
+      <p class="hint" id="testStatus"></p>
+      <div class="actions" id="testActions"></div>
+
+      <details class="photos" id="photoDetails">
+        <summary id="photoSummary">Your photos</summary>
+        <p class="prose">Used by the Photos look, one per statement. Kept only in this browser, shrunk to save space, and not included in backups.</p>
+        <ul class="photo-list" id="photoList"></ul>
+      </details>
+      <input type="file" id="photoFile" accept="image/*" hidden>
+      <p class="status" id="photoStatus" role="status"></p>
+      <div style="height:2rem"></div>
+    </div>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+"use strict";
+
+const STORAGE_KEY = "morning-companion-v1";
+const SETTINGS_KEY = "morning-companion-settings-v1";
+
+const AFF = [
+  ["I begin with gratitude.", "I am grateful for my life, for the lessons I have learned, for the people who care about me, and for the opportunities this new day brings."],
+  ["I accept myself and keep growing.", "I respect who I am today. My past does not define my future, and every day gives me a chance to learn and improve."],
+  ["I choose the thoughts that guide my actions.", "I cannot control every thought or event, but I can choose how I respond and where I direct my attention."],
+  ["I give my day a clear and positive intention.", "I know what matters to me. I direct my time, energy, and decisions toward the life I want to build."],
+  ["I turn my intentions into action.", "I do not wait for perfect motivation. I take the next meaningful step, however small, and build momentum through action."],
+  ["I trust my ability to learn and overcome challenges.", "Difficulties are part of my journey. I can pause, think, adapt, ask for help, and continue with courage."],
+  ["I protect my time and honor my commitments.", "My attention is valuable. I choose what deserves my energy and return to my priorities when distractions arise."],
+  ["I visualize the future I want and act in alignment with it.", "I picture myself living by my values, doing meaningful work, caring for my health, and creating opportunities through consistent effort."],
+  ["I welcome possibilities and remain open to learning.", "I cannot predict every outcome, but I can recognize opportunities, make wise choices, and respond to change with an open mind."],
+  ["I build my future one day at a time.", "I am grateful for where I stand, committed to where I am going, and willing to do the work today. I measure my life by the values I practice and the progress I make."]
+];
+const N = AFF.length;
+/* one-minute version: gratitude, intention, action. Positions are statement numbers, N means "set intention". */
+const QUICK = [0, 3, 4];
+const seqOf = d => d.quick ? [...QUICK, N] : Array.from({ length: N + 1 }, (_, i) => i);
+
+/* Ink drawings, one per statement (120x80, stroke only) */
+const ART = [
+  /* gratitude: tea */ '<path d="M38 40H80V48A20 20 0 0 1 60 68H58A20 20 0 0 1 38 48Z"/><path d="M80 45C90 45 90 59 79 58"/><path d="M30 72H88"/><path d="M50 32c-4-5 4-9 0-14M60 32c-4-5 4-9 0-14M70 32c-4-5 4-9 0-14"/>',
+  /* growing: seedling */ '<path d="M30 66H90"/><path d="M60 66V40"/><path d="M60 47C50 47 44 41 44 33C54 33 60 39 60 47Z"/><path d="M60 41C70 41 76 35 76 27C66 27 60 33 60 41Z"/><path d="M44 70h6M66 70h8"/>',
+  /* choosing: fork in the path */ '<path d="M54 76C56 64 58 56 60 48"/><path d="M66 76C64 64 62 56 60 48"/><path d="M60 48C56 36 44 28 28 22"/><path d="M60 48C64 36 76 28 92 22"/><circle cx="60" cy="48" r="2"/>',
+  /* intention: sunrise */ '<path d="M18 58H102"/><path d="M42 58A18 18 0 0 1 78 58"/><path d="M60 31V24M45 37l-4-4M75 37l4-4M35 48l-6-2M85 48l6-2"/><path d="M44 66H76M52 72H68"/>',
+  /* action: steps */ '<path d="M20 70H40V58H60V46H80V34H100"/><circle cx="70" cy="40" r="3"/><path d="M20 74H100"/>',
+  /* challenges: summit */ '<path d="M16 68L50 24L64 42L76 30L104 68Z"/><path d="M50 24V11L60 14.5L50 18"/><path d="M42 35l4 4 4-5 4 4"/>',
+  /* time: hourglass */ '<path d="M44 12H76M44 68H76"/><path d="M48 12C48 32 58 34 58 40C58 46 48 48 48 68"/><path d="M72 12C72 32 62 34 62 40C62 46 72 48 72 68"/><path d="M53 62Q60 55 67 62"/><path d="M60 43V53"/>',
+  /* future: window and hills */ '<rect x="32" y="10" width="56" height="60" rx="2"/><path d="M60 10V70M32 40H88"/><path d="M32 62C42 54 50 54 60 58C70 52 80 52 88 57"/><circle cx="76" cy="24" r="4"/>',
+  /* possibilities: open door */ '<path d="M22 70H104"/><path d="M42 70V14H78V70"/><path d="M42 14L57 20V64L42 70"/><circle cx="53" cy="44" r="1.5"/><path d="M64 32H72M64 40H76M64 48H72"/>',
+  /* one day at a time: cairn */ '<path d="M28 72H92"/><ellipse cx="60" cy="64" rx="22" ry="6"/><ellipse cx="60" cy="52" rx="16" ry="5"/><ellipse cx="60" cy="42" rx="11" ry="4"/><ellipse cx="60" cy="34" rx="6" ry="3"/>'
+];
+/* Start-page drawings, same style as the ten */
+const HOME_ART = {
+  sunrise: ART[3],
+  day: '<circle cx="60" cy="38" r="12"/><path d="M60 16V10M60 66V60M38 38H32M88 38H82M44 22l-4-4M80 22l4-4M44 54l-4 4M80 54l4 4"/><path d="M18 74H102"/>',
+  night: '<path d="M68 12A26 26 0 1 0 94 48A21 21 0 0 1 68 12Z"/><path d="M28 22v8M24 26h8M98 14v5M95.5 16.5h5"/><path d="M18 74H102"/>',
+  tea: ART[0]
+};
+const VARIANTS = { plain: "Plain", dawn: "Dawn", ink: "Ink", dawnink: "Dawn + ink", photo: "Photos" };
+const LOOK_OPTS = [["auto", "Rotate"], ["plain", "Plain"], ["dawn", "Dawn"], ["ink", "Ink"], ["dawnink", "Dawn + ink"], ["photo", "Photos"]];
+/* Dawn: page colour moves from pre-dawn to sunrise across the ten. Every step keeps AA for text. */
+const DAWN = { light: ["#EFE7E4", "#F9E5C4"], dim: ["#1B1820", "#2A1F14"] };   /* pre-dawn rose to sunrise gold */
+const OUTCOME = { done: "Did it", partly: "Partly", not: "Not today" };
+const WEEKDAY = d => parse(d).toLocaleDateString(undefined, { weekday: "long" });
+
+/* ---------- utils ---------- */
+const $ = s => document.querySelector(s);
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const str = v => typeof v === "string" ? v : "";
+const key = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const parse = k => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d, 12); };
+const shift = (k, n) => { const d = parse(k); d.setDate(d.getDate() + n); return key(d); };
+const diff = (a, b) => Math.round((parse(b) - parse(a)) / 864e5);
+const fmt = (k, o = { weekday: "short", month: "short", day: "numeric" }) => parse(k).toLocaleDateString(undefined, o);
+const weekKey = k => { const d = parse(k); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return key(d); };
+const clock = mins => new Date(2000, 0, 1, Math.floor(mins / 60), mins % 60).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+const timeOf = iso => new Date(iso).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+const median = a => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+const nonEmpty = o => o && typeof o === "object" && Object.values(o).some(v => typeof v === "string" && v.trim());
+
+/* ---------- state (schema v1, extended with optional fields) ---------- */
+const blank = () => ({ version: 1, startDate: key(), days: {}, weekly: {} });
+function loadState() {
+  try {
+    const p = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+    if (!p || p.version !== 1 || !p.days || typeof p.days !== "object") return blank();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(p.startDate || "")) p.startDate = key();
+    if (!p.weekly || typeof p.weekly !== "object") p.weekly = {};
+    return p;
+  } catch { return blank(); }
+}
+function normSettings(s) {
+  s = s && typeof s === "object" ? s : {};
+  return {
+    largeText: !!s.largeText,
+    reduceMotion: !!s.reduceMotion,
+    theme: ["auto", "light", "dim"].includes(s.theme) ? s.theme : "auto",
+    eveningHour: Number.isInteger(s.eveningHour) && s.eveningHour >= 14 && s.eveningHour <= 22 ? s.eveningHour : 17,
+    visualChosen: !!s.visualChosen,
+    visual: s.visualChosen && LOOK_OPTS.some(o => o[0] === s.visual) ? s.visual : "dawnink",
+    lastBackup: typeof s.lastBackup === "string" && !isNaN(Date.parse(s.lastBackup)) ? s.lastBackup : ""
+  };
+}
+function loadSettings() { try { return normSettings(JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}")); } catch { return normSettings({}); } }
+
+let state = loadState();
+let settings = loadSettings();
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); return true; }
+  catch { toast("Couldn't save. Export a backup or free some storage."); return false; }
+}
+function saveSettings() { try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch {} applyTheme(); }
+
+function getDay(k = key()) {
+  const d = state.days[k] || (state.days[k] = { ritualComplete: false, actionComplete: false, intention: "", reflection: {} });
+  if (!d.reflection || typeof d.reflection !== "object") d.reflection = {};
+  if (!Array.isArray(d.opens)) d.opens = [];
+  return d;
+}
+const hasContent = d => !!d && (d.ritualComplete || d.actionComplete || !!str(d.intention).trim() || nonEmpty(d.reflection));
+const outcomeOf = d => d.outcome || (d.actionComplete ? "done" : "");
+
+/* ---------- theme ---------- */
+function applyTheme() {
+  const h = new Date().getHours();
+  const t = settings.theme === "auto" ? (h >= 19 || h < 5 ? "dim" : "light") : settings.theme;
+  document.documentElement.dataset.theme = t;
+  document.querySelector('meta[name="theme-color"]').content = t === "dim" ? "#1A1814" : "#F7F3EA";
+  document.documentElement.classList.toggle("large-text", settings.largeText);
+  document.body.classList.toggle("reduce-motion", settings.reduceMotion);
+}
+
+/* ---------- usage log ---------- */
+function logOpen() {
+  const d = getDay(), last = d.opens[d.opens.length - 1];
+  if (!last || Date.now() - Date.parse(last) > 5 * 60e3) {
+    d.opens.push(new Date().toISOString());
+    if (d.opens.length > 20) d.opens = d.opens.slice(-20);
+    save();
+  }
+}
+
+function fitDock(el) {
+  if (!el) return;
+  el.classList.remove("flow");
+  if (el.children.length && el.offsetHeight > innerHeight * 0.22) el.classList.add("flow");
+}
+let toastT;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2400); }
+
+/* ---------- Look test ---------- */
+function rotationVariant(k) {
+  const e = state.experiment;
+  if (!e || !Array.isArray(e.order) || !e.order.length || !/^\d{4}-\d{2}-\d{2}$/.test(e.start || "")) return "plain";
+  const i = diff(e.start, k);
+  return i < 0 ? "plain" : e.order[Math.floor(i / 3) % e.order.length];
+}
+function variantFor(k) { return settings.visual === "auto" ? rotationVariant(k) : settings.visual; }
+function startExperiment() {
+  const arms = ["plain", "dawn", "ink", "dawnink"];
+  if (photoURLs.some(Boolean)) arms.push("photo");
+  for (let i = arms.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arms[i], arms[j]] = [arms[j], arms[i]]; }
+  state.experiment = { start: key(), order: arms, missed: "" };
+  save();
+}
+function mix(a, b, t) {
+  const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const A = p(a), B = p(b);
+  return "#" + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, "0")).join("");
+}
+function setDawn(step) {
+  const root = document.documentElement;
+  if (step === null) { root.style.removeProperty("--paper"); applyTheme(); return; }
+  const c = mix(...DAWN[root.dataset.theme === "dim" ? "dim" : "light"], step / N);
+  root.style.setProperty("--paper", c);
+  document.querySelector('meta[name="theme-color"]').content = c;
+}
+
+/* Photos live in IndexedDB on this device only */
+let photoURLs = Array(N).fill(null), photoTarget = null;
+function idb() {
+  return new Promise((res, rej) => {
+    if (!("indexedDB" in window)) return rej(new Error("Photo storage isn't available in this browser."));
+    const r = indexedDB.open("morning-photos", 1);
+    r.onupgradeneeded = () => r.result.createObjectStore("photos");
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+  });
+}
+async function loadPhotos() {
+  try {
+    const db = await idb();
+    await Promise.all(AFF.map((_, i) => new Promise(res => {
+      const r = db.transaction("photos").objectStore("photos").get(i);
+      r.onsuccess = () => { if (photoURLs[i]) URL.revokeObjectURL(photoURLs[i]); photoURLs[i] = r.result ? URL.createObjectURL(r.result) : null; res(); };
+      r.onerror = () => res();
+    })));
+  } catch {}
+}
+async function putPhoto(i, blob) {
+  const db = await idb();
+  await new Promise((res, rej) => {
+    const tx = db.transaction("photos", "readwrite");
+    if (blob) tx.objectStore("photos").put(blob, i); else tx.objectStore("photos").delete(i);
+    tx.oncomplete = res; tx.onerror = () => rej(tx.error);
+  });
+}
+async function shrink(file) {
+  const bmp = await createImageBitmap(file);
+  const sc = Math.min(1, 1400 / Math.max(bmp.width, bmp.height));
+  const c = document.createElement("canvas");
+  c.width = Math.round(bmp.width * sc); c.height = Math.round(bmp.height * sc);
+  c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+  if (bmp.close) bmp.close();
+  return new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error("encode")), "image/jpeg", 0.82));
+}
+
+/* ---------- Home ---------- */
+let editingEvening = false;
+function greeting(h) { return h < 5 ? "Still early." : h < 12 ? "Good morning." : h < settings.eveningHour ? "Good afternoon." : "Good evening."; }
+
+function weeklyDue(today) {
+  const dow = parse(today).getDay();
+  if (dow === 0 && !nonEmpty(state.weekly[weekKey(today)])) return weekKey(today);
+  if (dow === 1) {
+    const lw = weekKey(shift(today, -1));
+    const used = Array.from({ length: 7 }, (_, i) => shift(lw, i)).filter(k => hasContent(state.days[k])).length;
+    if (used >= 2 && !nonEmpty(state.weekly[lw])) return lw;
+  }
+  return null;
+}
+
+/* a kind line from an earlier day, picked by date so it holds still through the day */
+function pastNote(today, prior) {
+  const pool = [];
+  prior.forEach(k => {
+    const d = state.days[k], g = str(d.reflection?.gratitude).trim(), i = str(d.intention).trim();
+    if (g) pool.push({ k, label: "you were grateful for", s: g });
+    if (i && outcomeOf(d) === "done") pool.push({ k, label: "you set a goal and did it", s: i });
+  });
+  if (!pool.length) return "";
+  const seed = [...today].reduce((a, c) => a + c.charCodeAt(0), 0);
+  const p = pool[seed % pool.length];
+  return `<div class="echo" style="margin:1.25rem 0 0"><p><b>${esc(fmt(p.k, { weekday: "long", month: "short", day: "numeric" }))}, ${p.label}:</b> ${esc(p.s.length > 240 ? p.s.slice(0, 240).trimEnd() + "…" : p.s)}</p></div>`;
+}
+
+/* a week of entries and no backup in 3 weeks */
+function backupNudge(entries) {
+  if (entries < 7) return "";
+  const t = Date.parse(settings.lastBackup);
+  if (!settings.lastBackup || isNaN(t)) return "You haven't backed up yet.";
+  const days = Math.floor((Date.now() - t) / 864e5);
+  return days >= 21 ? `Last backup ${Math.floor(days / 7)} weeks ago.` : "";
+}
+
+const homeArt = (name, cls) => `<svg class="art ${cls}" viewBox="0 0 120 80" aria-hidden="true" focusable="false">${HOME_ART[name]}</svg>`;
+
+function renderHome() {
+  applyTheme();
+  const today = key(), d = getDay(today), h = new Date().getHours();
+  const evening = h >= settings.eveningHour;
+  const closed = !!d.closedAt;
+  const intent = str(d.intention).trim();
+  const prior = Object.keys(state.days).filter(k => k < today && hasContent(state.days[k])).sort();
+  const last = prior[prior.length - 1];
+  const first = !last && !hasContent(d);
+  const gap = last ? diff(last, today) : 0;
+  const prog = Math.min(d.progress || 0, N);
+
+  $("#date").textContent = fmt(today, { weekday: "long", month: "short", day: "numeric" });
+  let body = "", dock = "", hero = true;
+
+  if (evening && (!closed || editingEvening)) {
+    // Evening check-in (a form, so the drawing stays small and the page flows from the top)
+    const r = d.reflection;
+    hero = false;
+    body = `${homeArt("night", "sm")}<h1 class="greet" id="homeTitle">${greeting(h)}</h1>`;
+    if (intent) {
+      body += `<p class="kicker">This morning you meant to</p><p class="intent">${esc(intent)}</p>
+      <fieldset class="seg"><legend>How did it go?</legend><div class="seg-row">${Object.entries(OUTCOME).map(([v, l]) =>
+        `<label><input type="radio" name="outcome" value="${v}"${outcomeOf(d) === v ? " checked" : ""}><span>${l}</span></label>`).join("")}</div></fieldset>`;
+    } else {
+      body += `<p class="lede">A quiet minute to close the day.</p>`;
+    }
+    body += `<label class="field" for="ftNote">What happened, in a line <span class="opt">optional</span></label>
+      <textarea id="ftNote" rows="2" maxlength="1000">${esc(r.followThrough)}</textarea>
+      <label class="field" for="gratNote">One thing you appreciated today <span class="opt">optional</span></label>
+      <textarea id="gratNote" rows="2" maxlength="1000">${esc(r.gratitude)}</textarea>`;
+    dock = `<button class="btn primary grow" type="button" data-act="close-day">Close the day</button>`;
+    if (!d.ritualComplete) dock = `<a class="btn" href="#read">Read the ten</a>` + dock;
+  } else if (evening && closed) {
+    body = `${homeArt("night", "hero")}<h1 class="greet" id="homeTitle">Day closed.</h1>`;
+    if (intent) body += `<p class="kicker">You meant to</p><p class="intent">${esc(intent)}${outcomeOf(d) ? ` <span class="tag">${OUTCOME[outcomeOf(d)]}</span>` : ""}</p>`;
+    if (str(d.reflection.followThrough).trim()) body += `<p class="lede">${esc(d.reflection.followThrough)}</p>`;
+    if (str(d.reflection.gratitude).trim()) body += `<p class="kicker">Appreciated</p><p class="lede" style="margin-top:.25rem">${esc(d.reflection.gratitude)}</p>`;
+    body += `<p class="meta">Rest well. The page is fresh tomorrow.</p>`;
+    dock = `<button class="btn grow" type="button" data-act="edit-evening">Edit tonight's note</button>`;
+  } else if (!d.ritualComplete) {
+    // Morning, not done
+    const sq = seqOf(d), L = sq.length - 1, at = sq.filter(x => x < prog).length;
+    let note;
+    if (d.quick && at === 0) note = "The short version: three statements, then one intention. About a minute.";
+    else if (first) note = "Read ten short statements, one at a time, then choose one thing you mean to do today. About five minutes.";
+    else if (at > 0) note = `You stopped at ${at} of ${L}. Pick up where you left off.`;
+    else if (gap >= 3) note = "Welcome back. Nothing to catch up on. Today is a good place to start.";
+    else note = "The ten, then one intention.";
+    const scene = h < 5 ? "night" : h < 12 ? "sunrise" : "day";
+    body = `${homeArt(scene, "hero")}<h1 class="greet" id="homeTitle">${greeting(h)}</h1><p class="lede">${esc(note)}</p>`;
+    body += at > 0 && prog < N
+      ? `<div class="progress" style="margin-top:2rem;max-width:24rem" aria-hidden="true">${Array.from({ length: L }, (_, i) => `<i class="${i < at ? "on" : i === at ? "now" : ""}"></i>`).join("")}</div>`
+      : `<ul class="path" aria-label="What to expect"><li><b>${L}</b><span>short statements</span></li><li><b>1</b><span>intention</span></li><li><b>${d.quick ? 1 : 5}</b><span>minute${d.quick ? "" : "s"}</span></li></ul>`;
+    if (prog === 0) body += d.quick
+      ? `<p style="margin-top:1.25rem"><button class="textlink u" style="padding-left:0" type="button" data-act="full">Read all ten instead</button></p>`
+      : `<p style="margin-top:1.25rem"><button class="textlink u" style="padding-left:0" type="button" data-act="quick">Short on time? Do the one-minute version</button></p>`;
+    dock = `<a class="btn primary grow" href="#read">${at > 0 && prog < N ? `Continue (${at + 1} of ${L})` : prog >= N ? "Set intention" : "Begin"}</a>`;
+  } else {
+    // Morning done, before evening
+    body = `${homeArt("tea", "hero")}<h1 class="greet" id="homeTitle">${greeting(h)}</h1>`;
+    if (intent) body += `<p class="kicker">Today you mean to</p><p class="intent">${esc(intent)}</p>`;
+    else body += `<p class="lede">Done for this morning. No intention today, and that's fine.</p>`;
+    const mins = typeof d.ritualSeconds === "number" && d.ritualSeconds >= 60 && d.ritualSeconds <= 3600 ? Math.round(d.ritualSeconds / 60) : null;
+    body += `<p class="meta">Finished at ${d.ritualCompletedAt ? timeOf(d.ritualCompletedAt) : "-"}${d.short ? " · short version" : mins ? ` · ${mins} min` : ""}. Check back after ${clock(settings.eveningHour * 60)} to close the day.</p>`;
+    if (typeof d.mood !== "number") {
+      body += `<p class="kicker">How do you feel right now? <span class="opt" style="font-style:normal">optional</span></p>
+        <div class="mood-row" role="group" aria-label="Mood, 1 low to 5 bright">${[1, 2, 3, 4, 5].map(v => `<button class="btn" type="button" data-act="mood" data-v="${v}" aria-label="${v} of 5">${v}</button>`).join("")}</div>
+        <div class="mood-ends" aria-hidden="true"><span>low</span><span>bright</span></div>`;
+    } else {
+      body += `<p class="meta">Mood ${d.mood} of 5.</p>`;
+      if (d.mood <= 2) body += pastNote(today, prior);
+    }
+    dock = `<button class="btn grow" type="button" data-act="read-again">Read again</button>` +
+           (intent ? `` : `<button class="btn grow" type="button" data-act="add-intent">Add intention</button>`);
+  }
+
+  if (hero) {
+    const n7 = Array.from({ length: 7 }, (_, i) => shift(today, -i)).filter(k => state.days[k]?.ritualComplete).length;
+    if (n7 >= 1 && prior.length >= 2) body += `<p class="meta">${n7} of the last 7 mornings.</p>`;
+    const nudge = backupNudge(prior.length);
+    if (nudge) body += `<p class="hint" style="margin-top:1.5rem">${esc(nudge)} <a href="#settings">Back up now</a></p>`;
+  }
+
+  const wk = (d.ritualComplete || closed) && !(evening && (!closed || editingEvening)) ? weeklyDue(today) : null;
+  if (wk) body += `<hr class="rule"><p class="kicker" style="margin-top:0">${wk === weekKey(today) ? "It's Sunday." : "Last week is still open."}</p>
+    <p style="margin-top:.5rem"><button class="btn small" type="button" data-act="week" data-week="${wk}">Look back at the week</button></p>`;
+
+  $("#homeBody").classList.toggle("hero", hero);
+  $("#homeBody").innerHTML = body;
+  $("#homeDock").innerHTML = dock;
+  fitDock($("#homeDock"));
+}
+
+function closeDay() {
+  const d = getDay();
+  const picked = document.querySelector('input[name="outcome"]:checked');
+  if (picked) { d.outcome = picked.value; d.actionComplete = picked.value === "done"; }
+  d.reflection.followThrough = $("#ftNote").value.trim();
+  d.reflection.gratitude = $("#gratNote").value.trim();
+  d.closedAt = new Date().toISOString();
+  editingEvening = false;
+  if (save()) { toast("Day closed"); renderHome(); }
+}
+
+/* ---------- Reader ---------- */
+let idx = 0, listening = false, speakToken = 0, look = "plain", cardEnter = null;
+const canSpeak = "speechSynthesis" in window;
+
+function openReader() {
+  const d = getDay();
+  look = variantFor(key());
+  if (!d.ritualComplete) d.variant = look;
+  if (!d.ritualStartedAt) d.ritualStartedAt = new Date().toISOString();
+  save();
+  idx = Math.min(d.progress || 0, N);
+  idx = seqOf(d).find(x => x >= idx);
+  renderCard();
+}
+
+/* time on each statement, first read of the day only, capped at 5 min per visit */
+function stampCard() {
+  if (cardEnter === null) return;
+  const s = Math.min(300, (Date.now() - cardEnter) / 1000);
+  cardEnter = null;
+  if (idx >= N) return;
+  const d = getDay();
+  if (!Array.isArray(d.cardSeconds) || d.cardSeconds.length !== N) d.cardSeconds = Array(N).fill(0);
+  d.cardSeconds[idx] = Math.round((d.cardSeconds[idx] + s) * 10) / 10;
+}
+function startCardClock() {
+  cardEnter = idx < N && !getDay().ritualComplete && document.visibilityState === "visible" ? Date.now() : null;
+}
+
+function echoHTML() {
+  const today = key(), out = [];
+  const y = state.days[shift(today, -1)];
+  if (y && str(y.intention).trim()) {
+    const o = outcomeOf(y);
+    out.push(`<p><b>Yesterday:</b> ${esc(y.intention.trim())}${o ? ` (${OUTCOME[o].toLowerCase()})` : ""}</p>`);
+  }
+  const adj = str(state.weekly[shift(weekKey(today), -7)]?.next).trim();
+  if (adj) out.push(`<p><b>This week's adjustment:</b> ${esc(adj)}</p>`);
+  return out.length ? `<div class="echo">${out.join("")}</div>` : "";
+}
+
+function lookNote() {
+  if (settings.visual !== "auto" || look === "ink" || look === "dawnink") return "";
+  const e = state.experiment, today = key();
+  let back = "";
+  for (let i = 1; i <= 15 && e; i++) { const v = rotationVariant(shift(today, i)); if (v === "ink" || v === "dawnink") { back = fmt(shift(today, i), { weekday: "long" }); break; } }
+  return `<p class="hint" style="margin:0 0 1.5rem">Look test: ${VARIANTS[look].toLowerCase()} today, no drawings.${back ? ` They're back ${back}.` : ""} <a href="#test">Change</a></p>`;
+}
+
+function renderCard() {
+  const d = getDay();
+  const s = seqOf(d), total = s.length - 1, step = s.filter(x => x < idx).length;
+  $("#progress").innerHTML = Array.from({ length: total }, (_, i) => `<i class="${i < step ? "on" : i === step ? "now" : ""}"></i>`).join("");
+  const lb = $("#listenBtn");
+  lb.hidden = !canSpeak || idx >= N;
+  lb.textContent = listening ? "Stop listening" : "Listen";
+  setDawn(look === "dawn" || look === "dawnink" ? step * N / total : null);
+  let body, dock;
+  if (idx < N) {
+    const [t, b] = AFF[idx];
+    const art = look === "ink" || look === "dawnink" ? `<svg class="art" viewBox="0 0 120 80" aria-hidden="true" focusable="false">${ART[idx]}</svg>` : "";
+    const ph = look === "photo" && photoURLs[idx] ? `<figure class="photo"><img src="${photoURLs[idx]}" alt=""></figure>` : "";
+    body = `<div class="fade">${idx === 0 ? lookNote() : ""}${ph}${art}<h1 class="aff-title" tabindex="-1"><span class="sr">${step + 1} of ${total}. </span>${esc(t)}</h1><p class="aff-body">${esc(b)}</p></div>`;
+    dock = (idx > 0 ? `<button class="btn" type="button" data-act="back">Back</button>` : "") +
+      `<button class="btn primary grow" type="button" data-act="next">${step === total - 1 ? "Set intention" : "Next"}</button>`;
+  } else {
+    body = `<div class="fade">${echoHTML()}<h1 class="aff-title" tabindex="-1">What's one thing that would make today count?</h1>
+      <label class="sr" for="intentInput">Today's intention</label>
+      <textarea id="intentInput" class="intent-input" rows="3" maxlength="500" placeholder="Today I will…">${esc(d.intention)}</textarea>
+      <p class="hint" id="intentHint">Small and specific beats big. You'll check in on it this evening.</p>
+      <p><button class="textlink u" style="padding-left:0" type="button" data-act="finish-skip">No intention today</button></p></div>`;
+    dock = `<button class="btn" type="button" data-act="back">Back</button><button class="btn primary grow" type="button" data-act="finish">Finish</button>`;
+  }
+  $("#readBody").innerHTML = body;
+  $("#readDock").innerHTML = dock;
+  fitDock($("#readDock"));
+  const h = $("#readBody .aff-title"); if (h) h.focus({ preventScroll: true });
+  window.scrollTo(0, 0);
+  startCardClock();
+}
+
+function go(n) {
+  stampCard();
+  const d = getDay(), s = seqOf(d);
+  idx = n > 0 ? (s.find(x => x > idx) ?? N) : ([...s].reverse().find(x => x < idx) ?? 0);
+  if (!d.ritualComplete || idx > (d.progress || 0)) d.progress = idx;
+  save();
+  renderCard();
+  if (listening && idx < N) speak(); else if (idx >= N) stopSpeech(true);
+}
+
+function speak() {
+  if (!canSpeak) return;
+  const my = ++speakToken;
+  speechSynthesis.cancel();
+  const [t, b] = AFF[idx];
+  const u = new SpeechSynthesisUtterance(`${t} ${b}`);
+  u.rate = 0.9;
+  u.onend = () => { if (my === speakToken && listening) setTimeout(() => { if (my === speakToken && listening) go(1); }, 700); };
+  u.onerror = () => { if (my === speakToken) { listening = false; renderCard(); } };
+  speechSynthesis.speak(u);
+}
+function stopSpeech(silent) { listening = false; speakToken++; if (canSpeak) speechSynthesis.cancel(); if (!silent && !$("#v-read").hidden) renderCard(); }
+
+function finish(skip) {
+  const d = getDay(), f = $("#intentInput");
+  const v = skip ? "" : f.value.trim();
+  if (!skip && !v) {
+    $("#intentHint").textContent = "Write one line, or tap “No intention today”.";
+    f.focus();
+    return;
+  }
+  d.intention = v;
+  if (!d.ritualComplete) {
+    d.ritualComplete = true;
+    d.ritualCompletedAt = new Date().toISOString();
+    if (d.quick) d.short = true;
+    if (d.ritualStartedAt) d.ritualSeconds = Math.round((Date.parse(d.ritualCompletedAt) - Date.parse(d.ritualStartedAt)) / 1000);
+  }
+  d.progress = N;
+  stopSpeech(true);
+  if (save()) { location.hash = ""; toast(v ? "Intention set" : "Done for this morning"); }
+}
+
+/* swipe */
+let sx = null, sy = null;
+$("#readBody").addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+$("#readBody").addEventListener("touchend", e => {
+  if (sx === null || idx >= N) { sx = null; return; }
+  const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = null;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
+});
+document.addEventListener("keydown", e => {
+  if ($("#v-read").hidden || e.target.matches("textarea, input, select")) return;
+  if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+  if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+});
+
+/* ---------- Weekly ---------- */
+let weekTarget = null;
+function renderWeek() {
+  const wk = weekTarget || weekKey(key()), today = key();
+  const w = state.weekly[wk] || {};
+  const days = Array.from({ length: 7 }, (_, i) => shift(wk, i)).filter(k => k <= today);
+  $("#weekRange").textContent = `${fmt(wk, { month: "long", day: "numeric" })} – ${fmt(shift(wk, 6), { month: "long", day: "numeric" })}`;
+  const mornings = days.filter(k => state.days[k]?.ritualComplete).length;
+  const withI = days.filter(k => str(state.days[k]?.intention).trim());
+  const c = { done: 0, partly: 0, not: 0 };
+  withI.forEach(k => { const o = outcomeOf(state.days[k]); if (c[o] !== undefined) c[o]++; });
+  const parts = [c.done && `${c.done} did it`, c.partly && `${c.partly} partly`, c.not && `${c.not} not today`].filter(Boolean);
+  let summary = `${mornings} morning${mornings === 1 ? "" : "s"}`;
+  summary += withI.length ? ` · ${withI.length} intention${withI.length === 1 ? "" : "s"}${parts.length ? `: ${parts.join(", ")}` : ""}.` : ".";
+  const list = days.map(k => {
+    const d = state.days[k], i = str(d?.intention).trim(), o = d ? outcomeOf(d) : "";
+    return `<li><span class="e-date">${esc(fmt(k, { weekday: "short" }))}</span>${i
+      ? `<span class="wk-i">${esc(i)}${o ? `<span class="tag">${OUTCOME[o]}</span>` : ""}</span>`
+      : `<span class="wk-none">${d?.ritualComplete ? "Read the ten, no intention" : "-"}</span>`}</li>`;
+  }).join("");
+  const prevAdj = str(state.weekly[shift(wk, -7)]?.next).trim();
+  $("#weekDays").innerHTML = `<p class="prose">${esc(summary)}</p><ul class="wk-list" aria-label="This week's days">${list}</ul>` +
+    (prevAdj ? `<div class="echo" style="margin:1.5rem 0 0"><p><b>Going into this week you planned:</b> ${esc(prevAdj)}</p></div>` : "");
+  $("#wWins").value = str(w.wins); $("#wPattern").value = str(w.obstacle); $("#wNext").value = str(w.next);
+  fitDock($("#v-week .dock"));
+}
+$("#saveWeek").addEventListener("click", () => {
+  const wk = weekTarget || weekKey(key());
+  state.weekly[wk] = { wins: $("#wWins").value.trim(), obstacle: $("#wPattern").value.trim(), next: $("#wNext").value.trim() };
+  if (save()) { toast("Week saved"); location.hash = ""; }
+});
+
+/* ---------- History ---------- */
+let showAllDays = false;
+
+function followThrough(today) {
+  const keys = Array.from({ length: 30 }, (_, i) => shift(today, -i));
+  const c = { set: 0, done: 0, partly: 0, not: 0, open: 0 }, checked = [];
+  keys.forEach(k => {
+    const d = state.days[k], i = str(d?.intention).trim();
+    if (!i) return;
+    const o = outcomeOf(d);
+    if (k === today && !o) return;          // today isn't over yet
+    c.set++;
+    if (o && c[o] !== undefined) { c[o]++; checked.push({ k, o, words: i.split(/\s+/).length }); } else c.open++;
+  });
+  return { c, checked };
+}
+
+function patternLine(checked) {
+  if (checked.length < 10) return "";
+  const rate = a => a.filter(x => x.o === "done").length / a.length;
+  const all = rate(checked);
+  // weekday that slips most
+  const by = {};
+  checked.forEach(x => { const w = parse(x.k).getDay(); (by[w] = by[w] || []).push(x); });
+  let worst = null;
+  Object.entries(by).forEach(([w, a]) => { if (a.length >= 3 && (worst === null || rate(a) < rate(by[worst]))) worst = w; });
+  if (worst !== null && rate(by[worst]) <= all - 0.3) {
+    const a = by[worst], n = a.filter(x => x.o === "done").length;
+    return `${WEEKDAY(a[0].k)}s slip most: you did it on ${n} of ${a.length}, against ${Math.round(all * 100)}% overall.`;
+  }
+  // shorter intentions get done?
+  const done = checked.filter(x => x.o === "done").map(x => x.words), rest = checked.filter(x => x.o !== "done").map(x => x.words);
+  if (done.length >= 4 && rest.length >= 3) {
+    const md = median(done), mr = median(rest);
+    if (mr - md >= 3) return `The intentions you finish tend to be shorter: about ${Math.round(md)} words, against ${Math.round(mr)} for the rest.`;
+  }
+  return "";
+}
+
+function renderHistory() {
+  const today = key(), start = state.startDate;
+  const cycle = Array.from({ length: 30 }, (_, i) => shift(start, i));
+  const elapsed = Math.max(1, Math.min(30, diff(start, today) + 1));
+  const doneMornings = cycle.filter(k => state.days[k]?.ritualComplete).length;
+  const over = diff(start, today) >= 30;
+
+  // 1. Am I doing what I say?
+  const { c, checked } = followThrough(today);
+  let say;
+  if (!c.set) say = `<p class="prose">Set an intention in the morning and check in on it in the evening. After a few days this shows how often you follow through.</p>`;
+  else {
+    const bits = [`you did ${c.done}`];
+    if (c.partly) bits.push(`partly did ${c.partly}`);
+    if (c.not) bits.push(`${c.not} didn't happen`);
+    const last = bits.length > 1 ? bits.slice(0, -1).join(", ") + " and " + bits[bits.length - 1] : bits[0];
+    say = `<p class="finding">In the last 30 days you set ${c.set} intention${c.set === 1 ? "" : "s"}. Of those, ${last}.${c.open ? ` ${c.open} never got an evening check-in.` : ""}</p>`;
+    const seg = (n, cls) => n ? `<i class="${cls}" style="flex:${n}"></i>` : "";
+    say += `<div class="out-bar" aria-hidden="true">${seg(c.done, "o-done")}${seg(c.partly, "o-partly")}${seg(c.not, "o-not")}${seg(c.open, "o-open")}</div>
+      <p class="key" aria-hidden="true"><span><i class="o-done" style="background:var(--ink)"></i>Did it ${c.done}</span><span><i style="background:var(--accent)"></i>Partly ${c.partly}</span><span><i style="background:var(--field)"></i>Not today ${c.not}</span>${c.open ? `<span><i style="background:var(--track)"></i>No check-in ${c.open}</span>` : ""}</p>`;
+    const pat = patternLine(checked);
+    if (pat) say += `<p class="prose" style="margin-top:1.25rem">${esc(pat)}</p>`;
+  }
+
+  // 2. Rhythm
+  const last14 = Array.from({ length: 14 }, (_, i) => shift(today, -i));
+  const opened = last14.filter(k => state.days[k]?.opens?.length).length;
+  const fin14 = last14.filter(k => state.days[k]?.ritualComplete).length;
+  const firstOpens = last14.map(k => state.days[k]?.opens?.[0]).filter(Boolean).map(i => { const t = new Date(i); return t.getHours() * 60 + t.getMinutes(); });
+  const secs = last14.map(k => state.days[k]?.short ? null : state.days[k]?.ritualSeconds).filter(x => typeof x === "number" && x >= 30 && x <= 3600);
+  const allOpens = Object.keys(state.days).filter(k => state.days[k]?.opens?.length).sort();
+  let usage;
+  if (!allOpens.length) usage = "Nothing logged yet.";
+  else {
+    const mo = median(firstOpens), ms = median(secs);
+    usage = `Opened on ${opened} of the last 14 days; read the ten on ${fin14}.`;
+    if (mo !== null) usage += ` Usually first opened around ${clock(Math.round(mo))}.`;
+    if (ms !== null) usage += ` It usually takes about ${Math.max(1, Math.round(ms / 60))} min.`;
+    if (diff(allOpens[0], today) < 13) usage += ` Logging began ${fmt(allOpens[0], { month: "short", day: "numeric" })}.`;
+  }
+
+  // 3. Look test (one line)
+  const t = testSummary();
+
+  // 4. Weeks
+  const weeks = Object.keys(state.weekly || {}).filter(k => nonEmpty(state.weekly[k])).sort().reverse().slice(0, 6);
+  const weekHTML = weeks.map(k => {
+    const w = state.weekly[k];
+    let x = `<li><p class="e-date">Week of ${esc(fmt(k, { month: "long", day: "numeric" }))}</p>`;
+    [["wins", "Went well"], ["obstacle", "Pattern"], ["next", "Adjustment"]].forEach(([f, l]) => { const v = str(w[f]).trim(); if (v) x += `<p class="e-line"><b>${l}:</b> ${esc(v)}</p>`; });
+    return x + `</li>`;
+  }).join("");
+
+  // 5. Days
+  const all = Object.keys(state.days).filter(k => hasContent(state.days[k])).sort().reverse();
+  const shown = showAllDays ? all.slice(0, 90) : all.slice(0, 7);
+  const labels = [["followThrough", "How it went"], ["gratitude", "Appreciated"], ["focus", "Focus"], ["obstacle", "Obstacle"]];
+  const entryHTML = shown.map(k => {
+    const d = state.days[k], o = outcomeOf(d), i = str(d.intention).trim();
+    let x = `<li><p class="e-date">${esc(fmt(k, { weekday: "long", month: "long", day: "numeric" }))}</p>`;
+    x += i ? `<p class="e-intent">${esc(i)}${o ? `<span class="tag">${OUTCOME[o]}</span>` : ""}</p>` : (d.ritualComplete ? `<p class="e-line">${d.short ? "Read the short version." : "Read the ten."}</p>` : "");
+    if (i && d.short) x += `<p class="e-line">Short version.</p>`;
+    labels.forEach(([f, l]) => { const v = str(d.reflection?.[f]).trim(); if (v) x += `<p class="e-line"><b>${l}:</b> ${esc(v)}</p>`; });
+    return x + `</li>`;
+  }).join("");
+
+  $("#histBody").innerHTML = `
+    <h1 class="view-title" id="histTitle">History</h1>
+    <h2 class="section" style="margin-top:2rem">Am I doing what I say?</h2>
+    ${say}
+    <hr class="rule"><h2 class="section">Rhythm</h2>
+    <p class="prose">Day ${elapsed} of 30 · read the ten on ${doneMornings} day${doneMornings === 1 ? "" : "s"}${over ? ". This cycle is complete; start a new one in Settings." : "."}</p>
+    <ol class="dots" aria-label="30-day cycle">${cycle.map(k => {
+      const on = state.days[k]?.ritualComplete, fut = k > today;
+      return `<li class="${on ? "on" : ""}${k === today ? " today" : ""}${fut ? " later" : ""}"><span class="sr">${esc(fmt(k, { month: "long", day: "numeric" }))}: ${on ? "done" : fut ? "upcoming" : "not done"}</span></li>`;
+    }).join("")}</ol>
+    <p class="prose" style="margin-top:1rem">${esc(usage)}</p>
+    <hr class="rule"><h2 class="section">The look test</h2>
+    <p class="prose">${esc(t.verdict)}</p>
+    <div class="actions"><a class="btn small" href="#test">${t.started ? "See the results" : "Set up the test"}</a></div>
+    <hr class="rule"><h2 class="section">Weeks</h2>
+    ${weekHTML ? `<ul class="entries" style="margin-top:.5rem">${weekHTML}</ul>` : `<p class="empty">No weekly reviews yet.</p>`}
+    <div class="actions"><button class="btn small" type="button" data-act="week" data-week="${weekKey(today)}">Review this week</button></div>
+    <hr class="rule"><h2 class="section">Days</h2>
+    ${entryHTML ? `<ul class="entries" style="margin-top:.5rem">${entryHTML}</ul>` : `<p class="empty">Your days will collect here.</p>`}
+    ${all.length > 7 ? `<div class="actions"><button class="btn small" type="button" data-act="more-days">${showAllDays ? "Show fewer" : `Show older days (${Math.min(all.length, 90) - 7})`}</button></div>` : ""}
+    <div style="height:3rem"></div>`;
+}
+
+/* ---------- Look test ---------- */
+function testSummary() {
+  const e = state.experiment, today = key();
+  const tagged = Object.keys(state.days).filter(k => state.days[k]?.variant).sort();
+  const started = !!e;
+  if (!e && !tagged.length) return { started, verdict: "Not started. It compares reading looks over two weeks, a few days each.", rows: "", overall: "", miss: "" };
+  const start = e && e.start <= today ? e.start : (tagged[0] || today);
+  const keys = []; for (let k = start; k <= today && keys.length < 400; k = shift(k, 1)) keys.push(k);
+  const dayMed = d => { const a = (Array.isArray(d?.cardSeconds) ? d.cardSeconds : []).filter(x => x > 0); return a.length >= 5 ? median(a) : null; };
+  const agg = {}, early = [], late = [];
+  keys.forEach((k, i) => {
+    const d = state.days[k];
+    if (k === today && !d?.ritualComplete) return;
+    const v = d?.variant || (e ? rotationVariant(k) : null);
+    if (!v || !VARIANTS[v]) return;
+    const a = agg[v] || (agg[v] = { days: 0, fin: 0, meds: [], moods: [], p0: [], p2: [] });
+    a.days++; if (d?.ritualComplete) a.fin++;
+    const m = dayMed(d);
+    if (m !== null) {
+      a.meds.push(m);
+      if (e) { const pos = diff(e.start, k) % 3; if (pos === 0) a.p0.push(m); if (pos === 2) a.p2.push(m); }
+      if (i <= 2) early.push(m); if (i >= 9 && i <= 13) late.push(m);
+    }
+    if (typeof d?.mood === "number") a.moods.push(d.mood);
+  });
+  const r1 = x => Math.round(x * 10) / 10;
+  const avg = a => a.reduce((x, y) => x + y, 0) / a.length;
+
+  // Verdict
+  let verdict;
+  const total = e ? e.order.length * 3 : 0, dayN = e ? diff(e.start, today) : 0;
+  const ranked = Object.keys(agg).filter(v => agg[v].moods.length >= 2).map(v => ({ v, m: avg(agg[v].moods) })).sort((a, b) => b.m - a.m);
+  if (e && dayN < total) verdict = `In progress: day ${dayN + 1} of ${total}. Too early to call until every look has had its turn.`;
+  else if (ranked.length < 2) verdict = "Not enough mood check-ins to compare yet. Tap a mood after the ten on a few more days.";
+  else {
+    const [a, b] = ranked, gap = a.m - b.m;
+    if (gap < 0.5) verdict = `No clear winner. Moods are within ${r1(gap)} points of each other, which is noise at this scale.${ranked.some(x => x.v === "plain") ? " Plain is as good as any, so keeping it simple is fine." : ""}`;
+    else verdict = `${VARIANTS[a.v]} leads on mood: ${r1(a.m)} against ${r1(b.m)} for ${VARIANTS[b.v]}.${a.v === "plain" ? " The visuals aren't adding much." : ""}`;
+    if (e?.missed === "none") verdict += " You didn't miss any look when it was gone.";
+    else if (e?.missed && VARIANTS[e.missed]) verdict += ` The one you missed most: ${VARIANTS[e.missed]}.`;
+  }
+
+  const rows = Object.keys(VARIANTS).filter(v => agg[v]).map(v => {
+    const a = agg[v], bits = [];
+    bits.push(a.moods.length ? `mood ${r1(avg(a.moods))} of 5` : "no mood yet");
+    bits.push(a.meds.length ? `${r1(median(a.meds))} s a statement` : "no timing yet");
+    bits.push(`read on ${a.fin} of ${a.days} day${a.days === 1 ? "" : "s"}`);
+    let trend = "";
+    if (a.p0.length && a.p2.length) {
+      const x = r1(median(a.p0)), y = r1(median(a.p2));
+      trend = Math.abs(y - x) < 1 ? "Reading time held steady across its days." : y < x ? `Reading sped up across its days (${x} → ${y} s): it may wear off.` : `Reading slowed across its days (${x} → ${y} s).`;
+    }
+    return `<li><b>${VARIANTS[v]}</b><p>${bits.join(" · ")}</p>${trend ? `<p>${esc(trend)}</p>` : ""}</li>`;
+  }).join("");
+  const overall = early.length && late.length
+    ? `Across the whole test, days 1–3 ran ${r1(median(early))} s a statement and days 10–14 ran ${r1(median(late))} s.`
+    : "";
+  let miss = "";
+  if (e && dayN >= total) {
+    miss = `<fieldset class="seg"><legend>Which look did you notice missing most?</legend><div class="seg-row">${
+      [...e.order, "none"].map(v => `<label><input type="radio" name="missed" value="${v}"${e.missed === v ? " checked" : ""}><span>${v === "none" ? "None" : VARIANTS[v]}</span></label>`).join("")
+    }</div></fieldset>`;
+  }
+  return { started, verdict, rows, overall, miss };
+}
+
+function renderTest() {
+  const t = testSummary();
+  $("#testVerdict").textContent = t.verdict;
+  $("#testResults").innerHTML = (t.rows ? `<ul class="results" style="margin-top:1.5rem">${t.rows}</ul>` : "") +
+    `<p class="prose">${t.overall ? esc(t.overall) + " " : ""}${t.rows ? "Times are the median of each day's ten. One person, a few days per look: treat small gaps as noise." : ""}</p>` + t.miss;
+  $("#visualSeg").innerHTML = LOOK_OPTS.map(([v, l]) => `<label><input type="radio" name="visual" value="${v}"${settings.visual === v ? " checked" : ""}><span>${l}</span></label>`).join("");
+  const e = state.experiment, today = key();
+  let st = "", act = "";
+  if (settings.visual !== "auto") st = `Holding ${VARIANTS[settings.visual]}. Choose “Rotate” to compare.`;
+  else if (e) {
+    const i = Math.max(0, diff(e.start, today)), total = e.order.length * 3, left = 3 - (i % 3);
+    st = i >= total
+      ? `One full round done (${total} days). It keeps rotating; a second round makes the comparison fairer.`
+      : `Test day ${i + 1} of ${total}. Today: ${VARIANTS[rotationVariant(today)]}. Changes ${left === 1 ? "tomorrow" : `in ${left} days`}.`;
+    if (!e.order.includes("photo")) st += " Photos aren't in this round; add them below and restart to include them.";
+    act = `<button class="btn small" type="button" data-act="restart-test">Restart the test</button>`;
+  }
+  $("#testStatus").textContent = st;
+  $("#testActions").innerHTML = act;
+  renderPhotos();
+}
+
+/* ---------- Settings ---------- */
+function renderSettings() {
+  document.querySelectorAll("input[name='theme']").forEach(r => { r.checked = r.value === settings.theme; });
+  const sel = $("#eveningHour");
+  if (!sel.options.length) for (let h = 14; h <= 22; h++) sel.add(new Option(clock(h * 60), h));
+  sel.value = settings.eveningHour;
+  $("#largeText").checked = settings.largeText;
+  $("#reduceMotion").checked = settings.reduceMotion;
+  const today = key();
+  $("#lookNow").textContent = settings.visual === "auto"
+    ? `Rotating for the look test. Today: ${VARIANTS[variantFor(today)]}.`
+    : `Holding one look: ${VARIANTS[settings.visual]}.`;
+  $("#cycleText").textContent = `Current 30 days began ${fmt(state.startDate, { month: "long", day: "numeric", year: "numeric" })}. Starting over keeps all your entries.`;
+}
+function renderPhotos() {
+  const n = photoURLs.filter(Boolean).length;
+  $("#photoSummary").textContent = `Your photos · ${n} of ${N} added`;
+  $("#photoList").innerHTML = AFF.map(([t], i) => {
+    const u = photoURLs[i], verb = u ? "Replace" : "Choose";
+    return `<li>${u ? `<img class="thumb" src="${u}" alt="">` : `<span class="thumb" aria-hidden="true"></span>`}<span class="name">${i + 1}. ${esc(t)}</span>
+      <span class="btns"><button class="btn small" type="button" data-act="pick-photo" data-i="${i}" aria-label="${verb} photo for statement ${i + 1}">${verb}</button>${
+      u ? `<button class="btn small" type="button" data-act="rm-photo" data-i="${i}" aria-label="Remove photo for statement ${i + 1}">Remove</button>` : ""}</span></li>`;
+  }).join("");
+}
+$("#photoFile").addEventListener("change", async e => {
+  const f = e.target.files?.[0], i = photoTarget; e.target.value = "";
+  if (!f || i === null) return;
+  $("#photoStatus").textContent = "Saving photo…";
+  try { await putPhoto(i, await shrink(f)); await loadPhotos(); renderPhotos(); $("#photoStatus").textContent = `Photo saved for statement ${i + 1}.`; }
+  catch { $("#photoStatus").textContent = "Couldn't use that image. Some formats, like HEIC, don't open in every browser; try a JPEG or PNG."; }
+});
+document.addEventListener("change", e => {
+  const t = e.target;
+  if (t.name === "visual") {
+    settings.visual = t.value;
+    settings.visualChosen = true;
+    if (t.value === "auto" && !state.experiment) startExperiment();
+    saveSettings(); renderTest();
+  } else if (t.name === "missed" && state.experiment) {
+    state.experiment.missed = t.value; save(); renderTest(); toast("Noted");
+  }
+});
+document.querySelectorAll('input[name="theme"]').forEach(r => r.addEventListener("change", () => { settings.theme = r.value; saveSettings(); }));
+$("#eveningHour").addEventListener("change", e => { settings.eveningHour = Number(e.target.value); saveSettings(); });
+$("#largeText").addEventListener("change", e => { settings.largeText = e.target.checked; saveSettings(); });
+$("#reduceMotion").addEventListener("change", e => { settings.reduceMotion = e.target.checked; saveSettings(); });
+
+$("#exportBtn").addEventListener("click", () => {
+  settings.lastBackup = new Date().toISOString(); saveSettings();
+  const payload = { app: "Morning Companion", schemaVersion: 1, exportedAt: new Date().toISOString(), state, settings };
+  const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
+  const a = document.createElement("a"); a.href = url; a.download = `morning-companion-backup-${key()}.json`;
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  $("#dataStatus").textContent = "Backup downloaded. Keep it somewhere safe.";
+});
+$("#importBtn").addEventListener("click", () => $("#importFile").click());
+$("#importFile").addEventListener("change", async e => {
+  const file = e.target.files?.[0]; if (!file) return;
+  try {
+    if (file.size > 2e6) throw new Error("That file is too large to be a backup.");
+    const data = JSON.parse(await file.text());
+    const s = data && data.state;
+    if (!s || s.version !== 1 || !/^\d{4}-\d{2}-\d{2}$/.test(s.startDate || "") || !s.days || typeof s.days !== "object" || Array.isArray(s.days))
+      throw new Error("That isn't a Morning Companion backup.");
+    if (!confirm("Restore this backup? It replaces what's saved in this browser.")) return;
+    state = s; if (!state.weekly || typeof state.weekly !== "object") state.weekly = {};
+    if (data.settings) settings = normSettings({ ...settings, ...data.settings });
+    save(); saveSettings(); renderSettings();
+    $("#dataStatus").textContent = "Backup restored.";
+  } catch (err) { $("#dataStatus").textContent = err.message || "Couldn't restore that file."; }
+  finally { e.target.value = ""; }
+});
+$("#resetCycle").addEventListener("click", () => {
+  if (!confirm("Start a new 30 days from today? Your entries stay in History.")) return;
+  state.startDate = key(); save(); renderSettings(); toast("New 30 days begin today");
+});
+$("#deleteAll").addEventListener("click", () => {
+  if (!confirm("Delete everything saved in this browser? This can't be undone without a backup.")) return;
+  try { localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(SETTINGS_KEY); } catch {}
+  try { indexedDB.deleteDatabase("morning-photos"); } catch {}
+  photoURLs.forEach(u => u && URL.revokeObjectURL(u)); photoURLs = Array(N).fill(null);
+  state = blank(); settings = normSettings({}); save(); saveSettings(); renderSettings();
+  $("#dataStatus").textContent = "All local data deleted.";
+});
+
+/* ---------- actions & routing ---------- */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const a = b.dataset.act, d = getDay();
+  if (a === "next") go(1);
+  else if (a === "back") go(-1);
+  else if (a === "finish") finish(false);
+  else if (a === "finish-skip") finish(true);
+  else if (a === "more-days") { showAllDays = !showAllDays; renderHistory(); }
+  else if (a === "listen") { if (listening) stopSpeech(); else { listening = true; renderCard(); speak(); } }
+  else if (a === "close-day") closeDay();
+  else if (a === "edit-evening") { editingEvening = true; renderHome(); }
+  else if (a === "read-again") { d.progress = 0; d.quick = false; save(); location.hash = "read"; }
+  else if (a === "quick") { d.quick = true; d.progress = 0; save(); location.hash = "read"; }
+  else if (a === "full") { d.quick = false; save(); renderHome(); }
+  else if (a === "add-intent") { d.progress = N; save(); location.hash = "read"; }
+  else if (a === "week") { weekTarget = b.dataset.week; location.hash = "week"; }
+  else if (a === "mood") { d.mood = Number(b.dataset.v); save(); renderHome(); toast("Logged. Have a good day."); }
+  else if (a === "restart-test") { if (confirm("Restart the look test from today? Past days keep their records.")) { startExperiment(); renderTest(); toast("Test restarted"); } }
+  else if (a === "pick-photo") { photoTarget = Number(b.dataset.i); $("#photoFile").click(); }
+  else if (a === "rm-photo") { const i = Number(b.dataset.i); putPhoto(i, null).then(loadPhotos).then(() => { renderPhotos(); $("#photoStatus").textContent = `Photo removed from statement ${i + 1}.`; }).catch(() => {}); }
+});
+
+const VIEWS = { "": "v-home", read: "v-read", week: "v-week", history: "v-history", settings: "v-settings", test: "v-test" };
+function route() {
+  const r = location.hash.slice(1);
+  const id = VIEWS[r] || "v-home";
+  if (id !== "v-read") { if (cardEnter !== null) { stampCard(); save(); } stopSpeech(true); setDawn(null); }
+  document.querySelectorAll(".view").forEach(v => { v.hidden = v.id !== id; });
+  if (id === "v-home") { editingEvening = false; renderHome(); }
+  if (id === "v-read") openReader();
+  if (id === "v-week") renderWeek();
+  if (id === "v-history") renderHistory();
+  if (id === "v-settings") renderSettings();
+  if (id === "v-test") renderTest();
+  if (id !== "v-history") showAllDays = false;
+  document.title = { "v-home": "Morning", "v-read": "Morning · reading", "v-week": "Morning · the week", "v-history": "Morning · history", "v-settings": "Morning · settings", "v-test": "Morning · look test" }[id];
+  if (id !== "v-read") window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+window.addEventListener("resize", () => document.querySelectorAll(".view:not([hidden]) .dock").forEach(fitDock));
+/* re-check when text size changes after render (browser zoom, font scaling) */
+if ("ResizeObserver" in window) {
+  let lastH = 0;
+  new ResizeObserver(() => {
+    const h = document.documentElement.scrollHeight;
+    if (Math.abs(h - lastH) > 40) { lastH = h; document.querySelectorAll(".view:not([hidden]) .dock").forEach(fitDock); }
+  }).observe(document.body);
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden" && cardEnter !== null) { stampCard(); save(); }
+  if (document.visibilityState === "visible" && !$("#v-read").hidden && idx < N) startCardClock();
+  if (document.visibilityState === "visible") { logOpen(); if ($("#v-read").hidden && $("#v-home").hidden === false && !document.activeElement?.matches("textarea")) renderHome(); else if ($("#v-read").hidden) applyTheme(); }
+});
+window.addEventListener("pagehide", () => { if (cardEnter !== null) { stampCard(); save(); } stopSpeech(true); });
+
+applyTheme();
+logOpen();
+route();
+loadPhotos().then(() => {
+  if (!$("#v-test").hidden) renderPhotos();
+  if (!$("#v-read").hidden && look === "photo" && idx < N) { stampCard(); renderCard(); }
+});
+})();
+</script>
+</body>
+</html>
