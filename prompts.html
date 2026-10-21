@@ -1315,7 +1315,11 @@
         </div>
 
         <button id="catToggle" class="cat-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
-          <span class="cat-toggle-icon" aria-hidden="true"></span>
+          <span class="cat-toggle-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="category-svg">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          </span>
           <span class="cat-toggle-label" id="catToggleLabel">All Prompts</span>
           <span class="cat-toggle-count" id="catToggleCount">0</span>
           <span class="cat-toggle-chevron" aria-hidden="true">
@@ -2838,7 +2842,6 @@
       catToggle: document.getElementById("catToggle"),
       catToggleLabel: document.getElementById("catToggleLabel"),
       catToggleCount: document.getElementById("catToggleCount"),
-      catToggleIcon: document.querySelector(".cat-toggle-icon"),
       scrollTop: document.getElementById("scrollTop")
     };
 
@@ -2989,7 +2992,6 @@
       els.catToggleLabel.textContent = active.name;
       els.catToggle.setAttribute("aria-label", `Choose category (current: ${active.name})`);
       els.catToggleCount.textContent = String(active.count);
-      els.catToggleIcon.innerHTML = iconSvg(active.icon, "category-svg");
     }
 
     function renderContentHeader(filtered) {
