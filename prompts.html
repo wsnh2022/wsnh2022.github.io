@@ -1083,7 +1083,7 @@
 
       .sidebar {
         position: fixed;
-        inset: 0 auto 0 0;
+        inset: 0 0 0 auto;
         width: min(82vw, 320px);
         max-height: none;
         margin: 0;
@@ -1091,14 +1091,19 @@
         z-index: 70;
         overflow-y: auto;
         background: var(--surface);
-        border-right: 1px solid var(--border-strong);
+        border-left: 1px solid var(--border-strong);
         box-shadow: var(--shadow-lg);
-        transform: translateX(-100%);
+        transform: translateX(100%);
         transition: transform .26s cubic-bezier(.22, .8, .24, 1);
       }
 
       .sidebar.open {
         transform: translateX(0);
+      }
+
+      /* the site-wide hub button sits bottom-right, over the open drawer */
+      body:has(.sidebar.open) #hub-host {
+        display: none;
       }
 
       .sidebar-heading {
@@ -2977,8 +2982,8 @@
       els.sidebarClose.addEventListener("click", closeDrawer);
       els.sidebarBackdrop.addEventListener("click", closeDrawer);
 
-      // Edge-swipe: swipe right from the left edge opens the drawer (installed PWA
-      // only - a Safari tab uses that gesture for Back); swipe left closes it.
+      // Edge-swipe: swipe left from the right edge opens the drawer (installed PWA
+      // only - a Safari tab uses that gesture for Forward); swipe right closes it.
       const isStandalone = () =>
         window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
       let swipe = null;
@@ -2988,7 +2993,7 @@
         const t = event.touches[0];
         const open = els.sidebar.classList.contains("open");
         let mode = null;
-        if (!open && isStandalone() && t.clientX <= 28) mode = "open";
+        if (!open && isStandalone() && t.clientX >= window.innerWidth - 28) mode = "open";
         else if (open) mode = "close";
         if (!mode) return;
         swipe = { mode, x: t.clientX, y: t.clientY, time: Date.now() };
@@ -3007,10 +3012,10 @@
         const dx = t.clientX - swipe.x, dy = t.clientY - swipe.y;
         const horizontal = Math.abs(dx) > Math.abs(dy);
         const fast = Date.now() - swipe.time < 250;
-        if (horizontal && swipe.mode === "open" && (dx > 55 || (fast && dx > 30))) {
+        if (horizontal && swipe.mode === "open" && (dx < -55 || (fast && dx < -30))) {
           openDrawer();
           navigator.vibrate?.(8);
-        } else if (horizontal && swipe.mode === "close" && dx < -45) {
+        } else if (horizontal && swipe.mode === "close" && dx > 45) {
           closeDrawer();
         }
         swipe = null;
