@@ -7,17 +7,17 @@
   <meta name="color-scheme" content="light dark" />
   <title>AI Prompt Library</title>
   <meta name="description"
-    content="Browse, search, and copy 201 reusable AI prompts across 18 categories. Works offline." />
+    content="Browse, search, and copy 207 reusable AI prompts across 18 categories and 1 prompt pack. Works offline." />
 
   <meta property="og:title" content="AI Prompt Library" />
   <meta property="og:description"
-    content="Browse, search, and copy 201 reusable AI prompts across 18 categories. Works offline." />
+    content="Browse, search, and copy 207 reusable AI prompts across 18 categories and 1 prompt pack. Works offline." />
   <meta property="og:url" content="https://wsnh2022.github.io/yogi-porfolio/prompts.html" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="AI Prompt Library" />
   <meta name="twitter:description"
-    content="Browse, search, and copy 201 reusable AI prompts across 18 categories. Works offline." />
+    content="Browse, search, and copy 207 reusable AI prompts across 18 categories and 1 prompt pack. Works offline." />
 
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -740,6 +740,48 @@
       letter-spacing: -.012em;
     }
 
+    /* prompt packs: purpose line, fill-in tags and highlighted blanks */
+    .prompt-purpose {
+      margin: 2px 0 0;
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      line-height: 1.4;
+    }
+
+    .prompt-blanks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 7px;
+    }
+
+    .blank-tag {
+      padding: 1px 7px;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+      border-radius: 6px;
+      background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+      color: var(--accent-text);
+      font-size: 10.5px;
+      font-weight: 650;
+    }
+
+    .prompt-blank {
+      padding: 0 2px;
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--accent) 16%, transparent);
+      color: var(--accent-text);
+      font-weight: 600;
+    }
+
+    .pack-section {
+      margin-bottom: 18px;
+    }
+
+    /* phone-only: desktop shows the pack description in the section heading */
+    .pack-tip {
+      display: none;
+    }
+
     /* the card itself copies; this shows an icon, plus a label on hover/focus */
     .copy-hint {
       flex: 0 0 auto;
@@ -824,7 +866,7 @@
     }
 
     .prompt-text.expanded {
-      white-space: normal;
+      white-space: pre-line;
       overflow-wrap: anywhere;
       cursor: text;
     }
@@ -1112,12 +1154,16 @@
         margin-bottom: 12px;
       }
 
+      /* pinned to the drawer's top corner, above whichever section comes first */
       .sidebar-close {
+        position: absolute;
+        top: calc(11px + env(safe-area-inset-top, 0px));
+        right: 14px;
+        z-index: 1;
         display: grid;
         place-items: center;
         width: 30px;
         height: 30px;
-        margin-left: auto;
         border: 1px solid var(--border);
         border-radius: 8px;
         background: var(--surface-soft);
@@ -1146,6 +1192,18 @@
       .prompt-card:hover .prompt-chip {
         background: var(--icon-bg);
         border-color: var(--border);
+      }
+
+      .pack-tip {
+        display: block;
+        margin: 0 0 12px;
+        padding: 8px 11px;
+        border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+        border-radius: 11px;
+        background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+        color: var(--text-secondary);
+        font-size: 12.5px;
+        line-height: 1.45;
       }
 
       .prompt-card:hover .copy-hint {
@@ -1227,7 +1285,7 @@
           <p class="eyebrow">Selected text actions</p>
           <h2>Find the right prompt. Copy it. Use it anywhere.</h2>
           <p class="hero-description">
-            Browse <span id="heroDescCount">201</span> focused AI actions designed around common tasks - understand,
+            Browse <span id="heroDescCount">207</span> focused AI actions designed around common tasks - understand,
             rewrite, analyze, research, code, learn, decide, and more.
           </p>
         </div>
@@ -1277,14 +1335,21 @@
       <div class="library-layout">
         <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
         <aside class="sidebar" id="sidebar" aria-label="Prompt categories">
+          <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close categories">
+            <svg viewBox="0 0 24 24">
+              <path d="m8 8 8 8M16 8l-8 8" />
+            </svg>
+          </button>
+          <div id="packSection" class="pack-section" hidden>
+            <div class="sidebar-heading">
+              <span>Prompt packs</span>
+              <span id="packCount" class="count-pill">0</span>
+            </div>
+            <nav id="packNav" class="category-nav" aria-label="Prompt packs"></nav>
+          </div>
           <div class="sidebar-heading">
             <span>Categories</span>
             <span id="categoryCount" class="count-pill">0</span>
-            <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close categories">
-              <svg viewBox="0 0 24 24">
-                <path d="m8 8 8 8M16 8l-8 8" />
-              </svg>
-            </button>
           </div>
           <nav id="categoryNav" class="category-nav"></nav>
         </aside>
@@ -1292,13 +1357,15 @@
         <section class="content-area" aria-label="Prompt library">
           <div id="contentHeader" class="content-header">
             <div>
-              <p class="eyebrow">Prompt collection</p>
+              <p class="eyebrow" id="sectionEyebrow">Prompt collection</p>
               <h2 id="sectionTitle">All Prompts</h2>
               <p id="sectionDescription" class="section-description">
                 The complete collection. Search or pick a category to narrow it down.
               </p>
             </div>
           </div>
+
+          <p id="packTip" class="pack-tip" hidden></p>
 
           <div id="promptGrid" class="prompt-grid"></div>
 
@@ -2664,6 +2731,58 @@
           ]
         }
       ],
+      "packs": [
+        {
+          "id": "personal_tutor",
+          "name": "Personal tutor",
+          "icon": "school",
+          "description": "Multi-step prompts that turn your AI into a personal tutor. Copy one, fill in the highlighted parts, then reply as it asks.",
+          "prompts": [
+            {
+              "id": 202,
+              "name": "Learning Curve Destroyer",
+              "purpose": "Identify what matters and start practising",
+              "prompt": "You are a teacher who has only 4 hours with me and will never see me again. Your only objective is to make me functional in [skill] before the time runs out. Do not give me theory without a practical use, and do not give me a generic list.\n\nTell me three things: what to learn first, what to ignore completely, and the one exercise that, done a single time, would already put me ahead of 70% of people who have studied this for months.\n\nThen teach me the first step and wait for my response before continuing.",
+              "icon": "target"
+            },
+            {
+              "id": 203,
+              "name": "Real Error Simulator",
+              "purpose": "Apply knowledge and correct mistakes",
+              "prompt": "Do not explain [concept] to me. Put me directly into a realistic situation where I would have to use it and would probably make a mistake. Then wait for my response.\n\nWhen I make a mistake, do not give me the answer. Ask me one question that forces me to find where my reasoning breaks.\n\nGive me the answer only after I have tried at least twice. Then repeat the cycle with a new situation until I can get it right without hesitation.",
+              "icon": "mistake"
+            },
+            {
+              "id": 204,
+              "name": "Impossible Language Translator",
+              "purpose": "Understand the core concept",
+              "prompt": "The content below is confusing to me. Before explaining anything, tell me the one core idea that, once I understand it, makes the rest fall into place.\n\nExplain only that idea first, using an everyday analogy and no technical terms.\n\nThen ask me 3 questions that only someone who truly understood it could answer. Ask them one at a time and wait for my answers.\n\nDo not move on to the rest until I pass all three.\n\n[Paste the content here]",
+              "icon": "translate"
+            },
+            {
+              "id": 205,
+              "name": "Learning Path Architect",
+              "purpose": "Build a goal-based learning plan",
+              "prompt": "My real goal is [goal]. It is not to learn [skill] in general. It is to achieve [specific result] within [deadline].\n\nI already know [what you already master]. Based on that, build me a 7-day learning path. Each day must include: one single task that fits within 45 minutes, a clear criterion so I know whether I did it correctly, and what not to do that day so I do not waste time.\n\nIf the entire path does not lead me to the goal, rebuild it until it does.",
+              "icon": "path"
+            },
+            {
+              "id": 206,
+              "name": "Hidden Gap Detector",
+              "purpose": "Find weaknesses in your foundation",
+              "prompt": "I think I already master [skill]. I want you to prove me wrong. Ask me 5 questions that seem simple but expose the gaps of someone who has never truly gone deep.\n\nAsk them one at a time and wait for each answer. After every answer, tell me what it reveals about what is still missing in my foundation.\n\nDo not go easy on me. If I am being shallow, tell me directly.",
+              "icon": "questions"
+            },
+            {
+              "id": 207,
+              "name": "Forced Feynman Method",
+              "purpose": "Test understanding through explanation",
+              "prompt": "I just studied [topic]. I am going to explain what I understood as if you were a 10-year-old child.\n\nWait for my explanation. While I explain, stop me every time I use jargon I cannot define, skip a step in the reasoning, or simplify so much that it becomes wrong.\n\nAt the end, tell me exactly what those mistakes reveal about what is still not solid in my understanding.",
+              "icon": "baby-face"
+            }
+          ]
+        }
+      ],
       "prompt_guidelines": {
         "default_behavior": "Perform the requested action on the user's question, request, or provided content. Use only relevant context and avoid unrelated work.",
         "source_integrity": "Do not invent facts, details, claims, names, dates, owners, or context. Distinguish stated information from inference and label uncertainty when relevant.",
@@ -2686,7 +2805,7 @@
     };
 
     const CATEGORY_ICONS = { "Essential / everyday": "lightbulb", "Writing & rewriting": "pencil", "Tone controls": "sliders", "Text analysis": "analysis", "Research & information": "globe", "Work & productivity": "briefcase", "Email & communication": "mail", "Coding & developer workflows": "code", "Developer text that isn't necessarily code": "terminal", "Study & learning": "book", "Documents & structured data": "table", "Decision making": "decision", "Personal productivity": "checklist", "Business": "business", "Marketing & sales": "megaphone", "Legal / policy / compliance assistance": "legal", "Advanced \"power user\" actions": "sparkles", "Do something with this": "ask-ai" };
-    const ICON_PATHS = { "copy": "<rect x='9' y='9' width='12' height='12' rx='2'/><path d='M5 15V4a1 1 0 0 1 1-1h10'/>", "spark": "<path d='m12 3 1.9 6.1L20 11l-6.1 1.9L12 19l-1.9-6.1L4 11l6.1-1.9L12 3Z'/>", "lightbulb": "<path d=\"M9 18h6M10 21h4M8.5 14.5A6 6 0 1 1 15.5 15c-.9.7-1.4 1.6-1.5 3H10c-.1-1.3-.6-2.3-1.5-3Z\"/><path d=\"M10 10.5c.7-.7 1.8-.7 2.5 0\"/>", "baby-face": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"9\" cy=\"10\" r=\".7\"/><circle cx=\"15\" cy=\"10\" r=\".7\"/><path d=\"M9 14c1.8 1.4 4.2 1.4 6 0\"/>", "compress": "<path d=\"M7 3v4H3M17 3v4h4M7 21v-4H3M17 21v-4h4\"/><path d=\"M7 7 4 4M17 7l3-3M7 17l-3 3M17 17l3 3\"/>", "list": "<path d=\"M9 6h10M9 12h10M9 18h10\"/><path d=\"M5 6h.01M5 12h.01M5 18h.01\"/>", "text": "<path d=\"M5 5h14M12 5v14M8 19h8\"/>", "translate": "<path d=\"M4 6h9M8 6v2M6 14l3-6 3 6M7 12h5\"/><path d=\"M15 16h5M17.5 13v6\"/>", "terms": "<path d=\"M6 4h12v16H6z\"/><path d=\"M9 8h6M9 12h6M9 16h4\"/><circle cx=\"18\" cy=\"6\" r=\"3\"/>", "example": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"14\" rx=\"2\"/><path d=\"M8 10h8M8 14h5\"/><circle cx=\"17\" cy=\"15.5\" r=\"1.5\"/>", "check": "<path d=\"m5 12 4 4L19 6\"/>", "sparkles": "<path d=\"m12 3 1.4 5.6L19 10l-5.6 1.4L12 17l-1.4-5.6L5 10l5.6-1.4L12 3ZM19 16l.5 2.5L22 19l-2.5.5L19 22l-.5-2.5L16 19l2.5-.5L19 16Z\"/>", "pencil": "<path d=\"m5 16.5-.7 3.2 3.2-.7L18.8 7.7a2.3 2.3 0 0 0-3.2-3.2L5 16.5Z\"/><path d=\"m14.7 5.3 4 4\"/>", "polish": "<path d=\"m7 18 4-4 7-7 2 2-7 7-4 4H7Z\"/><path d=\"m13 6 5 5M5 20h8\"/>", "refresh-text": "<path d=\"M5 8a7 7 0 0 1 12-2l2 2M19 16a7 7 0 0 1-12 2l-2-2\"/><path d=\"M19 4v4h-4M5 20v-4h4\"/>", "briefcase": "<rect x=\"4\" y=\"7\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"M9 7V5h6v2M4 11h16M10 11v2h4v-2\"/>", "chat": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><path d=\"M8 9h8M8 12h5\"/>", "formal": "<path d=\"M7 4h10v16H7z\"/><path d=\"M9 8h6M9 12h6M9 16h4\"/>", "casual": "<path d=\"M5 6c0-1 1-2 2-2h10c1 0 2 1 2 2v8c0 1-1 2-2 2h-4l-3 3v-3H7c-1 0-2-1-2-2V6Z\"/><path d=\"M9 9h6M9 12h3\"/>", "shorten": "<path d=\"M6 6h12M6 12h7M6 18h4\"/><path d=\"m17 11 4 1-4 1M14 17l4 1-4 1\"/>", "expand": "<path d=\"M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5\"/><path d=\"M3 8 9 14M21 8l-6 6M3 16l6-6M21 16l-6-6\"/>", "target": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"12\" cy=\"12\" r=\"1\"/>", "handshake": "<path d=\"m4 11 4-3 4 2 3-2 5 4-5 5-3-2-3 2-5-4Z\"/><path d=\"m8 8 2 3M12 10l2 3M16 9l2 3\"/>", "flow": "<path d=\"M5 6h6M5 12h14M13 18h6\"/><path d=\"m9 3 3 3-3 3M15 9l3 3-3 3M15 15l3 3-3 3\"/>", "human": "<circle cx=\"12\" cy=\"8\" r=\"3\"/><path d=\"M6 20a6 6 0 0 1 12 0\"/>", "shield": "<path d=\"M12 3 20 6v5c0 5-3.2 8.2-8 10-4.8-1.8-8-5-8-10V6l8-3Z\"/><path d=\"m9 12 2 2 4-4\"/>", "scale": "<path d=\"M12 4v15M7 7h10M5 7 2 13h6L5 7ZM19 7l-3 6h6l-3-6ZM8 20h8\"/>", "neutral": "<path d=\"M5 12h14\"/>", "energy": "<path d=\"m13 3-8 11h6l-1 7 8-11h-6l1-7Z\"/>", "apology": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><path d=\"m9 10 2 2 4-4\"/>", "analysis": "<path d=\"M5 19V5M5 19h14\"/><path d=\"m8 15 3-3 2 2 5-6\"/>", "fact": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 10v5M12 7h.01\"/>", "claim": "<path d=\"M6 5h12v14H6z\"/><path d=\"M9 9h6M9 13h6M9 17h3\"/>", "assumption": "<path d=\"M12 3v4M5.5 7.5l3 3M3 14h4M18.5 10.5l3-3M17 14h4\"/><circle cx=\"12\" cy=\"14\" r=\"4\"/>", "contradiction": "<path d=\"M7 5v14M17 5v14\"/><path d=\"M4 9h6M14 15h6\"/>", "weakness": "<path d=\"m5 18 4-5 3 3 7-9\"/><path d=\"M5 21h14\"/>", "bias": "<path d=\"M7 5h10M12 5v14M8 19h8\"/><path d=\"M6 8h4M14 12h4M6 16h4\"/>", "argument": "<path d=\"M5 5h14v12H9l-4 3V5Z\"/><path d=\"M8 9h8M8 12h5\"/>", "pros-cons": "<path d=\"M6 6h12M6 12h12M6 18h12\"/><path d=\"m8 6 0 0M8 12l1 1 2-2M8 18l1 1 2-2\"/>", "evidence": "<path d=\"M6 4h9l3 3v13H6z\"/><path d=\"M15 4v4h4M9 12h6M9 16h4\"/>", "questions": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M9.8 9a2.4 2.4 0 1 1 3.9 1.9c-.9.7-1.7 1.2-1.7 2.6M12 16h.01\"/>", "priority": "<path d=\"M5 5h14M5 12h10M5 19h6\"/><path d=\"m17 15 3 3-3 3\"/>", "decision": "<path d=\"M12 4v5M12 9 7 14v6M12 9l5 5v6\"/><circle cx=\"12\" cy=\"4\" r=\"1.5\"/><circle cx=\"7\" cy=\"20\" r=\"1.5\"/><circle cx=\"17\" cy=\"20\" r=\"1.5\"/>", "calendar": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M8 3v4M16 3v4M4 9h16\"/>", "action": "<path d=\"M5 20V10M5 20h14\"/><path d=\"m8 14 3-3 2 2 4-5\"/>", "checklist": "<path d=\"M9 6h10M9 12h10M9 18h10\"/><path d=\"m4 6 1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2\"/>", "requirements": "<path d=\"M6 4h12v16H6z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/>", "risk": "<path d=\"m12 4 8 15H4L12 4Z\"/><path d=\"M12 9v4M12 16h.01\"/>", "memo": "<path d=\"M6 4h12v16H6z\"/><path d=\"M9 8h6M9 12h6M9 16h4\"/>", "next": "<path d=\"M5 12h13M14 7l5 5-5 5\"/>", "mail": "<rect x=\"4\" y=\"6\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"m5 7 7 6 7-6\"/>", "follow-up": "<path d=\"M6 8a6 6 0 1 1-1 8\"/><path d=\"M5 4v5h5\"/><path d=\"M9 12h6\"/>", "decline": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M8 8l8 8M16 8l-8 8\"/>", "help": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M9.8 9a2.4 2.4 0 1 1 3.9 1.9c-.9.7-1.7 1.2-1.7 2.6M12 16h.01\"/>", "code": "<path d=\"m9 7-5 5 5 5M15 7l5 5-5 5M13 4l-2 16\"/>", "bug": "<path d=\"M9 8a4 4 0 0 1 6 0v8a4 4 0 0 1-6 0V8Z\"/><path d=\"M7 10H4M20 10h-3M7 14H4M20 14h-3M9 5 7 3M15 5l2-2\"/>", "wrench": "<path d=\"M14 6a4 4 0 0 0 5 5l-9 9-5-5 9-9a4 4 0 0 1 0 0Z\"/><path d=\"m7 17 2 2\"/>", "performance": "<path d=\"M5 19V8h14v11\"/><path d=\"M8 15l3-3 2 2 3-5\"/>", "error-handling": "<path d=\"M12 4 20 8v8l-8 4-8-4V8l8-4Z\"/><path d=\"M12 8v5M12 16h.01\"/>", "validation": "<path d=\"M5 6h14M5 12h14M5 18h9\"/><path d=\"m17 17 2 2 3-4\"/>", "test": "<path d=\"M7 3h10M9 3v5l-3 9a3 3 0 0 0 3 4h6a3 3 0 0 0 3-4l-3-9V3\"/><path d=\"M7 15h10\"/>", "document": "<path d=\"M6 3h8l4 4v14H6z\"/><path d=\"M14 3v5h5M9 12h6M9 16h6\"/>", "comments": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><path d=\"M8 9h8M8 12h5\"/>", "convert": "<path d=\"M7 7h10l-3-3M17 17H7l3 3M17 7v4M7 13v4\"/>", "terminal": "<path d=\"M4 5h16v14H4z\"/><path d=\"m7 9 3 3-3 3M12 15h4\"/>", "database": "<ellipse cx=\"12\" cy=\"6\" rx=\"7\" ry=\"3\"/><path d=\"M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6\"/>", "regex": "<path d=\"M5 12h14M8 7l8 10M16 7 8 17\"/><circle cx=\"12\" cy=\"12\" r=\"8\"/>", "sql": "<path d=\"M6 5h12v5H6zM6 14h12v5H6z\"/><path d=\"M12 10v4M9 12h6\"/>", "stack": "<path d=\"m4 9 8-4 8 4-8 4-8-4ZM4 14l8 4 8-4M4 19l8 4 8-4\"/>", "architecture": "<rect x=\"4\" y=\"4\" width=\"6\" height=\"6\"/><rect x=\"14\" y=\"4\" width=\"6\" height=\"6\"/><rect x=\"9\" y=\"14\" width=\"6\" height=\"6\"/><path d=\"M10 7h4M12 10v4\"/>", "book": "<path d=\"M5 4h9a4 4 0 0 1 4 4v12H9a4 4 0 0 1-4-4V4Z\"/><path d=\"M9 20V8a4 4 0 0 1 4-4h1\"/>", "flashcards": "<rect x=\"6\" y=\"7\" width=\"12\" height=\"9\" rx=\"1\"/><path d=\"M9 4h9v10\"/><path d=\"M10 11h4\"/>", "quiz": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M9.8 9a2.4 2.4 0 1 1 3.9 1.9c-.9.7-1.7 1.2-1.7 2.6M12 16h.01\"/>", "exam": "<path d=\"M5 4h14v16H5z\"/><path d=\"M8 8h8M8 12h8M8 16h5\"/>", "interview": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><circle cx=\"10\" cy=\"10\" r=\"1\"/><circle cx=\"14\" cy=\"10\" r=\"1\"/>", "prerequisite": "<path d=\"M12 4v16M6 8l6-4 6 4M6 16l6 4 6-4\"/>", "path": "<path d=\"M4 18c4-8 5-12 9-12 3 0 4 3 7 3\"/><circle cx=\"4\" cy=\"18\" r=\"1.5\"/><circle cx=\"13\" cy=\"6\" r=\"1.5\"/><circle cx=\"20\" cy=\"9\" r=\"1.5\"/>", "mistake": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M8 8l8 8M16 8l-8 8\"/>", "concept-compare": "<rect x=\"4\" y=\"6\" width=\"7\" height=\"12\" rx=\"1\"/><rect x=\"13\" y=\"6\" width=\"7\" height=\"12\" rx=\"1\"/><path d=\"M11 12h2\"/>", "timeline": "<path d=\"M5 12h14M8 8v8M16 8v8\"/><circle cx=\"8\" cy=\"12\" r=\"2\"/><circle cx=\"16\" cy=\"12\" r=\"2\"/>", "json": "<path d=\"M9 6c-2 0-2 3-2 6s0 6-2 6M15 6c2 0 2 3 2 6s0 6 2 6\"/><path d=\"M11 9h2M11 15h2\"/>", "csv": "<path d=\"M5 5h14v14H5z\"/><path d=\"M5 10h14M10 5v14M15 5v14\"/>", "outline": "<path d=\"M6 6h14M8 10h12M10 14h10M12 18h8\"/>", "category": "<path d=\"M5 5h6v6H5zM13 5h6v6h-6zM5 13h6v6H5zM13 13h6v6h-6z\"/>", "numbers": "<path d=\"M6 7h3M6 12h3M6 17h3M13 7h5M13 12h5M13 17h5\"/><path d=\"M10 7h.01M10 12h.01M10 17h.01\"/>", "link": "<path d=\"M9 15 7 17a3 3 0 0 1-4-4l3-3a3 3 0 0 1 4 0M15 9l2-2a3 3 0 0 1 4 4l-3 3a3 3 0 0 1-4 0M8 16l8-8\"/>", "contacts": "<circle cx=\"10\" cy=\"8\" r=\"3\"/><path d=\"M4 20a6 6 0 0 1 12 0M17 9a3 3 0 0 1 3 3\"/>", "recommend": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"m8 12 2.5 2.5L16 9\"/>", "options": "<path d=\"M5 5h14M5 12h14M5 19h14\"/><circle cx=\"9\" cy=\"5\" r=\"1.5\"/><circle cx=\"15\" cy=\"12\" r=\"1.5\"/><circle cx=\"11\" cy=\"19\" r=\"1.5\"/>", "tradeoffs": "<path d=\"M6 6h12v6H6z\"/><path d=\"M9 12v6M15 12v6\"/><path d=\"M7 20h4M13 20h4\"/>", "missing": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 7v5M12 16h.01\"/>", "challenge": "<path d=\"m6 7 5 5-5 5M12 17h6\"/>", "devil": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"m8 9 2 2M16 9l-2 2M8 16c2.5-2 5.5-2 8 0\"/>", "second-opinion": "<circle cx=\"9\" cy=\"10\" r=\"4\"/><circle cx=\"15\" cy=\"14\" r=\"4\"/><path d=\"M11.5 12.5 12.5 11.5\"/>", "plan": "<path d=\"M5 5h14M5 12h14M5 19h14\"/><path d=\"m8 5 2 2 4-4M8 12l2 2 4-4M8 19l2 2 4-4\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 7v5l3 2\"/>", "quick-win": "<path d=\"m13 3-8 11h6l-1 7 8-11h-6l1-7Z\"/>", "simplify": "<path d=\"M5 7h14M5 12h8M5 17h5\"/><path d=\"m16 14 3 3-3 3\"/>", "business": "<path d=\"M5 20V5h10v15M15 10h4v10M8 8h4M8 12h4M8 16h4M17 14h1M17 17h1\"/>", "customer": "<circle cx=\"9\" cy=\"9\" r=\"3\"/><path d=\"M3 20a6 6 0 0 1 12 0M16 10a3 3 0 1 1 2-5M17 13a5 5 0 0 1 4 5\"/>", "product": "<rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M9 9h6v6H9z\"/>", "market": "<path d=\"M5 19V5M5 19h14\"/><path d=\"m8 15 3-4 3 2 5-6\"/>", "competitive": "<path d=\"M6 19V8h5v11M13 19V5h5v14\"/><path d=\"M8 11h1M15 8h1M15 12h1\"/>", "opportunity": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 16V8M8 12l4-4 4 4\"/>", "strategy": "<path d=\"M5 19V7h5v12M14 19V4h5v15\"/><path d=\"M7 11h1M16 8h1M16 12h1M16 16h1\"/>", "kpi": "<path d=\"M5 19V9M10 19V5M15 19v-8M20 19v-6\"/>", "persona": "<circle cx=\"12\" cy=\"9\" r=\"3\"/><path d=\"M5 20a7 7 0 0 1 14 0\"/><path d=\"M4 5h4M16 5h4\"/>", "headline": "<path d=\"M5 7h14M5 12h10M5 17h7\"/>", "hook": "<path d=\"M7 17c-2-1.5-3-3.5-3-6a8 8 0 0 1 16 0c0 2.5-1 4.5-3 6l-1 1H8l-1-1Z\"/><path d=\"M9 21h6\"/>", "cta": "<path d=\"M5 12h13M14 7l5 5-5 5\"/><path d=\"M5 7v10\"/>", "value": "<path d=\"M6 5h9l3 3v11H6z\"/><path d=\"M15 5v4h4M9 13h6\"/>", "sales": "<path d=\"M4 12h5l4-5 3 3 4-4\"/><path d=\"M18 6h3v3\"/>", "benefit": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"m8 12 2 2 5-5\"/>", "objection": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><path d=\"M9 9h6M9 12h3\"/>", "megaphone": "<path d=\"M4 11v2h4l7 4V7l-7 4H4Z\"/><path d=\"M18 10v4M8 15l1.5 4H12l-2-5\"/>", "legal": "<path d=\"M12 3v17M7 7h10M5 7 2 13h6L5 7ZM19 7l-3 6h6l-3-6ZM8 20h8\"/>", "obligation": "<path d=\"M6 4h12v16H6z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/><path d=\"m15 17 1.5 1.5L19 16\"/>", "restriction": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M8 8l8 8\"/>", "deadline": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 7v5l3 2M16 4l2 2\"/>", "review": "<path d=\"M6 4h12v16H6z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/><circle cx=\"18\" cy=\"17\" r=\"2\"/>", "version": "<path d=\"M7 5h10v14H7z\"/><path d=\"M10 5v14M14 5v14\"/><path d=\"M3 12h4M17 12h4\"/>", "root-cause": "<path d=\"M12 5v4M12 9 7 14v5M12 9l5 5v5\"/><circle cx=\"12\" cy=\"5\" r=\"1.5\"/><path d=\"M5 19h4M15 19h4\"/>", "solution": "<path d=\"M9 18h6M10 21h4M8.5 14.5A6 6 0 1 1 15.5 15c-.9.7-1.4 1.6-1.5 3H10c-.1-1.3-.6-2.3-1.5-3Z\"/><path d=\"M12 8v4M10 10h4\"/>", "alternatives": "<path d=\"M5 7h6M5 17h6M13 7h6M13 17h6\"/><path d=\"M11 7l2-2 2 2M11 17l2 2 2-2\"/>", "optimize-process": "<path d=\"M5 7h14M7 12h10M9 17h6\"/><circle cx=\"15\" cy=\"7\" r=\"2\"/><circle cx=\"10\" cy=\"12\" r=\"2\"/><circle cx=\"13\" cy=\"17\" r=\"2\"/>", "dependencies": "<circle cx=\"7\" cy=\"7\" r=\"2\"/><circle cx=\"17\" cy=\"7\" r=\"2\"/><circle cx=\"12\" cy=\"17\" r=\"2\"/><path d=\"M9 8l6 0M8 9l3 6M16 9l-3 6\"/>", "scenario": "<path d=\"M5 19V7h5v12M14 19V4h5v15\"/><path d=\"M7 11h1M16 8h1M16 12h1M16 16h1\"/>", "what-if": "<path d=\"M6 6h12v12H6z\"/><path d=\"M9 9h6M9 12h6M9 15h3\"/><path d=\"m17 4 2-2\"/>", "failure": "<path d=\"m12 4 8 15H4L12 4Z\"/><path d=\"m9 10 6 6M15 10l-6 6\"/>", "stress": "<path d=\"M5 8h14M5 16h14\"/><path d=\"M8 5v14M16 5v14\"/>", "synthesis": "<circle cx=\"7\" cy=\"7\" r=\"2\"/><circle cx=\"17\" cy=\"7\" r=\"2\"/><circle cx=\"12\" cy=\"17\" r=\"2\"/><path d=\"M9 8l2 6M15 8l-2 6M9 7h6\"/>", "alternatives-many": "<path d=\"M5 7h5v4H5zM14 7h5v4h-5zM9.5 17h5v4h-5z\"/><path d=\"M10 9h4M12 11v6\"/>", "ask-ai": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><path d=\"m12 8 .7 2.3L15 11l-2.3.7L12 14l-.7-2.3L9 11l2.3-.7L12 8Z\"/>", "sliders": "<path d=\"M5 7h14M5 12h14M5 17h14\"/><circle cx=\"9\" cy=\"7\" r=\"2\"/><circle cx=\"15\" cy=\"12\" r=\"2\"/><circle cx=\"11\" cy=\"17\" r=\"2\"/>", "globe": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M4 12h16M12 4c2 2.2 3 4.8 3 8s-1 5.8-3 8M12 4c-2 2.2-3 4.8-3 8s1 5.8 3 8\"/>", "table": "<path d=\"M4 5h16v14H4z\"/><path d=\"M4 10h16M4 14h16M10 5v14M15 5v14\"/>", "steps": "<path d=\"M5 5h14v4H5zM5 15h14v4H5z\"/><path d=\"M12 9v6M10 13l2 2 2-2\"/>" };
+    const ICON_PATHS = { "copy": "<rect x='9' y='9' width='12' height='12' rx='2'/><path d='M5 15V4a1 1 0 0 1 1-1h10'/>", "spark": "<path d='m12 3 1.9 6.1L20 11l-6.1 1.9L12 19l-1.9-6.1L4 11l6.1-1.9L12 3Z'/>", "lightbulb": "<path d=\"M9 18h6M10 21h4M8.5 14.5A6 6 0 1 1 15.5 15c-.9.7-1.4 1.6-1.5 3H10c-.1-1.3-.6-2.3-1.5-3Z\"/><path d=\"M10 10.5c.7-.7 1.8-.7 2.5 0\"/>", "baby-face": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"9\" cy=\"10\" r=\".7\"/><circle cx=\"15\" cy=\"10\" r=\".7\"/><path d=\"M9 14c1.8 1.4 4.2 1.4 6 0\"/>", "compress": "<path d=\"M7 3v4H3M17 3v4h4M7 21v-4H3M17 21v-4h4\"/><path d=\"M7 7 4 4M17 7l3-3M7 17l-3 3M17 17l3 3\"/>", "list": "<path d=\"M9 6h10M9 12h10M9 18h10\"/><path d=\"M5 6h.01M5 12h.01M5 18h.01\"/>", "text": "<path d=\"M5 5h14M12 5v14M8 19h8\"/>", "translate": "<path d=\"M4 6h9M8 6v2M6 14l3-6 3 6M7 12h5\"/><path d=\"M15 16h5M17.5 13v6\"/>", "terms": "<path d=\"M6 4h12v16H6z\"/><path d=\"M9 8h6M9 12h6M9 16h4\"/><circle cx=\"18\" cy=\"6\" r=\"3\"/>", "example": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"14\" rx=\"2\"/><path d=\"M8 10h8M8 14h5\"/><circle cx=\"17\" cy=\"15.5\" r=\"1.5\"/>", "check": "<path d=\"m5 12 4 4L19 6\"/>", "sparkles": "<path d=\"m12 3 1.4 5.6L19 10l-5.6 1.4L12 17l-1.4-5.6L5 10l5.6-1.4L12 3ZM19 16l.5 2.5L22 19l-2.5.5L19 22l-.5-2.5L16 19l2.5-.5L19 16Z\"/>", "pencil": "<path d=\"m5 16.5-.7 3.2 3.2-.7L18.8 7.7a2.3 2.3 0 0 0-3.2-3.2L5 16.5Z\"/><path d=\"m14.7 5.3 4 4\"/>", "polish": "<path d=\"m7 18 4-4 7-7 2 2-7 7-4 4H7Z\"/><path d=\"m13 6 5 5M5 20h8\"/>", "refresh-text": "<path d=\"M5 8a7 7 0 0 1 12-2l2 2M19 16a7 7 0 0 1-12 2l-2-2\"/><path d=\"M19 4v4h-4M5 20v-4h4\"/>", "briefcase": "<rect x=\"4\" y=\"7\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"M9 7V5h6v2M4 11h16M10 11v2h4v-2\"/>", "chat": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><path d=\"M8 9h8M8 12h5\"/>", "formal": "<path d=\"M7 4h10v16H7z\"/><path d=\"M9 8h6M9 12h6M9 16h4\"/>", "casual": "<path d=\"M5 6c0-1 1-2 2-2h10c1 0 2 1 2 2v8c0 1-1 2-2 2h-4l-3 3v-3H7c-1 0-2-1-2-2V6Z\"/><path d=\"M9 9h6M9 12h3\"/>", "shorten": "<path d=\"M6 6h12M6 12h7M6 18h4\"/><path d=\"m17 11 4 1-4 1M14 17l4 1-4 1\"/>", "expand": "<path d=\"M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5\"/><path d=\"M3 8 9 14M21 8l-6 6M3 16l6-6M21 16l-6-6\"/>", "target": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"12\" cy=\"12\" r=\"1\"/>", "handshake": "<path d=\"m4 11 4-3 4 2 3-2 5 4-5 5-3-2-3 2-5-4Z\"/><path d=\"m8 8 2 3M12 10l2 3M16 9l2 3\"/>", "flow": "<path d=\"M5 6h6M5 12h14M13 18h6\"/><path d=\"m9 3 3 3-3 3M15 9l3 3-3 3M15 15l3 3-3 3\"/>", "human": "<circle cx=\"12\" cy=\"8\" r=\"3\"/><path d=\"M6 20a6 6 0 0 1 12 0\"/>", "shield": "<path d=\"M12 3 20 6v5c0 5-3.2 8.2-8 10-4.8-1.8-8-5-8-10V6l8-3Z\"/><path d=\"m9 12 2 2 4-4\"/>", "scale": "<path d=\"M12 4v15M7 7h10M5 7 2 13h6L5 7ZM19 7l-3 6h6l-3-6ZM8 20h8\"/>", "neutral": "<path d=\"M5 12h14\"/>", "energy": "<path d=\"m13 3-8 11h6l-1 7 8-11h-6l1-7Z\"/>", "apology": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><path d=\"m9 10 2 2 4-4\"/>", "analysis": "<path d=\"M5 19V5M5 19h14\"/><path d=\"m8 15 3-3 2 2 5-6\"/>", "fact": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 10v5M12 7h.01\"/>", "claim": "<path d=\"M6 5h12v14H6z\"/><path d=\"M9 9h6M9 13h6M9 17h3\"/>", "assumption": "<path d=\"M12 3v4M5.5 7.5l3 3M3 14h4M18.5 10.5l3-3M17 14h4\"/><circle cx=\"12\" cy=\"14\" r=\"4\"/>", "contradiction": "<path d=\"M7 5v14M17 5v14\"/><path d=\"M4 9h6M14 15h6\"/>", "weakness": "<path d=\"m5 18 4-5 3 3 7-9\"/><path d=\"M5 21h14\"/>", "bias": "<path d=\"M7 5h10M12 5v14M8 19h8\"/><path d=\"M6 8h4M14 12h4M6 16h4\"/>", "argument": "<path d=\"M5 5h14v12H9l-4 3V5Z\"/><path d=\"M8 9h8M8 12h5\"/>", "pros-cons": "<path d=\"M6 6h12M6 12h12M6 18h12\"/><path d=\"m8 6 0 0M8 12l1 1 2-2M8 18l1 1 2-2\"/>", "evidence": "<path d=\"M6 4h9l3 3v13H6z\"/><path d=\"M15 4v4h4M9 12h6M9 16h4\"/>", "questions": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M9.8 9a2.4 2.4 0 1 1 3.9 1.9c-.9.7-1.7 1.2-1.7 2.6M12 16h.01\"/>", "priority": "<path d=\"M5 5h14M5 12h10M5 19h6\"/><path d=\"m17 15 3 3-3 3\"/>", "decision": "<path d=\"M12 4v5M12 9 7 14v6M12 9l5 5v6\"/><circle cx=\"12\" cy=\"4\" r=\"1.5\"/><circle cx=\"7\" cy=\"20\" r=\"1.5\"/><circle cx=\"17\" cy=\"20\" r=\"1.5\"/>", "calendar": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M8 3v4M16 3v4M4 9h16\"/>", "action": "<path d=\"M5 20V10M5 20h14\"/><path d=\"m8 14 3-3 2 2 4-5\"/>", "checklist": "<path d=\"M9 6h10M9 12h10M9 18h10\"/><path d=\"m4 6 1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2\"/>", "requirements": "<path d=\"M6 4h12v16H6z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/>", "risk": "<path d=\"m12 4 8 15H4L12 4Z\"/><path d=\"M12 9v4M12 16h.01\"/>", "memo": "<path d=\"M6 4h12v16H6z\"/><path d=\"M9 8h6M9 12h6M9 16h4\"/>", "next": "<path d=\"M5 12h13M14 7l5 5-5 5\"/>", "mail": "<rect x=\"4\" y=\"6\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"m5 7 7 6 7-6\"/>", "follow-up": "<path d=\"M6 8a6 6 0 1 1-1 8\"/><path d=\"M5 4v5h5\"/><path d=\"M9 12h6\"/>", "decline": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M8 8l8 8M16 8l-8 8\"/>", "help": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M9.8 9a2.4 2.4 0 1 1 3.9 1.9c-.9.7-1.7 1.2-1.7 2.6M12 16h.01\"/>", "code": "<path d=\"m9 7-5 5 5 5M15 7l5 5-5 5M13 4l-2 16\"/>", "bug": "<path d=\"M9 8a4 4 0 0 1 6 0v8a4 4 0 0 1-6 0V8Z\"/><path d=\"M7 10H4M20 10h-3M7 14H4M20 14h-3M9 5 7 3M15 5l2-2\"/>", "wrench": "<path d=\"M14 6a4 4 0 0 0 5 5l-9 9-5-5 9-9a4 4 0 0 1 0 0Z\"/><path d=\"m7 17 2 2\"/>", "performance": "<path d=\"M5 19V8h14v11\"/><path d=\"M8 15l3-3 2 2 3-5\"/>", "error-handling": "<path d=\"M12 4 20 8v8l-8 4-8-4V8l8-4Z\"/><path d=\"M12 8v5M12 16h.01\"/>", "validation": "<path d=\"M5 6h14M5 12h14M5 18h9\"/><path d=\"m17 17 2 2 3-4\"/>", "test": "<path d=\"M7 3h10M9 3v5l-3 9a3 3 0 0 0 3 4h6a3 3 0 0 0 3-4l-3-9V3\"/><path d=\"M7 15h10\"/>", "document": "<path d=\"M6 3h8l4 4v14H6z\"/><path d=\"M14 3v5h5M9 12h6M9 16h6\"/>", "comments": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><path d=\"M8 9h8M8 12h5\"/>", "convert": "<path d=\"M7 7h10l-3-3M17 17H7l3 3M17 7v4M7 13v4\"/>", "terminal": "<path d=\"M4 5h16v14H4z\"/><path d=\"m7 9 3 3-3 3M12 15h4\"/>", "database": "<ellipse cx=\"12\" cy=\"6\" rx=\"7\" ry=\"3\"/><path d=\"M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6\"/>", "regex": "<path d=\"M5 12h14M8 7l8 10M16 7 8 17\"/><circle cx=\"12\" cy=\"12\" r=\"8\"/>", "sql": "<path d=\"M6 5h12v5H6zM6 14h12v5H6z\"/><path d=\"M12 10v4M9 12h6\"/>", "stack": "<path d=\"m4 9 8-4 8 4-8 4-8-4ZM4 14l8 4 8-4M4 19l8 4 8-4\"/>", "architecture": "<rect x=\"4\" y=\"4\" width=\"6\" height=\"6\"/><rect x=\"14\" y=\"4\" width=\"6\" height=\"6\"/><rect x=\"9\" y=\"14\" width=\"6\" height=\"6\"/><path d=\"M10 7h4M12 10v4\"/>", "book": "<path d=\"M5 4h9a4 4 0 0 1 4 4v12H9a4 4 0 0 1-4-4V4Z\"/><path d=\"M9 20V8a4 4 0 0 1 4-4h1\"/>", "flashcards": "<rect x=\"6\" y=\"7\" width=\"12\" height=\"9\" rx=\"1\"/><path d=\"M9 4h9v10\"/><path d=\"M10 11h4\"/>", "quiz": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M9.8 9a2.4 2.4 0 1 1 3.9 1.9c-.9.7-1.7 1.2-1.7 2.6M12 16h.01\"/>", "exam": "<path d=\"M5 4h14v16H5z\"/><path d=\"M8 8h8M8 12h8M8 16h5\"/>", "interview": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><circle cx=\"10\" cy=\"10\" r=\"1\"/><circle cx=\"14\" cy=\"10\" r=\"1\"/>", "prerequisite": "<path d=\"M12 4v16M6 8l6-4 6 4M6 16l6 4 6-4\"/>", "path": "<path d=\"M4 18c4-8 5-12 9-12 3 0 4 3 7 3\"/><circle cx=\"4\" cy=\"18\" r=\"1.5\"/><circle cx=\"13\" cy=\"6\" r=\"1.5\"/><circle cx=\"20\" cy=\"9\" r=\"1.5\"/>", "mistake": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M8 8l8 8M16 8l-8 8\"/>", "concept-compare": "<rect x=\"4\" y=\"6\" width=\"7\" height=\"12\" rx=\"1\"/><rect x=\"13\" y=\"6\" width=\"7\" height=\"12\" rx=\"1\"/><path d=\"M11 12h2\"/>", "timeline": "<path d=\"M5 12h14M8 8v8M16 8v8\"/><circle cx=\"8\" cy=\"12\" r=\"2\"/><circle cx=\"16\" cy=\"12\" r=\"2\"/>", "json": "<path d=\"M9 6c-2 0-2 3-2 6s0 6-2 6M15 6c2 0 2 3 2 6s0 6 2 6\"/><path d=\"M11 9h2M11 15h2\"/>", "csv": "<path d=\"M5 5h14v14H5z\"/><path d=\"M5 10h14M10 5v14M15 5v14\"/>", "outline": "<path d=\"M6 6h14M8 10h12M10 14h10M12 18h8\"/>", "category": "<path d=\"M5 5h6v6H5zM13 5h6v6h-6zM5 13h6v6H5zM13 13h6v6h-6z\"/>", "numbers": "<path d=\"M6 7h3M6 12h3M6 17h3M13 7h5M13 12h5M13 17h5\"/><path d=\"M10 7h.01M10 12h.01M10 17h.01\"/>", "link": "<path d=\"M9 15 7 17a3 3 0 0 1-4-4l3-3a3 3 0 0 1 4 0M15 9l2-2a3 3 0 0 1 4 4l-3 3a3 3 0 0 1-4 0M8 16l8-8\"/>", "contacts": "<circle cx=\"10\" cy=\"8\" r=\"3\"/><path d=\"M4 20a6 6 0 0 1 12 0M17 9a3 3 0 0 1 3 3\"/>", "recommend": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"m8 12 2.5 2.5L16 9\"/>", "options": "<path d=\"M5 5h14M5 12h14M5 19h14\"/><circle cx=\"9\" cy=\"5\" r=\"1.5\"/><circle cx=\"15\" cy=\"12\" r=\"1.5\"/><circle cx=\"11\" cy=\"19\" r=\"1.5\"/>", "tradeoffs": "<path d=\"M6 6h12v6H6z\"/><path d=\"M9 12v6M15 12v6\"/><path d=\"M7 20h4M13 20h4\"/>", "missing": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 7v5M12 16h.01\"/>", "challenge": "<path d=\"m6 7 5 5-5 5M12 17h6\"/>", "devil": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"m8 9 2 2M16 9l-2 2M8 16c2.5-2 5.5-2 8 0\"/>", "second-opinion": "<circle cx=\"9\" cy=\"10\" r=\"4\"/><circle cx=\"15\" cy=\"14\" r=\"4\"/><path d=\"M11.5 12.5 12.5 11.5\"/>", "plan": "<path d=\"M5 5h14M5 12h14M5 19h14\"/><path d=\"m8 5 2 2 4-4M8 12l2 2 4-4M8 19l2 2 4-4\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 7v5l3 2\"/>", "quick-win": "<path d=\"m13 3-8 11h6l-1 7 8-11h-6l1-7Z\"/>", "simplify": "<path d=\"M5 7h14M5 12h8M5 17h5\"/><path d=\"m16 14 3 3-3 3\"/>", "business": "<path d=\"M5 20V5h10v15M15 10h4v10M8 8h4M8 12h4M8 16h4M17 14h1M17 17h1\"/>", "customer": "<circle cx=\"9\" cy=\"9\" r=\"3\"/><path d=\"M3 20a6 6 0 0 1 12 0M16 10a3 3 0 1 1 2-5M17 13a5 5 0 0 1 4 5\"/>", "product": "<rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M9 9h6v6H9z\"/>", "market": "<path d=\"M5 19V5M5 19h14\"/><path d=\"m8 15 3-4 3 2 5-6\"/>", "competitive": "<path d=\"M6 19V8h5v11M13 19V5h5v14\"/><path d=\"M8 11h1M15 8h1M15 12h1\"/>", "opportunity": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 16V8M8 12l4-4 4 4\"/>", "strategy": "<path d=\"M5 19V7h5v12M14 19V4h5v15\"/><path d=\"M7 11h1M16 8h1M16 12h1M16 16h1\"/>", "kpi": "<path d=\"M5 19V9M10 19V5M15 19v-8M20 19v-6\"/>", "persona": "<circle cx=\"12\" cy=\"9\" r=\"3\"/><path d=\"M5 20a7 7 0 0 1 14 0\"/><path d=\"M4 5h4M16 5h4\"/>", "headline": "<path d=\"M5 7h14M5 12h10M5 17h7\"/>", "hook": "<path d=\"M7 17c-2-1.5-3-3.5-3-6a8 8 0 0 1 16 0c0 2.5-1 4.5-3 6l-1 1H8l-1-1Z\"/><path d=\"M9 21h6\"/>", "cta": "<path d=\"M5 12h13M14 7l5 5-5 5\"/><path d=\"M5 7v10\"/>", "value": "<path d=\"M6 5h9l3 3v11H6z\"/><path d=\"M15 5v4h4M9 13h6\"/>", "sales": "<path d=\"M4 12h5l4-5 3 3 4-4\"/><path d=\"M18 6h3v3\"/>", "benefit": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"m8 12 2 2 5-5\"/>", "objection": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><path d=\"M9 9h6M9 12h3\"/>", "megaphone": "<path d=\"M4 11v2h4l7 4V7l-7 4H4Z\"/><path d=\"M18 10v4M8 15l1.5 4H12l-2-5\"/>", "legal": "<path d=\"M12 3v17M7 7h10M5 7 2 13h6L5 7ZM19 7l-3 6h6l-3-6ZM8 20h8\"/>", "obligation": "<path d=\"M6 4h12v16H6z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/><path d=\"m15 17 1.5 1.5L19 16\"/>", "restriction": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M8 8l8 8\"/>", "deadline": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 7v5l3 2M16 4l2 2\"/>", "review": "<path d=\"M6 4h12v16H6z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/><circle cx=\"18\" cy=\"17\" r=\"2\"/>", "version": "<path d=\"M7 5h10v14H7z\"/><path d=\"M10 5v14M14 5v14\"/><path d=\"M3 12h4M17 12h4\"/>", "root-cause": "<path d=\"M12 5v4M12 9 7 14v5M12 9l5 5v5\"/><circle cx=\"12\" cy=\"5\" r=\"1.5\"/><path d=\"M5 19h4M15 19h4\"/>", "solution": "<path d=\"M9 18h6M10 21h4M8.5 14.5A6 6 0 1 1 15.5 15c-.9.7-1.4 1.6-1.5 3H10c-.1-1.3-.6-2.3-1.5-3Z\"/><path d=\"M12 8v4M10 10h4\"/>", "alternatives": "<path d=\"M5 7h6M5 17h6M13 7h6M13 17h6\"/><path d=\"M11 7l2-2 2 2M11 17l2 2 2-2\"/>", "optimize-process": "<path d=\"M5 7h14M7 12h10M9 17h6\"/><circle cx=\"15\" cy=\"7\" r=\"2\"/><circle cx=\"10\" cy=\"12\" r=\"2\"/><circle cx=\"13\" cy=\"17\" r=\"2\"/>", "dependencies": "<circle cx=\"7\" cy=\"7\" r=\"2\"/><circle cx=\"17\" cy=\"7\" r=\"2\"/><circle cx=\"12\" cy=\"17\" r=\"2\"/><path d=\"M9 8l6 0M8 9l3 6M16 9l-3 6\"/>", "scenario": "<path d=\"M5 19V7h5v12M14 19V4h5v15\"/><path d=\"M7 11h1M16 8h1M16 12h1M16 16h1\"/>", "what-if": "<path d=\"M6 6h12v12H6z\"/><path d=\"M9 9h6M9 12h6M9 15h3\"/><path d=\"m17 4 2-2\"/>", "failure": "<path d=\"m12 4 8 15H4L12 4Z\"/><path d=\"m9 10 6 6M15 10l-6 6\"/>", "stress": "<path d=\"M5 8h14M5 16h14\"/><path d=\"M8 5v14M16 5v14\"/>", "synthesis": "<circle cx=\"7\" cy=\"7\" r=\"2\"/><circle cx=\"17\" cy=\"7\" r=\"2\"/><circle cx=\"12\" cy=\"17\" r=\"2\"/><path d=\"M9 8l2 6M15 8l-2 6M9 7h6\"/>", "alternatives-many": "<path d=\"M5 7h5v4H5zM14 7h5v4h-5zM9.5 17h5v4h-5z\"/><path d=\"M10 9h4M12 11v6\"/>", "ask-ai": "<path d=\"M5 5h14v10H9l-4 3V5Z\"/><path d=\"m12 8 .7 2.3L15 11l-2.3.7L12 14l-.7-2.3L9 11l2.3-.7L12 8Z\"/>", "sliders": "<path d=\"M5 7h14M5 12h14M5 17h14\"/><circle cx=\"9\" cy=\"7\" r=\"2\"/><circle cx=\"15\" cy=\"12\" r=\"2\"/><circle cx=\"11\" cy=\"17\" r=\"2\"/>", "globe": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M4 12h16M12 4c2 2.2 3 4.8 3 8s-1 5.8-3 8M12 4c-2 2.2-3 4.8-3 8s1 5.8 3 8\"/>", "table": "<path d=\"M4 5h16v14H4z\"/><path d=\"M4 10h16M4 14h16M10 5v14M15 5v14\"/>", "steps": "<path d=\"M5 5h14v4H5zM5 15h14v4H5z\"/><path d=\"M12 9v6M10 13l2 2 2-2\"/>", "school": "<path d=\"m3 9 9-4 9 4-9 4-9-4Z\"/><path d=\"M7 11v4c0 1.5 2.2 3 5 3s5-1.5 5-3v-4M21 9v5\"/>" };
 
     const els = {
       libraryMeta: document.getElementById("libraryMeta"),
@@ -2694,6 +2813,11 @@
       heroDescCount: document.getElementById("heroDescCount"),
       categoryCount: document.getElementById("categoryCount"),
       categoryNav: document.getElementById("categoryNav"),
+      packSection: document.getElementById("packSection"),
+      packNav: document.getElementById("packNav"),
+      packCount: document.getElementById("packCount"),
+      sectionEyebrow: document.getElementById("sectionEyebrow"),
+      packTip: document.getElementById("packTip"),
       searchInput: document.getElementById("searchInput"),
       clearSearch: document.getElementById("clearSearch"),
       resultCount: document.getElementById("resultCount"),
@@ -2772,14 +2896,39 @@
       return `<svg viewBox="0 0 24 24" class="${className}" aria-hidden="true">${path}</svg>`;
     }
 
+    function packs() {
+      return state.library.packs || [];
+    }
+
+    // categories first so "All Prompts" keeps the quick actions on top
+    function allGroups() {
+      return [...state.library.categories, ...packs()];
+    }
+
+    function isPack(group) {
+      return packs().includes(group);
+    }
+
     function allPrompts() {
-      return state.library.categories.flatMap(category =>
-        category.prompts.map(prompt => ({ ...prompt, category }))
+      return allGroups().flatMap(category =>
+        category.prompts.map((prompt, index) => ({ ...prompt, category, step: index + 1 }))
       );
     }
 
     function getCategory(categoryId) {
-      return state.library.categories.find(category => category.id === categoryId) || null;
+      return allGroups().find(category => category.id === categoryId) || null;
+    }
+
+    function groupIcon(group) {
+      return group.icon || CATEGORY_ICONS[group.name] || "sparkles";
+    }
+
+    function highlightBlanks(text) {
+      return escapeHtml(text).replace(/\[([^\]]+)\]/g, '<mark class="prompt-blank">[$1]</mark>');
+    }
+
+    function blanksIn(text) {
+      return [...new Set([...text.matchAll(/\[([^\]]+)\]/g)].map(match => match[1]))];
     }
 
     function getPromptIcon(item) { return item.icon || "sparkles"; }
@@ -2794,7 +2943,7 @@
       const term = state.searchTerm.trim().toLowerCase();
       if (term) {
         prompts = prompts.filter(item => {
-          const haystack = `${item.name} ${item.prompt} ${item.category.name}`.toLowerCase();
+          const haystack = `${item.name} ${item.purpose || ""} ${item.prompt} ${item.category.name}`.toLowerCase();
           return haystack.includes(term);
         });
       }
@@ -2803,20 +2952,22 @@
     }
 
     function renderCategories() {
-      const total = state.library.categories.reduce((sum, category) => sum + category.prompts.length, 0);
+      const total = allPrompts().length;
       els.categoryCount.textContent = String(state.library.categories.length);
 
+      const toButton = group => ({
+        id: group.id,
+        name: group.name,
+        count: group.prompts.length,
+        icon: groupIcon(group)
+      });
+      const packButtons = packs().map(toButton);
       const buttons = [
         { id: "all", name: "All Prompts", count: total, icon: "spark" },
-        ...state.library.categories.map(category => ({
-          id: category.id,
-          name: category.name,
-          count: category.prompts.length,
-          icon: CATEGORY_ICONS[category.name] || "sparkles"
-        }))
+        ...state.library.categories.map(toButton)
       ];
 
-      els.categoryNav.innerHTML = buttons.map(item => `
+      const buttonHtml = item => `
     <button
       type="button"
       class="category-button ${state.activeCategory === item.id ? "active" : ""}"
@@ -2827,9 +2978,14 @@
       <span class="category-name">${escapeHtml(item.name)}</span>
       <span class="category-count">${item.count}</span>
     </button>
-  `).join("");
+  `;
 
-      const active = buttons.find(item => item.id === state.activeCategory) || buttons[0];
+      els.categoryNav.innerHTML = buttons.map(buttonHtml).join("");
+      els.packCount.textContent = String(packButtons.length);
+      els.packNav.innerHTML = packButtons.map(buttonHtml).join("");
+      els.packSection.hidden = packButtons.length === 0;
+
+      const active = [...buttons, ...packButtons].find(item => item.id === state.activeCategory) || buttons[0];
       els.catToggleLabel.textContent = active.name;
       els.catToggle.setAttribute("aria-label", `Choose category (current: ${active.name})`);
       els.catToggleCount.textContent = String(active.count);
@@ -2842,10 +2998,19 @@
       const categoryTotal = activeCategory ? activeCategory.prompts.length : allPrompts().length;
       const searchApplied = Boolean(state.searchTerm.trim());
 
+      const pack = activeCategory && isPack(activeCategory);
+
       els.sectionTitle.textContent = title;
       els.resultCategory.textContent = title;
+      els.sectionEyebrow.textContent = pack
+        ? `Prompt pack · ${categoryTotal} prompts`
+        : "Prompt collection";
+      els.packTip.hidden = !pack;
+      if (pack) els.packTip.textContent = activeCategory.description;
 
-      if (searchApplied) {
+      if (pack && !searchApplied) {
+        els.sectionDescription.textContent = activeCategory.description;
+      } else if (searchApplied) {
         els.sectionDescription.textContent =
           `${filtered.length} matching prompt${filtered.length === 1 ? "" : "s"} within ${title}.`;
       } else if (activeCategory) {
@@ -2871,14 +3036,18 @@
         return;
       }
 
-      els.promptGrid.innerHTML = filtered.map(item => `
-    <article class="prompt-card" data-copy-id="${escapeHtml(item.id)}" tabindex="0">
+      els.promptGrid.innerHTML = filtered.map(item => {
+        const pack = isPack(item.category);
+        const blanks = pack ? blanksIn(item.prompt) : [];
+        return `
+    <article class="prompt-card${pack ? " pack-card" : ""}" data-copy-id="${escapeHtml(item.id)}" tabindex="0">
       <div class="prompt-card-main">
         <div class="prompt-card-header">
           <span class="prompt-chip" aria-hidden="true">${iconSvg(getPromptIcon(item), "prompt-svg")}</span>
           <div class="prompt-heading">
-            <span class="prompt-category">${escapeHtml(item.category.name)} <span class="prompt-number">· #${escapeHtml(item.id)}</span></span>
+            <span class="prompt-category">${escapeHtml(item.category.name)} <span class="prompt-number">· ${pack ? `Step ${item.step}` : `#${escapeHtml(item.id)}`}</span></span>
             <h3>${escapeHtml(item.name)}</h3>
+            ${item.purpose ? `<p class="prompt-purpose">${escapeHtml(item.purpose)}</p>` : ""}
           </div>
 
           <span class="copy-hint">
@@ -2893,10 +3062,13 @@
           </button>
         </div>
 
-        <p class="prompt-text">${escapeHtml(item.prompt)}</p>
+        ${blanks.length ? `<div class="prompt-blanks">${blanks.map(blank =>
+          `<span class="blank-tag">Fill in: ${escapeHtml(blank)}</span>`).join("")}</div>` : ""}
+        <p class="prompt-text">${pack ? highlightBlanks(item.prompt) : escapeHtml(item.prompt)}</p>
       </div>
     </article>
-  `).join("");
+  `;
+      }).join("");
 
       markClampedCards();
     }
@@ -2962,7 +3134,7 @@
     }
 
     function bindEvents() {
-      els.categoryNav.addEventListener("click", event => {
+      els.sidebar.addEventListener("click", event => {
         const button = event.target.closest("[data-category-id]");
         if (!button) return;
 
@@ -2973,7 +3145,9 @@
         if (isMobile()) {
           closeDrawer();
           const offset = document.querySelector(".site-header").offsetHeight + els.toolbar.offsetHeight;
-          const target = window.scrollY + els.contentHeader.getBoundingClientRect().top - offset - 8;
+          // the section heading is hidden on phones, so aim at the content area itself
+          const contentTop = els.contentHeader.parentElement.getBoundingClientRect().top;
+          const target = window.scrollY + contentTop - offset - 8;
           window.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
         }
       });
@@ -3131,8 +3305,11 @@
       }
 
       const total = allPrompts().length;
+      const packCount = packs().length;
       els.libraryMeta.textContent =
-        `${total} prompts · ${state.library.categories.length} categories · v${state.library.version}`;
+        `${total} prompts · ${state.library.categories.length} categories` +
+        (packCount ? ` · ${packCount} pack${packCount === 1 ? "" : "s"}` : "") +
+        ` · v${state.library.version}`;
       els.heroPromptCount.textContent = String(total);
       if (els.heroDescCount) els.heroDescCount.textContent = String(total);
 
