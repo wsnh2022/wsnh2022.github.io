@@ -2970,7 +2970,6 @@
     }
 
     function renderCategories() {
-      const total = allPrompts().length;
       els.categoryCount.textContent = String(state.library.categories.length);
 
       const toButton = group => ({
@@ -2981,7 +2980,7 @@
       });
       const packButtons = packs().map(toButton);
       const buttons = [
-        { id: "all", name: "All Prompts", count: total, icon: "spark" },
+        { id: "all", name: "All Prompts", count: state.library.categories.reduce((sum, c) => sum + c.prompts.length, 0), icon: "spark" },
         ...state.library.categories.map(toButton)
       ];
 
