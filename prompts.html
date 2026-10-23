@@ -7,17 +7,17 @@
   <meta name="color-scheme" content="light dark" />
   <title>AI Prompt Library</title>
   <meta name="description"
-    content="Browse, search, and copy 207 reusable AI prompts across 18 categories and 1 prompt pack. Works offline." />
+    content="Browse, search, and copy 208 reusable AI prompts across 18 categories and 2 prompt packs. Works offline." />
 
   <meta property="og:title" content="AI Prompt Library" />
   <meta property="og:description"
-    content="Browse, search, and copy 207 reusable AI prompts across 18 categories and 1 prompt pack. Works offline." />
+    content="Browse, search, and copy 208 reusable AI prompts across 18 categories and 2 prompt packs. Works offline." />
   <meta property="og:url" content="https://wsnh2022.github.io/yogi-porfolio/prompts.html" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="AI Prompt Library" />
   <meta name="twitter:description"
-    content="Browse, search, and copy 207 reusable AI prompts across 18 categories and 1 prompt pack. Works offline." />
+    content="Browse, search, and copy 208 reusable AI prompts across 18 categories and 2 prompt packs. Works offline." />
 
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -1285,7 +1285,7 @@
           <p class="eyebrow">Selected text actions</p>
           <h2>Find the right prompt. Copy it. Use it anywhere.</h2>
           <p class="hero-description">
-            Browse <span id="heroDescCount">207</span> focused AI actions designed around common tasks - understand,
+            Browse <span id="heroDescCount">208</span> focused AI actions designed around common tasks - understand,
             rewrite, analyze, research, code, learn, decide, and more.
           </p>
         </div>
@@ -2783,6 +2783,21 @@
               "purpose": "Test understanding through explanation",
               "prompt": "I just studied [topic]. I am going to explain what I understood as if you were a 10-year-old child.\n\nWait for my explanation. While I explain, stop me every time I use jargon I cannot define, skip a step in the reasoning, or simplify so much that it becomes wrong.\n\nAt the end, tell me exactly what those mistakes reveal about what is still not solid in my understanding.",
               "icon": "baby-face"
+            }
+          ]
+        },
+        {
+          "id": "prompt_improver",
+          "name": "Prompt improver",
+          "icon": "polish",
+          "description": "Prompts that sharpen your request before the AI does the work. Copy one, paste your task, then answer any questions it asks.",
+          "prompts": [
+            {
+              "id": 208,
+              "name": "Request Sharpener",
+              "purpose": "Rewrite a rough request into a sharper prompt",
+              "prompt": "Before doing my task, improve the request itself. Do not do the task yet.\n\nStep 1. Gate.\nDecide if a deeper version is warranted. If the task is simple, operational, or purely creative, say so in one line and do the task as written.\n\nStep 2. Check for missing context.\nLook at my task and my constraints below. If something blank would change the rewrite materially, ask me about it. Rules for questions:\n- Maximum 3, asked together in one message.\n- Each one is a multiple-choice question with 2 to 4 realistic options, plus \"Not sure, you pick.\"\n- Keep them plain and practical (for example: \"Who is this for? a) me only b) my manager or client c) the general public d) not sure\").\n- Never ask something you can reasonably infer from my task.\n- Ask about time or deadline only if the task is a plan, schedule, or project.\n- Ask only if you cannot produce a useful rewrite without the answer.\n- If nothing blank matters, skip questions and say which defaults you are using in one line.\nIf you ask questions, stop and wait for my answers before continuing.\n\nStep 3. Think it through briefly:\n- Goal: What is the real goal behind this request, and what am I probably assuming without saying it?\n- Practitioner: What would an experienced professional do differently? Give only the 2 or 3 differences that matter most, one line of reasoning each.\n- Inputs: What source material would they start from? Separate what I can realistically get from what I can't.\n- Failure: How could this output be wrong, generic, or useless for my situation? Be specific to this task.\n- Checks: How could I verify the result without trusting you? Only checks I can run myself.\n\nStep 4. Rewrite my prompt.\nKeep the same scope. Do not add deliverables. Make it sharper: clear goal, stated constraints, remaining gaps as placeholders. Mark any tool, source, or fact you are not sure exists with (verify).\n\nStep 5. Stop.\nShow the rewritten prompt and wait for my approval. Do not run it. Your entire reply must end after the rewritten prompt.\n\nMy task:\n[Paste your task here]\n\nMy constraints (fill in what you know, skip the rest):\n- Tools/data I have: [tools and data]\n- Audience: [who this is for]",
+              "icon": "polish"
             }
           ]
         }
