@@ -29,7 +29,6 @@ The prompt total is typed by hand in several places and drifts. After adding pro
 
 ## Gotchas
 - The old "My Collection" data (`data/` and `embed-prompts.ps1`) was removed and archived at `D:\Library\Code_Env\Archieve\portfolio-old-prompts\`. `gitsync.bat` still has a step for `embed-prompts.ps1`, but it skips itself when the file is missing. `docs/prompts-roadmap.md` describes that old design.
-- `prompts.html` has a stale `og:url` pointing at `/yogi-porfolio/prompts.html`. The real URL is `https://wsnh2022.github.io/prompts.html`.
 - `README.md` is partly out of date (file tree, filenames). Trust the actual files over it.
 
 ## Commits
