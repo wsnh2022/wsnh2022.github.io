@@ -14,7 +14,7 @@
 
   var PAGES = [
     { href: "prompts.html", t: "AI Prompt Library", g: 0, ic: "fa-terminal",
-      s: "209 reusable AI prompts across 18 categories and 3 packs. Search, copy and use them, even offline.",
+      s: "216 reusable AI prompts across 18 categories and 4 packs. Search, copy and use them, even offline.",
       tags: ["Prompts", "Works offline"] },
     { href: "vibecode.html", t: "Vibe Coding Blueprint", g: 0, ic: "fa-rocket",
       s: "A blueprint for building with AI agents: the mental model, 8 core prompt documents, workflows, golden rules and a pre-flight checklist.",

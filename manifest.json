@@ -1,7 +1,7 @@
 {
   "name": "AI Prompts Reference",
   "short_name": "AI Prompts",
-  "description": "Browse, search, and copy 209 reusable AI prompts across 18 categories and 3 prompt packs. Works offline.",
+  "description": "Browse, search, and copy 216 reusable AI prompts across 18 categories and 4 prompt packs. Works offline.",
   "start_url": "./prompts.html",
   "scope": "./",
   "display": "standalone",
