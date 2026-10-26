@@ -50,7 +50,7 @@
       --accent-grad: linear-gradient(100deg, var(--accent), var(--accent-2));
       --accent-glow: 0 6px 20px -6px color-mix(in srgb, var(--accent) 28%, transparent);
       --accent-text: #a8480a;
-      --accent-text-2: #b45309;
+      --accent-text-2: #92400e;
       --accent-text-grad: linear-gradient(100deg, var(--accent-text), var(--accent-text-2));
       --icon-bg: #f2f0ec;
       --icon-bg-hover: #eae6df;
@@ -71,8 +71,8 @@
     html[data-color="sunset"] {
       --accent: #fb923c;
       --accent-2: #f472b6;
-      --accent-text: #c2410c;
-      --accent-text-2: #be185d;
+      --accent-text: #9a3412;
+      --accent-text-2: #9d174d;
     }
 
     html[data-color="ocean"] {
@@ -85,7 +85,7 @@
     html[data-color="aurora"] {
       --accent: #2dd4bf;
       --accent-2: #a78bfa;
-      --accent-text: #0f766e;
+      --accent-text: #115e59;
       --accent-text-2: #6d28d9;
     }
 
@@ -99,15 +99,15 @@
     html[data-color="mint"] {
       --accent: #4ade80;
       --accent-2: #22d3ee;
-      --accent-text: #15803d;
-      --accent-text-2: #0e7490;
+      --accent-text: #166534;
+      --accent-text-2: #155e75;
     }
 
     html[data-color="ember"] {
       --accent: #f87171;
       --accent-2: #fbbf24;
       --accent-text: #b91c1c;
-      --accent-text-2: #b45309;
+      --accent-text-2: #92400e;
     }
 
     html[data-theme="dark"] {
@@ -1047,6 +1047,12 @@
     /* blanks in the prompt preview: tap to type straight into the sentence */
     .fill-preview [data-slot] {
       cursor: text;
+    }
+
+    /* empty blanks get a dashed edge so "still to fill" never relies on color alone (Mint is green too) */
+    .fill-preview .prompt-blank {
+      outline: 1px dashed currentColor;
+      outline-offset: -1px;
     }
 
     .fill-edit {
