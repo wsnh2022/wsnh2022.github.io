@@ -8,7 +8,8 @@
   var GROUPS = [
     { t: "Prompts and guides", ic: "fa-wand-magic-sparkles", c: "purple" },
     { t: "Cheatsheets", ic: "fa-book-open", c: "sky" },
-    { t: "Browser tools", ic: "fa-screwdriver-wrench", c: "emerald" }
+    { t: "Browser tools", ic: "fa-screwdriver-wrench", c: "emerald" },
+    { t: "Writing", ic: "fa-pen-nib", c: "amber" }
   ];
 
   var PAGES = [
@@ -32,7 +33,10 @@
       tags: ["Privacy-first", "Canvas"] },
     { href: "morning-affirmation.html", t: "Morning Companion", g: 2, ic: "fa-sun",
       s: "A five-minute morning routine: read ten short statements, set one intention, close the day in the evening. Private, saved only on your device.",
-      tags: ["Routine", "Private", "No account"] }
+      tags: ["Routine", "Private", "No account"] },
+    { href: "https://wsnh2022.github.io/blog/", t: "Blog", g: 3, ic: "fa-feather-pointed",
+      s: "Short write-ups on the tools I build and what I learn while building them. New articles are added regularly.",
+      tags: ["Articles", "Updated often"] }
   ];
 
   window.HUB = { groups: GROUPS, pages: PAGES };
