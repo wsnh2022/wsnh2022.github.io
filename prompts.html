@@ -1714,7 +1714,7 @@
             {
               "id": 9,
               "name": "Translate",
-              "prompt": "Translate the user's text into the requested language. Preserve meaning, tone, terminology, names, numbers, and formatting; do not explain or summarize.",
+              "prompt": "Translate the user's text into [target language]. Preserve meaning, tone, terminology, names, numbers, and formatting; do not explain or summarize.",
               "icon": "translate"
             },
             {
@@ -2327,13 +2327,13 @@
             {
               "id": 103,
               "name": "Convert Language",
-              "prompt": "Convert the user's code to the requested programming language while preserving its behavior. Preserve behavior and important edge-case handling as far as the target language allows. Do not invent unavailable dependencies.",
+              "prompt": "Convert the user's code to [programming language] while preserving its behavior. Preserve behavior and important edge-case handling as far as the target language allows. Do not invent unavailable dependencies.",
               "icon": "convert"
             },
             {
               "id": 104,
               "name": "Convert Framework",
-              "prompt": "Adapt the user's code to the requested framework or library while preserving its intended behavior. Preserve intended behavior and adapt only what is necessary for the requested framework or library. State unavoidable incompatibilities briefly.",
+              "prompt": "Adapt the user's code to [framework or library] while preserving its intended behavior. Preserve intended behavior and adapt only what is necessary for [framework or library]. State unavoidable incompatibilities briefly.",
               "icon": "convert"
             },
             {
@@ -2382,7 +2382,7 @@
             {
               "id": 111,
               "name": "Generate Regex",
-              "prompt": "Create a regular expression that matches the pattern described by the user. State assumptions briefly only when the description is ambiguous.",
+              "prompt": "Create a [regex flavor] regular expression that matches the pattern described by the user. State assumptions briefly only when the description is ambiguous.",
               "icon": "regex"
             },
             {
@@ -2394,7 +2394,7 @@
             {
               "id": 113,
               "name": "Generate SQL",
-              "prompt": "Convert the requirement described in the user's content into an SQL query. Generate an SQL query that matches the requirement in the user's content. Do not invent table or column names when they are not provided; use clearly marked placeholders when necessary.",
+              "prompt": "Convert the requirement described in the user's content into an SQL query for [SQL dialect]. Generate an SQL query that matches the requirement in the user's content. Do not invent table or column names when they are not provided; use clearly marked placeholders when necessary.",
               "icon": "sql"
             },
             {
@@ -2406,7 +2406,7 @@
             {
               "id": 115,
               "name": "Generate Command",
-              "prompt": "Generate the command-line command needed to fulfill the user's stated requirement. Do not invent unavailable paths, names, flags, or environment details.",
+              "prompt": "Generate the [shell / OS] command needed to fulfill the user's stated requirement. Do not invent unavailable paths, names, flags, or environment details.",
               "icon": "terminal"
             },
             {
@@ -2698,7 +2698,7 @@
             {
               "id": 159,
               "name": "Deadline Plan",
-              "prompt": "Turn the user's information into a realistic plan for completing the work by the stated deadline. Use the stated deadline and available information to make a realistic sequence. Do not invent dates or available capacity.",
+              "prompt": "Turn the user's information into a realistic plan for completing the work by [deadline]. Use the deadline and available information to make a realistic sequence. Do not invent dates or available capacity.",
               "icon": "calendar"
             },
             {
@@ -2838,7 +2838,7 @@
             {
               "id": 180,
               "name": "Social Post",
-              "prompt": "Convert the user's content into a concise social media post. Create a concise social post that accurately represents the user's content. Do not add unsupported claims or context.",
+              "prompt": "Convert the user's content into a concise [platform] post. Create a concise social post that accurately represents the user's content. Do not add unsupported claims or context.",
               "icon": "chat"
             }
           ]
@@ -3165,7 +3165,14 @@
       "minutes": ["10", "15", "20", "30", "45", "60"],
       "number": ["5", "10", "15", "20"],
       "deadline": ["1 week", "2 weeks", "1 month", "3 months"],
-      "skill": ["Excel", "SQL", "Python", "public speaking", "data analysis", "writing", "cooking", "guitar"]
+      "skill": ["Excel", "SQL", "Python", "public speaking", "data analysis", "writing", "cooking", "guitar"],
+      "target language": ["English", "Spanish", "Hindi", "Tamil", "French", "German", "Japanese"],
+      "programming language": ["Python", "JavaScript", "TypeScript", "Java", "C#", "Go", "AutoHotkey v2"],
+      "framework or library": ["React", "Vue", "Svelte", "Express", "FastAPI", "Django"],
+      "SQL dialect": ["PostgreSQL", "MySQL", "SQL Server", "SQLite", "BigQuery"],
+      "shell / OS": ["PowerShell", "Windows cmd", "Git Bash", "bash on Linux", "zsh on macOS"],
+      "regex flavor": ["JavaScript", "Python", "PCRE", ".NET", "Java"],
+      "platform": ["LinkedIn", "X", "Instagram", "Facebook", "Threads"]
     };
 
     const CATEGORY_ICONS = { "Essential / everyday": "lightbulb", "Writing & rewriting": "pencil", "Tone controls": "sliders", "Text analysis": "analysis", "Research & information": "globe", "Work & productivity": "briefcase", "Email & communication": "mail", "Coding & developer workflows": "code", "Developer text that isn't necessarily code": "terminal", "Study & learning": "book", "Documents & structured data": "table", "Decision making": "decision", "Personal productivity": "checklist", "Business": "business", "Marketing & sales": "megaphone", "Legal / policy / compliance assistance": "legal", "Advanced \"power user\" actions": "sparkles", "Do something with this": "ask-ai" };
@@ -3497,7 +3504,7 @@
 
       els.promptGrid.innerHTML = filtered.map(item => {
         const pack = isPack(item.category);
-        const blanks = pack ? blanksIn(item.prompt) : [];
+        const blanks = blanksIn(item.prompt);
         return `
     <article class="prompt-card${pack ? " pack-card" : ""}" data-copy-id="${escapeHtml(item.id)}" tabindex="0">
       <div class="prompt-card-main">
@@ -3523,7 +3530,7 @@
 
         ${blanks.length ? `<div class="prompt-blanks">${blanks.map(blank =>
           `<span class="blank-tag">Fill in: ${escapeHtml(blank)}</span>`).join("")}</div>` : ""}
-        <p class="prompt-text">${pack ? highlightBlanks(item.prompt) : escapeHtml(item.prompt)}</p>
+        <p class="prompt-text">${highlightBlanks(item.prompt)}</p>
       </div>
     </article>
   `;
