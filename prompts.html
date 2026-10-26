@@ -32,14 +32,15 @@
     document.documentElement.dataset.color = (localStorage.getItem('ai-prompt-library-color') || 'orange');</script>
 
   <style>
+    /* backgrounds are neutral greys with a faint tint of the chosen color theme (--accent) */
     :root {
-      --bg: #f6f4f1;
+      --bg: color-mix(in srgb, var(--accent) 5%, #f5f6f8);
       --surface: #ffffff;
-      --surface-raised: #fcfbf9;
-      --surface-soft: #f1efeb;
-      --surface-hover: #f7f5f2;
-      --border: #e4e0da;
-      --border-strong: #cec9c0;
+      --surface-raised: color-mix(in srgb, var(--accent) 2%, #fcfcfd);
+      --surface-soft: color-mix(in srgb, var(--accent) 5%, #f0f1f4);
+      --surface-hover: color-mix(in srgb, var(--accent) 4%, #f7f8fa);
+      --border: color-mix(in srgb, var(--accent) 8%, #e2e4e8);
+      --border-strong: color-mix(in srgb, var(--accent) 8%, #cbced4);
       --text: #111317;
       --text-secondary: #4f5661;
       --text-muted: #626973;
@@ -49,7 +50,7 @@
       --accent-contrast: #141414;
       --accent-grad: linear-gradient(100deg, var(--accent), var(--accent-2));
       --accent-glow: 0 6px 20px -6px color-mix(in srgb, var(--accent) 28%, transparent);
-      --accent-text: #a8480a;
+      --accent-text: #9a4008;
       --accent-text-2: #92400e;
       --accent-text-grad: linear-gradient(100deg, var(--accent-text), var(--accent-text-2));
       --icon-bg: #f2f0ec;
@@ -111,13 +112,13 @@
     }
 
     html[data-theme="dark"] {
-      --bg: #100f0d;
-      --surface: #181613;
-      --surface-raised: #1c1a16;
-      --surface-soft: #211e19;
-      --surface-hover: #26221c;
-      --border: #322e28;
-      --border-strong: #443e36;
+      --bg: color-mix(in srgb, var(--accent) 3%, #0b0c0e);
+      --surface: color-mix(in srgb, var(--accent) 3%, #121316);
+      --surface-raised: color-mix(in srgb, var(--accent) 3%, #16171a);
+      --surface-soft: color-mix(in srgb, var(--accent) 3.5%, #1b1c20);
+      --surface-hover: color-mix(in srgb, var(--accent) 3.5%, #202126);
+      --border: color-mix(in srgb, var(--accent) 6%, #2a2c31);
+      --border-strong: color-mix(in srgb, var(--accent) 6%, #3b3d43);
       --text: #f4f5f7;
       --text-secondary: #c0c5cd;
       --text-muted: #969da7;
@@ -174,7 +175,7 @@
       margin: 0;
       min-height: 100vh;
       background:
-        radial-gradient(circle at 18% -10%, rgba(255, 247, 236, .9), transparent 34%),
+        radial-gradient(circle at 18% -10%, color-mix(in srgb, color-mix(in srgb, var(--accent) 12%, white) 90%, transparent), transparent 34%),
         linear-gradient(180deg, var(--bg), var(--bg));
       color: var(--text);
       font-family: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
