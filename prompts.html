@@ -883,11 +883,12 @@
       margin-top: 12px;
     }
 
-    .fill-field label {
+    .fill-field label,
+    .fill-name {
       display: flex;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 5px;
+      margin: 0 0 5px;
       color: var(--text-secondary);
       font-size: 12.5px;
       font-weight: 600;
@@ -901,7 +902,6 @@
       font-size: 10.5px;
     }
 
-    .fill-field input,
     .fill-field textarea {
       width: 100%;
       padding: 9px 11px;
@@ -911,45 +911,82 @@
       color: var(--text);
       font: inherit;
       font-size: 14px;
-    }
-
-    .fill-field textarea {
       resize: vertical;
     }
 
-    .fill-field input:focus,
     .fill-field textarea:focus {
       outline: none;
       border-color: var(--accent);
     }
 
-    .fill-options {
-      margin-top: 4px;
-      max-height: 180px;
-      overflow-y: auto;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-sm);
-      background: var(--surface-raised);
+    /* blanks in the prompt preview: tap to type straight into the sentence */
+    .fill-preview [data-slot] {
+      cursor: text;
     }
 
-    .fill-options button {
-      display: block;
-      width: 100%;
-      padding: 8px 11px;
-      border: 0;
-      background: transparent;
+    .fill-edit {
+      padding: 1px 4px;
+      border-radius: 4px;
+      outline: 1px solid var(--accent);
+      background: var(--surface-raised);
       color: var(--text);
+      font-weight: 600;
+    }
+
+    .fill-edit:empty::before {
+      content: attr(data-placeholder);
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .fill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    .fill-chips button {
+      flex: 0 0 auto;
+      padding: 5px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--text-secondary);
       font: inherit;
-      font-size: 13.5px;
-      text-align: left;
+      font-size: 13px;
+      white-space: nowrap;
       cursor: pointer;
     }
 
-    .fill-options button:hover,
-    .fill-options button:focus-visible {
-      outline: none;
-      background: var(--surface-hover);
+    .fill-chips button:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .fill-chips .fill-pen {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-style: dashed;
+    }
+
+    .fill-pen svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .fill-chips .fill-pen[aria-pressed="true"] {
+      border-style: solid;
+      border-color: var(--accent);
       color: var(--accent-text);
+    }
+
+    .fill-chips button[data-pick][aria-pressed="true"] {
+      border-color: color-mix(in srgb, var(--success) 55%, transparent);
+      background: color-mix(in srgb, var(--success) 18%, transparent);
+      color: var(--success);
+      font-weight: 600;
     }
 
     .fill-foot {
@@ -993,6 +1030,19 @@
         margin: auto 0 0;
         border-bottom: 0;
         border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+
+      /* phones: one swipeable row of chips per blank */
+      .fill-chips {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding-bottom: 2px;
+      }
+
+      /* the pencil would sit off-screen at the end of the row */
+      .fill-chips .fill-pen {
+        order: -1;
       }
 
       .fill-dialog::before {
@@ -3311,6 +3361,7 @@
     const BLANKS_KEY = "ai-prompt-library-blanks";
     const blankValues = loadBlankValues();
     let fillItem = null;
+    let editingBlank = null;
 
     // pasted content is one-off, so it gets a text box and is never remembered
     function isPasteBlank(blank) { return /^paste\b/i.test(blank); }
@@ -3334,58 +3385,98 @@
       return text.replace(/\[([^\]]+)\]/g, (match, blank) => blankValue(blank) || match);
     }
 
+    // one blank in the preview: filled value, highlighted [blank], or the inline edit box
+    function slotHtml(blank, editing) {
+      const attr = `data-slot="${escapeHtml(blank)}"`;
+      if (editing) {
+        return `<span class="fill-edit" ${attr} contenteditable="true" role="textbox" aria-label="${escapeHtml(blank)}" data-placeholder="${escapeHtml(blank)}">${escapeHtml(blankValues[blank] || "")}</span>`;
+      }
+      const value = blankValue(blank);
+      return value
+        ? `<span class="fill-value" ${attr}>${escapeHtml(value)}</span>`
+        : `<mark class="prompt-blank" ${attr}>[${escapeHtml(blank)}]</mark>`;
+    }
+
     function fillPreviewHtml(text) {
+      let editShown = false;
       return text.split(/(\[[^\]]+\])/).map(part => {
         const blank = part.match(/^\[([^\]]+)\]$/);
         if (!blank) return escapeHtml(part);
-        const value = blankValue(blank[1]);
-        return value ? `<span class="fill-value">${escapeHtml(value)}</span>` : `<mark class="prompt-blank">${escapeHtml(part)}</mark>`;
+        // a blank used twice gets the edit box only at its first spot
+        const editing = blank[1] === editingBlank && !editShown;
+        if (editing) editShown = true;
+        return slotHtml(blank[1], editing);
       }).join("");
     }
 
     function openFill(item) {
       fillItem = item;
+      editingBlank = null;
       els.fillCategory.textContent = item.category.name;
       els.fillTitle.textContent = item.name;
       els.fillFields.innerHTML = blanksIn(item.prompt).map((blank, i) => {
-        if (isPasteBlank(blank)) delete blankValues[blank];
+        const name = escapeHtml(blank);
+        if (isPasteBlank(blank)) {
+          delete blankValues[blank];
+          return `
+      <div class="fill-field" data-field="${name}">
+        <label for="fill-${i}"><span>${name}</span></label>
+        <textarea id="fill-${i}" data-blank="${name}" rows="4" placeholder="Paste here"></textarea>
+      </div>`;
+        }
         const value = blankValues[blank] || "";
-        const attrs = `id="fill-${i}" data-blank="${escapeHtml(blank)}" autocomplete="off"`;
-        const control = isPasteBlank(blank)
-          ? `<textarea ${attrs} rows="4" placeholder="Paste here"></textarea>`
-          : `<input ${attrs} value="${escapeHtml(value)}" placeholder="${escapeHtml(blankSuggestions(blank)[0] || "Type your own")}">`;
+        const picks = blankSuggestions(blank);
         return `
-      <div class="fill-field">
-        <label for="fill-${i}"><span>${escapeHtml(blank)}</span>${value ? '<span class="fill-remembered">Remembered</span>' : ""}</label>
-        ${control}
-        <div class="fill-options" hidden></div>
+      <div class="fill-field" data-field="${name}">
+        <p class="fill-name"><span>${name}</span>${value ? '<span class="fill-remembered">Remembered</span>' : ""}</p>
+        <div class="fill-chips">${picks.map(pick =>
+          `<button type="button" data-pick="${escapeHtml(pick)}" aria-pressed="${pick === value}">${escapeHtml(pick)}</button>`).join("")}<button type="button" class="fill-pen" data-edit="${name}" aria-pressed="false" aria-label="Type your own ${name}">${iconSvg("pencil", "")}${picks.length ? "" : "Type it in the prompt"}</button></div>
       </div>`;
       }).join("");
       updateFill();
       els.fillDialog.showModal();
     }
 
-    function updateFill() {
-      els.fillPreview.innerHTML = fillPreviewHtml(fillItem.prompt);
+    function updateFillCount() {
       const left = blanksIn(fillItem.prompt).filter(blank => !blankValue(blank)).length;
       els.fillLeft.textContent = left ? `${left} blank${left > 1 ? "s" : ""} left` : "All filled";
     }
 
-    function showOptions(field) {
-      const input = field.querySelector("input");
-      if (!input) return;
-      const all = blankSuggestions(input.dataset.blank);
-      const typed = input.value.trim().toLowerCase();
-      const matches = all.filter(option => option.toLowerCase().includes(typed));
-      // a field already holding a pick lists everything so it can be changed
-      const shown = matches.length === 1 && matches[0].toLowerCase() === typed ? all : matches;
-      const list = field.querySelector(".fill-options");
-      list.innerHTML = shown.map(option =>
-        `<button type="button" tabindex="-1" data-pick="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join("");
-      list.hidden = shown.length === 0;
+    function updateFill() {
+      els.fillPreview.innerHTML = fillPreviewHtml(fillItem.prompt);
+      updateFillCount();
+      els.fillFields.querySelectorAll("[data-edit]").forEach(pen =>
+        pen.setAttribute("aria-pressed", String(pen.dataset.edit === editingBlank)));
+      const box = els.fillPreview.querySelector(".fill-edit");
+      if (!box) return;
+      box.focus();
+      getSelection().selectAllChildren(box);
+      getSelection().collapseToEnd();
     }
 
-    function hideOptions(field) { field.querySelector(".fill-options").hidden = true; }
+    // saves a value and refreshes the chips; the preview is redrawn by the caller when needed
+    function setBlank(blank, value) {
+      blankValues[blank] = value;
+      saveBlankValues();
+      const field = els.fillFields.querySelector(`[data-field="${CSS.escape(blank)}"]`);
+      field?.querySelectorAll("[data-pick]").forEach(chip =>
+        chip.setAttribute("aria-pressed", String(chip.dataset.pick === value.trim())));
+    }
+
+    function startEdit(blank) {
+      if (isPasteBlank(blank)) {
+        els.fillFields.querySelector(`textarea[data-blank="${CSS.escape(blank)}"]`)?.focus();
+        return;
+      }
+      editingBlank = blank;
+      updateFill();
+    }
+
+    function finishEdit() {
+      if (editingBlank === null) return;
+      editingBlank = null;
+      updateFill();
+    }
 
     async function copyFromFill(text) {
       // close first: the copy fallback needs the page, which the open dialog makes inert
@@ -3764,61 +3855,71 @@
         if (event.target === els.fillDialog) els.fillDialog.close();
       });
 
+      // paste blanks keep a text box below the prompt
       els.fillFields.addEventListener("input", event => {
-        const blank = event.target.dataset.blank;
-        if (!blank) return;
-        blankValues[blank] = event.target.value;
-        saveBlankValues();
+        if (!event.target.dataset.blank) return;
+        setBlank(event.target.dataset.blank, event.target.value);
         updateFill();
-        showOptions(event.target.closest(".fill-field"));
       });
 
-      els.fillFields.addEventListener("focusin", event => {
-        if (event.target.matches("input[data-blank]")) showOptions(event.target.closest(".fill-field"));
+      // keep focus in the inline edit box while chips, pencils or blanks are clicked
+      els.fillDialog.addEventListener("mousedown", event => {
+        if (event.target.closest("[data-pick], [data-edit], .fill-preview [data-slot]:not(.fill-edit)")) event.preventDefault();
       });
 
-      els.fillFields.addEventListener("focusout", event => {
-        const field = event.target.closest(".fill-field");
-        if (field && !field.contains(event.relatedTarget)) hideOptions(field);
-      });
-
-      // keep focus in the field while a pick is clicked
-      els.fillFields.addEventListener("mousedown", event => {
-        if (event.target.closest("[data-pick]")) event.preventDefault();
-      });
-
+      // a chip fills its blank without opening the phone keyboard; clicking the chosen chip clears it
       els.fillFields.addEventListener("click", event => {
-        const pick = event.target.closest("[data-pick]");
-        if (!pick) return;
-        const field = pick.closest(".fill-field");
-        const input = field.querySelector("input");
-        input.value = pick.dataset.pick;
-        blankValues[input.dataset.blank] = input.value;
-        saveBlankValues();
-        updateFill();
-        input.focus();
-        hideOptions(field);
-      });
-
-      els.fillFields.addEventListener("keydown", event => {
-        const field = event.target.closest(".fill-field");
-        if (!field) return;
-        const list = field.querySelector(".fill-options");
-        if (event.key === "Escape" && !list.hidden) {
-          event.preventDefault();
-          hideOptions(field);
-          field.querySelector("input").focus();
+        const chip = event.target.closest("[data-pick]");
+        const pen = event.target.closest("[data-edit]");
+        if (pen) {
+          if (editingBlank === pen.dataset.edit) finishEdit();
+          else startEdit(pen.dataset.edit);
           return;
         }
-        if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
-        if (list.hidden && event.key === "ArrowDown") showOptions(field);
-        const picks = [...list.querySelectorAll("[data-pick]")];
-        if (list.hidden || !picks.length) return;
+        if (!chip) return;
+        const blank = chip.closest(".fill-field").dataset.field;
+        setBlank(blank, chip.getAttribute("aria-pressed") === "true" ? "" : chip.dataset.pick);
+        editingBlank = null;
+        updateFill();
+      });
+
+      els.fillPreview.addEventListener("click", event => {
+        const slot = event.target.closest("[data-slot]:not(.fill-edit)");
+        if (slot) startEdit(slot.dataset.slot);
+      });
+
+      // typing in the prompt updates the value, the chips and any repeat of the same blank
+      els.fillPreview.addEventListener("input", event => {
+        const box = event.target.closest(".fill-edit");
+        if (!box) return;
+        const blank = box.dataset.slot;
+        setBlank(blank, box.textContent);
+        els.fillPreview.querySelectorAll(`[data-slot="${CSS.escape(blank)}"]:not(.fill-edit)`).forEach(slot => {
+          slot.outerHTML = slotHtml(blank, false);
+        });
+        updateFillCount();
+      });
+
+      els.fillPreview.addEventListener("keydown", event => {
+        if (!event.target.closest(".fill-edit")) return;
+        if (event.key === "Enter" || event.key === "Escape") {
+          event.preventDefault();
+          finishEdit();
+        }
+      });
+
+      els.fillPreview.addEventListener("paste", event => {
+        if (!event.target.closest(".fill-edit")) return;
         event.preventDefault();
-        const at = picks.indexOf(event.target);
-        const next = event.key === "ArrowDown" ? Math.min(at + 1, picks.length - 1) : at - 1;
-        if (next < 0) field.querySelector("input").focus();
-        else picks[next].focus();
+        document.execCommand("insertText", false, event.clipboardData.getData("text/plain").replace(/\s+/g, " "));
+      });
+
+      // wait a tick: switching to another blank moves focus to a new edit box, which should not end editing
+      els.fillPreview.addEventListener("focusout", event => {
+        if (!event.target.closest(".fill-edit")) return;
+        setTimeout(() => {
+          if (!document.activeElement?.closest(".fill-edit")) finishEdit();
+        });
       });
 
       els.themeToggle.addEventListener("click", () => {
