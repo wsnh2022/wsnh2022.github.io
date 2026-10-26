@@ -872,6 +872,25 @@
       letter-spacing: .04em;
     }
 
+    /* drops to its own line as a whole when the category line runs out of room */
+    .prompt-stats {
+      white-space: nowrap;
+      text-transform: none;
+      letter-spacing: .02em;
+    }
+
+    .prompt-stats::before {
+      content: "· ";
+    }
+
+    .prompt-stats.own-line {
+      display: block;
+    }
+
+    .prompt-stats.own-line::before {
+      content: none;
+    }
+
     .prompt-category {
       display: block;
       margin-bottom: 3px;
@@ -1190,6 +1209,12 @@
       margin-left: auto;
       color: var(--text-muted);
       font-size: 12px;
+    }
+
+    .fill-stats {
+      color: var(--text-muted);
+      font-size: 12px;
+      white-space: nowrap;
     }
 
     @media (max-width: 640px) {
@@ -1883,6 +1908,7 @@
         <button type="button" class="fill-copy" id="fillCopy">Copy filled prompt</button>
         <button type="button" id="fillRaw">Copy with blanks</button>
         <span class="fill-left" id="fillLeft"></span>
+        <span class="fill-stats" id="fillStats"></span>
       </footer>
     </dialog>
 
@@ -3456,6 +3482,7 @@
       fillPreview: document.getElementById("fillPreview"),
       fillFields: document.getElementById("fillFields"),
       fillLeft: document.getElementById("fillLeft"),
+      fillStats: document.getElementById("fillStats"),
       colorToggle: document.getElementById("colorToggle"),
       colorMenu: document.getElementById("colorMenu"),
       colorSwatches: document.getElementById("colorSwatches"),
@@ -3547,6 +3574,12 @@
       return escapeHtml(text).replace(/\[([^\]]+)\]/g, '<mark class="prompt-blank">[$1]</mark>');
     }
 
+    // "28 words · 173 chars"; chars include spaces, "user's" is one word, a lone "/" is none
+    function promptStats(text) {
+      const words = (text.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)*/g) || []).length;
+      return `${words} word${words === 1 ? "" : "s"} · ${text.length} chars`;
+    }
+
     function blanksIn(text) {
       return [...new Set([...text.matchAll(/\[([^\]]+)\]/g)].map(match => match[1]))];
     }
@@ -3634,6 +3667,7 @@
     function updateFillCount() {
       const left = blanksIn(fillItem.prompt).filter(blank => !blankValue(blank)).length;
       els.fillLeft.textContent = left ? `${left} blank${left > 1 ? "s" : ""} left` : "All filled";
+      els.fillStats.textContent = promptStats(fillPrompt(fillItem.prompt));
     }
 
     function updateFill() {
@@ -3796,7 +3830,7 @@
         <div class="prompt-card-header">
           <span class="prompt-chip" aria-hidden="true">${iconSvg(getPromptIcon(item), "prompt-svg")}</span>
           <div class="prompt-heading">
-            <span class="prompt-category">${escapeHtml(item.category.name)} <span class="prompt-number">· ${pack ? `Step ${item.step}` : `#${escapeHtml(item.id)}`}</span></span>
+            <span class="prompt-category">${escapeHtml(item.category.name)} <span class="prompt-number">· ${pack ? `Step ${item.step}` : `#${escapeHtml(item.id)}`}</span> <span class="prompt-stats">${promptStats(item.prompt)}</span></span>
             <h3>${escapeHtml(item.name)}</h3>
             ${item.purpose ? `<p class="prompt-purpose">${escapeHtml(item.purpose)}</p>` : ""}
           </div>
@@ -3833,6 +3867,12 @@
         card.classList.toggle("has-more", overflows);
         btn.setAttribute("aria-expanded", "false");
       });
+
+      // counts that wrapped get a line of their own without the leading dot
+      const stats = [...els.promptGrid.querySelectorAll(".prompt-stats")];
+      stats.forEach(stat => stat.classList.remove("own-line"));
+      stats.filter(stat => stat.getBoundingClientRect().top - stat.previousElementSibling.getBoundingClientRect().top > 2)
+        .forEach(stat => stat.classList.add("own-line"));
     }
 
     async function copyText(text) {
