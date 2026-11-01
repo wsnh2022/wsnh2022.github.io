@@ -1142,6 +1142,32 @@
       font-weight: 600;
     }
 
+    .search-hit {
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--accent) 32%, transparent);
+      color: inherit;
+    }
+
+    /* titles paint their gradient through the text, so a background here would hide the letters */
+    .prompt-card h3 .search-hit {
+      background: none;
+      text-decoration: underline 2px var(--accent-text);
+      text-underline-offset: 3px;
+    }
+
+    /* a match deep in a prompt: the preview starts near it, and opening the card shows the rest */
+    .prompt-lead {
+      display: none;
+    }
+
+    .prompt-text.expanded .prompt-lead {
+      display: inline;
+    }
+
+    .prompt-text.expanded .prompt-ellipsis {
+      display: none;
+    }
+
     /* fill-in panel: centered dialog, bottom sheet on phones */
     .fill-dialog {
       width: min(560px, calc(100% - 32px));
@@ -1784,6 +1810,42 @@
       box-shadow: var(--shadow-lg);
       font-size: 12px;
       font-weight: 680;
+    }
+
+    .toast.has-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 6px 8px;
+      width: max-content;
+      max-width: calc(100% - 30px);
+    }
+
+    .toast[hidden] {
+      display: none;
+    }
+
+    .toast a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      color: var(--accent-text);
+      text-decoration: none;
+    }
+
+    .toast a:hover {
+      background: var(--surface-hover);
+    }
+
+    /* stay clear of the round buttons in the bottom corner */
+    @media (max-width: 640px) {
+      .toast.has-links {
+        bottom: 80px;
+      }
     }
 
     .scroll-top {
@@ -4111,8 +4173,25 @@
       return group.icon || CATEGORY_ICONS[group.name] || "sparkles";
     }
 
-    function highlightBlanks(text) {
-      return escapeHtml(text).replace(/\[([^\]]+)\]/g, '<mark class="prompt-blank">[$1]</mark>');
+    function hitHtml(text, pattern) {
+      if (!pattern) return escapeHtml(text);
+      return text.split(pattern).map((part, index) =>
+        index % 2 ? `<mark class="search-hit">${escapeHtml(part)}</mark>` : escapeHtml(part)).join("");
+    }
+
+    // shows blanks and search matches; a match past this many characters could fall outside the one-line preview
+    const PREVIEW_CHARS = 30;
+
+    function promptTextHtml(text, pattern) {
+      const marked = part => part.split(/(\[[^\]]+\])/).map((piece, index) =>
+        index % 2 ? `<mark class="prompt-blank">${hitHtml(piece, pattern)}</mark>` : hitHtml(piece, pattern)).join("");
+      const first = pattern ? text.search(pattern) : -1;
+      if (first < PREVIEW_CHARS) return marked(text);
+
+      let start = text.lastIndexOf(" ", first - 20) + 1;
+      // never cut a blank in two
+      if (text.lastIndexOf("[", start) > text.lastIndexOf("]", start)) start = text.lastIndexOf("[", start);
+      return `<span class="prompt-lead">${marked(text.slice(0, start))}</span><span class="prompt-ellipsis">... </span>${marked(text.slice(start))}`;
     }
 
     // "28 words · 173 chars"; chars include spaces, "user's" is one word, a lone "/" is none
@@ -4253,7 +4332,7 @@
       try {
         await copyText(text);
         recordRecent(fillItem);
-        showToast("Prompt copied");
+        showCopiedToast();
       } catch (error) {
         console.error(error);
         showToast("Could not copy prompt");
@@ -4283,6 +4362,19 @@
       if (/[^s]s$/.test(stem)) stem = stem.slice(0, -1);
       const shorter = stem.replace(/(ing|ed|e)$/, "");
       return shorter.length >= 4 ? shorter : stem;
+    }
+
+    // finds the same words as textHasWord, for marking them on the cards
+    function searchHitPattern() {
+      const words = searchWords(state.searchTerm);
+      if (!words.length) return null;
+      const escape = text => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const parts = words.flatMap(word => [
+        `\\b${escape(searchStem(word))}\\w*`,
+        escape(word),
+        ...(SEARCH_ALIASES[word] || []).map(alias => `${escape(alias)}\\w*`)
+      ]);
+      return new RegExp(`(${parts.join("|")})`, "gi");
     }
 
     function textHasWord(text, word) {
@@ -4426,6 +4518,7 @@
         return;
       }
 
+      const hits = searchHitPattern();
       els.promptGrid.innerHTML = filtered.map(item => {
         const pack = isPack(item.category);
         const blanks = blanksIn(item.prompt);
@@ -4438,9 +4531,9 @@
         <div class="prompt-card-header">
           <span class="prompt-chip" aria-hidden="true">${iconSvg(getPromptIcon(item), "prompt-svg")}</span>
           <div class="prompt-heading">
-            <span class="prompt-category">${escapeHtml(groupLabel(item.category))} <span class="prompt-number">${number}</span> <span class="prompt-stats">${promptStats(item.prompt)}</span></span>
-            <h3>${escapeHtml(item.name)}</h3>
-            ${item.purpose ? `<p class="prompt-purpose">${escapeHtml(item.purpose)}</p>` : ""}
+            <span class="prompt-category">${hitHtml(groupLabel(item.category), hits)} <span class="prompt-number">${number}</span> <span class="prompt-stats">${promptStats(item.prompt)}</span></span>
+            <h3>${hitHtml(item.name, hits)}</h3>
+            ${item.purpose ? `<p class="prompt-purpose">${hitHtml(item.purpose, hits)}</p>` : ""}
           </div>
 
           <button type="button" class="prompt-action prompt-share" aria-label="Copy link to ${escapeHtml(item.name)}" data-tooltip="Copy link">
@@ -4464,7 +4557,7 @@
 
         ${blanks.length ? `<div class="prompt-blanks">${blanks.map(blank =>
           `<span class="blank-tag">Fill in: ${escapeHtml(blank)}</span>`).join("")}</div>` : ""}
-        <p class="prompt-text">${highlightBlanks(item.prompt)}</p>
+        <p class="prompt-text">${promptTextHtml(item.prompt, hits)}</p>
         <button type="button" class="prompt-share-row prompt-share-link" aria-label="Copy link to ${escapeHtml(item.name)}">
           ${iconSvg("link", "copy-svg")}<span>Copy link</span>
         </button>
@@ -4482,7 +4575,7 @@
         const btn = card.querySelector(".prompt-expand");
         text.classList.remove("expanded");
         const overflows = text.scrollWidth - text.clientWidth > 1;
-        card.classList.toggle("has-more", overflows);
+        card.classList.toggle("has-more", overflows || Boolean(text.querySelector(".prompt-lead")));
         btn.setAttribute("aria-expanded", "false");
       });
 
@@ -4515,13 +4608,34 @@
     }
 
     let toastTimer;
-    function showToast(message) {
-      els.toast.textContent = message;
-      els.toast.hidden = false;
+    function hideToastAfter(ms) {
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
         els.toast.hidden = true;
-      }, 1500);
+      }, ms);
+    }
+
+    function showToast(message) {
+      els.toast.classList.remove("has-links");
+      els.toast.textContent = message;
+      els.toast.hidden = false;
+      hideToastAfter(1500);
+    }
+
+    // plain links, not pre-filled ones: a filled prompt can hold the visitor's own text, which must not go in an address
+    const AI_TOOLS = [
+      { name: "ChatGPT", url: "https://chatgpt.com/" },
+      { name: "Claude", url: "https://claude.ai/new" },
+      { name: "Gemini", url: "https://gemini.google.com/app" }
+    ];
+    const COPIED_TOAST_MS = 6000;
+
+    function showCopiedToast() {
+      els.toast.classList.add("has-links");
+      els.toast.innerHTML = `<span>Prompt copied. Paste it into</span>` + AI_TOOLS.map(tool =>
+        `<a href="${tool.url}" target="_blank" rel="noopener">${tool.name}</a>`).join("");
+      els.toast.hidden = false;
+      hideToastAfter(COPIED_TOAST_MS);
     }
 
     function setTheme(theme) {
@@ -4695,7 +4809,7 @@
         try {
           await copyText(promptItem.prompt);
           recordRecent(promptItem);
-          showToast("Prompt copied");
+          showCopiedToast();
         } catch (error) {
           console.error(error);
           showToast("Could not copy prompt");
@@ -4795,6 +4909,10 @@
         }
       });
 
+      // the links stay put while someone is reaching for them
+      ["mouseenter", "focusin"].forEach(type => els.toast.addEventListener(type, () => clearTimeout(toastTimer)));
+      ["mouseleave", "focusout"].forEach(type => els.toast.addEventListener(type, () => hideToastAfter(COPIED_TOAST_MS)));
+
       els.scrollTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
       window.addEventListener("scroll", () => {
         els.scrollTop.classList.toggle("show", window.scrollY > 640);
@@ -4842,7 +4960,7 @@
           card.classList.add("copied");
           card.querySelector(".copy-label").textContent = "Copied";
           card.querySelector(".copy-icon").innerHTML = iconSvg("checklist", "copy-svg");
-          showToast("Prompt copied");
+          showCopiedToast();
 
           setTimeout(() => {
             card.classList.remove("copied");
