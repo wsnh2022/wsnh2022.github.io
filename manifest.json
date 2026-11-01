@@ -1,7 +1,7 @@
 {
   "name": "AI Prompt Library",
   "short_name": "AI Prompts",
-  "description": "217 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline.",
+  "description": "197 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline.",
   "start_url": "./prompts.html",
   "scope": "./",
   "display": "standalone",

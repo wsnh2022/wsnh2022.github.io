@@ -7,11 +7,11 @@
   <meta name="color-scheme" content="light dark" />
   <title>AI Prompt Library: Stop Retyping the Same AI Instructions</title>
   <meta name="description"
-    content="217 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
+    content="197 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
 
   <meta property="og:title" content="AI Prompt Library: Stop Retyping the Same AI Instructions" />
   <meta property="og:description"
-    content="217 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
+    content="197 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
   <meta property="og:url" content="https://wsnh2022.github.io/prompts.html" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://wsnh2022.github.io/assets/images/meta/prompts_og.png" />
@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AI Prompt Library: Stop Retyping the Same AI Instructions" />
   <meta name="twitter:description"
-    content="217 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
+    content="197 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
   <meta name="twitter:image" content="https://wsnh2022.github.io/assets/images/meta/prompts_og.png" />
 
   <link rel="manifest" href="manifest.json" />
@@ -1570,7 +1570,7 @@
       background: var(--surface-soft);
       color: var(--text-muted);
       cursor: pointer;
-      transition: background .16s ease, color .16s ease, border-color .16s ease, opacity .16s ease;
+      transition: background .16s ease, color .16s ease, border-color .16s ease;
     }
 
     .prompt-action:hover {
@@ -2305,7 +2305,7 @@
         <div class="welcome-intro">
           <h2>Stop retyping the same AI instructions.</h2>
           <p class="welcome-description">
-            <span id="heroDescCount">217</span> ready-made prompts for what you ask AI every day. Each one tells the
+            <span id="heroDescCount">197</span> ready-made prompts for what you ask AI every day. Each one tells the
             AI exactly what you want, so you spend less time correcting the answer.
           </p>
           <form class="welcome-search search-wrap" id="welcomeSearch" role="search">
@@ -2326,7 +2326,7 @@
           </form>
           <div class="welcome-action">
             <button class="welcome-cta" type="button" data-open-library="all">
-              <span>Browse all <span id="heroCtaCount">217</span> prompts</span>
+              <span>Browse all <span id="heroCtaCount">197</span> prompts</span>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
@@ -2515,61 +2515,61 @@
             {
               "id": 1,
               "name": "Explain",
-              "prompt": "Explain the user's question from the fundamentals. Cover the core concept, key relationships, and practical meaning; use an example when it clarifies the idea.",
+              "prompt": "Explain the topic below from the fundamentals. Cover the core concept, how its parts relate, and what it means in practice. Add an example if it helps.\n\nTopic:",
               "icon": "lightbulb"
             },
             {
               "id": 2,
               "name": "Explain Like I'm 5",
-              "prompt": "Explain the user's question for a complete beginner. Use simple words, familiar analogies, and concrete examples; preserve technical accuracy.",
+              "prompt": "Explain the topic below to a complete beginner. Use simple words, familiar analogies, and concrete examples, but keep it technically accurate.\n\nTopic:",
               "icon": "baby-face"
             },
             {
               "id": 3,
               "name": "Summarize",
-              "prompt": "Summarize the user's content by keeping the central idea, key facts, conclusions, and important relationships. Remove repetition and low-value detail.",
+              "prompt": "Summarize the text below. Keep the central idea, key facts, conclusions, and how they relate. Cut repetition and minor detail.\n\nText:",
               "icon": "compress"
             },
             {
               "id": 4,
               "name": "Key Points",
-              "prompt": "Extract the most important ideas, facts, decisions, conclusions, and actions from the user's content. Exclude minor details and unsupported interpretation.",
+              "prompt": "List the key points of the text below: the most important ideas, facts, decisions, conclusions, and actions. Leave out minor details and your own interpretation.\n\nText:",
               "icon": "list"
             },
             {
               "id": 5,
               "name": "TL;DR",
-              "prompt": "Compress the user's content into the shortest useful summary. Keep only the core message, critical facts, and essential conclusion.",
+              "prompt": "Give me the shortest useful summary of the text below. Keep only the core message, critical facts, and the conclusion.\n\nText:",
               "icon": "compress"
             },
             {
               "id": 6,
               "name": "Simplify",
-              "prompt": "Rewrite the user's text in plain, accessible language. Preserve meaning, facts, intent, and important details; do not oversimplify technical meaning.",
+              "prompt": "Rewrite the text below in plain, everyday language. Keep the meaning, facts, intent, and important details, and don't oversimplify technical points.\n\nText:",
               "icon": "text"
             },
             {
               "id": 7,
               "name": "Define Terms",
-              "prompt": "Identify difficult or specialized terms that affect understanding. Give each term's meaning in context; ignore ordinary terms.",
+              "prompt": "Find the difficult or specialized terms in the text below and explain what each one means in this context. Skip ordinary words.\n\nText:",
               "icon": "terms"
             },
             {
               "id": 8,
               "name": "Give an Example",
-              "prompt": "Explain the user's idea with one practical, realistic example. Show how the example maps to the underlying concept; avoid unrelated detail.",
+              "prompt": "Explain the idea below with one practical, realistic example. Show how the example maps to the idea, and leave out unrelated detail.\n\nIdea:",
               "icon": "example"
             },
             {
               "id": 9,
               "name": "Translate",
-              "prompt": "Translate the user's text into [target language]. Preserve meaning, tone, terminology, names, numbers, and formatting; do not explain or summarize.",
+              "prompt": "Translate the text below into [target language]. Keep the meaning, tone, terminology, names, numbers, and formatting. Don't explain or summarize it.\n\nText:",
               "icon": "translate"
             },
             {
               "id": 10,
               "name": "Check Understanding",
-              "prompt": "Explain the user's content in plain language. State the main idea, intended meaning, and any ambiguity that can be resolved from context.",
+              "prompt": "Check whether I understand the text below. Ask me 3 questions about its main idea, one at a time, and wait for each answer. Tell me what I got right and what I missed, then clear up anything I misunderstood.\n\nText:",
               "icon": "check"
             }
           ]
@@ -2582,133 +2582,103 @@
             {
               "id": 11,
               "name": "Fix Grammar",
-              "prompt": "Correct grammar, spelling, and punctuation in the user's content without changing its meaning. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Correct the grammar, spelling, and punctuation in the text below without changing its meaning. Add no commentary. Return only the rewritten text.\n\nText:",
               "icon": "check"
             },
             {
               "id": 12,
               "name": "Polish",
-              "prompt": "Improve the clarity, grammar, and readability of the user's content while preserving its original meaning. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Polish the text below so it reads clearly and correctly. Keep my meaning and facts. Add no new claims. Return only the rewritten text.\n\nText:",
               "icon": "polish"
             },
             {
               "id": 13,
               "name": "Rewrite",
-              "prompt": "Rewrite the user's content to make it clearer, more natural, and easier to read. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Rewrite the text below so it is clearer, more natural, and easier to read. Keep my meaning and facts. Add no new claims. Return only the rewritten text.\n\nText:",
               "icon": "refresh-text"
             },
             {
               "id": 14,
               "name": "Make Professional",
-              "prompt": "Rewrite the user's content in a professional and polished tone. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Rewrite the text below in a professional, polished tone. Keep my meaning and facts. Add no new claims. Return only the rewritten text.\n\nText:",
               "icon": "briefcase"
             },
             {
               "id": 15,
               "name": "Make Casual",
-              "prompt": "Rewrite the user's content in a natural, conversational tone. Use language understandable to a reader with no prior knowledge. Keep the explanation focused on the user's content.",
+              "prompt": "Rewrite the text below in a relaxed, conversational tone, the way you'd say it to a friend. Keep my meaning and facts. Add no new claims. Return only the rewritten text.\n\nText:",
               "icon": "casual"
             },
             {
               "id": 16,
               "name": "Make Formal",
-              "prompt": "Rewrite the user's content in a formal tone. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Rewrite the text below in a formal tone. Keep my meaning and facts. Add no new claims. Return only the rewritten text.\n\nText:",
               "icon": "formal"
             },
             {
               "id": 17,
               "name": "Make Concise",
-              "prompt": "Make the user's content shorter while preserving all important information. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Make the text below shorter by cutting filler, repetition, and unnecessary words. Keep all the important information. Keep my meaning and facts. Add no new claims. Return only the rewritten text.\n\nText:",
               "icon": "shorten"
             },
             {
               "id": 18,
               "name": "Expand",
-              "prompt": "Expand the user's content with useful detail while staying faithful to its original meaning. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Expand the text below by developing its ideas: add explanation, examples, and transitions. Keep my meaning and position. Don't add statistics, quotes, or specific facts unless I gave them, and mark any spot where one would help. Return only the expanded text.\n\nText:",
               "icon": "expand"
-            },
-            {
-              "id": 19,
-              "name": "Make Persuasive",
-              "prompt": "Rewrite the user's content to make its argument more convincing without changing the underlying facts. Make the reasoning more convincing without inventing evidence or changing factual claims. Return only the revised text.",
-              "icon": "target"
             },
             {
               "id": 20,
               "name": "Make Friendly",
-              "prompt": "Rewrite the user's content to sound warm, approachable, and natural. Make the wording warm and approachable without becoming overly familiar or changing the intended message. Return only the revised text.",
+              "prompt": "Rewrite the text below so it sounds warm and approachable without being overly familiar. Keep my message the same. Return only the rewritten text.\n\nText:",
               "icon": "human"
-            },
-            {
-              "id": 21,
-              "name": "Make Assertive",
-              "prompt": "Rewrite the user's content to sound confident and direct without sounding aggressive. Make the wording confident and direct without becoming hostile, rude, or threatening. Return only the revised text.",
-              "icon": "handshake"
-            },
-            {
-              "id": 22,
-              "name": "Make Diplomatic",
-              "prompt": "Rewrite the user's content to communicate the same point tactfully and diplomatically. Preserve the point while reducing unnecessary confrontation. Do not weaken the intended position unless needed for tact. Return only the revised text.",
-              "icon": "neutral"
             },
             {
               "id": 23,
               "name": "Improve Flow",
-              "prompt": "Rewrite the user's content so that its ideas connect more naturally and smoothly. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Rewrite the text below so its ideas connect smoothly from one to the next. Keep my meaning and facts. Add no new claims. Return only the rewritten text.\n\nText:",
               "icon": "flow"
             },
             {
               "id": 24,
               "name": "Improve Clarity",
-              "prompt": "Rewrite the user's content to remove ambiguity and make the intended meaning clear. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Rewrite the text below to remove ambiguity and make the meaning clear. Keep my meaning and facts. Add no new claims. Return only the rewritten text.\n\nText:",
               "icon": "lightbulb"
-            },
-            {
-              "id": 25,
-              "name": "Remove Filler",
-              "prompt": "Remove unnecessary words, repetition, and filler from the user's content while preserving its message. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
-              "icon": "shorten"
             },
             {
               "id": 26,
               "name": "Make Human",
-              "prompt": "Rewrite the user's content to sound natural and human rather than robotic or overly formal. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Rewrite the text below so it sounds natural and human, not robotic or stiff. Keep my meaning and facts. Add no new claims. Return only the rewritten text.\n\nText:",
               "icon": "human"
             },
             {
               "id": 27,
               "name": "Professional Email",
-              "prompt": "Turn the user's content into a professional email while preserving the intended message. Use a clear subject line, greeting, concise body, and appropriate closing when appropriate. Do not invent recipient-specific facts. Return only the email.",
+              "prompt": "Turn the text below into a professional email with a clear subject line, greeting, short body, and closing. Keep my message, and don't invent details about the recipient. Return only the email.\n\nText:",
               "icon": "mail"
-            },
-            {
-              "id": 28,
-              "name": "Reply to This",
-              "prompt": "Draft an appropriate response to the user's message. Infer only what is reasonably supported by the user's message. Do not invent personal details, commitments, or facts. Return only the reply.",
-              "icon": "chat"
             },
             {
               "id": 29,
               "name": "Turn Into a Message",
-              "prompt": "Convert the user's content into a concise message suitable for chat or messaging. Preserve the original meaning, facts, and intent. Add no new claims or commentary. Return only the rewritten text.",
+              "prompt": "Turn the text below into a short message suitable for chat. Keep my meaning and facts. Add no new claims. Return only the message.\n\nText:",
               "icon": "chat"
             },
             {
               "id": 30,
               "name": "Turn Into Bullet Points",
-              "prompt": "Convert the user's content into clear, logically grouped bullet points. Preserve the logical grouping and meaning; add no unsupported information. Return only the bullet points.",
+              "prompt": "Turn the text below into clear bullet points, grouped logically. Add nothing that isn't in the text. Return only the bullet points.\n\nText:",
               "icon": "list"
             },
             {
               "id": 31,
               "name": "Turn Into a Checklist",
-              "prompt": "Convert the user's content into an actionable checklist. Include only actionable items supported by the user's content. Do not invent tasks, owners, or deadlines. Return only the checklist.",
+              "prompt": "Turn the text below into a practical checklist of things to do, with no repeats. Don't invent tasks, owners, or deadlines. Return only the checklist.\n\nText:",
               "icon": "checklist"
             },
             {
               "id": 32,
               "name": "Turn Into Steps",
-              "prompt": "Convert the user's content into clear, sequential instructions or steps. Turn only the available information into sequential steps. Do not invent missing procedures. Return only the steps.",
+              "prompt": "Turn the text below into clear steps in order. If a step seems to be missing, flag it instead of making it up. Return only the steps.\n\nText:",
               "icon": "next"
             }
           ]
@@ -2721,73 +2691,73 @@
             {
               "id": 33,
               "name": "Confident",
-              "prompt": "Rewrite the user's content with a confident and decisive tone. Preserve the original position while making the wording confident and decisive. Return only the revised text.",
+              "prompt": "Rewrite the text below so it sounds confident, decisive, and direct without being aggressive or rude. Keep my position. Return only the rewritten text.\n\nText:",
               "icon": "target"
             },
             {
               "id": 34,
               "name": "Direct",
-              "prompt": "Rewrite the user's content to be direct and get to the point quickly. Remove unnecessary wording and lead with the main point. Preserve the intended meaning. Return only the revised text.",
+              "prompt": "Rewrite the text below so it gets straight to the point. Lead with the main point and cut unnecessary wording. Keep my meaning. Return only the rewritten text.\n\nText:",
               "icon": "shorten"
             },
             {
               "id": 35,
               "name": "Empathetic",
-              "prompt": "Rewrite the user's content with more empathy and consideration for the reader. Add appropriate empathy without inventing feelings, circumstances, or commitments. Return only the revised text.",
+              "prompt": "Rewrite the text below with more empathy for the reader. Don't invent feelings, circumstances, or commitments. Return only the rewritten text.\n\nText:",
               "icon": "human"
             },
             {
               "id": 36,
               "name": "Diplomatic",
-              "prompt": "Rewrite the user's content to communicate disagreement or criticism tactfully. Preserve the intended position while expressing disagreement or criticism tactfully. Return only the revised text.",
+              "prompt": "Rewrite the text below so it makes the same point tactfully and diplomatically. Reduce confrontation, but don't weaken my position. Return only the rewritten text.\n\nText:",
               "icon": "neutral"
             },
             {
               "id": 37,
               "name": "Executive",
-              "prompt": "Rewrite the user's content in a concise executive communication style. Prioritize decisions, outcomes, risks, and essential information. Avoid unnecessary detail. Return only the revised text.",
+              "prompt": "Rewrite the text below for a busy executive. Lead with decisions, outcomes, and risks, and cut the rest. Return only the rewritten text.\n\nText:",
               "icon": "briefcase"
             },
             {
               "id": 38,
               "name": "Academic",
-              "prompt": "Rewrite the user's content in a clear academic style. Use appropriate academic wording and structure without adding unsupported claims or references. Return only the revised text.",
+              "prompt": "Rewrite the text below in a clear academic style. Don't add unsupported claims or references. Return only the rewritten text.\n\nText:",
               "icon": "document"
             },
             {
               "id": 39,
               "name": "Technical",
-              "prompt": "Rewrite the user's content using precise technical language appropriate for an informed reader. Use precise technical terminology only where it improves accuracy. Do not introduce technical details unsupported by the user's content. Return only the revised text.",
+              "prompt": "Rewrite the text below in precise technical language for an informed reader. Use technical terms only where they add accuracy, and don't add technical details I didn't give. Return only the rewritten text.\n\nText:",
               "icon": "code"
             },
             {
               "id": 40,
               "name": "Persuasive",
-              "prompt": "Rewrite the user's content to maximize persuasive impact without exaggerating or inventing claims. Strengthen persuasion without fabricating evidence, guarantees, or unsupported claims. Return only the revised text.",
+              "prompt": "Rewrite the text below to make its argument as persuasive as possible. Strengthen the reasoning, but don't exaggerate or invent evidence, guarantees, or claims. Return only the rewritten text.\n\nText:",
               "icon": "target"
             },
             {
               "id": 41,
               "name": "Neutral",
-              "prompt": "Rewrite the user's content in an objective and neutral tone. Remove unnecessary emotional or persuasive framing while preserving the underlying facts and meaning. Return only the revised text.",
+              "prompt": "Rewrite the text below in an objective, neutral tone. Remove emotional or persuasive framing and keep the facts and meaning. Return only the rewritten text.\n\nText:",
               "icon": "neutral"
             },
             {
               "id": 42,
               "name": "Enthusiastic",
-              "prompt": "Rewrite the user's content with appropriate energy and enthusiasm while keeping it natural. Increase energy without adding exaggerated claims or changing the intended message. Return only the revised text.",
+              "prompt": "Rewrite the text below with more energy and enthusiasm while keeping it natural. Don't add exaggerated claims or change my message. Return only the rewritten text.\n\nText:",
               "icon": "energy"
             },
             {
               "id": 43,
               "name": "Apologetic",
-              "prompt": "Rewrite the user's content as a sincere and professional apology. Express responsibility and sincerity without inventing events or admissions not supported by the user's content. Return only the apology.",
+              "prompt": "Rewrite the text below as a sincere, professional apology. Don't invent events or admit to anything the text doesn't support. Return only the apology.\n\nText:",
               "icon": "apology"
             },
             {
               "id": 44,
               "name": "Firm",
-              "prompt": "Rewrite the user's content to establish a clear and firm position without sounding hostile. State the position clearly and firmly without hostility, insults, or threats. Return only the revised text.",
+              "prompt": "Rewrite the text below to state my position clearly and firmly, without hostility, insults, or threats. Return only the rewritten text.\n\nText:",
               "icon": "shield"
             }
           ]
@@ -2800,85 +2770,79 @@
             {
               "id": 45,
               "name": "Analyze",
-              "prompt": "Analyze the user's content and identify its main ideas, reasoning, and conclusions. Focus on the main ideas, reasoning, and conclusions. Do not drift into unrelated advice or research.",
+              "prompt": "Analyze the text below: what are its main ideas, how does it reason, and what does it conclude? Stay on the text, with no unrelated advice.\n\nText:",
               "icon": "analysis"
             },
             {
               "id": 46,
               "name": "Extract Facts",
-              "prompt": "Extract the factual claims stated in the user's content. Extract only factual claims stated in the user's content. Do not verify or reinterpret them unless requested.",
+              "prompt": "List the factual claims stated in the text below. Don't verify or reinterpret them.\n\nText:",
               "icon": "fact"
             },
             {
               "id": 47,
               "name": "Extract Claims",
-              "prompt": "Identify the main claims being made in the user's content. Extract the main claims only. Preserve the meaning of each claim and do not add supporting claims.",
+              "prompt": "List the main claims the text below is making, keeping the meaning of each. Don't add supporting claims of your own.\n\nText:",
               "icon": "claim"
             },
             {
               "id": 48,
               "name": "Find Assumptions",
-              "prompt": "Identify the assumptions the author is making in the user's content. Identify assumptions that are necessary or implied by the reasoning. Distinguish explicit statements from inferred assumptions.",
+              "prompt": "Find the assumptions behind the text below. Separate what the author states outright from what you are inferring.\n\nText:",
               "icon": "assumption"
             },
             {
               "id": 49,
               "name": "Find Contradictions",
-              "prompt": "Identify statements within the user's content that contradict one another. Report only genuine internal contradictions supported by the user's content. Do not treat differences in emphasis as contradictions.",
+              "prompt": "Find statements in the text below that contradict each other. Report only genuine contradictions, not differences in emphasis.\n\nText:",
               "icon": "contradiction"
             },
             {
               "id": 50,
               "name": "Find Weak Points",
-              "prompt": "Identify weaknesses, gaps, or unsupported reasoning in the user's content. Identify concrete weaknesses, gaps, or unsupported reasoning. Distinguish weaknesses from disagreements or mere alternative opinions.",
+              "prompt": "Find the concrete weaknesses, gaps, and unsupported reasoning in the text below. Don't count mere disagreements or alternative opinions.\n\nText:",
               "icon": "weakness"
             },
             {
               "id": 51,
               "name": "Find Bias",
-              "prompt": "Identify potential bias, framing, or loaded language in the user's content. Identify potential bias, framing, or loaded language supported by the text. Do not label the author or intent as biased without evidence.",
+              "prompt": "Find possible bias, framing, or loaded language in the text below, quoting the wording that shows it. Don't accuse the author of bias without evidence.\n\nText:",
               "icon": "bias"
             },
             {
               "id": 52,
               "name": "Evaluate Argument",
-              "prompt": "Evaluate the strength of the argument in the user's content and explain the reasons for your assessment. Assess the argument using only the reasoning and evidence available in the user's content. Explain the basis of the assessment without drifting into unrelated topics.",
+              "prompt": "Rate how strong the argument in the text below is and explain why, using only the reasoning and evidence it contains.\n\nText:",
               "icon": "argument"
             },
             {
               "id": 53,
               "name": "Pros & Cons",
-              "prompt": "Extract the strongest advantages and disadvantages discussed or implied by the user's content. List advantages and disadvantages supported by the user's content. Clearly distinguish stated points from reasonable implications.",
+              "prompt": "List the strongest pros and cons in the text below. Mark which ones are stated and which are reasonable implications.\n\nText:",
               "icon": "pros-cons"
             },
             {
               "id": 54,
               "name": "Evidence",
-              "prompt": "Identify the evidence used in the user's content to support its claims. Identify only evidence used to support claims in the user's content. Do not treat unsupported assertions as evidence.",
+              "prompt": "List the evidence the text below uses to support its claims. Don't count unsupported statements as evidence, and point out claims that have none.\n\nText:",
               "icon": "evidence"
             },
             {
               "id": 55,
               "name": "Questions Raised",
-              "prompt": "Identify important questions that the user's content leaves unanswered. List important unanswered questions raised by the user's content. Do not invent questions unrelated to its subject.",
+              "prompt": "List the important questions the text below leaves unanswered. Stay on its subject.\n\nText:",
               "icon": "questions"
             },
             {
               "id": 56,
               "name": "What Matters?",
-              "prompt": "Identify the most important information in the user's content and explain why it matters. Identify the information most central to understanding the user's content and briefly explain why it is important.",
+              "prompt": "Tell me what matters most in the text below and briefly explain why.\n\nText:",
               "icon": "priority"
-            },
-            {
-              "id": 57,
-              "name": "Action Items",
-              "prompt": "Extract all actionable tasks or follow-ups mentioned or implied by the user's content. Extract only actionable tasks or follow-ups supported by the user's content. Do not invent owners, deadlines, or actions.",
-              "icon": "action"
             },
             {
               "id": 58,
               "name": "Decisions",
-              "prompt": "Identify decisions that have been made or need to be made based on the user's content. Separate decisions already made from decisions that still need to be made. Do not infer decisions that are not reasonably supported.",
+              "prompt": "List the decisions in the text below, separating those already made from those still needed. Don't infer decisions it doesn't support.\n\nText:",
               "icon": "decision"
             }
           ]
@@ -2891,62 +2855,38 @@
             {
               "id": 59,
               "name": "Research This",
-              "prompt": "Research the topic discussed in the user's content and provide a concise, evidence-based explanation. Keep the research concise and evidence-based. Do not merely restate the user's content.",
+              "prompt": "Research the topic below and give me a concise, evidence-based explanation that goes beyond what I've written. Use web search if you have it. If you don't, say so, answer from what you know, and flag anything that may be out of date. Never make up sources.\n\nTopic:",
               "icon": "globe"
-            },
-            {
-              "id": 60,
-              "name": "Verify Claims",
-              "prompt": "Verify the factual claims in the user's content and identify anything that appears inaccurate or unsupported. Verify the claims using reliable current sources when available. Clearly identify claims that cannot be verified.",
-              "icon": "fact"
             },
             {
               "id": 61,
               "name": "Fact Check",
-              "prompt": "Fact-check the user's content and distinguish supported claims from questionable or unverified claims. Distinguish supported, disputed, and unverified claims. Do not label a claim false without sufficient evidence.",
+              "prompt": "Fact-check the text below. Mark each claim as supported, disputed, or unverified, and don't call a claim false without good evidence. Use web search if you have it. If you don't, say so, answer from what you know, and flag anything that may be out of date. Never make up sources.\n\nText:",
               "icon": "fact"
             },
             {
               "id": 62,
               "name": "Find Sources",
-              "prompt": "Find credible sources that support or challenge the claims in the user's content. Match each source to the claim it addresses and explain its relevance briefly.",
+              "prompt": "Find credible sources that support or challenge the claims below. Match each source to its claim and say briefly why it is relevant. Use web search and include only sources you actually found, with links. If you can't search, say so and don't list specific sources: suggest what kinds of sources to look for and search terms to use instead.\n\nClaims:",
               "icon": "link"
             },
             {
               "id": 63,
               "name": "Latest Information",
-              "prompt": "Check whether the information in the user's content is still current and identify important recent changes. Focus on changes that materially affect the accuracy or usefulness of the user's information. Use current information.",
+              "prompt": "Check whether the information below is still current and tell me what has changed that affects its accuracy or usefulness. Use web search if you have it. If you don't, say so, answer from what you know, and flag anything that may be out of date.\n\nInformation:",
               "icon": "calendar"
-            },
-            {
-              "id": 64,
-              "name": "Compare With Current Knowledge",
-              "prompt": "Compare the information in the user's content with current knowledge and identify important discrepancies. Identify meaningful discrepancies between the user's information and current reliable knowledge. Do not manufacture discrepancies.",
-              "icon": "scale"
             },
             {
               "id": 65,
               "name": "Explain the Context",
-              "prompt": "Research the background and context needed to understand the user's content. Research only the background needed to understand the user's content. Avoid unrelated historical or contextual detail.",
+              "prompt": "Give me only the background I need to understand the text below, leaving out unrelated history. Use web search if you have it. If you don't, say so, answer from what you know, and flag anything that may be out of date.\n\nText:",
               "icon": "book"
             },
             {
               "id": 66,
               "name": "Research Further",
-              "prompt": "Identify the most important areas related to the user's content that should be researched further. Identify the highest-value unanswered research areas. Do not turn the response into a full research report unless requested.",
+              "prompt": "Tell me which areas related to the text below are most worth researching further and why. Don't write the full research report.\n\nText:",
               "icon": "questions"
-            },
-            {
-              "id": 67,
-              "name": "Find Alternatives",
-              "prompt": "Identify credible alternative approaches, products, methods, or viewpoints relevant to the user's content. Suggest genuinely relevant alternatives rather than superficial variations. Base them on the user's content.",
-              "icon": "alternatives"
-            },
-            {
-              "id": 68,
-              "name": "Counterarguments",
-              "prompt": "Research and present the strongest counterarguments to the position expressed in the user's content. Present strong, relevant counterarguments to the stated position. Do not misrepresent or weaken the original position to make the counterargument easier.",
-              "icon": "devil"
             }
           ]
         },
@@ -2958,74 +2898,62 @@
             {
               "id": 69,
               "name": "Meeting Notes",
-              "prompt": "Turn the user's content into concise meeting notes. Capture topics, decisions, and important discussion points without inventing attendees, decisions, or details.",
+              "prompt": "Turn the text below into concise meeting notes covering the topics, decisions, and important points. Don't invent attendees, decisions, or details.\n\nText:",
               "icon": "memo"
-            },
-            {
-              "id": 70,
-              "name": "Meeting Summary",
-              "prompt": "Summarize the user's content as a meeting recap containing decisions and important discussion points. Prioritize decisions and important discussion points. Do not add meeting details not present in the user's content.",
-              "icon": "compress"
             },
             {
               "id": 71,
               "name": "Action Items",
-              "prompt": "Extract tasks, owners, and deadlines from the user's content. Extract tasks, owners, and deadlines only when supported by the user's content. Mark missing owners or deadlines rather than inventing them.",
+              "prompt": "List the tasks, owners, and deadlines in the text below, including any clearly implied. Write \"not stated\" where an owner or deadline is missing, rather than making one up.\n\nText:",
               "icon": "action"
             },
             {
               "id": 72,
               "name": "Executive Summary",
-              "prompt": "Create an executive summary of the user's content focused on decisions, risks, and business impact. Focus on decisions, risks, and business impact that are supported by the user's content. Keep it concise.",
+              "prompt": "Write an executive summary of the text below, focused on decisions, risks, and business impact. Keep it short and stick to what the text supports.\n\nText:",
               "icon": "briefcase"
             },
             {
               "id": 73,
               "name": "Brief",
-              "prompt": "Turn the user's content into a concise professional brief. Include only the information needed for a useful professional brief. Avoid unnecessary background.",
+              "prompt": "Turn the text below into a short professional brief, with only what the reader needs and no unnecessary background.\n\nText:",
               "icon": "memo"
             },
             {
               "id": 74,
               "name": "Status Update",
-              "prompt": "Turn the user's information into a concise project or work status update. State the current situation, progress, blockers, and next steps only when supported by the user's content. Do not invent status details.",
+              "prompt": "Turn the text below into a short status update covering the current situation, progress, blockers, and next steps. Skip anything the text doesn't cover, and don't invent details.\n\nText:",
               "icon": "action"
             },
             {
               "id": 75,
               "name": "Project Tasks",
-              "prompt": "Convert the user's content into clearly defined project tasks. Turn only the work described or clearly required by the user's content into tasks. Do not invent unrelated work.",
+              "prompt": "Turn the text below into clearly defined project tasks. Include only work it describes or clearly requires.\n\nText:",
               "icon": "checklist"
             },
             {
               "id": 76,
               "name": "Requirements",
-              "prompt": "Extract the functional and business requirements from the user's content. Extract requirements as stated or clearly implied by the user's content. Distinguish explicit requirements from assumptions.",
+              "prompt": "List the functional and business requirements in the text below. Separate those stated outright from those you are assuming.\n\nText:",
               "icon": "requirements"
             },
             {
               "id": 77,
               "name": "Acceptance Criteria",
-              "prompt": "Convert the requirements in the user's content into clear, testable acceptance criteria. Preserve the stated requirements and do not introduce new scope.",
+              "prompt": "Turn the requirements below into clear, testable acceptance criteria. Don't add scope.\n\nRequirements:",
               "icon": "checklist"
             },
             {
               "id": 78,
               "name": "Risk Analysis",
-              "prompt": "Identify the risks described or implied by the user's content, their potential impact, and possible mitigations. Identify risks supported by the user's content and give proportionate mitigations. Do not invent unlikely risks merely to expand the list.",
+              "prompt": "List the risks in the text below, including ones that aren't obvious, with each one's likely impact and a proportionate way to reduce it. Mark risks you are inferring, and don't pad the list with unlikely ones.\n\nText:",
               "icon": "risk"
             },
             {
               "id": 79,
               "name": "Decision Memo",
-              "prompt": "Turn the user's information into a concise decision memo. Include the decision, relevant rationale, options, and risks only when supported by the user's content. Do not invent a recommendation unless the text supports one.",
+              "prompt": "Turn the text below into a short decision memo covering the decision, reasoning, options, and risks. Only recommend an option if the text supports one.\n\nText:",
               "icon": "memo"
-            },
-            {
-              "id": 80,
-              "name": "Next Steps",
-              "prompt": "Identify the most appropriate next steps based on the user's content. Identify practical next steps supported by the user's content. Do not invent commitments, owners, or deadlines.",
-              "icon": "next"
             }
           ]
         },
@@ -3037,61 +2965,61 @@
             {
               "id": 81,
               "name": "Reply",
-              "prompt": "Draft a suitable reply to the user's message. Write only a suitable reply. Do not invent facts, commitments, or relationship context that is absent from the user's message.",
+              "prompt": "Draft a reply to the message below. The point I want to make: [paste or type your main point]\n\nDon't invent facts, promises, or personal details. Return only the reply.\n\nMessage:\n[paste the message]",
               "icon": "chat"
             },
             {
               "id": 82,
               "name": "Reply - Short",
-              "prompt": "Draft a concise reply to the user's message. Keep the reply concise while addressing the main point. Return only the reply.",
+              "prompt": "Draft a short reply to the message below that deals with the main point. The point I want to make: [paste or type your main point]\n\nDon't invent facts, promises, or personal details. Return only the reply.\n\nMessage:\n[paste the message]",
               "icon": "shorten"
             },
             {
               "id": 83,
               "name": "Reply - Professional",
-              "prompt": "Draft a professional response to the user's message. Use professional wording without adding facts or commitments not supported by the user's message. Return only the reply.",
+              "prompt": "Draft a professional reply to the message below. The point I want to make: [paste or type your main point]\n\nDon't invent facts, promises, or personal details. Return only the reply.\n\nMessage:\n[paste the message]",
               "icon": "briefcase"
             },
             {
               "id": 84,
               "name": "Reply - Friendly",
-              "prompt": "Draft a friendly and natural response to the user's message. Use a friendly, natural tone without inventing personal details or changing the intended meaning. Return only the reply.",
+              "prompt": "Draft a friendly, natural reply to the message below. The point I want to make: [paste or type your main point]\n\nDon't invent facts, promises, or personal details. Return only the reply.\n\nMessage:\n[paste the message]",
               "icon": "human"
             },
             {
               "id": 85,
               "name": "Reply - Firm",
-              "prompt": "Draft a firm but professional response to the user's message. Be firm and professional without insults, threats, or unnecessary escalation. Return only the reply.",
+              "prompt": "Draft a firm but professional reply to the message below, with no insults, threats, or needless escalation. The point I want to make: [paste or type your main point]\n\nDon't invent facts, promises, or personal details. Return only the reply.\n\nMessage:\n[paste the message]",
               "icon": "shield"
             },
             {
               "id": 86,
               "name": "Reply - Decline",
-              "prompt": "Draft a polite response to the user's message that declines the request. Decline clearly and politely without inventing reasons unless a reason is provided or necessary to make the response coherent. Return only the reply.",
+              "prompt": "Draft a clear, polite reply that declines the request in the message below. Don't make up a reason for declining.\n\nDon't invent facts, promises, or personal details. Return only the reply.\n\nMessage:\n[paste the message]",
               "icon": "decline"
             },
             {
               "id": 87,
               "name": "Reply - Follow Up",
-              "prompt": "Draft a concise follow-up response based on the user's message. Refer only to information contained in the user's message. Keep the follow-up concise and action-oriented. Return only the reply.",
+              "prompt": "Draft a short, action-focused follow-up to the message below. What I want to happen next: [paste or type the next step]\n\nDon't invent facts, promises, or personal details. Return only the reply.\n\nMessage:\n[paste the message]",
               "icon": "follow-up"
             },
             {
               "id": 88,
               "name": "Request Clarification",
-              "prompt": "Draft a message asking the sender for the information needed to clarify the user's message or request. Ask only for information genuinely needed to resolve ambiguity. Do not ask unnecessary questions. Return only the clarification request.",
+              "prompt": "I received the message below and need more information. Draft a reply asking the sender only for what is needed to clear up what's unclear. Return only the reply.\n\nMessage:",
               "icon": "help"
             },
             {
               "id": 89,
               "name": "Ask for Action",
-              "prompt": "Draft a concise message requesting the necessary action described or implied by the user's content. Request only the action supported by the user's content. Do not add unrelated requests. Return only the message.",
+              "prompt": "Write a short message asking for the action described below. Don't add unrelated requests. Return only the message.\n\nText:",
               "icon": "action"
             },
             {
               "id": 90,
               "name": "Remove Emotion",
-              "prompt": "Rewrite the user's message objectively and professionally while preserving its underlying point and removing emotional language. Remove emotional or inflammatory wording while preserving the underlying facts, position, and intended request. Return only the revised message.",
+              "prompt": "Rewrite the message below so it is objective and professional. Remove emotional or inflammatory wording, and keep the facts, my position, and my request. Return only the revised message.\n\nMessage:",
               "icon": "neutral"
             }
           ]
@@ -3104,109 +3032,109 @@
             {
               "id": 91,
               "name": "Explain Code",
-              "prompt": "Explain what the user's code does, step by step. Explain the code in the order and level of detail needed to understand its behavior. Do not rewrite or modify it unless requested.",
+              "prompt": "Explain step by step what the code below does. Don't change it.\n\nCode:",
               "icon": "code"
             },
             {
               "id": 92,
               "name": "Find Bug",
-              "prompt": "Identify potential bugs or incorrect behavior in the user's code. Identify plausible bugs or incorrect behavior and explain why each is a concern. Do not report stylistic preferences as bugs.",
+              "prompt": "Find likely bugs or incorrect behavior in the code below and explain why each is a problem. Don't report style preferences as bugs.\n\nCode:",
               "icon": "bug"
             },
             {
               "id": 93,
               "name": "Fix Code",
-              "prompt": "Fix the user's code while preserving its intended behavior. Make the smallest necessary changes to fix the identified problem while preserving intended behavior. Return the corrected code and only essential explanation if needed.",
+              "prompt": "Fix the code below with the smallest change that works, keeping its intended behavior. Return the corrected code with only essential explanation.\n\nThe problem: [paste or type the error or wrong behavior]\n\nCode:\n[paste your code]",
               "icon": "wrench"
             },
             {
               "id": 94,
               "name": "Improve Code",
-              "prompt": "Improve the user's code for readability, maintainability, and correctness without unnecessarily changing its behavior. Improve readability, maintainability, and correctness without unnecessary redesign. Return the improved code and only brief notes when useful.",
+              "prompt": "Improve the readability, maintainability, and correctness of the code below without a redesign or unnecessary behavior changes. Return the code with brief notes where useful.\n\nCode:",
               "icon": "wrench"
             },
             {
               "id": 95,
               "name": "Refactor",
-              "prompt": "Refactor the user's code while preserving its behavior. Preserve observable behavior and interfaces unless a change is required to complete the refactor. Return the refactored code.",
+              "prompt": "Refactor the code below while keeping its behavior and interfaces the same, unless a change is unavoidable (say so if it is). Return the refactored code.\n\nCode:",
               "icon": "refresh-text"
             },
             {
               "id": 96,
               "name": "Optimize",
-              "prompt": "Identify and implement meaningful performance improvements in the user's code without changing its intended behavior. Prioritize meaningful performance improvements supported by the user's code. Do not optimize micro-details without a meaningful benefit.",
+              "prompt": "Find and make meaningful performance improvements to the code below without changing its intended behavior. Skip micro-optimizations with little benefit.\n\nCode:",
               "icon": "performance"
             },
             {
               "id": 97,
               "name": "Add Error Handling",
-              "prompt": "Improve the user's code by adding appropriate error handling. Add error handling appropriate to the actual failure modes visible in the user's code. Do not hide errors silently.",
+              "prompt": "Add error handling to the code below for failures that can actually happen. Don't hide errors silently.\n\nCode:",
               "icon": "error-handling"
             },
             {
               "id": 98,
               "name": "Add Validation",
-              "prompt": "Add appropriate input validation to the user's code. Validate inputs relevant to the user's code's actual expectations. Do not invent arbitrary validation rules.",
+              "prompt": "Add input validation to the code below based on what it actually expects. Don't invent arbitrary rules.\n\nCode:",
               "icon": "validation"
             },
             {
               "id": 99,
               "name": "Add Tests",
-              "prompt": "Generate comprehensive tests for the user's code, including important edge cases. Generate tests that cover normal behavior and important edge cases visible from the user's code. Do not assume unspecified requirements.",
+              "prompt": "Write tests for the code below covering normal behavior and important edge cases. Match its language and any test framework it already uses. Flag anything you had to assume about what it should do.\n\nCode:",
               "icon": "test"
             },
             {
               "id": 100,
               "name": "Explain Error",
-              "prompt": "Explain the user's error message, its likely cause, and how to fix it. Distinguish confirmed facts from likely causes.",
+              "prompt": "Explain the error below: what it means, its likely cause, and how to fix it. Separate confirmed facts from likely causes.\n\nError:",
               "icon": "bug"
             },
             {
               "id": 101,
               "name": "Generate Documentation",
-              "prompt": "Generate clear technical documentation for the user's code. Document the user's code accurately. Do not invent behavior, parameters, examples, or guarantees not supported by the code.",
+              "prompt": "Write clear technical documentation for the code below. Don't invent behavior, parameters, examples, or guarantees it doesn't support.\n\nCode:",
               "icon": "document"
             },
             {
               "id": 102,
               "name": "Add Comments",
-              "prompt": "Add useful comments to the user's code that explain non-obvious parts without over-commenting obvious code. Comment only non-obvious logic, assumptions, or important decisions. Do not add comments that merely restate the code.",
+              "prompt": "Add comments to the code below explaining only non-obvious logic, assumptions, and important decisions. Don't restate what the code plainly does.\n\nCode:",
               "icon": "comments"
             },
             {
               "id": 103,
               "name": "Convert Language",
-              "prompt": "Convert the user's code to [programming language] while preserving its behavior. Preserve behavior and important edge-case handling as far as the target language allows. Do not invent unavailable dependencies.",
+              "prompt": "Convert the code below to [programming language], keeping its behavior and edge-case handling as far as the language allows. Don't invent dependencies that don't exist.\n\nCode:",
               "icon": "convert"
             },
             {
               "id": 104,
               "name": "Convert Framework",
-              "prompt": "Adapt the user's code to [framework or library] while preserving its intended behavior. Preserve intended behavior and adapt only what is necessary for [framework or library]. State unavoidable incompatibilities briefly.",
+              "prompt": "Adapt the code below to [framework or library], changing only what is needed and keeping its intended behavior. Briefly state any incompatibilities you can't avoid.\n\nCode:",
               "icon": "convert"
             },
             {
               "id": 105,
               "name": "Security Review",
-              "prompt": "Review the user's code for security vulnerabilities and explain the associated risks. Identify concrete security risks supported by the user's code. Distinguish confirmed vulnerabilities from potential concerns and avoid overstating severity.",
+              "prompt": "Review the code below for security vulnerabilities and explain the risk of each. Separate confirmed vulnerabilities from potential concerns, and don't overstate severity.\n\nCode:",
               "icon": "shield"
             },
             {
               "id": 106,
               "name": "Edge Cases",
-              "prompt": "Identify important edge cases that the user's code may not handle correctly. Focus on realistic edge cases that can materially affect correctness, security, reliability, or user behavior.",
+              "prompt": "Find realistic edge cases the code below may not handle correctly, focusing on ones that affect correctness, security, reliability, or users.\n\nCode:",
               "icon": "risk"
             },
             {
               "id": 107,
               "name": "Code Review",
-              "prompt": "Perform a senior-level code review of the user's code and identify correctness, maintainability, and design issues. Prioritize correctness, maintainability, design, reliability, and security issues that are supported by the user's code. Do not nitpick style unless it affects those areas.",
+              "prompt": "Do a senior-level review of the code below, prioritizing correctness, reliability, security, maintainability, and design. Skip style nitpicks that don't affect those.\n\nCode:",
               "icon": "review"
             },
             {
               "id": 108,
               "name": "Explain Architecture",
-              "prompt": "Explain the architecture and design decisions represented by the user's code. Explain the architecture actually represented by the user's code. Distinguish observed design from inferred intent.",
+              "prompt": "Explain the architecture and design decisions in the code below. Separate what you can see from what you are inferring about intent.\n\nCode:",
               "icon": "architecture"
             }
           ]
@@ -3219,61 +3147,61 @@
             {
               "id": 109,
               "name": "Explain API",
-              "prompt": "Explain what the user's API or endpoint does, including its purpose, inputs, outputs, and behavior when those details are available. Explain only the API or endpoint behavior supported by the user's content. Do not invent undocumented inputs, outputs, or behavior.",
+              "prompt": "Explain what the API or endpoint below does, including its purpose, inputs, outputs, and behavior where shown. Don't invent anything undocumented.\n\nAPI details:",
               "icon": "database"
             },
             {
               "id": 110,
-              "name": "Convert JSON",
-              "prompt": "Reformat the user's JSON for readability while preserving its data exactly. Do not change values or meaning.",
+              "name": "Format JSON",
+              "prompt": "Format the JSON below so it is easy to read, keeping the data exactly the same.\n\nJSON:",
               "icon": "json"
             },
             {
               "id": 111,
               "name": "Generate Regex",
-              "prompt": "Create a [regex flavor] regular expression that matches the pattern described by the user. State assumptions briefly only when the description is ambiguous.",
+              "prompt": "Write a [regex flavor] regular expression that matches the pattern described below. State assumptions briefly, only if the description is ambiguous.\n\nPattern:",
               "icon": "regex"
             },
             {
               "id": 112,
               "name": "Explain Regex",
-              "prompt": "Explain the user's regular expression component by component and describe what each part matches. Explain each meaningful component of the regex and what it matches. Do not introduce unrelated regex concepts.",
+              "prompt": "Explain the regular expression below part by part, saying what each part matches.\n\nRegex:",
               "icon": "regex"
             },
             {
               "id": 113,
               "name": "Generate SQL",
-              "prompt": "Convert the requirement described in the user's content into an SQL query for [SQL dialect]. Generate an SQL query that matches the requirement in the user's content. Do not invent table or column names when they are not provided; use clearly marked placeholders when necessary.",
+              "prompt": "Write a [SQL dialect] query for the requirement below. If table or column names aren't given, use clearly marked placeholders instead of inventing them.\n\nRequirement:",
               "icon": "sql"
             },
             {
               "id": 114,
               "name": "Explain SQL",
-              "prompt": "Explain what the user's SQL query does and identify potential issues or risks. Explain the query's actual behavior and identify concrete issues. Do not invent database schema details.",
+              "prompt": "Explain what the SQL query below does and point out concrete issues or risks. Don't invent schema details.\n\nQuery:",
               "icon": "sql"
             },
             {
               "id": 115,
               "name": "Generate Command",
-              "prompt": "Generate the [shell / OS] command needed to fulfill the user's stated requirement. Do not invent unavailable paths, names, flags, or environment details.",
+              "prompt": "Write the [shell / OS] command that does what I describe below. Don't invent paths, names, or flags: use clearly marked placeholders where you need them.\n\nWhat I need:",
               "icon": "terminal"
             },
             {
               "id": 116,
               "name": "Debug",
-              "prompt": "Diagnose the likely cause of the technical problem described by the user and suggest a practical fix. Separate likely causes from confirmed facts.",
+              "prompt": "Diagnose the likely cause of the technical problem below and suggest a practical fix. Separate confirmed facts from likely causes.\n\nProblem:",
               "icon": "bug"
             },
             {
               "id": 117,
               "name": "Stack Trace",
-              "prompt": "Analyze the user's stack trace and identify the most likely root cause and relevant debugging direction. Use the user's stack trace to identify the most likely root cause and the most relevant debugging direction. Do not invent missing application context.",
+              "prompt": "Find the most likely root cause in the stack trace below and tell me where to look next. Don't invent application details.\n\nStack trace:",
               "icon": "stack"
             },
             {
               "id": 118,
               "name": "Technical Summary",
-              "prompt": "Summarize the user's technical information for another developer. Preserve architecture, behavior, dependencies, constraints, and implementation-relevant details.",
+              "prompt": "Summarize the technical information below for another developer. Keep the architecture, behavior, dependencies, constraints, and implementation details that matter.\n\nText:",
               "icon": "compress"
             }
           ]
@@ -3286,73 +3214,67 @@
             {
               "id": 119,
               "name": "Teach Me",
-              "prompt": "Teach the concept described in the user's content starting from the fundamentals and building upward. Start at the level implied by the user's topic and build upward. Do not introduce unrelated prerequisite material.",
+              "prompt": "Teach me the concept below, starting from the fundamentals and building upward. Don't drift into unrelated topics.\n\nConcept:",
               "icon": "book"
             },
             {
               "id": 120,
               "name": "Study Notes",
-              "prompt": "Turn the user's content into structured study notes. Preserve important facts, definitions, relationships, and examples from the user's content. Organize them without adding unsupported content.",
+              "prompt": "Turn the text below into structured study notes, keeping the important facts, definitions, relationships, and examples. Add nothing unsupported.\n\nText:",
               "icon": "document"
             },
             {
               "id": 121,
               "name": "Flashcards",
-              "prompt": "Convert the important concepts in the user's content into question-and-answer flashcards. Create focused flashcards that test important concepts from the user's content. Do not include answers that depend on information not present in the selection.",
+              "prompt": "Turn the important concepts in the text below into question-and-answer flashcards. Every answer must come from the text.\n\nText:",
               "icon": "flashcards"
             },
             {
               "id": 122,
               "name": "Quiz Me",
-              "prompt": "Create a quiz based on the user's content without revealing the answers immediately. Base the quiz on the user's content. Do not reveal answers unless the user asks for them later.",
+              "prompt": "Quiz me on the text below. Ask one question at a time, wait for my answer, and tell me whether I was right before the next question.\n\nText:",
               "icon": "quiz"
             },
             {
               "id": 123,
               "name": "Exam Questions",
-              "prompt": "Generate likely exam questions based on the user's material. Generate plausible exam questions directly from the user's material. Do not require knowledge outside the selection unless clearly signaled.",
+              "prompt": "Write likely exam questions based on the material below. Don't require knowledge from outside it unless you say so.\n\nMaterial:",
               "icon": "exam"
             },
             {
               "id": 124,
               "name": "Interview Questions",
-              "prompt": "Generate interview questions based on the topic covered by the user's content. Generate questions that test understanding of the user's topic at appropriate interview depth. Avoid questions unrelated to the topic.",
+              "prompt": "Write interview questions that test real understanding of the topic below, at a suitable depth.\n\nTopic:",
               "icon": "interview"
             },
             {
               "id": 125,
               "name": "Interview Answer",
-              "prompt": "Turn the information in the user's content into a strong interview-ready answer. Create an answer that is accurate to the user's information and does not invent personal experience or achievements.",
+              "prompt": "Turn the information below into a strong, interview-ready answer. Don't invent experience or achievements.\n\nInformation:",
               "icon": "interview"
             },
             {
               "id": 126,
               "name": "Prerequisites",
-              "prompt": "Identify the prerequisite concepts a learner should understand before learning the topic covered by the user's content. Identify only prerequisites genuinely useful for understanding the user's topic. Distinguish essential prerequisites from optional background.",
+              "prompt": "List what a learner should understand before starting the topic below. Separate essential prerequisites from optional background.\n\nTopic:",
               "icon": "prerequisite"
             },
             {
               "id": 127,
               "name": "Learning Path",
-              "prompt": "Create a logical learning sequence for mastering the topic covered by the user's content. Order the learning sequence from foundational to more advanced concepts relevant to the user's topic. Avoid unnecessary detours.",
+              "prompt": "Create a learning sequence for the topic below, from foundations to advanced, without unnecessary detours.\n\nTopic:",
               "icon": "path"
             },
             {
               "id": 128,
               "name": "Common Mistakes",
-              "prompt": "Identify common, meaningful mistakes learners make with the user's concept. Explain why each mistake occurs and what correct practice looks like.",
+              "prompt": "List common, meaningful mistakes learners make with the concept below. Explain why each happens and what correct practice looks like.\n\nConcept:",
               "icon": "mistake"
-            },
-            {
-              "id": 129,
-              "name": "Real-World Example",
-              "prompt": "Explain the user's concept through a realistic real-world example. Connect the example to the underlying concept and keep it directly relevant.",
-              "icon": "example"
             },
             {
               "id": 130,
               "name": "Compare Concepts",
-              "prompt": "Compare the concepts mentioned in the user's content and explain when each should be used. Compare only the concepts present in the user's content and explain practical differences and appropriate use cases without adding unrelated concepts.",
+              "prompt": "Compare the concepts below, explaining their practical differences and when to use each. Don't add other concepts.\n\nConcepts:",
               "icon": "concept-compare"
             }
           ]
@@ -3365,74 +3287,68 @@
             {
               "id": 131,
               "name": "Table",
-              "prompt": "Convert the information in the user's content into a structured table. Preserve the information and relationships in the user's content. Use clear columns and rows rather than adding interpretation.",
+              "prompt": "Turn the information below into a table with clear columns and rows. Don't add interpretation.\n\nInformation:",
               "icon": "table"
             },
             {
               "id": 132,
               "name": "JSON",
-              "prompt": "Convert the information in the user's content into valid JSON. Return valid JSON containing only information represented by the user's content. Do not invent fields or values. Use strings or null where information is missing.",
+              "prompt": "Turn the information below into valid JSON containing only what it says. Don't invent fields or values, and use null where something is missing.\n\nInformation:",
               "icon": "json"
             },
             {
               "id": 133,
               "name": "CSV",
-              "prompt": "Convert the information in the user's content into CSV-compatible rows and columns. Return CSV-compatible rows and columns containing only information represented by the user's content. Do not invent values.",
+              "prompt": "Turn the information below into CSV rows and columns containing only what it says. Don't invent values.\n\nInformation:",
               "icon": "csv"
             },
             {
               "id": 134,
               "name": "Timeline",
-              "prompt": "Extract the events from the user's content and organize them chronologically. Use only events and dates present in the user's content. Preserve uncertainty when an exact date is not available.",
+              "prompt": "Put the events in the text below in chronological order, using only events and dates it contains. Keep any uncertainty when an exact date isn't given.\n\nText:",
               "icon": "timeline"
             },
             {
               "id": 135,
               "name": "Outline",
-              "prompt": "Turn the user's content into a hierarchical outline. Preserve the hierarchy and major ideas of the user's content. Do not add new sections that are not supported.",
+              "prompt": "Turn the text below into a hierarchical outline of its major ideas. Don't add sections it doesn't support.\n\nText:",
               "icon": "outline"
             },
             {
               "id": 136,
               "name": "Categorize",
-              "prompt": "Group the information in the user's content into meaningful categories. Group the user's information using meaningful categories supported by the content. Do not create arbitrary categories merely to increase the number of groups.",
+              "prompt": "Group the information below into meaningful categories. Don't create categories just to have more of them.\n\nInformation:",
               "icon": "category"
             },
             {
               "id": 137,
               "name": "Extract Names",
-              "prompt": "Extract all people, organizations, and other entities mentioned in the user's content. Extract only names of people, organizations, and other entities actually mentioned. Do not infer identities.",
+              "prompt": "List the people, organizations, and other named entities mentioned in the text below. Don't guess at identities.\n\nText:",
               "icon": "contacts"
             },
             {
               "id": 138,
               "name": "Extract Dates",
-              "prompt": "Extract all dates, deadlines, and time references from the user's content. Extract only dates, deadlines, and time references present in the user's content. Preserve relative wording when exact dates cannot be determined.",
+              "prompt": "List the dates, deadlines, and time references in the text below. Keep relative wording like \"next week\" when no exact date is given.\n\nText:",
               "icon": "calendar"
             },
             {
               "id": 139,
               "name": "Extract Numbers",
-              "prompt": "Extract important numerical values from the user's content and explain what each value represents. Extract numerical values exactly as presented and identify what each refers to from the surrounding text. Do not calculate new values unless necessary to explain the original number.",
+              "prompt": "List the important numbers in the text below exactly as written and say what each refers to. Don't calculate new values unless needed to explain one.\n\nText:",
               "icon": "numbers"
             },
             {
               "id": 140,
               "name": "Extract Links",
-              "prompt": "Identify all URLs, references, or resources mentioned in the user's content. Return only links, references, or resources actually present in the user's content. Do not generate new links.",
+              "prompt": "List the URLs, references, and resources that appear in the text below. Don't add or guess any.\n\nText:",
               "icon": "link"
             },
             {
               "id": 141,
               "name": "Extract Contacts",
-              "prompt": "Extract names, email addresses, phone numbers, and other contact details from the user's content. Extract only contact details explicitly present in the user's content. Do not infer or complete missing information.",
+              "prompt": "List the names, email addresses, phone numbers, and other contact details in the text below. Don't guess or complete missing details.\n\nText:",
               "icon": "contacts"
-            },
-            {
-              "id": 142,
-              "name": "Convert to Checklist",
-              "prompt": "Convert every actionable requirement in the user's content into a checkable item. Include only actionable requirements supported by the user's content. Do not invent check items.",
-              "icon": "checklist"
             }
           ]
         },
@@ -3444,61 +3360,55 @@
             {
               "id": 143,
               "name": "What Should I Do?",
-              "prompt": "Based only on the user's content, identify the most sensible next actions. Identify sensible next actions supported by the user's content. Do not invent commitments or assume missing context.",
+              "prompt": "Based on the situation below, tell me the most sensible next actions, best first. If a missing detail would change your advice, say what it is and what you are assuming. Don't invent commitments I haven't made.\n\nSituation:",
               "icon": "action"
             },
             {
               "id": 144,
               "name": "Recommend",
-              "prompt": "Evaluate the user's information and recommend the best course of action. Recommend only options reasonably supported by the user's information. State important uncertainty instead of pretending the best choice is certain.",
+              "prompt": "Recommend the best course of action for the situation below and explain why. If one option clearly wins, say so. If the information doesn't support a confident choice, say what's missing.\n\nSituation:",
               "icon": "recommend"
             },
             {
               "id": 145,
               "name": "Options",
-              "prompt": "Identify the realistic options available based on the user's information. List realistic options supported by the user's information. Do not add options that require facts not provided.",
+              "prompt": "List the realistic options I have in the situation below, including sensible ones I haven't mentioned. Give one line on when each makes sense, and mark any that depends on something you are assuming.\n\nSituation:",
               "icon": "options"
             },
             {
               "id": 146,
               "name": "Decision Matrix",
-              "prompt": "Turn the available options in the user's information into a decision matrix using relevant criteria. Use criteria that are relevant to the decision and supported by the user's information. Do not manufacture precise scores when evidence is insufficient.",
+              "prompt": "Turn the options below into a decision matrix with criteria that matter for this decision. Don't give precise scores if the evidence doesn't support them.\n\nOptions:",
               "icon": "scale"
             },
             {
               "id": 147,
               "name": "Tradeoffs",
-              "prompt": "Identify the key tradeoffs involved in the decision described by the user's content. Focus on meaningful tradeoffs between the relevant options. Do not turn minor differences into artificial tradeoffs.",
+              "prompt": "Lay out the key tradeoffs in the decision below. Focus on real tradeoffs, not minor differences.\n\nDecision:",
               "icon": "tradeoffs"
-            },
-            {
-              "id": 148,
-              "name": "Best Choice",
-              "prompt": "Determine which option in the user's information appears strongest and explain the reasoning. Choose the strongest option only when the available information supports a meaningful comparison. Otherwise state what prevents a confident choice.",
-              "icon": "recommend"
             },
             {
               "id": 149,
               "name": "What Am I Missing?",
-              "prompt": "Identify important information that is missing from the user's content before a sound decision can be made. Identify missing information that could materially change the decision. Do not list trivial or irrelevant omissions.",
+              "prompt": "Tell me what information is missing from the text below that could change the decision. Skip trivial gaps.\n\nText:",
               "icon": "missing"
             },
             {
               "id": 150,
               "name": "Challenge My Thinking",
-              "prompt": "Critically challenge the assumptions and reasoning presented in the user's content. Challenge reasoning with specific evidence from the user's content. Do not manufacture flaws simply to be contrary.",
+              "prompt": "Challenge the assumptions and reasoning below, pointing to specific parts of what I wrote. Don't make up flaws just to disagree.\n\nMy thinking:",
               "icon": "challenge"
             },
             {
               "id": 151,
               "name": "Devil's Advocate",
-              "prompt": "Argue the strongest opposing position to the ideas presented in the user's content. Argue the strongest reasonable opposing position without misrepresenting the original ideas.",
+              "prompt": "Argue the strongest reasonable case against the ideas below, without misrepresenting them.\n\nIdeas:",
               "icon": "devil"
             },
             {
               "id": 152,
               "name": "Second Opinion",
-              "prompt": "Provide an independent assessment of the reasoning and conclusion in the user's content. Provide an independent assessment based on the user's content. Distinguish your assessment from facts explicitly stated in the selection.",
+              "prompt": "Give me an independent assessment of the reasoning and conclusion below. Keep your opinion clearly separate from the facts stated in the text.\n\nText:",
               "icon": "second-opinion"
             }
           ]
@@ -3511,50 +3421,44 @@
             {
               "id": 153,
               "name": "Make a Plan",
-              "prompt": "Turn the user's information into a practical action plan. Turn only the user's information into actionable steps. Do not invent dependencies, owners, or deadlines unless provided or clearly necessary.",
+              "prompt": "Turn the situation below into a practical action plan with steps in order. Add any step the goal clearly needs, marking it as your suggestion. Don't invent owners or deadlines.\n\nSituation:",
               "icon": "plan"
             },
             {
               "id": 154,
               "name": "Prioritize",
-              "prompt": "Prioritize the tasks or information in the user's content based on importance and urgency. Prioritize using importance and urgency evidenced by the user's content. State when the information is insufficient to determine priority confidently.",
+              "prompt": "Prioritize the items below by importance and urgency. Say so if there isn't enough information to rank something confidently.\n\nItems:",
               "icon": "priority"
             },
             {
               "id": 155,
               "name": "30-Minute Plan",
-              "prompt": "Turn the user's information into the most useful actions that can be completed within the next 30 minutes. Choose practical actions that can realistically fit within 30 minutes based on the user's information. Do not invent unavailable resources.",
+              "prompt": "Based on the information below, pick the most useful actions I can realistically finish in the next 30 minutes. Don't assume resources I don't have.\n\nInformation:",
               "icon": "clock"
             },
             {
               "id": 156,
               "name": "Break It Down",
-              "prompt": "Break the objective described in the user's content into small, actionable steps. Break the stated objective into the smallest useful actionable steps without introducing unrelated work.",
+              "prompt": "Break the goal below into small, doable steps without adding unrelated work.\n\nGoal:",
               "icon": "steps"
             },
             {
               "id": 157,
               "name": "Remove Complexity",
-              "prompt": "Identify unnecessary complexity in the user's approach and suggest a simpler approach. Identify complexity that is unnecessary for the stated objective and suggest simpler alternatives that preserve the intended outcome.",
+              "prompt": "Find what is unnecessarily complicated in the approach below and suggest a simpler way that gets the same result.\n\nApproach:",
               "icon": "simplify"
             },
             {
               "id": 158,
               "name": "Quick Win",
-              "prompt": "Identify the easiest high-impact action that can be taken based on the user's information. Choose a genuinely easy, high-impact action supported by the user's information. Do not label an action a quick win without a reasonable basis.",
+              "prompt": "Based on the information below, name the easiest action that would have the most impact and explain why it qualifies.\n\nInformation:",
               "icon": "quick-win"
             },
             {
               "id": 159,
               "name": "Deadline Plan",
-              "prompt": "Turn the user's information into a realistic plan for completing the work by [deadline]. Use the deadline and available information to make a realistic sequence. Do not invent dates or available capacity.",
+              "prompt": "Turn the work below into a realistic plan to finish by [deadline], with steps in a sensible order. If the deadline looks unrealistic, say so. Don't assume how much time I have: ask if it matters.\n\nWork:",
               "icon": "calendar"
-            },
-            {
-              "id": 160,
-              "name": "Checklist",
-              "prompt": "Convert the user's information into a practical checklist that can be followed. Include only actionable items supported by the user's information. Keep the checklist practical and non-redundant.",
-              "icon": "checklist"
             }
           ]
         },
@@ -3566,61 +3470,55 @@
             {
               "id": 161,
               "name": "Business Impact",
-              "prompt": "Explain the potential business impact of the information in the user's content. Explain business impact only where a reasonable connection to the user's information exists. Distinguish likely implications from confirmed outcomes.",
+              "prompt": "Explain the possible business impact of the information below. Separate likely implications from confirmed outcomes.\n\nInformation:",
               "icon": "business"
             },
             {
               "id": 162,
               "name": "Customer Impact",
-              "prompt": "Explain how the situation described in the user's content could affect customers. Focus on plausible customer effects supported by the user's information. Do not assume customer reactions without evidence.",
+              "prompt": "Explain how the situation below could affect customers. Don't assume customer reactions without a basis, and label guesses as guesses.\n\nSituation:",
               "icon": "customer"
             },
             {
               "id": 163,
               "name": "Product Impact",
-              "prompt": "Explain the potential implications of the user's information for the product. Focus on product implications that follow from the user's information. Do not invent product requirements or outcomes.",
+              "prompt": "Explain what the information below could mean for the product. Don't invent requirements or outcomes.\n\nInformation:",
               "icon": "product"
             },
             {
               "id": 164,
               "name": "Market Impact",
-              "prompt": "Analyze the potential market implications of the user's information. Analyze market implications that can reasonably be connected to the user's information. State uncertainty where evidence is limited.",
+              "prompt": "Analyze what the information below could mean for the market. State your uncertainty where evidence is limited.\n\nInformation:",
               "icon": "market"
             },
             {
               "id": 165,
               "name": "Competitive Analysis",
-              "prompt": "Identify competitive implications of the user's information and potential responses. Identify competitive implications supported by the user's information and avoid inventing competitor actions or capabilities.",
+              "prompt": "Identify the competitive implications of the information below and possible responses. Don't invent competitor actions or capabilities.\n\nInformation:",
               "icon": "competitive"
-            },
-            {
-              "id": 166,
-              "name": "Business Risks",
-              "prompt": "Identify the major business risks contained in or implied by the user's information. Identify material business risks supported by the user's information. Distinguish explicit risks from reasonable inferences.",
-              "icon": "risk"
             },
             {
               "id": 167,
               "name": "Opportunities",
-              "prompt": "Identify potential business opportunities suggested by the user's information. Identify opportunities that are plausible and directly connected to the user's information. Avoid speculative opportunities presented as facts.",
+              "prompt": "Identify business opportunities suggested by the information below, including ones it doesn't state outright. Mark which are inferred, and don't present speculation as fact.\n\nInformation:",
               "icon": "opportunity"
             },
             {
               "id": 168,
               "name": "Strategy",
-              "prompt": "Analyze the strategic implications of the user's information and recommend possible actions. Analyze strategic implications and recommend actions only where the user's information supports them. State major assumptions.",
+              "prompt": "Analyze the strategic implications of the information below and recommend possible actions. State your main assumptions.\n\nInformation:",
               "icon": "strategy"
             },
             {
               "id": 169,
               "name": "KPI Ideas",
-              "prompt": "Suggest measurable KPIs that could be used to evaluate the situation, goal, or initiative described in the user's content. Suggest measurable KPIs that directly correspond to the goal, situation, or initiative in the user's content. Avoid vanity metrics without a clear purpose.",
+              "prompt": "Suggest measurable KPIs that directly track the goal or situation below. Avoid vanity metrics.\n\nGoal or situation:",
               "icon": "kpi"
             },
             {
               "id": 170,
               "name": "Customer Persona",
-              "prompt": "Identify the likely customer needs, motivations, and concerns represented by the user's content. Infer needs, motivations, and concerns only to the extent reasonably supported by the user's content. Label assumptions as such.",
+              "prompt": "Build a short customer persona from the information below: who they are, what they need, what motivates them, and what worries them. Label anything you are assuming.\n\nInformation:",
               "icon": "persona"
             }
           ]
@@ -3633,61 +3531,61 @@
             {
               "id": 171,
               "name": "Marketing Copy",
-              "prompt": "Rewrite the user's content as compelling marketing copy without making unsupported claims. Make the copy compelling without inventing benefits, proof, statistics, guarantees, or other unsupported claims. Return only the marketing copy.",
+              "prompt": "Rewrite the text below as compelling marketing copy. Don't invent benefits, proof, statistics, or guarantees. Return only the copy.\n\nText:",
               "icon": "megaphone"
             },
             {
               "id": 172,
               "name": "Headline",
-              "prompt": "Generate concise headlines based on the user's content. Generate concise headlines that accurately reflect the user's content. Do not introduce claims absent from the source.",
+              "prompt": "Write 5 short headlines that accurately reflect the text below. Don't add claims it doesn't make.\n\nText:",
               "icon": "headline"
             },
             {
               "id": 173,
               "name": "Hook",
-              "prompt": "Generate strong opening hooks based on the user's content. Generate hooks that accurately represent the user's content without misleading exaggeration or fabricated claims.",
+              "prompt": "Write 5 strong opening hooks based on the text below, with no misleading exaggeration or made-up claims.\n\nText:",
               "icon": "hook"
             },
             {
               "id": 174,
               "name": "Call to Action",
-              "prompt": "Create an appropriate call to action based on the user's content. Create a CTA that matches the intent and offer in the user's content. Do not invent an offer, deadline, or benefit.",
+              "prompt": "Write a call to action that fits the offer in the text below. Don't invent an offer, deadline, or benefit.\n\nText:",
               "icon": "cta"
             },
             {
               "id": 175,
               "name": "Value Proposition",
-              "prompt": "Turn the user's information into a clear value proposition. State the clearest customer-facing value supported by the user's information. Do not invent differentiators.",
+              "prompt": "Turn the information below into a clear value proposition for customers. Don't invent differentiators.\n\nInformation:",
               "icon": "value"
             },
             {
               "id": 176,
               "name": "Sales Pitch",
-              "prompt": "Turn the user's information into a concise sales pitch. Create a concise sales pitch using only supported benefits, evidence, and positioning from the user's information.",
+              "prompt": "Turn the information below into a short sales pitch, using only the benefits and evidence it contains.\n\nInformation:",
               "icon": "sales"
             },
             {
               "id": 177,
               "name": "Customer Benefit",
-              "prompt": "Rewrite the user's content around the customer’s most important benefits. Emphasize actual customer benefits supported by the user's content. Do not invent outcomes.",
+              "prompt": "Rewrite the text below around the benefits that matter most to the customer. Don't invent outcomes.\n\nText:",
               "icon": "benefit"
             },
             {
               "id": 178,
               "name": "Objection Handling",
-              "prompt": "Identify plausible customer objections to the user's offering or claim and provide grounded responses. Do not invent evidence or guarantees.",
+              "prompt": "List likely customer objections to the offer below and give a grounded response to each. Don't invent evidence or guarantees.\n\nOffer:",
               "icon": "objection"
             },
             {
               "id": 179,
               "name": "Product Description",
-              "prompt": "Turn the user's information into a clear product description. Describe the product clearly using only supported features, benefits, and claims. Do not fabricate specifications.",
+              "prompt": "Turn the information below into a clear product description, using only the features and claims it contains. Don't make up specifications.\n\nInformation:",
               "icon": "product"
             },
             {
               "id": 180,
               "name": "Social Post",
-              "prompt": "Convert the user's content into a concise [platform] post. Create a concise social post that accurately represents the user's content. Do not add unsupported claims or context.",
+              "prompt": "Turn the text below into a short [platform] post that represents it accurately. Don't add claims or context.\n\nText:",
               "icon": "chat"
             }
           ]
@@ -3700,43 +3598,43 @@
             {
               "id": 181,
               "name": "Plain English",
-              "prompt": "Explain the user's legal or policy language in plain English without changing its apparent meaning. Do not present the explanation as legal advice.",
+              "prompt": "Explain the legal or policy language below in plain English without changing its apparent meaning. This is for understanding only, not legal advice.\n\nText:",
               "icon": "text"
             },
             {
               "id": 182,
               "name": "Obligations",
-              "prompt": "Identify the obligations imposed by the user's legal or policy content. Identify obligations explicitly stated or reasonably clear from the user's content. Do not infer legal obligations that are not supported.",
+              "prompt": "List the obligations in the legal or policy text below, stated outright or clearly implied. Don't infer obligations it doesn't support.\n\nText:",
               "icon": "obligation"
             },
             {
               "id": 183,
               "name": "Restrictions",
-              "prompt": "Identify restrictions, prohibitions, or limitations stated in the user's legal or policy content. Identify restrictions, prohibitions, and limitations stated in the user's content. Do not add restrictions from outside the selection.",
+              "prompt": "List the restrictions, prohibitions, and limitations stated in the legal or policy text below. Don't add any from outside the text.\n\nText:",
               "icon": "restriction"
             },
             {
               "id": 184,
               "name": "Deadlines",
-              "prompt": "Extract deadlines, notice periods, and important dates from the user's legal or policy content. Extract only deadlines, notice periods, and dates stated in the user's legal or policy content. Preserve conditions attached to them.",
+              "prompt": "List the deadlines, notice periods, and important dates in the legal or policy text below, along with any conditions attached to them.\n\nText:",
               "icon": "deadline"
             },
             {
               "id": 185,
               "name": "Potential Issues",
-              "prompt": "Identify provisions in the user's legal or policy content that may require closer review. Identify provisions that warrant closer review based on the user's content. Do not state that a provision is unlawful or defective unless the text and evidence support that conclusion.",
+              "prompt": "Point out provisions in the legal or policy text below that deserve a closer look and say why. Don't call a provision unlawful or defective unless the text supports it. This is not legal advice.\n\nText:",
               "icon": "review"
             },
             {
               "id": 186,
               "name": "Compare Versions",
-              "prompt": "Compare the passages provided by the user and identify substantive differences between them. Compare only the passages provided by the user and identify substantive differences. Do not infer differences that are not actually present.",
+              "prompt": "Compare the two versions below and list the differences in substance. Don't infer differences that aren't there.\n\nVersion 1:\n[paste version 1]\n\nVersion 2:\n[paste version 2]",
               "icon": "version"
             },
             {
               "id": 187,
               "name": "Policy Summary",
-              "prompt": "Summarize the practical requirements of the user's policy content. Focus on what people must, may, or must not do; add no unstated obligations.",
+              "prompt": "Summarize what the policy below requires in practice: what people must, may, and must not do. Add no obligations it doesn't state.\n\nPolicy:",
               "icon": "document"
             }
           ]
@@ -3749,80 +3647,62 @@
             {
               "id": 188,
               "name": "Root Cause",
-              "prompt": "Determine the most likely underlying cause of the problem described in the user's content. Identify the most likely underlying cause from the evidence in the user's content. Distinguish likely causes from confirmed causes.",
+              "prompt": "Find the most likely underlying cause of the problem below, based on the evidence given. Separate likely causes from confirmed ones.\n\nProblem:",
               "icon": "root-cause"
             },
             {
               "id": 189,
               "name": "Generate Solution",
-              "prompt": "Develop practical solutions to the problem described in the user's content. Develop practical solutions that address the stated problem. Do not invent constraints, resources, or facts.",
+              "prompt": "Suggest practical solutions to the problem below. Don't assume constraints, resources, or facts I haven't given.\n\nProblem:",
               "icon": "solution"
             },
             {
               "id": 190,
               "name": "Alternative Approaches",
-              "prompt": "Generate materially different approaches to solving the problem described in the user's content. Generate materially different approaches that could solve the stated problem. Avoid superficial wording variations.",
+              "prompt": "Give me several genuinely different approaches or alternatives for the problem or idea below, not small variations. Say when each would be the better choice.\n\nProblem or idea:",
               "icon": "alternatives"
             },
             {
               "id": 191,
               "name": "Optimize Process",
-              "prompt": "Identify unnecessary steps in the process described by the user's content and propose a more efficient process. Focus on unnecessary process steps and meaningful efficiency improvements supported by the user's content. Preserve necessary controls.",
+              "prompt": "Find the unnecessary steps in the process below and propose a more efficient version. Keep the controls and checks that are actually needed.\n\nProcess:",
               "icon": "optimize-process"
             },
             {
               "id": 192,
               "name": "Find Dependencies",
-              "prompt": "Identify dependencies, prerequisites, and relationships between the items described in the user's content. Identify dependencies and prerequisites actually supported by the user's content. Distinguish explicit relationships from reasonable inferences.",
+              "prompt": "Identify the dependencies and prerequisites between the items below. Separate those stated outright from those you are inferring.\n\nItems:",
               "icon": "dependencies"
-            },
-            {
-              "id": 193,
-              "name": "Find Risks",
-              "prompt": "Identify important risks in the user's information that may not be immediately obvious. Identify important non-obvious risks that are reasonably supported by the user's information. Avoid speculative risks presented as facts.",
-              "icon": "risk"
-            },
-            {
-              "id": 194,
-              "name": "Find Opportunities",
-              "prompt": "Identify opportunities that are not explicitly stated in the user's content but can reasonably be inferred from it. Identify plausible opportunities that follow from the user's information. Clearly distinguish inference from explicit information.",
-              "icon": "opportunity"
             },
             {
               "id": 195,
               "name": "Scenario Analysis",
-              "prompt": "Analyze the likely outcomes of the situation described in the user's content under different scenarios. Describe plausible outcomes under materially different scenarios. State assumptions and uncertainty rather than presenting predictions as facts.",
+              "prompt": "Describe likely outcomes of the situation below under several materially different scenarios. State your assumptions and don't present predictions as facts.\n\nSituation:",
               "icon": "scenario"
             },
             {
               "id": 196,
               "name": "What If?",
-              "prompt": "Identify how the outcome described in the user's content could change if its key assumptions changed. Change one or more key assumptions and explain how the likely outcome would change. Do not invent certainty about hypothetical results.",
+              "prompt": "Change the key assumptions in the situation below, one at a time, and explain how the likely outcome would change. Don't claim certainty about hypotheticals.\n\nSituation:",
               "icon": "what-if"
             },
             {
               "id": 197,
               "name": "Failure Analysis",
-              "prompt": "Explain how the approach described in the user's content could fail and how those failure modes could be prevented. Identify realistic failure modes of the stated approach and practical prevention or mitigation measures. Do not invent highly speculative failures.",
+              "prompt": "Explain how the approach below could realistically fail and how to prevent or reduce each failure.\n\nApproach:",
               "icon": "failure"
             },
             {
               "id": 198,
               "name": "Stress Test",
-              "prompt": "Challenge the plan or argument in the user's content under unfavorable conditions and identify where it may break down. Challenge the user's plan or argument under realistic unfavorable conditions. Focus on meaningful weaknesses rather than contrarian nitpicks.",
+              "prompt": "Test the plan or argument below under realistic bad conditions and show where it breaks down. Focus on real weaknesses, not nitpicks.\n\nPlan or argument:",
               "icon": "stress"
             },
             {
               "id": 199,
               "name": "Synthesize",
-              "prompt": "Combine the important ideas in the user's content into one coherent conclusion. Combine the important ideas into one coherent conclusion without adding unsupported claims or repeating the source.",
+              "prompt": "Combine the important ideas in the text below into one coherent conclusion. Don't add unsupported claims or simply repeat the text.\n\nText:",
               "icon": "synthesis"
-            },
-            {
-              "id": 200,
-              "name": "Generate Alternatives",
-              "prompt": "Produce several substantially different alternatives based on the user's content rather than minor variations. Generate several materially different alternatives that remain relevant to the user's information. Do not produce minor wording variations.",
-              "icon": "alternatives-many"
             }
           ]
         },
@@ -3834,7 +3714,7 @@
             {
               "id": 201,
               "name": "Ask AI",
-              "prompt": "Follow the user's instruction and produce the requested result. Use any content they provide as context when relevant; if the request is self-contained, answer it directly. Do not perform unrelated tasks or invent missing context.",
+              "prompt": "Do what I ask below, using any text I include as context. If one missing detail would really change the result, ask me about it first. Otherwise answer directly.\n\nMy request:\n[paste or type your request]",
               "icon": "ask-ai"
             }
           ]
@@ -3886,7 +3766,7 @@
               "id": 207,
               "name": "Forced Feynman Method",
               "purpose": "Test understanding through explanation",
-              "prompt": "I just studied [topic]. I am going to explain what I understood as if you were a 10-year-old child.\n\nWait for my explanation. While I explain, stop me every time I use jargon I cannot define, skip a step in the reasoning, or simplify so much that it becomes wrong.\n\nAt the end, tell me exactly what those mistakes reveal about what is still not solid in my understanding.",
+              "prompt": "I just studied [topic]. In my next message I will explain what I understood as if you were a 10-year-old child. Wait for my explanation.\n\nThen go through it and point out every place where I used jargon I cannot define, skipped a step in the reasoning, or simplified so much that it became wrong.\n\nAt the end, tell me exactly what those mistakes reveal about what is still not solid in my understanding.",
               "icon": "baby-face"
             }
           ]
@@ -3910,13 +3790,13 @@
           "id": "image_generation",
           "name": "Image generation",
           "icon": "image",
-          "description": "Prompts for AI image tools. Copy one, paste it into your image generator, then answer the question it asks.",
+          "description": "Prompts for AI image tools. Copy one, fill in the topic, then paste it into your image generator.",
           "prompts": [
             {
               "id": 209,
               "name": "Handwritten Study Sheet",
               "purpose": "Turn any topic into a one-page visual study sheet",
-              "prompt": "Create a vertical handwritten study sheet explaining the topic in a clear 3–5 step flow: cause → mechanism → outcome or input → process → result. Use one central diagram, simple icons, arrows, and short labels. Style it on warm off-white paper with imperfect dark ink and restrained saffron, teal, green, and yellow accents. Keep it spacious, accurate, visual-first, and easy to understand at a glance; avoid long text, tiny type, clutter, UI, logos, watermarks, and unsupported facts. Before creating ask one question: What would you like to learn?",
+              "prompt": "Create a vertical handwritten study sheet explaining this topic: [what you want to learn]. Show it as a clear 3–5 step flow: cause → mechanism → outcome or input → process → result. Use one central diagram, simple icons, arrows, and short labels. Style it on warm off-white paper with imperfect dark ink and restrained saffron, teal, green, and yellow accents. Keep it spacious, accurate, visual-first, and easy to understand at a glance; avoid long text, tiny type, clutter, UI, logos, watermarks, and unsupported facts.",
               "icon": "book"
             }
           ]
@@ -3959,7 +3839,7 @@
               "id": 214,
               "name": "Real-Life Roleplay",
               "purpose": "Rehearse real-world situations",
-              "prompt": "Train me in [language] using realistic situations I might encounter in [country / environment]. Start with [situation, e.g. airport, restaurant, hotel]. First, teach me the essential phrases and vocabulary. Then, role-play the situation with me and let me respond naturally. Don't give me the answer immediately.",
+              "prompt": "Train me in [language] using realistic situations I might encounter in [country / environment]. Start with [situation, e.g. airport, restaurant, hotel]. First, teach me the essential phrases and vocabulary. Then role-play the situation with me: play only the other person, say one line at a time, and wait for my reply. Don't give me the answer immediately. If I get stuck, give me a hint first. When the scene ends, correct my most important mistakes and show me what a native speaker would say.",
               "icon": "scenario"
             },
             {
