@@ -1600,8 +1600,7 @@
       color: var(--text);
     }
 
-    .prompt-action svg,
-    .prompt-share-row svg {
+    .prompt-action svg {
       width: 15px;
       height: 15px;
       fill: none;
@@ -1633,7 +1632,6 @@
       }
     }
 
-    /* phones have no room for a link button in the header, so it sits under the opened prompt */
     .prompt-actions-row {
       display: none;
       flex-wrap: wrap;
@@ -1716,21 +1714,6 @@
 
     .ai-tool-grok {
       color: var(--text);
-    }
-
-    .prompt-share-row {
-      display: none;
-      align-items: center;
-      gap: 6px;
-      min-height: 36px;
-      padding: 0 10px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--surface-soft);
-      color: var(--text-secondary);
-      font: inherit;
-      font-size: 12px;
-      cursor: pointer;
     }
 
     .prompt-card.linked {
@@ -1827,14 +1810,6 @@
         flex-basis: 32px;
         width: 32px;
         height: 32px;
-      }
-
-      .prompt-share {
-        display: none;
-      }
-
-      .prompt-share-row {
-        display: inline-flex;
       }
 
       .page-content.show-library > .personal-chips:not([hidden]) {
@@ -4669,12 +4644,7 @@
         ${blanks.length ? `<div class="prompt-blanks">${blanks.map(blank =>
           `<span class="blank-tag">Fill in: ${escapeHtml(blank)}</span>`).join("")}</div>` : ""}
         <p class="prompt-text">${promptTextHtml(item.prompt, hits)}</p>
-        <div class="prompt-actions-row">
-          ${blanks.length ? "" : `<span>Copy and open in</span>${aiToolLinks(item.prompt)}`}
-          <button type="button" class="prompt-share-row prompt-share-link" aria-label="Copy link to ${escapeHtml(item.name)}">
-            ${iconSvg("link", "copy-svg")}<span>Copy link</span>
-          </button>
-        </div>
+        ${blanks.length ? "" : `<div class="prompt-actions-row"><span>Copy and open in</span>${aiToolLinks(item.prompt)}</div>`}
       </div>
     </article>
   `;
@@ -5164,7 +5134,7 @@
           return;
         }
 
-        if (event.target.closest(".prompt-share, .prompt-share-link")) {
+        if (event.target.closest(".prompt-share")) {
           const link = location.href.split("#")[0] + promptHash(promptById(card.dataset.copyId));
           copyText(link).then(() => showToast("Link copied"), () => showToast("Could not copy link"));
           return;
