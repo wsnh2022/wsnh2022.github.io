@@ -1471,7 +1471,7 @@
       display: none;
     }
 
-    /* the card itself copies; this shows an icon, plus a label on hover/focus */
+    /* the card itself copies; this shows an icon, plus a label once copied */
     .copy-hint {
       flex: 0 0 auto;
       display: inline-flex;
@@ -1493,8 +1493,6 @@
       color: var(--accent-text);
     }
 
-    .prompt-card:hover .copy-label,
-    .prompt-card:focus-visible .copy-label,
     .prompt-card.copied .copy-label {
       display: inline;
     }
@@ -2128,16 +2126,8 @@
         color: var(--text-subtle);
       }
 
-      .prompt-card:hover .copy-label {
-        display: none;
-      }
-
       .prompt-card.copied .copy-hint {
         color: var(--success);
-      }
-
-      .prompt-card.copied .copy-label {
-        display: inline;
       }
     }
 
@@ -4543,9 +4533,9 @@
             ${iconSvg("star", "copy-svg")}
           </button>
 
-          <span class="copy-hint">
+          <span class="copy-hint" title="${blanks.length ? "Click to fill in" : "Click to copy"}">
             <span class="copy-icon" aria-hidden="true">${iconSvg(blanks.length ? "pencil" : "copy", "copy-svg")}</span>
-            <span class="copy-label">${blanks.length ? "Click to fill in" : "Click to copy"}</span>
+            <span class="copy-label">Copied</span>
           </span>
 
           <button type="button" class="prompt-expand" aria-expanded="false" aria-label="Show full ${escapeHtml(item.name)} prompt">
@@ -4958,13 +4948,11 @@
           await copyText(promptItem.prompt);
           recordRecent(promptItem);
           card.classList.add("copied");
-          card.querySelector(".copy-label").textContent = "Copied";
           card.querySelector(".copy-icon").innerHTML = iconSvg("checklist", "copy-svg");
           showCopiedToast();
 
           setTimeout(() => {
             card.classList.remove("copied");
-            card.querySelector(".copy-label").textContent = "Click to copy";
             card.querySelector(".copy-icon").innerHTML = iconSvg("copy", "copy-svg");
           }, 1200);
         } catch (error) {
