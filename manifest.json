@@ -1,7 +1,7 @@
 {
-  "name": "AI Prompts Reference",
+  "name": "AI Prompt Library",
   "short_name": "AI Prompts",
-  "description": "Browse, search, and copy 216 reusable AI prompts across 18 categories and 4 prompt packs. Works offline.",
+  "description": "216 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline.",
   "start_url": "./prompts.html",
   "scope": "./",
   "display": "standalone",

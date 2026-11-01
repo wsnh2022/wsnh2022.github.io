@@ -25,7 +25,7 @@ Standalone tools (each fully self-contained, 80-180 KB of inline CSS/JS): `promp
 ### Adding a prompt pack
 Append to `packs` in `window.PROMPT_LIBRARY` with fields `id`, `name`, `icon`, `description`, `prompts[{id, name, purpose, prompt, icon}]`. Prompt ids continue from the last used id. Text in `[blanks]` is highlighted automatically. New icons go in `ICON_PATHS`. Check that each pasted `purpose` line matches its prompt.
 
-The prompt total is typed by hand in several places and drifts. After adding prompts, update: the three description meta tags in `prompts.html` (`description`, `og:description`, `twitter:description`), the `#heroDescCount` fallback, the `description` in `manifest.json`, and the blurb in `assets/hub.js`.
+The prompt total is typed by hand in several places and drifts. After adding prompts, update: the three description meta tags in `prompts.html` (`description`, `og:description`, `twitter:description`), the `#heroDescCount` and `#heroCtaCount` fallbacks, the `description` in `manifest.json`, and the blurb in `assets/hub.js`.
 
 ## Gotchas
 - The old "My Collection" data (`data/` and `embed-prompts.ps1`) was removed and archived at `D:\Library\Code_Env\Archieve\portfolio-old-prompts\`. `gitsync.bat` still has a step for `embed-prompts.ps1`, but it skips itself when the file is missing. `docs/prompts-roadmap.md` describes that old design.

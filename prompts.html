@@ -5,19 +5,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-  <title>AI Prompt Library</title>
+  <title>AI Prompt Library: Stop Retyping the Same AI Instructions</title>
   <meta name="description"
-    content="Browse, search, and copy 216 reusable AI prompts across 18 categories and 4 prompt packs. Works offline." />
+    content="216 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
 
-  <meta property="og:title" content="AI Prompt Library" />
+  <meta property="og:title" content="AI Prompt Library: Stop Retyping the Same AI Instructions" />
   <meta property="og:description"
-    content="Browse, search, and copy 216 reusable AI prompts across 18 categories and 4 prompt packs. Works offline." />
+    content="216 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
   <meta property="og:url" content="https://wsnh2022.github.io/prompts.html" />
   <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="AI Prompt Library" />
+  <meta property="og:image" content="https://wsnh2022.github.io/assets/images/meta/prompts_og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AI Prompt Library: stop retyping the same AI instructions." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Prompt Library: Stop Retyping the Same AI Instructions" />
   <meta name="twitter:description"
-    content="Browse, search, and copy 216 reusable AI prompts across 18 categories and 4 prompt packs. Works offline." />
+    content="216 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
+  <meta name="twitter:image" content="https://wsnh2022.github.io/assets/images/meta/prompts_og.png" />
 
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -441,16 +446,16 @@
       padding: 40px 0 60px;
     }
 
-    .hero-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 28px;
-      align-items: end;
-      margin-bottom: 28px;
+    /* the page opens on the welcome screen; .show-library swaps it for the prompts */
+    .page-content:not(.show-library) > .toolbar,
+    .page-content:not(.show-library) > .library-layout,
+    .page-content.show-library > .welcome {
+      display: none;
     }
 
-    .hero-copy {
+    .welcome {
       max-width: 860px;
+      padding: 24px 0 8px;
     }
 
     .eyebrow {
@@ -462,43 +467,166 @@
       text-transform: uppercase;
     }
 
-    .hero-copy h2 {
+    .welcome h2 {
       margin: 0;
-      font-size: clamp(28px, 3vw, 42px);
+      font-size: clamp(30px, 4vw, 48px);
       line-height: 1.08;
-      letter-spacing: -.045em;
+      letter-spacing: -.04em;
     }
 
-    .hero-description {
-      max-width: 760px;
-      margin: 12px 0 0;
+    .welcome-description {
+      max-width: 700px;
+      margin: 16px 0 0;
+      color: var(--text-secondary);
+      font-size: 17px;
+    }
+
+    .welcome-action {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 16px;
+      margin: 26px 0 36px;
+    }
+
+    .welcome-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 22px;
+      border: 0;
+      border-radius: var(--radius-md);
+      color: var(--accent-contrast);
+      background: var(--accent-grad);
+      box-shadow: var(--accent-glow);
+      font: inherit;
+      font-size: 16px;
+      font-weight: 680;
+      cursor: pointer;
+    }
+
+    .welcome-cta svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .welcome-note {
+      color: var(--text-muted);
+      font-size: 13.5px;
+    }
+
+    .welcome-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .welcome-compare {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .welcome-compare-sides {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    }
+
+    .welcome-compare-side {
+      padding: 16px 18px;
+    }
+
+    .welcome-compare-side + .welcome-compare-side {
+      border-left: 1px solid var(--border);
+    }
+
+    .welcome-compare-label {
+      margin: 0 0 7px;
+      color: var(--text-muted);
+      font-size: 12.5px;
+    }
+
+    .welcome-compare-typed {
+      margin: 0;
       color: var(--text-secondary);
       font-size: 15px;
     }
 
-    .hero-stat {
-      min-width: 140px;
-      padding: 16px 18px;
-      border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
-      border-radius: 15px;
-      background:
-        linear-gradient(145deg, var(--surface), var(--surface-soft));
-      box-shadow: var(--shadow-sm);
-      text-align: right;
+    .welcome-compare ul {
+      display: grid;
+      gap: 4px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 14px;
     }
 
-    .hero-stat-number {
-      font-size: 28px;
-      line-height: 1;
-      font-weight: 750;
-      letter-spacing: -.03em;
+    .welcome-compare li {
+      display: flex;
+      gap: 8px;
+    }
+
+    .welcome-compare li::before {
+      content: "\2713";
       color: var(--accent-text);
+      font-weight: 700;
     }
 
-    .hero-stat-label {
-      margin-top: 6px;
-      color: var(--text-muted);
-      font-size: 12px;
+    .welcome-compare-foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 16px;
+      padding: 12px 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .welcome-copy {
+      padding: 7px 14px;
+      border: 1px solid var(--accent-text);
+      border-radius: var(--radius-sm);
+      color: var(--accent-text);
+      background: transparent;
+      font: inherit;
+      font-size: 13.5px;
+      font-weight: 620;
+      cursor: pointer;
+    }
+
+    .welcome-copy:hover {
+      background: var(--surface-hover);
+    }
+
+    .welcome-tasks {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .welcome-tasks button {
+      padding: 10px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      background: transparent;
+      font: inherit;
+      font-size: 13.5px;
+      line-height: 1.3;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .welcome-tasks button:hover {
+      color: var(--text);
+      background: var(--surface-hover);
     }
 
     .toolbar {
@@ -1490,8 +1618,7 @@
         padding-top: 4px;
       }
 
-      /* intro and section heading give way to prompts; the toolbar names the category */
-      .hero-row,
+      /* section heading gives way to prompts; the toolbar names the category */
       .content-header {
         display: none;
       }
@@ -1724,6 +1851,45 @@
       .prompt-card-header {
         gap: 8px;
       }
+
+      .welcome-description {
+        font-size: 15.5px;
+      }
+
+      .welcome-action {
+        margin: 20px 0 26px;
+      }
+
+      .welcome-cta {
+        width: 100%;
+      }
+
+      .welcome-note {
+        width: 100%;
+        text-align: center;
+      }
+
+      /* phones want to act quickly, so the tasks come before the comparison */
+      .welcome-today {
+        order: -1;
+      }
+
+      .welcome-tasks {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .welcome-compare-sides {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .welcome-compare-side + .welcome-compare-side {
+        border-left: 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .welcome-copy {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -1733,7 +1899,7 @@
   <div class="app-shell">
     <header class="site-header">
       <div class="header-inner">
-        <div class="brand-group">
+        <a class="brand-group" href="prompts.html" style="color: inherit; text-decoration: none;">
           <div class="brand-mark" aria-hidden="true">
             <svg viewBox="0 0 24 24" class="brand-svg">
               <path
@@ -1745,7 +1911,7 @@
             <h1>AI Prompt Library</h1>
             <p id="libraryMeta" class="brand-subtitle">Loading library...</p>
           </div>
-        </div>
+        </a>
 
         <div class="header-actions">
           <div class="color-picker">
@@ -1777,19 +1943,61 @@
       </div>
     </header>
 
-    <main class="page-content">
-      <section class="hero-row">
-        <div class="hero-copy">
-          <p class="eyebrow">Selected text actions</p>
-          <h2>Find the right prompt. Copy it. Use it anywhere.</h2>
-          <p class="hero-description">
-            Browse <span id="heroDescCount">216</span> focused AI actions designed around common tasks - understand,
-            rewrite, analyze, research, code, learn, decide, and more.
-          </p>
+    <main class="page-content" id="pageContent">
+      <section class="welcome" aria-label="Welcome">
+        <h2>Stop retyping the same AI instructions.</h2>
+        <p class="welcome-description">
+          <span id="heroDescCount">216</span> ready-made prompts for what you ask AI every day: replying to emails,
+          summarizing, fixing code and making decisions. Each one tells the AI exactly what you want, so you spend
+          less time correcting the answer.
+        </p>
+        <div class="welcome-action">
+          <button class="welcome-cta" type="button" data-open-library="all">
+            <span>Browse all <span id="heroCtaCount">216</span> prompts</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+          <span class="welcome-note">Free, no sign-up, works offline</span>
         </div>
-        <div class="hero-stat" aria-label="Prompt library statistics">
-          <div class="hero-stat-number" id="heroPromptCount">0</div>
-          <div class="hero-stat-label">prompts</div>
+        <div class="welcome-sections">
+          <div>
+            <p class="eyebrow">See the difference</p>
+            <div class="welcome-compare">
+              <div class="welcome-compare-sides">
+                <div class="welcome-compare-side">
+                  <p class="welcome-compare-label">What people usually type</p>
+                  <p class="welcome-compare-typed">"make this email professional"</p>
+                </div>
+                <div class="welcome-compare-side">
+                  <p class="welcome-compare-label">What the Professional Email prompt adds</p>
+                  <ul>
+                    <li>A clear subject line and concise body</li>
+                    <li>Keeps your intended message</li>
+                    <li>Told not to invent recipient details</li>
+                    <li>Returns only the email, no chatty intro</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="welcome-compare-foot">
+                <span class="welcome-note">Copy it, then paste into ChatGPT, Claude or Gemini with your text</span>
+                <button class="welcome-copy" type="button" data-copy-prompt="27">Copy this prompt</button>
+              </div>
+            </div>
+          </div>
+          <div class="welcome-today">
+            <p class="eyebrow">What do you need to do today?</p>
+            <div class="welcome-tasks">
+              <button type="button" data-open-library="all" data-search="reply">Reply to a message</button>
+              <button type="button" data-open-library="all" data-search="summar">Summarize something long</button>
+              <button type="button" data-open-library="all" data-search="grammar">Fix my grammar</button>
+              <button type="button" data-open-library="essential_everyday" data-search="explain">Explain a topic</button>
+              <button type="button" data-open-library="all" data-search="debug">Debug my code</button>
+              <button type="button" data-open-library="decision_making">Weigh up a decision</button>
+              <button type="button" data-open-library="all" data-search="action items">Pull out action items</button>
+              <button type="button" data-open-library="personal_tutor">Learn with a tutor</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -3447,7 +3655,8 @@
 
     const els = {
       libraryMeta: document.getElementById("libraryMeta"),
-      heroPromptCount: document.getElementById("heroPromptCount"),
+      pageContent: document.getElementById("pageContent"),
+      heroCtaCount: document.getElementById("heroCtaCount"),
       heroDescCount: document.getElementById("heroDescCount"),
       categoryCount: document.getElementById("categoryCount"),
       categoryNav: document.getElementById("categoryNav"),
@@ -3957,7 +4166,44 @@
       els.colorToggle.setAttribute("aria-expanded", String(open));
     }
 
+    const libraryShowing = () => els.pageContent.classList.contains("show-library");
+
+    // opening the prompts adds a history entry, so the phone Back button returns to the welcome screen
+    function openLibrary(categoryId, searchTerm = "") {
+      state.activeCategory = categoryId;
+      state.searchTerm = searchTerm;
+      els.searchInput.value = searchTerm;
+      renderCategories();
+      renderPrompts();
+      if (libraryShowing()) return;
+      els.pageContent.classList.add("show-library");
+      history.pushState({ view: "library" }, "");
+      window.scrollTo(0, 0);
+    }
+
     function bindEvents() {
+      els.pageContent.addEventListener("click", async event => {
+        const button = event.target.closest("[data-open-library]");
+        if (button) openLibrary(button.dataset.openLibrary, button.dataset.search);
+
+        const copyButton = event.target.closest("[data-copy-prompt]");
+        if (!copyButton) return;
+        const promptItem = allPrompts().find(item => String(item.id) === copyButton.dataset.copyPrompt);
+        try {
+          await copyText(promptItem.prompt);
+          showToast("Prompt copied");
+        } catch (error) {
+          console.error(error);
+          showToast("Could not copy prompt");
+        }
+      });
+
+      window.addEventListener("popstate", event => {
+        closeDrawer();
+        els.pageContent.classList.toggle("show-library", event.state?.view === "library");
+        window.scrollTo(0, 0);
+      });
+
       els.sidebar.addEventListener("click", event => {
         const button = event.target.closest("[data-category-id]");
         if (!button) return;
@@ -3987,7 +4233,7 @@
       let swipe = null;
 
       document.addEventListener("touchstart", event => {
-        if (!isMobile() || event.touches.length > 1 || isTyping(event.target)) return;
+        if (!libraryShowing() || !isMobile() || event.touches.length > 1 || isTyping(event.target)) return;
         const t = event.touches[0];
         const open = els.sidebar.classList.contains("open");
         let mode = null;
@@ -4022,6 +4268,7 @@
       document.addEventListener("keydown", event => {
         if (event.key === "/" && !isTyping(event.target) && !els.sidebar.classList.contains("open")) {
           event.preventDefault();
+          if (!libraryShowing()) openLibrary(state.activeCategory, state.searchTerm);
           els.searchInput.focus();
           els.searchInput.select();
           return;
@@ -4228,11 +4475,14 @@
         `${total} prompts · ${state.library.categories.length} categories` +
         (packCount ? ` · ${packCount} pack${packCount === 1 ? "" : "s"}` : "") +
         ` · v${state.library.version}`;
-      els.heroPromptCount.textContent = String(total);
+      els.heroCtaCount.textContent = String(total);
       if (els.heroDescCount) els.heroDescCount.textContent = String(total);
 
       renderCategories();
       renderPrompts();
+
+      // refreshing, or coming back from another site, keeps the visitor on the prompts
+      if (history.state?.view === "library") els.pageContent.classList.add("show-library");
     }
 
     initTheme();
