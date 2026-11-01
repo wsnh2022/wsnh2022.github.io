@@ -4233,13 +4233,15 @@
 
     // opening the prompts adds a history entry, so the phone Back button returns to the welcome screen
     function openLibrary(categoryId, searchTerm = "") {
+      const alreadyOpen = libraryShowing();
       state.activeCategory = categoryId;
       state.searchTerm = searchTerm;
       els.searchInput.value = searchTerm;
+      // show the list before drawing it: hidden cards measure as zero, which hides their expand arrows
+      els.pageContent.classList.add("show-library");
       renderCategories();
       renderPrompts();
-      if (libraryShowing()) return;
-      els.pageContent.classList.add("show-library");
+      if (alreadyOpen) return;
       history.pushState({ view: "library" }, "");
       window.scrollTo(0, 0);
     }
@@ -4264,6 +4266,7 @@
       window.addEventListener("popstate", event => {
         closeDrawer();
         els.pageContent.classList.toggle("show-library", event.state?.view === "library");
+        if (libraryShowing()) markClampedCards();
         window.scrollTo(0, 0);
       });
 
@@ -4541,12 +4544,12 @@
       els.heroCtaCount.textContent = String(total);
       if (els.heroDescCount) els.heroDescCount.textContent = String(total);
 
+      // refreshing, or coming back from another site, keeps the visitor on the prompts
+      if (history.state?.view === "library") els.pageContent.classList.add("show-library");
+
       renderWelcome();
       renderCategories();
       renderPrompts();
-
-      // refreshing, or coming back from another site, keeps the visitor on the prompts
-      if (history.state?.view === "library") els.pageContent.classList.add("show-library");
     }
 
     initTheme();
