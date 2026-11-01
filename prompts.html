@@ -1643,6 +1643,12 @@
       font-weight: 650;
     }
 
+    /* the label gets its own line, with the icons below it */
+    .prompt-actions-row > span,
+    .fill-open > span {
+      flex-basis: 100%;
+    }
+
     .prompt-text.expanded + .prompt-actions-row,
     .prompt-card:not(.has-more) .prompt-actions-row {
       display: flex;
@@ -1937,6 +1943,10 @@
     @media (max-width: 640px) {
       .toast.has-links {
         bottom: 80px;
+      }
+
+      .toast.has-links > span {
+        flex-basis: 100%;
       }
     }
 
