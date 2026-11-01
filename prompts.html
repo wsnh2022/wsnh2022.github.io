@@ -4521,8 +4521,8 @@
             ${iconSvg("star", "copy-svg")}
           </button>
 
-          <button type="button" class="prompt-action prompt-copy" aria-label="${blanks.length ? "Fill in" : "Copy"} ${escapeHtml(item.name)}" title="${blanks.length ? "Fill in" : "Copy"}">
-            ${iconSvg(blanks.length ? "pencil" : "copy", "copy-svg")}
+          <button type="button" class="prompt-action prompt-copy" aria-label="Copy ${escapeHtml(item.name)}" title="Copy">
+            ${iconSvg("copy", "copy-svg")}
           </button>
 
           <button type="button" class="prompt-expand" aria-expanded="false" aria-label="Show full ${escapeHtml(item.name)} prompt">
@@ -4536,7 +4536,7 @@
           `<span class="blank-tag">Fill in: ${escapeHtml(blank)}</span>`).join("")}</div>` : ""}
         <p class="prompt-text">${promptTextHtml(item.prompt, hits)}</p>
         <div class="prompt-actions-row">${blanks.length
-          ? `<button type="button" class="prompt-fill">${iconSvg("pencil", "copy-svg")}Fill in and copy</button>`
+          ? `<button type="button" class="prompt-fill">${iconSvg("pencil", "copy-svg")}Fill in blanks</button>`
           : `<span>Copy and open in</span>${aiToolLinks(item.prompt)}`}</div>
       </div>
     </article>
@@ -4981,19 +4981,16 @@
         const id = card.dataset.copyId;
         const promptItem = allPrompts().find(item => String(item.id) === id);
         if (!promptItem) return;
-        // prompts with blanks open the fill-in panel instead of copying straight away
-        if (blanksIn(promptItem.prompt).length) {
-          openFill(promptItem);
-          return;
-        }
 
         try {
           await copyText(promptItem.prompt);
           recordRecent(promptItem);
           card.classList.add("copied");
           card.querySelector(".prompt-copy").innerHTML = iconSvg("checklist", "copy-svg");
+          // the tool icons would send the unfilled blanks, so these prompts get a reminder instead
+          if (blanksIn(promptItem.prompt).length) showToast("Copied. Fill in the blanks before sending");
           // an opened card already shows the tool icons, so the message doesn't repeat them
-          if (card.querySelector(".prompt-actions-row").offsetParent) showToast("Prompt copied");
+          else if (card.querySelector(".prompt-actions-row").offsetParent) showToast("Prompt copied");
           else showCopiedToast(promptItem.prompt);
 
           setTimeout(() => {
@@ -5041,7 +5038,12 @@
           return;
         }
 
-        if (event.target.closest(".prompt-copy, .prompt-fill")) {
+        if (event.target.closest(".prompt-fill")) {
+          openFill(promptById(card.dataset.copyId));
+          return;
+        }
+
+        if (event.target.closest(".prompt-copy")) {
           copyCard(card);
           return;
         }
