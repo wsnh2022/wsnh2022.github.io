@@ -5079,7 +5079,9 @@
           recordRecent(promptItem);
           card.classList.add("copied");
           card.querySelector(".prompt-copy").innerHTML = iconSvg("checklist", "copy-svg");
-          showCopiedToast(promptItem.prompt);
+          // an opened card already shows the tool icons, so the message doesn't repeat them
+          if (card.querySelector(".prompt-actions-row").offsetParent) showToast("Prompt copied");
+          else showCopiedToast(promptItem.prompt);
 
           setTimeout(() => {
             card.classList.remove("copied");
