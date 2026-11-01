@@ -1633,6 +1633,37 @@
       display: flex;
     }
 
+    /* prompts with blanks copy from the fill-in panel, so this opens it */
+    .prompt-fill {
+      min-height: 36px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      background: var(--accent-grad);
+      color: var(--accent-contrast);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .prompt-fill:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .prompt-fill svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
     .ai-share {
       color: var(--text);
     }
@@ -4504,7 +4535,9 @@
         ${blanks.length ? `<div class="prompt-blanks">${blanks.map(blank =>
           `<span class="blank-tag">Fill in: ${escapeHtml(blank)}</span>`).join("")}</div>` : ""}
         <p class="prompt-text">${promptTextHtml(item.prompt, hits)}</p>
-        ${blanks.length ? "" : `<div class="prompt-actions-row"><span>Copy and open in</span>${aiToolLinks(item.prompt)}</div>`}
+        <div class="prompt-actions-row">${blanks.length
+          ? `<button type="button" class="prompt-fill">${iconSvg("pencil", "copy-svg")}Fill in and copy</button>`
+          : `<span>Copy and open in</span>${aiToolLinks(item.prompt)}`}</div>
       </div>
     </article>
   `;
@@ -5008,7 +5041,7 @@
           return;
         }
 
-        if (event.target.closest(".prompt-copy")) {
+        if (event.target.closest(".prompt-copy, .prompt-fill")) {
           copyCard(card);
           return;
         }
