@@ -1804,9 +1804,76 @@
     }
 
     /* the narrowest phones give the decorative icon's space to the prompt name */
+    /* phones: title, tags and text read straight down, with the buttons along the bottom of the card */
+    @media (max-width: 560px) {
+      .prompt-card-main {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        column-gap: 11px;
+      }
+
+      .prompt-card-header {
+        display: contents;
+      }
+
+      .prompt-heading {
+        flex-basis: calc(100% - 43px);
+        margin-bottom: 6px;
+      }
+
+      /* one swipeable row of tags, like the chips in the fill-in panel */
+      .prompt-blanks {
+        order: 1;
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .blank-tag {
+        flex: none;
+      }
+
+      .prompt-text {
+        order: 2;
+        width: 100%;
+      }
+
+      /* a highlight cut off by the preview's ellipsis leaves a stray colored sliver */
+      .prompt-text:not(.expanded) .prompt-blank {
+        padding: 0;
+        background: none;
+      }
+
+      .prompt-actions-row {
+        order: 3;
+        width: 100%;
+      }
+
+      /* the bottom row already has a copy button here */
+      .prompt-card .prompt-actions-row:has(.prompt-copy) {
+        display: none;
+      }
+
+      .prompt-action,
+      .prompt-expand {
+        order: 4;
+        margin-top: 8px;
+      }
+
+      .prompt-share {
+        margin-left: auto;
+      }
+    }
+
     @media (max-width: 360px) {
       .prompt-chip {
         display: none;
+      }
+
+      .prompt-heading {
+        flex-basis: 100%;
       }
     }
 
