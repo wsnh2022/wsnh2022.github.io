@@ -1,4 +1,4 @@
-const CACHE = 'ai-prompts-v11';
+const CACHE = 'ai-prompts-v12';
 const SHELL = './prompts.html';
 
 self.addEventListener('install', e => {
