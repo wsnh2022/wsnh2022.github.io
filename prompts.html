@@ -1633,37 +1633,6 @@
       display: flex;
     }
 
-    /* prompts with blanks copy from the fill-in panel, so this opens it */
-    .prompt-fill {
-      min-height: 36px;
-      padding: 0 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      border: 1px solid transparent;
-      border-radius: 9px;
-      background: var(--accent-grad);
-      color: var(--accent-contrast);
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .prompt-fill:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    .prompt-fill svg {
-      width: 15px;
-      height: 15px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.9;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
     .ai-share {
       color: var(--text);
     }
@@ -4536,7 +4505,7 @@
           `<span class="blank-tag">Fill in: ${escapeHtml(blank)}</span>`).join("")}</div>` : ""}
         <p class="prompt-text">${promptTextHtml(item.prompt, hits)}</p>
         <div class="prompt-actions-row">${blanks.length
-          ? `<button type="button" class="prompt-fill">${iconSvg("pencil", "copy-svg")}Fill in blanks</button>`
+          ? `<button type="button" class="prompt-action prompt-copy" aria-label="Copy ${escapeHtml(item.name)}" title="Copy">${iconSvg("copy", "copy-svg")}</button>`
           : `<span>Copy and open in</span>${aiToolLinks(item.prompt)}`}</div>
       </div>
     </article>
@@ -4981,16 +4950,19 @@
         const id = card.dataset.copyId;
         const promptItem = allPrompts().find(item => String(item.id) === id);
         if (!promptItem) return;
+        // prompts with blanks open the fill-in panel instead of copying straight away
+        if (blanksIn(promptItem.prompt).length) {
+          openFill(promptItem);
+          return;
+        }
 
         try {
           await copyText(promptItem.prompt);
           recordRecent(promptItem);
           card.classList.add("copied");
           card.querySelector(".prompt-copy").innerHTML = iconSvg("checklist", "copy-svg");
-          // the tool icons would send the unfilled blanks, so these prompts get a reminder instead
-          if (blanksIn(promptItem.prompt).length) showToast("Copied. Fill in the blanks before sending");
           // an opened card already shows the tool icons, so the message doesn't repeat them
-          else if (card.querySelector(".prompt-actions-row").offsetParent) showToast("Prompt copied");
+          if (card.querySelector(".prompt-actions-row").offsetParent) showToast("Prompt copied");
           else showCopiedToast(promptItem.prompt);
 
           setTimeout(() => {
@@ -5035,11 +5007,6 @@
         if (event.target.closest(".prompt-share")) {
           const link = location.href.split("#")[0] + promptHash(promptById(card.dataset.copyId));
           copyText(link).then(() => showToast("Link copied"), () => showToast("Could not copy link"));
-          return;
-        }
-
-        if (event.target.closest(".prompt-fill")) {
-          openFill(promptById(card.dataset.copyId));
           return;
         }
 
