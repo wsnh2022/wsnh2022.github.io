@@ -494,6 +494,17 @@
       }
     }
 
+    /* two columns: the left side sets the page height, and the collections scroll inside the right side if they outgrow it */
+    @media (min-width: 1025px) {
+      .welcome-today {
+        height: 0;
+        min-height: max(100%, calc(100vh - 222px));
+        padding-right: 8px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+      }
+    }
+
     .eyebrow {
       margin: 0 0 7px;
       color: var(--accent-text);
@@ -631,7 +642,7 @@
     }
 
     .welcome-today h3 {
-      margin: 0 0 18px;
+      margin: 0 0 14px;
       font-size: 22px;
       line-height: 1.2;
       letter-spacing: -.02em;
@@ -648,11 +659,20 @@
       margin-bottom: 0;
     }
 
+    .welcome-task-name {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .welcome-tasks .category-icon {
+      flex: none;
+    }
+
     .welcome-tasks button {
       display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 10px 12px;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 12px 6px 8px;
       border: 1px solid var(--border-strong);
       border-radius: var(--radius-sm);
       color: var(--text-secondary);
@@ -4194,7 +4214,8 @@
     function renderWelcome() {
       const buttons = groups => groups.map(group => `
         <button type="button" data-open-library="${escapeHtml(group.id)}">
-          ${escapeHtml(WELCOME_LABELS[group.id] || group.name)}
+          <span class="category-icon">${iconSvg(groupIcon(group), "category-svg")}</span>
+          <span class="welcome-task-name">${escapeHtml(WELCOME_LABELS[group.id] || group.name)}</span>
           <span>${group.prompts.length}</span>
         </button>`).join("");
       document.getElementById("welcomeCategories").innerHTML = buttons(state.library.categories);
