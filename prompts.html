@@ -649,6 +649,9 @@
     }
 
     .welcome-tasks button {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
       padding: 10px 12px;
       border: 1px solid var(--border-strong);
       border-radius: var(--radius-sm);
@@ -2003,42 +2006,11 @@
           </div>
         </div>
         <div class="welcome-today">
-          <h3>What do you need to do today?</h3>
-          <p class="eyebrow">Write and reply</p>
-          <div class="welcome-tasks">
-            <button type="button" data-open-library="all" data-search="reply">Reply to a message</button>
-            <button type="button" data-open-library="all" data-search="professional email">Write a professional email</button>
-            <button type="button" data-open-library="all" data-search="grammar">Fix my grammar</button>
-            <button type="button" data-open-library="tone_controls">Change the tone</button>
-          </div>
-          <p class="eyebrow">Understand and research</p>
-          <div class="welcome-tasks">
-            <button type="button" data-open-library="all" data-search="summar">Summarize something long</button>
-            <button type="button" data-open-library="essential_everyday" data-search="explain">Explain a topic</button>
-            <button type="button" data-open-library="research_information">Research a topic</button>
-            <button type="button" data-open-library="all" data-search="fact check">Fact-check a claim</button>
-          </div>
-          <p class="eyebrow">Work and plan</p>
-          <div class="welcome-tasks">
-            <button type="button" data-open-library="all" data-search="action items">Pull out action items</button>
-            <button type="button" data-open-library="all" data-search="meeting">Write meeting notes</button>
-            <button type="button" data-open-library="personal_productivity" data-search="plan">Make a plan</button>
-            <button type="button" data-open-library="decision_making">Weigh up a decision</button>
-          </div>
-          <p class="eyebrow">Code</p>
-          <div class="welcome-tasks">
-            <button type="button" data-open-library="all" data-search="debug">Debug my code</button>
-            <button type="button" data-open-library="all" data-search="explain error">Explain an error</button>
-            <button type="button" data-open-library="all" data-search="explain code">Explain code</button>
-            <button type="button" data-open-library="all" data-search="code review">Review my code</button>
-          </div>
-          <p class="eyebrow">Learn and improve</p>
-          <div class="welcome-tasks">
-            <button type="button" data-open-library="personal_tutor">Learn with a tutor</button>
-            <button type="button" data-open-library="language_learning">Practice a language</button>
-            <button type="button" data-open-library="all" data-search="quiz me">Quiz myself</button>
-            <button type="button" data-open-library="prompt_improver">Improve my prompt</button>
-          </div>
+          <h3>What do you need help with?</h3>
+          <p class="eyebrow">Everyday prompts</p>
+          <div class="welcome-tasks" id="welcomeCategories"></div>
+          <p class="eyebrow">Prompt packs</p>
+          <div class="welcome-tasks" id="welcomePacks"></div>
         </div>
       </section>
 
@@ -4209,6 +4181,26 @@
 
     const libraryShowing = () => els.pageContent.classList.contains("show-library");
 
+    // shorter button labels for collection names too long or unclear for the welcome screen
+    const WELCOME_LABELS = {
+      coding_developer_workflows: "Coding & developer",
+      developer_text_that_isn_t_necessarily_code: "Developer text",
+      documents_structured_data: "Documents & data",
+      legal_policy_compliance_assistance: "Legal & compliance",
+      advanced_power_user_actions: "Power user actions",
+      do_something_with_this_the_killer_generic_action: "Do something with this"
+    };
+
+    function renderWelcome() {
+      const buttons = groups => groups.map(group => `
+        <button type="button" data-open-library="${escapeHtml(group.id)}">
+          ${escapeHtml(WELCOME_LABELS[group.id] || group.name)}
+          <span>${group.prompts.length}</span>
+        </button>`).join("");
+      document.getElementById("welcomeCategories").innerHTML = buttons(state.library.categories);
+      document.getElementById("welcomePacks").innerHTML = buttons(packs());
+    }
+
     // opening the prompts adds a history entry, so the phone Back button returns to the welcome screen
     function openLibrary(categoryId, searchTerm = "") {
       state.activeCategory = categoryId;
@@ -4519,6 +4511,7 @@
       els.heroCtaCount.textContent = String(total);
       if (els.heroDescCount) els.heroDescCount.textContent = String(total);
 
+      renderWelcome();
       renderCategories();
       renderPrompts();
 
