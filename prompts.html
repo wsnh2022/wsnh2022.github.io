@@ -7,11 +7,11 @@
   <meta name="color-scheme" content="light dark" />
   <title>AI Prompt Library: Stop Retyping the Same AI Instructions</title>
   <meta name="description"
-    content="197 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
+    content="198 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
 
   <meta property="og:title" content="AI Prompt Library: Stop Retyping the Same AI Instructions" />
   <meta property="og:description"
-    content="197 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
+    content="198 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
   <meta property="og:url" content="https://wsnh2022.github.io/prompts.html" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://wsnh2022.github.io/assets/images/meta/prompts_og.png" />
@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AI Prompt Library: Stop Retyping the Same AI Instructions" />
   <meta name="twitter:description"
-    content="197 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
+    content="198 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
   <meta name="twitter:image" content="https://wsnh2022.github.io/assets/images/meta/prompts_og.png" />
 
   <link rel="manifest" href="manifest.json" />
@@ -1483,8 +1483,23 @@
       }
     }
 
-    .pack-section {
-      margin-bottom: 18px;
+    .category-nav .domain-heading {
+      margin: 14px 0 4px;
+    }
+
+    .series-tag {
+      margin-left: 4px;
+      padding: 0 5px;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+      border-radius: 5px;
+      color: var(--accent-text);
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .category-button.active .series-tag {
+      border-color: currentColor;
+      color: inherit;
     }
 
     /* phone-only: desktop shows the pack description in the section heading */
@@ -1849,11 +1864,6 @@
       .prompt-actions-row {
         order: 3;
         width: 100%;
-      }
-
-      /* the bottom row already has a copy button here */
-      .prompt-card .prompt-actions-row:has(.prompt-copy) {
-        display: none;
       }
 
       .prompt-action,
@@ -2372,7 +2382,7 @@
         <div class="welcome-intro">
           <h2>Stop retyping the same AI instructions.</h2>
           <p class="welcome-description">
-            <span id="heroDescCount">197</span> ready-made prompts for what you ask AI every day. Each one tells the
+            <span id="heroDescCount">198</span> ready-made prompts for what you ask AI every day. Each one tells the
             AI exactly what you want, so you spend less time correcting the answer.
           </p>
           <form class="welcome-search search-wrap" id="welcomeSearch" role="search">
@@ -2393,7 +2403,7 @@
           </form>
           <div class="welcome-action">
             <button class="welcome-cta" type="button" data-open-library="all">
-              <span>Browse all <span id="heroCtaCount">197</span> prompts</span>
+              <span>Browse all <span id="heroCtaCount">198</span> prompts</span>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
@@ -2488,18 +2498,7 @@
             </svg>
           </button>
           <nav id="personalNav" class="category-nav personal-nav" aria-label="Your prompts"></nav>
-          <div id="packSection" class="pack-section" hidden>
-            <div class="sidebar-heading">
-              <span>Prompt packs</span>
-              <span id="packCount" class="count-pill">0</span>
-            </div>
-            <nav id="packNav" class="category-nav" aria-label="Prompt packs"></nav>
-          </div>
-          <div class="sidebar-heading">
-            <span>One-step prompts</span>
-            <span id="categoryCount" class="count-pill">0</span>
-          </div>
-          <nav id="categoryNav" class="category-nav"></nav>
+          <nav id="categoryNav" class="category-nav" aria-label="Prompt collections"></nav>
         </aside>
 
         <section class="content-area" aria-label="Prompt library">
@@ -3203,6 +3202,13 @@
               "name": "Explain Architecture",
               "prompt": "Explain the architecture and design decisions in the code below. Separate what you can see from what you are inferring about intent.\n\nCode:",
               "icon": "architecture"
+            },
+            {
+              "id": 218,
+              "name": "Repo Reality Check",
+              "purpose": "What a repo does, how it works, its rivals, and whether it's worth your time",
+              "prompt": "Repo: [GitHub repo URL]\nMy goal: [your goal] (pick one: just understand it, use it, build on it, contribute, build a competitor. If none is picked, assume just understand it.)\n\nOpen and read the repo before answering: the README, the dependency files (package.json, requirements.txt, Cargo.toml, etc.), the folder structure, and the commit history. If you can't access it, say so and stop. Don't guess from the repo name.\n\n1. What it is: In 2-3 sentences, what problem it solves and who it's for.\n\n2. Tech stack: Languages, frameworks, databases, AI models or APIs, hosting, and key libraries. Name the file where you found each one.\n\n3. How it works: The main parts of the project and what each does, how a typical request or action flows through them, and the 3-5 files to read first to understand the code.\n\n4. Competitors: The closest existing tools with the same core features. Split them into paid products and free/open-source projects. For each, give a link and one line on how it compares. Only list tools you're confident exist.\n\n5. Real product or vibe-coded prototype: Judge it on evidence, not impressions. Check:\n- Tests and automated checks\n- Commit history (steady work over time, or a few big dumps)\n- Number of contributors and issue activity\n- Error handling, security basics (no secrets in the code), and docs\n- License (can it be used commercially?)\n- Whether there's a live demo, real users, or a paid plan\nThen label it: Production-ready / Solid prototype / Early prototype / Abandoned. Explain the label in 2-3 lines.\n\n6. Edge: What does it do that the free alternatives don't? If nothing, say so plainly.\n\n7. Verdict for my goal: If my goal is just to understand it, tell me what's well built and worth learning from, and what's weak or worth avoiding. Otherwise, pick one: Worth pursuing / Use an existing tool instead / Fork and improve / Learn from it only / Skip. Give the top 3 reasons. If it's worth pursuing, list the 3 most valuable improvements.\n\nStart with a one-line verdict, then the sections. Mark anything you're inferring rather than reading from the repo.",
+              "icon": "review"
             }
           ]
         },
@@ -3343,6 +3349,13 @@
               "name": "Compare Concepts",
               "prompt": "Compare the concepts below, explaining their practical differences and when to use each. Don't add other concepts.\n\nConcepts:",
               "icon": "concept-compare"
+            },
+            {
+              "id": 209,
+              "name": "Handwritten Study Sheet",
+              "purpose": "Turn any topic into a one-page visual study sheet",
+              "prompt": "Create a vertical handwritten study sheet explaining this topic: [what you want to learn]. Show it as a clear 3–5 step flow: cause → mechanism → outcome or input → process → result. Use one central diagram, simple icons, arrows, and short labels. Style it on warm off-white paper with imperfect dark ink and restrained saffron, teal, green, and yellow accents. Keep it spacious, accurate, visual-first, and easy to understand at a glance; avoid long text, tiny type, clutter, UI, logos, watermarks, and unsupported facts.",
+              "icon": "book"
             }
           ]
         },
@@ -3526,6 +3539,13 @@
               "name": "Deadline Plan",
               "prompt": "Turn the work below into a realistic plan to finish by [deadline], with steps in a sensible order. If the deadline looks unrealistic, say so. Don't assume how much time I have: ask if it matters.\n\nWork:",
               "icon": "calendar"
+            },
+            {
+              "id": 217,
+              "name": "Adaptive System Builder",
+              "purpose": "Turn any goal or messy to-do list into a prioritized system that adapts as you report progress",
+              "prompt": "Role: Act as a strategic planner and adaptive execution architect. Transform any goal, project, problem, or unstructured to-do list into a practical system that produces measurable progress.\nCore philosophy: Goals define the destination. Systems define repeatable actions. Feedback determines what changes.\nOperating Framework\nFor every input:\n\n1. Interpret: Identify the desired outcome, current state, constraints, resources, deadline, and existing progress. Separate outcomes, projects, recurring systems, habits, and one-time tasks.\n2. Deconstruct: Reverse-engineer the outcome into logical phases, milestones, dependencies, and actionable steps. Eliminate redundant or low-value activities.\n3. Systemize: Convert recurring activities into repeatable processes with clear triggers, actions, frequency, time commitment, measurable outputs, and completion criteria. Keep one-time deliverables as tasks.\n4. Prioritize: Rank actions by impact, urgency, dependencies, effort, and risk. Focus on the highest-value actions first.\n5. Operationalize: Establish a sustainable daily or weekly execution rhythm based on available capacity. Include a minimum viable version for constrained days and a recovery mechanism for missed actions.\n6. Measure: Track execution metrics (actions performed) separately from outcome metrics (results achieved). Never confuse activity with progress.\n7. Adapt: Use every progress update, failure, blocker, new requirement, or changed constraint to reassess and improve the existing system. Preserve completed work and modify only affected priorities, tasks, or processes.\n\nExecution Rules\n\n* Convert vague intentions into specific, executable actions.\n* Every action must have a purpose, priority, expected effort, and definition of done.\n* Make dependencies explicit and resolve prerequisites before dependent work.\n* Challenge unrealistic assumptions and identify missing requirements.\n* Prefer a few high-impact systems over excessive routines and task lists.\n* Distinguish poor execution from an ineffective strategy.\n* Do not redesign the entire plan after minor updates.\n* Never assume completion without confirmation or evidence.\n* Never invent progress, metrics, or deadlines.\n* Optimize for sustainable consistency and measurable outcomes, not perfect schedules.\n\nDefault Output\nPresent the plan using this structure:\n\n1. Destination: Desired outcome and success criteria.\n2. Current State: Starting point, constraints, and assumptions.\n3. Goal → System: What the user wants versus what they must repeatedly do.\n4. Execution Architecture: Systems, projects, milestones, dependencies, and one-time tasks.\n5. Action Roadmap: Prioritized, step-by-step actions with completion criteria.\n6. Operating Rhythm: Relevant daily, weekly, or periodic routines.\n7. Progress Tracker: Execution metrics, outcome metrics, status, and blockers.\n8. Next Action: The single highest-priority action with clear instructions.\n\nAdaptive Interaction\nTreat subsequent messages as execution updates. Recognize completed, partial, blocked, failed, deferred, and newly introduced work. Recalculate priorities, preserve valid progress, diagnose recurring friction, and provide the next actionable step.\nSupport both full-roadmap planning and step-by-step guided execution. Maintain continuity within the available conversation context.\nFinal directive: Do not create plans that merely describe what the user should achieve. Build an evolving execution system that determines what to do, when to do it, how to measure it, and how to improve it based on real-world results.\nBuild → Execute → Measure → Learn → Adapt → Repeat.",
+              "icon": "plan"
             }
           ]
         },
@@ -3783,6 +3803,13 @@
               "name": "Ask AI",
               "prompt": "Do what I ask below, using any text I include as context. If one missing detail would really change the result, ask me about it first. Otherwise answer directly.\n\nMy request:\n[paste or type your request]",
               "icon": "ask-ai"
+            },
+            {
+              "id": 208,
+              "name": "Request Sharpener",
+              "purpose": "Rewrite a rough request into a sharper prompt",
+              "prompt": "Before doing my task, improve the request itself. Do not do the task yet.\n\nStep 1. Gate.\nDecide if a deeper version is warranted. If the task is simple, operational, or purely creative, say so in one line and do the task as written.\n\nStep 2. Check for missing context.\nLook at my task and my constraints below. If something blank would change the rewrite materially, ask me about it. Rules for questions:\n- Maximum 3, asked together in one message.\n- Each one is a multiple-choice question with 2 to 4 realistic options, plus \"Not sure, you pick.\"\n- Keep them plain and practical (for example: \"Who is this for? a) me only b) my manager or client c) the general public d) not sure\").\n- Never ask something you can reasonably infer from my task.\n- Ask about time or deadline only if the task is a plan, schedule, or project.\n- Ask only if you cannot produce a useful rewrite without the answer.\n- If nothing blank matters, skip questions and say which defaults you are using in one line.\nIf you ask questions, stop and wait for my answers before continuing.\n\nStep 3. Think it through briefly:\n- Goal: What is the real goal behind this request, and what am I probably assuming without saying it?\n- Practitioner: What would an experienced professional do differently? Give only the 2 or 3 differences that matter most, one line of reasoning each.\n- Inputs: What source material would they start from? Separate what I can realistically get from what I can't.\n- Failure: How could this output be wrong, generic, or useless for my situation? Be specific to this task.\n- Checks: How could I verify the result without trusting you? Only checks I can run myself.\n\nStep 4. Rewrite my prompt.\nKeep the same scope. Do not add deliverables. Make it sharper: clear goal, stated constraints, remaining gaps as placeholders. Mark any tool, source, or fact you are not sure exists with (verify).\n\nStep 5. Stop.\nShow the rewritten prompt and wait for my approval. Do not run it. Your entire reply must end after the rewritten prompt.\n\nMy task:\n[Paste your task here]\n\nMy constraints (fill in what you know, skip the rest):\n- Tools/data I have: [tools and data]\n- Audience: [who this is for]",
+              "icon": "polish"
             }
           ]
         }
@@ -3835,36 +3862,6 @@
               "purpose": "Test understanding through explanation",
               "prompt": "I just studied [topic]. In my next message I will explain what I understood as if you were a 10-year-old child. Wait for my explanation.\n\nThen go through it and point out every place where I used jargon I cannot define, skipped a step in the reasoning, or simplified so much that it became wrong.\n\nAt the end, tell me exactly what those mistakes reveal about what is still not solid in my understanding.",
               "icon": "baby-face"
-            }
-          ]
-        },
-        {
-          "id": "prompt_improver",
-          "name": "Prompt improver",
-          "icon": "polish",
-          "description": "Prompts that sharpen your request before the AI does the work. Copy one, paste your task, then answer any questions it asks.",
-          "prompts": [
-            {
-              "id": 208,
-              "name": "Request Sharpener",
-              "purpose": "Rewrite a rough request into a sharper prompt",
-              "prompt": "Before doing my task, improve the request itself. Do not do the task yet.\n\nStep 1. Gate.\nDecide if a deeper version is warranted. If the task is simple, operational, or purely creative, say so in one line and do the task as written.\n\nStep 2. Check for missing context.\nLook at my task and my constraints below. If something blank would change the rewrite materially, ask me about it. Rules for questions:\n- Maximum 3, asked together in one message.\n- Each one is a multiple-choice question with 2 to 4 realistic options, plus \"Not sure, you pick.\"\n- Keep them plain and practical (for example: \"Who is this for? a) me only b) my manager or client c) the general public d) not sure\").\n- Never ask something you can reasonably infer from my task.\n- Ask about time or deadline only if the task is a plan, schedule, or project.\n- Ask only if you cannot produce a useful rewrite without the answer.\n- If nothing blank matters, skip questions and say which defaults you are using in one line.\nIf you ask questions, stop and wait for my answers before continuing.\n\nStep 3. Think it through briefly:\n- Goal: What is the real goal behind this request, and what am I probably assuming without saying it?\n- Practitioner: What would an experienced professional do differently? Give only the 2 or 3 differences that matter most, one line of reasoning each.\n- Inputs: What source material would they start from? Separate what I can realistically get from what I can't.\n- Failure: How could this output be wrong, generic, or useless for my situation? Be specific to this task.\n- Checks: How could I verify the result without trusting you? Only checks I can run myself.\n\nStep 4. Rewrite my prompt.\nKeep the same scope. Do not add deliverables. Make it sharper: clear goal, stated constraints, remaining gaps as placeholders. Mark any tool, source, or fact you are not sure exists with (verify).\n\nStep 5. Stop.\nShow the rewritten prompt and wait for my approval. Do not run it. Your entire reply must end after the rewritten prompt.\n\nMy task:\n[Paste your task here]\n\nMy constraints (fill in what you know, skip the rest):\n- Tools/data I have: [tools and data]\n- Audience: [who this is for]",
-              "icon": "polish"
-            }
-          ]
-        },
-        {
-          "id": "image_generation",
-          "name": "Image generation",
-          "icon": "image",
-          "description": "Prompts for AI image tools. Copy one, fill in the topic, then paste it into your image generator.",
-          "prompts": [
-            {
-              "id": 209,
-              "name": "Handwritten Study Sheet",
-              "purpose": "Turn any topic into a one-page visual study sheet",
-              "prompt": "Create a vertical handwritten study sheet explaining this topic: [what you want to learn]. Show it as a clear 3–5 step flow: cause → mechanism → outcome or input → process → result. Use one central diagram, simple icons, arrows, and short labels. Style it on warm off-white paper with imperfect dark ink and restrained saffron, teal, green, and yellow accents. Keep it spacious, accurate, visual-first, and easy to understand at a glance; avoid long text, tiny type, clutter, UI, logos, watermarks, and unsupported facts.",
-              "icon": "book"
             }
           ]
         },
@@ -3924,21 +3921,6 @@
               "icon": "calendar"
             }
           ]
-        },
-        {
-          "id": "goal_planner",
-          "name": "Goal planner",
-          "icon": "target",
-          "description": "A planning prompt that adapts as you go. Copy it, paste it into your AI, describe your goal, then keep reporting your progress.",
-          "prompts": [
-            {
-              "id": 217,
-              "name": "Adaptive System Builder",
-              "purpose": "Turn any goal or messy to-do list into a prioritized system that adapts as you report progress",
-              "prompt": "Adaptive System Builder\nRole: Act as a strategic planner and adaptive execution architect. Transform any goal, project, problem, or unstructured to-do list into a practical system that produces measurable progress.\nCore philosophy: Goals define the destination. Systems define repeatable actions. Feedback determines what changes.\nOperating Framework\nFor every input:\n\n1. Interpret: Identify the desired outcome, current state, constraints, resources, deadline, and existing progress. Separate outcomes, projects, recurring systems, habits, and one-time tasks.\n2. Deconstruct: Reverse-engineer the outcome into logical phases, milestones, dependencies, and actionable steps. Eliminate redundant or low-value activities.\n3. Systemize: Convert recurring activities into repeatable processes with clear triggers, actions, frequency, time commitment, measurable outputs, and completion criteria. Keep one-time deliverables as tasks.\n4. Prioritize: Rank actions by impact, urgency, dependencies, effort, and risk. Focus on the highest-value actions first.\n5. Operationalize: Establish a sustainable daily or weekly execution rhythm based on available capacity. Include a minimum viable version for constrained days and a recovery mechanism for missed actions.\n6. Measure: Track execution metrics (actions performed) separately from outcome metrics (results achieved). Never confuse activity with progress.\n7. Adapt: Use every progress update, failure, blocker, new requirement, or changed constraint to reassess and improve the existing system. Preserve completed work and modify only affected priorities, tasks, or processes.\n\nExecution Rules\n\n* Convert vague intentions into specific, executable actions.\n* Every action must have a purpose, priority, expected effort, and definition of done.\n* Make dependencies explicit and resolve prerequisites before dependent work.\n* Challenge unrealistic assumptions and identify missing requirements.\n* Prefer a few high-impact systems over excessive routines and task lists.\n* Distinguish poor execution from an ineffective strategy.\n* Do not redesign the entire plan after minor updates.\n* Never assume completion without confirmation or evidence.\n* Never invent progress, metrics, or deadlines.\n* Optimize for sustainable consistency and measurable outcomes, not perfect schedules.\n\nDefault Output\nPresent the plan using this structure:\n\n1. Destination: Desired outcome and success criteria.\n2. Current State: Starting point, constraints, and assumptions.\n3. Goal → System: What the user wants versus what they must repeatedly do.\n4. Execution Architecture: Systems, projects, milestones, dependencies, and one-time tasks.\n5. Action Roadmap: Prioritized, step-by-step actions with completion criteria.\n6. Operating Rhythm: Relevant daily, weekly, or periodic routines.\n7. Progress Tracker: Execution metrics, outcome metrics, status, and blockers.\n8. Next Action: The single highest-priority action with clear instructions.\n\nAdaptive Interaction\nTreat subsequent messages as execution updates. Recognize completed, partial, blocked, failed, deferred, and newly introduced work. Recalculate priorities, preserve valid progress, diagnose recurring friction, and provide the next actionable step.\nSupport both full-roadmap planning and step-by-step guided execution. Maintain continuity within the available conversation context.\nFinal directive: Do not create plans that merely describe what the user should achieve. Build an evolving execution system that determines what to do, when to do it, how to measure it, and how to improve it based on real-world results.\nBuild → Execute → Measure → Learn → Adapt → Repeat.",
-              "icon": "plan"
-            }
-          ]
         }
       ],
       "prompt_guidelines": {
@@ -3994,11 +3976,7 @@
       pageContent: document.getElementById("pageContent"),
       heroCtaCount: document.getElementById("heroCtaCount"),
       heroDescCount: document.getElementById("heroDescCount"),
-      categoryCount: document.getElementById("categoryCount"),
       categoryNav: document.getElementById("categoryNav"),
-      packSection: document.getElementById("packSection"),
-      packNav: document.getElementById("packNav"),
-      packCount: document.getElementById("packCount"),
       sectionEyebrow: document.getElementById("sectionEyebrow"),
       packTip: document.getElementById("packTip"),
       searchInput: document.getElementById("searchInput"),
@@ -4419,19 +4397,15 @@
     }
 
     function renderCategories() {
-      els.categoryCount.textContent = String(state.library.categories.length);
-
       const toButton = group => ({
         id: group.id,
         name: groupLabel(group),
         count: group.prompts.length,
-        icon: groupIcon(group)
+        icon: groupIcon(group),
+        series: isPack(group)
       });
-      const packButtons = packs().map(toButton);
-      const buttons = [
-        { id: "all", name: "All Prompts", count: allPrompts().length, icon: "spark" },
-        ...state.library.categories.map(toButton)
-      ];
+      const allButton = { id: "all", name: "All Prompts", count: allPrompts().length, icon: "spark" };
+      const buttons = [allButton, ...allGroups().map(toButton)];
 
       const buttonHtml = item => `
     <button
@@ -4441,7 +4415,7 @@
       aria-pressed="${state.activeCategory === item.id}"
     >
       <span class="category-icon">${iconSvg(item.icon, "category-svg")}</span>
-      <span class="category-name">${escapeHtml(item.name)}</span>
+      <span class="category-name">${escapeHtml(item.name)}${item.series ? ` <span class="series-tag">series</span>` : ""}</span>
       <span class="category-count">${item.count}</span>
     </button>
   `;
@@ -4462,12 +4436,14 @@
           ${iconSvg(item.icon, "category-svg")}<span>${escapeHtml(item.name)} ${item.count}</span>
         </button>`).join("");
 
-      els.categoryNav.innerHTML = buttons.map(buttonHtml).join("");
-      els.packCount.textContent = String(packButtons.length);
-      els.packNav.innerHTML = packButtons.map(buttonHtml).join("");
-      els.packSection.hidden = packButtons.length === 0;
+      els.categoryNav.innerHTML = buttonHtml(allButton) + domainSections().map(domain => `
+    <div class="sidebar-heading domain-heading">
+      <span>${escapeHtml(domain.name)}</span>
+      <span class="count-pill">${domain.groups.reduce((sum, group) => sum + group.prompts.length, 0)}</span>
+    </div>
+    ${domain.groups.map(group => buttonHtml(toButton(group))).join("")}`).join("");
 
-      const active = [...personalButtons, ...buttons, ...packButtons].find(item => item.id === state.activeCategory) || buttons[0];
+      const active = [...personalButtons, ...buttons].find(item => item.id === state.activeCategory) || buttons[0];
       els.catToggleLabel.textContent = active.name;
       els.catToggle.setAttribute("aria-label", `Choose category (current: ${active.name})`);
       els.catToggleCount.textContent = String(active.count);
@@ -4571,9 +4547,7 @@
         ${blanks.length ? `<div class="prompt-blanks">${blanks.map(blank =>
           `<span class="blank-tag">Fill in: ${escapeHtml(blank)}</span>`).join("")}</div>` : ""}
         <p class="prompt-text">${promptTextHtml(item.prompt, hits)}</p>
-        <div class="prompt-actions-row">${blanks.length
-          ? `<button type="button" class="prompt-action prompt-copy" aria-label="Copy ${escapeHtml(item.name)}" title="Copy">${iconSvg("copy", "copy-svg")}</button>`
-          : `<span>Copy and open in</span>${aiToolLinks(item.prompt)}`}</div>
+        ${blanks.length ? "" : `<div class="prompt-actions-row"><span>Copy and open in</span>${aiToolLinks(item.prompt)}</div>`}
       </div>
     </article>
   `;
@@ -4771,6 +4745,23 @@
 
     function groupLabel(group) {
       return GROUP_LABELS[group.id] || group.name;
+    }
+
+    // sidebar sections by topic; a group left out here is listed under "More" so it never disappears
+    const DOMAINS = [
+      { name: "Understand & learn", groups: ["essential_everyday", "study_learning", "personal_tutor", "language_learning"] },
+      { name: "Write & communicate", groups: ["writing_rewriting", "tone_controls", "email_communication", "marketing_sales"] },
+      { name: "Think & decide", groups: ["text_analysis", "research_information", "decision_making", "advanced_power_user_actions", "do_something_with_this_the_killer_generic_action"] },
+      { name: "Work & business", groups: ["work_productivity", "personal_productivity", "business", "legal_policy_compliance_assistance"] },
+      { name: "Code & data", groups: ["coding_developer_workflows", "developer_text_that_isn_t_necessarily_code", "documents_structured_data"] }
+    ];
+
+    function domainSections() {
+      const listed = DOMAINS.flatMap(domain => domain.groups);
+      return [
+        ...DOMAINS.map(domain => ({ name: domain.name, groups: domain.groups.map(getCategory).filter(Boolean) })),
+        { name: "More", groups: allGroups().filter(group => !listed.includes(group.id)) }
+      ].filter(domain => domain.groups.length);
     }
 
     function renderWelcome() {

@@ -19,11 +19,13 @@ Standalone tools (each fully self-contained, 80-180 KB of inline CSS/JS): `promp
 ## Architecture
 - Pages do not share CSS or JS. The main pages (`index`, `experience`, `projects`, `design`, `library`, `vibecode`) load Tailwind and Font Awesome from CDNs; the tools mostly use their own inline styles. Shared look is by convention, so a style change usually has to be repeated per page.
 - `assets/hub.js` is the single registry of standalone pages (`PAGES` array, grouped by `GROUPS`). `library.html` draws its cards from `window.HUB`, and any page that includes `<script src="assets/hub.js" defer>` gets a floating "More from Yoghesh" button. To add a tool, add one entry to `PAGES` and include the script in the new page.
-- `prompts.html` (AI Prompt Library) keeps all its data inline in `window.PROMPT_LIBRARY`: a `categories` array (the base prompts) and a `packs` array (themed collections, currently Personal tutor, Prompt improver, Image generation). The renderer, `ICON_PATHS` and `CATEGORY_ICONS` live in the page's second `<script>` block.
+- `prompts.html` (AI Prompt Library) keeps all its data inline in `window.PROMPT_LIBRARY`: a `categories` array (the base prompts) and a `packs` array (multi-step series, currently Personal tutor and Language learning). The renderer, `ICON_PATHS`, `CATEGORY_ICONS` and `DOMAINS` live in the page's second `<script>` block. `DOMAINS` sorts every category and pack under a topic heading in the sidebar (Understand & learn, Write & communicate, Think & decide, Work & business, Code & data); a group missing from it shows under "More".
 - `sw.js` is network-first for page navigations and only caches the `prompts.html` shell for offline use. `manifest.json` is the PWA manifest for that page.
 
-### Adding a prompt pack
-Append to `packs` in `window.PROMPT_LIBRARY` with fields `id`, `name`, `icon`, `description`, `prompts[{id, name, purpose, prompt, icon}]`. Prompt ids continue from the last used id. Text in `[blanks]` is highlighted automatically. New icons go in `ICON_PATHS`. Check that each pasted `purpose` line matches its prompt.
+### Adding prompts
+A single prompt, even a long fill-in one, goes into the `categories` group that matches its topic (a `purpose` line is optional there). Do not make a one-prompt pack.
+
+A pack is only for a series of prompts that build on each other. Append to `packs` in `window.PROMPT_LIBRARY` with fields `id`, `name`, `icon`, `description`, `prompts[{id, name, purpose, prompt, icon}]`. Prompt ids continue from the last used id. Text in `[blanks]` is highlighted automatically. New icons go in `ICON_PATHS`. Check that each pasted `purpose` line matches its prompt. Add the new pack's id to a domain in `DOMAINS`.
 
 The prompt total is typed by hand in several places and drifts. After adding prompts, update: the three description meta tags in `prompts.html` (`description`, `og:description`, `twitter:description`), the `#heroDescCount` and `#heroCtaCount` fallbacks, the `description` in `manifest.json`, and the blurb in `assets/hub.js`.
 
