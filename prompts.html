@@ -468,23 +468,25 @@
       padding-bottom: 32px;
     }
 
-    /* decorative dot sphere behind the headline, added by a script; smaller and fainter on narrow screens */
-    .welcome-sphere {
+    /* decorative rolling dot wave across the lower part of the intro, added by a script */
+    .welcome-wave {
       position: absolute;
-      top: -40px;
+      top: 35%;
       right: -24px;
-      width: 340px;
-      height: 340px;
+      bottom: 0;
+      left: -24px;
+      width: calc(100% + 48px);
+      height: 65%;
       pointer-events: none;
       opacity: 0;
       transition: opacity .8s ease;
     }
 
-    .welcome-sphere.is-ready {
+    .welcome-wave.is-ready {
       opacity: .55;
     }
 
-    .welcome-intro > :not(.welcome-sphere) {
+    .welcome-intro > :not(.welcome-wave) {
       position: relative;
     }
 
@@ -512,11 +514,14 @@
         padding-bottom: 0;
       }
 
-      .welcome-sphere {
-        top: -24px;
-        right: -12px;
-        width: 220px;
-        height: 220px;
+      /* the search box and button fill the width here, so the wave moves up behind the headline */
+      .welcome-wave {
+        top: -48px;
+        height: 50%;
+      }
+
+      .welcome-wave.is-ready {
+        opacity: .4;
       }
     }
 
@@ -5266,7 +5271,7 @@
   </script>
 
   <script>
-    // welcome screen dot sphere: loaded after the page is ready,
+    // welcome screen dot wave: loaded after the page is ready,
     // skipped quietly when three.js or WebGL is unavailable (offline, old devices)
     (function () {
       const intro = document.querySelector('.welcome-intro');
@@ -5285,7 +5290,7 @@
         }
 
         const canvas = document.createElement('canvas');
-        canvas.className = 'welcome-sphere';
+        canvas.className = 'welcome-wave';
         canvas.setAttribute('aria-hidden', 'true');
         intro.prepend(canvas);
 
@@ -5297,33 +5302,43 @@
           return;
         }
         renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-        // the canvas changes size between the phone and desktop layouts; bigger dots keep the small one visible
+        // the canvas changes shape between the phone and desktop layouts
         new ResizeObserver(function () {
           renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-          material.size = canvas.clientWidth < 300 ? 0.08 : 0.05;
+          camera.aspect = canvas.clientWidth / canvas.clientHeight;
+          camera.updateProjectionMatrix();
           if (!frame) renderer.render(scene, camera);
         }).observe(canvas);
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
-        camera.position.z = 8;
+        camera.position.set(0, 2.2, 7);
+        camera.lookAt(0, 0, 0);
 
-        // points spread evenly over a sphere (golden angle spiral)
-        const count = 700;
-        const positions = new Float32Array(count * 3);
-        for (let i = 0; i < count; i++) {
-          const y = 1 - (i / (count - 1)) * 2;
-          const ring = Math.sqrt(1 - y * y);
-          const angle = i * 2.39996;
-          positions.set([Math.cos(angle) * ring * 2.2, y * 2.2, Math.sin(angle) * ring * 2.2], i * 3);
+        // a flat grid of dots, wide enough for desktop; wave() lifts each dot into rolling ripples
+        const cols = 90, rows = 26;
+        const positions = new Float32Array(cols * rows * 3);
+        function wave(time) {
+          const t = time / 1000;
+          let k = 0;
+          for (let i = 0; i < cols; i++) {
+            const x = (i / (cols - 1) - 0.5) * 24;
+            for (let j = 0; j < rows; j++) {
+              const z = (j / (rows - 1) - 0.5) * 6;
+              positions[k++] = x;
+              positions[k++] = Math.sin(x * 0.6 + t * 0.9) * 0.35 + Math.cos(z * 0.9 + t * 0.7) * 0.25;
+              positions[k++] = z;
+            }
+          }
+          geometry.attributes.position.needsUpdate = true;
         }
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        const material = new THREE.PointsMaterial({ size: 0.05, transparent: true, opacity: 0.85 });
-        const points = new THREE.Points(geometry, material);
+        const material = new THREE.PointsMaterial({ size: 0.06, transparent: true, opacity: 0.85 });
         const tilt = new THREE.Group();
-        tilt.add(points);
+        tilt.add(new THREE.Points(geometry, material));
         scene.add(tilt);
+        wave(0);
 
         // follow the color theme picker
         function setColor() {
@@ -5332,26 +5347,26 @@
         }
         new MutationObserver(setColor).observe(document.documentElement, { attributes: true, attributeFilter: ['data-color', 'data-theme'] });
 
-        let tiltX = 0, tiltZ = 0;
+        let tiltX = 0, tiltY = 0;
         const welcome = intro.closest('.welcome');
         welcome.addEventListener('pointermove', function (e) {
           const box = welcome.getBoundingClientRect();
-          tiltX = ((e.clientY - box.top) / box.height - 0.5) * 0.4;
-          tiltZ = ((e.clientX - box.left) / box.width - 0.5) * 0.3;
+          tiltX = ((e.clientY - box.top) / box.height - 0.5) * 0.15;
+          tiltY = ((e.clientX - box.left) / box.width - 0.5) * 0.25;
           resume();
         });
         welcome.addEventListener('pointerleave', function () {
           tiltX = 0;
-          tiltZ = 0;
+          tiltY = 0;
         });
 
         // only animate while the welcome screen is on screen and the tab is visible
         let frame = 0, onScreen = false;
         function tick(time) {
           frame = 0;
-          points.rotation.y = time * 0.00015;
+          wave(time);
           tilt.rotation.x += (tiltX - tilt.rotation.x) * 0.05;
-          tilt.rotation.z += (tiltZ - tilt.rotation.z) * 0.05;
+          tilt.rotation.y += (tiltY - tilt.rotation.y) * 0.05;
           renderer.render(scene, camera);
           if (onScreen && !document.hidden) frame = requestAnimationFrame(tick);
         }
