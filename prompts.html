@@ -468,7 +468,7 @@
       padding-bottom: 32px;
     }
 
-    /* decorative dot sphere behind the headline, added by a script on wide screens only */
+    /* decorative dot sphere behind the headline, added by a script; smaller and fainter on narrow screens */
     .welcome-sphere {
       position: absolute;
       top: -40px;
@@ -513,7 +513,10 @@
       }
 
       .welcome-sphere {
-        display: none;
+        top: -24px;
+        right: -12px;
+        width: 220px;
+        height: 220px;
       }
     }
 
@@ -5263,12 +5266,11 @@
   </script>
 
   <script>
-    // welcome screen dot sphere: wide screens only, loaded after the page is ready,
+    // welcome screen dot sphere: loaded after the page is ready,
     // skipped quietly when three.js or WebGL is unavailable (offline, old devices)
     (function () {
       const intro = document.querySelector('.welcome-intro');
-      if (!intro || !matchMedia('(min-width: 1025px)').matches) return;
-      const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!intro) return;
 
       window.addEventListener('load', function () {
         (window.requestIdleCallback || setTimeout)(start);
@@ -5295,7 +5297,12 @@
           return;
         }
         renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-        renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+        // the canvas changes size between the phone and desktop layouts; bigger dots keep the small one visible
+        new ResizeObserver(function () {
+          renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+          material.size = canvas.clientWidth < 300 ? 0.08 : 0.05;
+          if (!frame) renderer.render(scene, camera);
+        }).observe(canvas);
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
@@ -5349,7 +5356,7 @@
           if (onScreen && !document.hidden) frame = requestAnimationFrame(tick);
         }
         function resume() {
-          if (!still && !frame && onScreen && !document.hidden) frame = requestAnimationFrame(tick);
+          if (!frame && onScreen && !document.hidden) frame = requestAnimationFrame(tick);
         }
         new IntersectionObserver(function (entries) {
           onScreen = entries[0].isIntersecting;
