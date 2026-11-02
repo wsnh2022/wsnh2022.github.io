@@ -464,7 +464,28 @@
 
     .welcome-intro {
       grid-area: intro;
+      position: relative;
       padding-bottom: 32px;
+    }
+
+    /* decorative dot sphere behind the headline, added by a script on wide screens only */
+    .welcome-sphere {
+      position: absolute;
+      top: -40px;
+      right: -24px;
+      width: 340px;
+      height: 340px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .8s ease;
+    }
+
+    .welcome-sphere.is-ready {
+      opacity: .55;
+    }
+
+    .welcome-intro > :not(.welcome-sphere) {
+      position: relative;
     }
 
     .welcome-diff {
@@ -489,6 +510,10 @@
 
       .welcome-intro {
         padding-bottom: 0;
+      }
+
+      .welcome-sphere {
+        display: none;
       }
     }
 
@@ -5235,6 +5260,107 @@
         navigator.serviceWorker.register('./sw.js').catch(function () { });
       });
     }
+  </script>
+
+  <script>
+    // welcome screen dot sphere: wide screens only, loaded after the page is ready,
+    // skipped quietly when three.js or WebGL is unavailable (offline, old devices)
+    (function () {
+      const intro = document.querySelector('.welcome-intro');
+      if (!intro || !matchMedia('(min-width: 1025px)').matches) return;
+      const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      window.addEventListener('load', function () {
+        (window.requestIdleCallback || setTimeout)(start);
+      });
+
+      async function start() {
+        let THREE;
+        try {
+          THREE = await import('https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js');
+        } catch (e) {
+          return;
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.className = 'welcome-sphere';
+        canvas.setAttribute('aria-hidden', 'true');
+        intro.prepend(canvas);
+
+        let renderer;
+        try {
+          renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        } catch (e) {
+          canvas.remove();
+          return;
+        }
+        renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+        camera.position.z = 8;
+
+        // points spread evenly over a sphere (golden angle spiral)
+        const count = 700;
+        const positions = new Float32Array(count * 3);
+        for (let i = 0; i < count; i++) {
+          const y = 1 - (i / (count - 1)) * 2;
+          const ring = Math.sqrt(1 - y * y);
+          const angle = i * 2.39996;
+          positions.set([Math.cos(angle) * ring * 2.2, y * 2.2, Math.sin(angle) * ring * 2.2], i * 3);
+        }
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const material = new THREE.PointsMaterial({ size: 0.05, transparent: true, opacity: 0.85 });
+        const points = new THREE.Points(geometry, material);
+        const tilt = new THREE.Group();
+        tilt.add(points);
+        scene.add(tilt);
+
+        // follow the color theme picker
+        function setColor() {
+          material.color.set(getComputedStyle(document.documentElement).getPropertyValue('--accent').trim());
+          if (!frame) renderer.render(scene, camera);
+        }
+        new MutationObserver(setColor).observe(document.documentElement, { attributes: true, attributeFilter: ['data-color', 'data-theme'] });
+
+        let tiltX = 0, tiltZ = 0;
+        const welcome = intro.closest('.welcome');
+        welcome.addEventListener('pointermove', function (e) {
+          const box = welcome.getBoundingClientRect();
+          tiltX = ((e.clientY - box.top) / box.height - 0.5) * 0.4;
+          tiltZ = ((e.clientX - box.left) / box.width - 0.5) * 0.3;
+          resume();
+        });
+        welcome.addEventListener('pointerleave', function () {
+          tiltX = 0;
+          tiltZ = 0;
+        });
+
+        // only animate while the welcome screen is on screen and the tab is visible
+        let frame = 0, onScreen = false;
+        function tick(time) {
+          frame = 0;
+          points.rotation.y = time * 0.00015;
+          tilt.rotation.x += (tiltX - tilt.rotation.x) * 0.05;
+          tilt.rotation.z += (tiltZ - tilt.rotation.z) * 0.05;
+          renderer.render(scene, camera);
+          if (onScreen && !document.hidden) frame = requestAnimationFrame(tick);
+        }
+        function resume() {
+          if (!still && !frame && onScreen && !document.hidden) frame = requestAnimationFrame(tick);
+        }
+        new IntersectionObserver(function (entries) {
+          onScreen = entries[0].isIntersecting;
+          resume();
+        }).observe(canvas);
+        document.addEventListener('visibilitychange', resume);
+
+        setColor();
+        canvas.classList.add('is-ready');
+      }
+    })();
   </script>
 
 <script src="assets/hub.js" defer></script>
