@@ -483,7 +483,7 @@
     }
 
     .welcome-wave.is-ready {
-      opacity: .55;
+      opacity: .75;
     }
 
     .welcome-intro > :not(.welcome-wave) {
@@ -521,7 +521,7 @@
       }
 
       .welcome-wave.is-ready {
-        opacity: .4;
+        opacity: .55;
       }
     }
 
@@ -5334,7 +5334,14 @@
         }
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        const material = new THREE.PointsMaterial({ size: 0.06, transparent: true, opacity: 0.85 });
+        // round dots: points are squares unless they're drawn with a circle texture
+        const dot = document.createElement('canvas');
+        dot.width = dot.height = 64;
+        const dotCtx = dot.getContext('2d');
+        dotCtx.fillStyle = '#fff';
+        dotCtx.arc(32, 32, 30, 0, Math.PI * 2);
+        dotCtx.fill();
+        const material = new THREE.PointsMaterial({ size: 0.11, map: new THREE.CanvasTexture(dot), transparent: true, opacity: 0.95, depthWrite: false });
         const tilt = new THREE.Group();
         tilt.add(new THREE.Points(geometry, material));
         scene.add(tilt);
