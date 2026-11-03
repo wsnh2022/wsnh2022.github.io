@@ -7,11 +7,11 @@
   <meta name="color-scheme" content="light dark" />
   <title>AI Prompt Library: Stop Retyping the Same AI Instructions</title>
   <meta name="description"
-    content="198 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
+    content="200 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
 
   <meta property="og:title" content="AI Prompt Library: Stop Retyping the Same AI Instructions" />
   <meta property="og:description"
-    content="198 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
+    content="200 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
   <meta property="og:url" content="https://wsnh2022.github.io/prompts.html" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://wsnh2022.github.io/assets/images/meta/prompts_og.png" />
@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AI Prompt Library: Stop Retyping the Same AI Instructions" />
   <meta name="twitter:description"
-    content="198 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
+    content="200 ready-made prompts for what you ask AI every day: replying to emails, summarizing, fixing code and making decisions. Copy one into ChatGPT, Claude or Gemini. Free, no sign-up, works offline." />
   <meta name="twitter:image" content="https://wsnh2022.github.io/assets/images/meta/prompts_og.png" />
 
   <link rel="manifest" href="manifest.json" />
@@ -2415,7 +2415,7 @@
         <div class="welcome-intro">
           <h2>Stop retyping the same AI instructions.</h2>
           <p class="welcome-description">
-            <span id="heroDescCount">198</span> ready-made prompts for what you ask AI every day. Each one tells the
+            <span id="heroDescCount">200</span> ready-made prompts for what you ask AI every day. Each one tells the
             AI exactly what you want, so you spend less time correcting the answer.
           </p>
           <form class="welcome-search search-wrap" id="welcomeSearch" role="search">
@@ -2436,7 +2436,7 @@
           </form>
           <div class="welcome-action">
             <button class="welcome-cta" type="button" data-open-library="all">
-              <span>Browse all <span id="heroCtaCount">198</span> prompts</span>
+              <span>Browse all <span id="heroCtaCount">200</span> prompts</span>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
@@ -3895,6 +3895,20 @@
               "purpose": "Test understanding through explanation",
               "prompt": "I just studied [topic]. In my next message I will explain what I understood as if you were a 10-year-old child. Wait for my explanation.\n\nThen go through it and point out every place where I used jargon I cannot define, skipped a step in the reasoning, or simplified so much that it became wrong.\n\nAt the end, tell me exactly what those mistakes reveal about what is still not solid in my understanding.",
               "icon": "baby-face"
+            },
+            {
+              "id": 219,
+              "name": "Topic Overview",
+              "purpose": "Get a quick beginner overview to decide if a topic is worth your time",
+              "prompt": "Give me a beginner's overview of [TOPIC] from first principles.\nMy goal: [why I want this]\nWhat I already know nearby: [or \"nothing\"]\n\nRules: explain jargon the first time you use it. Use everyday analogies. If you simplify something, say so. Keep it under one page.\n\n1. The problem it solves, and what people did before it existed.\n2. The 3-6 basic ideas it's built from, in the order they depend on each other. For each: one line on what it is, why it's needed, one example, and one non-example.\n3. How the ideas combine, shown with one short worked example.\n4. Top 3 beginner mistakes and why each one feels right.\n5. What to ignore for now, and what to learn next if I go deeper.\n6. Two \"predict what happens\" questions, with the answers hidden at the very end so I can try first.",
+              "icon": "target"
+            },
+            {
+              "id": 220,
+              "name": "Topic Tutor",
+              "purpose": "Learn a topic step by step, one idea at a time. Use a new chat if you ran Topic Overview first",
+              "prompt": "Teach me [TOPIC] from first principles, one idea at a time.\nMy goal: [why I want this]\nWhat I already know nearby: [or \"nothing\"]\n\nRules: I'm a beginner. Explain jargon the first time you use it. Use everyday analogies. If you simplify something, say so. Never teach the next idea until I've answered the current question.\n\n1. In 2-3 sentences: what problem does this solve, and what did people do before it existed?\n2. List the basic ideas in the order they depend on each other. Tell me what to ignore for now.\n3. For each idea: what it is, why it's needed, one example, and one non-example. Then ask me ONE question that makes me apply it. Stop and wait.\n4. When I answer: say what's right, find the exact misunderstanding behind anything wrong, re-explain only that, then continue.\n5. After all ideas: combine them in one worked example from start to finish.\n6. Common beginner mistakes and why each one feels right.\n7. Final test: 3 questions (1 predict, 1 apply to a new case, 1 spot the error). Grade them, then suggest what to learn next.",
+              "icon": "school"
             }
           ]
         },

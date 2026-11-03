@@ -14,7 +14,7 @@
 
   var PAGES = [
     { href: "prompts.html", t: "AI Prompt Library", g: 0, ic: "fa-terminal",
-      s: "198 ready-made prompts for what you ask AI every day. Copy one into ChatGPT, Claude or Gemini, even offline.",
+      s: "200 ready-made prompts for what you ask AI every day. Copy one into ChatGPT, Claude or Gemini, even offline.",
       tags: ["Prompts", "Works offline"] },
     { href: "vibecode.html", t: "Vibe Coding Blueprint", g: 0, ic: "fa-rocket",
       s: "A blueprint for building with AI agents: the mental model, 8 core prompt documents, workflows, golden rules and a pre-flight checklist.",
