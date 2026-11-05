@@ -4959,7 +4959,42 @@
       els.catToggle.setAttribute("aria-expanded", "true");
       document.body.style.overflow = "hidden";
       syncDrawerInert();
-      els.sidebarClose.focus();
+      revealActiveCategory(true);
+      els.sidebarClose.focus({ preventScroll: true });
+    }
+
+    // on desktop the panel sticks 99px from the top, but until the page scrolls it starts lower,
+    // so it is sized to the window below its current top edge and its last items are never cut off
+    function fitSidebar() {
+      if (isMobile()) {
+        els.sidebar.style.maxHeight = "";
+        return;
+      }
+      const top = Math.max(els.sidebar.getBoundingClientRect().top, 99);
+      els.sidebar.style.maxHeight = `${Math.max(240, window.innerHeight - top - 26)}px`;
+    }
+
+    let fitFrame = 0;
+    const fitSoon = () => {
+      cancelAnimationFrame(fitFrame);
+      fitFrame = requestAnimationFrame(fitSidebar);
+    };
+    window.addEventListener("scroll", fitSoon, { passive: true });
+    window.addEventListener("resize", fitSoon);
+
+    // keeps the open category or workflow in view in the side panel, scrolling the panel and never the page
+    let revealedCategory = null;
+    function revealActiveCategory(force = false) {
+      fitSidebar();
+      if (!force && revealedCategory === state.activeCategory) return;
+      const button = els.sidebar.querySelector(".category-button.active");
+      // a hidden panel has no size yet, so try again once it shows
+      if (!button || !els.sidebar.clientHeight) return;
+      revealedCategory = state.activeCategory;
+      const panel = els.sidebar.getBoundingClientRect();
+      const item = button.getBoundingClientRect();
+      if (!force && item.top >= panel.top && item.bottom <= panel.bottom) return;
+      els.sidebar.scrollTop += item.top - panel.top - (els.sidebar.clientHeight - item.height) / 2;
     }
 
     function closeDrawer() {
@@ -5380,6 +5415,7 @@
     ${workflows().map(group => buttonHtml(toButton(group))).join("")}` : "");
 
       const active = [...personalButtons, ...buttons].find(item => item.id === state.activeCategory) || buttons[0];
+      revealActiveCategory();
       els.catToggleLabel.textContent = active.name;
       els.catToggle.setAttribute("aria-label", `Choose category (current: ${active.name})`);
       els.catToggleCount.textContent = String(active.count);
