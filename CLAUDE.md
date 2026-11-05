@@ -27,6 +27,8 @@ A single prompt, even a long fill-in one, goes into the `categories` group that 
 
 A pack is only for a series of prompts that build on each other. Append to `packs` in `window.PROMPT_LIBRARY` with fields `id`, `name`, `icon`, `description`, `prompts[{id, name, purpose, prompt, icon}]`. Prompt ids continue from the last used id. Text in `[blanks]` is highlighted automatically. New icons go in `ICON_PATHS`. Check that each pasted `purpose` line matches its prompt. Add the new pack's id to a domain in `DOMAINS`.
 
+A workflow chains prompts that already exist, run one after another in the same chat. Append to `workflows` in `window.PROMPT_LIBRARY` with fields `id`, `name`, `icon`, `description`, `takeaway` (shown when every step is copied) and `steps[{prompt, why, check, input?, fill?}]`, where `prompt` is an existing prompt id. Workflows add no prompts, so the totals below don't change. From step 2 on, the page swaps the prompt's last label line (like `Text:`) for `Text: the original text and your previous answers above.`; set `input` to say something more exact, and `fill` (`{"blank text": "replacement"}`) to fill a blank from an earlier answer. If the prompt has no label line, `input` is added as a new last paragraph. Workflows list under their own "Workflows" heading in the sidebar, so they don't go in `DOMAINS`. Keep them to 3 or 4 steps.
+
 The prompt total is typed by hand in several places and drifts. After adding prompts, update: the three description meta tags in `prompts.html` (`description`, `og:description`, `twitter:description`), the `#heroDescCount` and `#heroCtaCount` fallbacks, the `description` in `manifest.json`, and the blurb in `assets/hub.js`.
 
 ## Gotchas

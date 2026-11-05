@@ -1535,6 +1535,339 @@
       color: inherit;
     }
 
+    /* workflows: existing prompts run one after another in the same chat */
+    .workflow-view:not([hidden]) {
+      display: grid;
+      gap: 14px;
+    }
+
+    .wf-chips {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .wf-chip {
+      padding: 3px 9px;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .wf-arrow {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .wf-tabs {
+      display: inline-flex;
+      justify-self: start;
+      max-width: 100%;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+    }
+
+    .wf-tabs button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border: 0;
+      background: transparent;
+      color: var(--text-secondary);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .wf-tabs button[aria-selected="true"] {
+      background: var(--surface-soft);
+      color: var(--accent-text);
+    }
+
+    .wf-badge {
+      padding: 0 5px;
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+      border-radius: 5px;
+      color: var(--accent-text);
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .wf-note {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .wf-progress {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .wf-bar {
+      flex: 1;
+      min-width: 140px;
+      height: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface-soft);
+    }
+
+    .wf-bar i {
+      display: block;
+      height: 100%;
+      background: var(--accent-grad);
+      transition: width .25s ease;
+    }
+
+    .wf-progress-text {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .wf-reset,
+    .wf-copy {
+      padding: 6px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface-soft);
+      color: var(--text);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .wf-copy.is-next {
+      border-color: transparent;
+      background: var(--accent-grad);
+      color: var(--accent-contrast);
+    }
+
+    .wf-copy.is-done {
+      border-color: var(--success);
+      background: transparent;
+      color: var(--success);
+    }
+
+    .wf-steps {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .wf-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .wf-step:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      left: 16px;
+      top: 38px;
+      bottom: -14px;
+      width: 2px;
+      background: var(--border-strong);
+    }
+
+    .wf-num {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border-strong);
+      border-radius: 50%;
+      background: var(--icon-bg);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .wf-num svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.4;
+    }
+
+    .wf-step.is-next .wf-num {
+      border-color: transparent;
+      background: var(--accent-grad);
+      color: var(--accent-contrast);
+    }
+
+    .wf-step.is-done .wf-num {
+      border-color: var(--success);
+      background: transparent;
+      color: var(--success);
+    }
+
+    .wf-box {
+      min-width: 0;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: linear-gradient(145deg, var(--surface), var(--surface-raised));
+      box-shadow: var(--shadow-sm);
+    }
+
+    .wf-step.is-next .wf-box {
+      border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+    }
+
+    .wf-step-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .wf-step-heading {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .wf-step-heading h3 {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .wf-source {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--text-muted);
+      font: inherit;
+      font-size: 12px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .wf-source span {
+      border-bottom: 1px dotted currentColor;
+      color: var(--accent-text);
+    }
+
+    .wf-why,
+    .wf-hint {
+      margin: 8px 0 0;
+      color: var(--text-secondary);
+      font-size: 13.5px;
+    }
+
+    .wf-hint {
+      margin-top: 6px;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .wf-why strong,
+    .wf-warn strong {
+      color: var(--text);
+    }
+
+    .wf-text {
+      margin: 8px 0 0;
+      padding: 9px 11px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-soft);
+      color: var(--text-secondary);
+      font-size: 13px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .wf-swap {
+      padding: 0 2px;
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--success) 18%, transparent);
+      color: var(--text);
+    }
+
+    .wf-check {
+      margin-top: 8px;
+      padding: 7px 10px;
+      border-left: 3px solid var(--success);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      background: color-mix(in srgb, var(--success) 9%, transparent);
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .wf-check strong {
+      display: block;
+      color: var(--success);
+      font-size: 11px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .wf-done,
+    .wf-warn {
+      padding: 10px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 13.5px;
+    }
+
+    .wf-done {
+      border-color: var(--success);
+    }
+
+    .wf-done strong {
+      color: var(--success);
+    }
+
+    .wf-quick-actions {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    @media (max-width: 560px) {
+      .wf-step {
+        grid-template-columns: 26px minmax(0, 1fr);
+        gap: 8px;
+      }
+
+      .wf-step:not(:last-child)::before {
+        left: 12px;
+        top: 30px;
+      }
+
+      .wf-num {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+      }
+
+      .wf-step-top {
+        flex-wrap: wrap;
+      }
+
+      .wf-step-top .prompt-chip {
+        display: none;
+      }
+
+      .wf-tabs button {
+        padding: 8px 10px;
+      }
+    }
+
     /* phone-only: desktop shows the pack description in the section heading */
     .pack-tip {
       display: none;
@@ -2476,6 +2809,8 @@
           <div class="welcome-tasks" id="welcomeCategories"></div>
           <p class="eyebrow">Prompt packs</p>
           <div class="welcome-tasks" id="welcomePacks"></div>
+          <p class="eyebrow">Workflows: chain prompts step by step</p>
+          <div class="welcome-tasks" id="welcomeWorkflows"></div>
         </div>
       </section>
 
@@ -2546,6 +2881,8 @@
           </div>
 
           <p id="packTip" class="pack-tip" hidden></p>
+
+          <div id="workflowView" class="workflow-view" hidden></div>
 
           <div id="promptGrid" class="prompt-grid"></div>
 
@@ -4065,7 +4402,364 @@
         "size": "large",
         "interaction": "hover",
         "purpose": "semantic memory cue"
-      }
+      },
+      "workflows": [
+        {
+          "id": "critical_read",
+          "name": "Critical read",
+          "icon": "analysis",
+          "description": "Pull an article, report or argument apart: what it claims, what it assumes, where it's weak, and whether the facts hold up.",
+          "takeaway": "You went from claims to assumptions to weak points to a fact check. Next time you read something important, ask those four questions yourself.",
+          "steps": [
+            {
+              "prompt": 47,
+              "why": "Pins down what the text actually says, so every later step works from the same list.",
+              "check": "Does each claim match the text? If one is missing or twisted, tell the AI before step 2."
+            },
+            {
+              "prompt": 48,
+              "why": "Spots what the author takes for granted without saying it. Weak arguments often hide here.",
+              "check": "Are these real assumptions, or just the claims restated? Ask the AI to separate them if not."
+            },
+            {
+              "prompt": 50,
+              "why": "Finds gaps and unsupported reasoning, using the claims and assumptions you already have.",
+              "check": "Is each weak point concrete, with a reason? Push back on any that are just opinions."
+            },
+            {
+              "prompt": 61,
+              "why": "Tests the claims against evidence last, when it's clear which ones matter most.",
+              "check": "Did it say where its facts come from and flag anything that may be out of date? Don't trust a source you can't open."
+            }
+          ]
+        },
+        {
+          "id": "study_topic",
+          "name": "Study a topic",
+          "icon": "book",
+          "description": "Learn a new concept from scratch, turn it into notes and flashcards, then test yourself on it.",
+          "takeaway": "You learned it, wrote it down, drilled it and tested it. Come back to the quiz in a few days to make it stick.",
+          "steps": [
+            {
+              "prompt": 119,
+              "why": "Builds the concept from the ground up, so you understand it before you memorize anything.",
+              "check": "Could you explain the core idea in one sentence? If not, ask a follow-up question before step 2."
+            },
+            {
+              "prompt": 120,
+              "input": "your explanation above.",
+              "why": "Turns the explanation into notes you can reread later.",
+              "check": "Do the notes cover every key idea from the explanation, with nothing new added?"
+            },
+            {
+              "prompt": 121,
+              "input": "the study notes from your previous answer.",
+              "why": "Breaks the notes into small questions, the fastest way to memorize.",
+              "check": "Is each card one idea only? Ask for changes if a card tries to cover too much."
+            },
+            {
+              "prompt": 122,
+              "input": "the study notes and flashcards above.",
+              "why": "Active recall: answering questions makes it stick far better than rereading.",
+              "check": "Answer honestly without looking back. Note the questions you miss and review those notes."
+            }
+          ]
+        },
+        {
+          "id": "meeting_to_action",
+          "name": "Meeting to action",
+          "icon": "action",
+          "description": "Turn a messy transcript or rough notes into clean meeting notes, a task list and a status update you can send.",
+          "takeaway": "Raw notes became a record, a task list and an update. Send the update and keep the task list where your team will see it.",
+          "steps": [
+            {
+              "prompt": 69,
+              "why": "Turns the raw transcript or notes into a clean record of what was discussed and decided.",
+              "check": "Are the decisions right? Fix any that are wrong or missing now, because the next steps build on them."
+            },
+            {
+              "prompt": 71,
+              "why": "Pulls out who does what by when, so nothing agreed gets lost.",
+              "check": "Every \"not stated\" owner or deadline is a gap. Fill it in yourself or ask the team."
+            },
+            {
+              "prompt": 74,
+              "why": "Packs it all into a short update for people who weren't there.",
+              "check": "Would someone who missed the meeting understand it? Remove anything you don't want to share."
+            }
+          ]
+        },
+        {
+          "id": "tough_email",
+          "name": "Tough email",
+          "icon": "shield",
+          "description": "Turn a heated draft into a calm, tactful and short message that still makes your point.",
+          "takeaway": "Your point stayed the same, only the heat went out of it. Wait a few minutes and reread it before you hit send.",
+          "steps": [
+            {
+              "prompt": 90,
+              "why": "Strips out anger and blame while keeping your facts, your position and your request.",
+              "check": "Is your actual request still there, clearly? If it got lost, tell the AI before step 2."
+            },
+            {
+              "prompt": 36,
+              "input": "the revised message from your previous answer.",
+              "why": "Makes it tactful, so the reader is more likely to agree, without weakening your position.",
+              "check": "Is your position still firm, or did it get too soft? Ask the AI to firm it up if needed."
+            },
+            {
+              "prompt": 17,
+              "input": "the diplomatic version from your previous answer.",
+              "why": "Short messages get read. This cuts filler without losing anything important.",
+              "check": "Read it as the person receiving it. Is anything missing, unclear, or likely to annoy them?"
+            }
+          ]
+        },
+        {
+          "id": "make_decision",
+          "name": "Make a decision",
+          "icon": "decision",
+          "description": "Work through a hard choice: see your real options, weigh the tradeoffs, hear the case against, then write it up.",
+          "takeaway": "You looked at every option, the real costs and the strongest case against. Whatever you choose, you'll know why.",
+          "steps": [
+            {
+              "prompt": 145,
+              "why": "Widens the view first, including options you hadn't thought of.",
+              "check": "Is anything missing or unrealistic? Add or remove options before you weigh them."
+            },
+            {
+              "prompt": 147,
+              "input": "choosing between the options in your previous answer.",
+              "why": "Shows what you gain and give up with each option, so it's a real comparison.",
+              "check": "Do the tradeoffs match what you actually care about? Tell the AI what matters most to you."
+            },
+            {
+              "prompt": 151,
+              "input": "the option that looks strongest from your previous answers. Name it first.",
+              "why": "Argues against your favorite, so you don't only look for reasons to agree with yourself.",
+              "check": "Did any argument change your mind? If so, go back and weigh the tradeoffs again."
+            },
+            {
+              "prompt": 79,
+              "input": "the situation, options, tradeoffs and counterarguments above.",
+              "why": "Writes down the decision and why, so you or others can look back on it later.",
+              "check": "Is the recommendation one you actually agree with? Change the memo if it isn't."
+            }
+          ]
+        },
+        {
+          "id": "debug_it",
+          "name": "Debug it",
+          "icon": "bug",
+          "description": "Go from an error message to fixed code with tests, one careful step at a time.",
+          "takeaway": "You understood the error before fixing it, then locked the fix in with tests. Run the tests now, and again after every change.",
+          "steps": [
+            {
+              "prompt": 100,
+              "why": "Understands the error before touching the code, so you fix the cause, not the symptom.",
+              "check": "Does the likely cause make sense for your code? If the AI is guessing, give it more context."
+            },
+            {
+              "prompt": 93,
+              "fill": {
+                "paste or type the error or wrong behavior": "the error and likely cause you explained above"
+              },
+              "why": "Makes the smallest change that fixes the cause you just found.",
+              "check": "Run the fixed code. Does the error go away without breaking anything else?"
+            },
+            {
+              "prompt": 99,
+              "input": "the fixed code from your previous answer.",
+              "why": "Tests prove the fix works and stop the bug from quietly coming back.",
+              "check": "Run the tests. Do they pass, and does at least one fail if you undo the fix?"
+            }
+          ]
+        },
+        {
+          "id": "ship_ready_code",
+          "name": "Ship-ready code",
+          "icon": "review",
+          "description": "Check code before you merge it: a general review, a security pass, edge cases, then documentation.",
+          "takeaway": "Your code got four different kinds of review. Fix what matters, then run the workflow again on the new version.",
+          "steps": [
+            {
+              "prompt": 107,
+              "why": "A broad review first: correctness, reliability and design problems.",
+              "check": "Which issues are real for your project? Note the ones you'll fix."
+            },
+            {
+              "prompt": 105,
+              "why": "A focused security pass, which general reviews often miss.",
+              "check": "Is each finding confirmed or only possible? Fix the confirmed ones first."
+            },
+            {
+              "prompt": 106,
+              "why": "Finds the unusual inputs and situations that break code in real use.",
+              "check": "Which edge cases can really happen for your users? Those are the ones to handle or test."
+            },
+            {
+              "prompt": 101,
+              "input": "the original code above.",
+              "why": "Documents what the code really does, so others can use and maintain it.",
+              "check": "Does the documentation match the code exactly? Remove anything the code doesn't support."
+            }
+          ]
+        },
+        {
+          "id": "solve_problem",
+          "name": "Solve a problem",
+          "icon": "root-cause",
+          "description": "Find what's really causing a problem, explore different fixes, stress-test the best one, then plan it.",
+          "takeaway": "You went after the cause, not the symptom, and tested the plan before acting on it. Check back after the first step to see if it's working.",
+          "steps": [
+            {
+              "prompt": 188,
+              "why": "Finds the underlying cause, so you don't waste effort on symptoms.",
+              "check": "Does the cause fit all the evidence? If the AI is unsure, add more detail before step 2."
+            },
+            {
+              "prompt": 190,
+              "input": "the root cause from your previous answer.",
+              "why": "Explores genuinely different fixes instead of jumping at the first idea.",
+              "check": "Which approach fits your time, money and skills best? Keep that one in mind, or say which you prefer."
+            },
+            {
+              "prompt": 198,
+              "input": "the best approach from your previous answer, or the one I picked. Name it first.",
+              "why": "Puts the chosen approach under realistic pressure to find where it breaks.",
+              "check": "Did it break somewhere important? Adjust the approach, or pick another, before planning."
+            },
+            {
+              "prompt": 153,
+              "input": "the approach that held up best in the stress test above, including fixes for its weak spots.",
+              "why": "Turns the tested approach into ordered, practical steps.",
+              "check": "Is the first step something you can do today? If not, ask the AI to break it down."
+            }
+          ]
+        },
+        {
+          "id": "launch_copy",
+          "name": "Launch copy",
+          "icon": "megaphone",
+          "description": "Write marketing copy from scratch: understand the customer, sharpen the value, then write headlines and a social post.",
+          "takeaway": "Your copy started from the customer, not the product. Try two headlines and keep the one that gets more clicks.",
+          "steps": [
+            {
+              "prompt": 170,
+              "why": "Starts with who you're selling to, so every later line speaks to them.",
+              "check": "Does this sound like a real customer? Correct anything that's off, because the rest builds on it."
+            },
+            {
+              "prompt": 175,
+              "input": "the original information and the customer persona above.",
+              "why": "Says why that customer should care, in one clear message.",
+              "check": "Is it specific to your product, or could any competitor say the same? Push for specific."
+            },
+            {
+              "prompt": 172,
+              "input": "the value proposition from your previous answer.",
+              "why": "Gives you several ways to grab attention with that message.",
+              "check": "Which headline would make your customer stop scrolling? Pick one or two favorites."
+            },
+            {
+              "prompt": 180,
+              "input": "the value proposition and the best headline above.",
+              "why": "Turns it all into a ready-to-post message for one platform.",
+              "check": "Does it fit the platform's style and length? Is every claim true for your product?"
+            }
+          ]
+        },
+        {
+          "id": "read_contract",
+          "name": "Read a contract",
+          "icon": "legal",
+          "description": "Understand a contract or policy: plain English first, then what you must do, the key dates, and what deserves a closer look.",
+          "takeaway": "You know what it says, what you must do, by when, and what to question. This isn't legal advice, so check anything important with a professional.",
+          "steps": [
+            {
+              "prompt": 181,
+              "why": "Explains the language in plain words, so you understand it before you analyze it.",
+              "check": "Is any part still unclear? Ask about it now, before going further."
+            },
+            {
+              "prompt": 182,
+              "input": "the original legal text, not your explanation.",
+              "why": "Lists what you are actually required to do.",
+              "check": "Find each obligation in the original text. Anything you can't find there should be removed."
+            },
+            {
+              "prompt": 184,
+              "input": "the original legal text, not your explanation.",
+              "why": "Pulls out every date and notice period, so you don't miss one.",
+              "check": "Put the important dates in your calendar now."
+            },
+            {
+              "prompt": 185,
+              "input": "the original legal text, not your explanation.",
+              "why": "Flags the provisions that deserve a closer look, with reasons.",
+              "check": "For anything serious, ask a lawyer or the other party. The AI can point things out, but it can't advise you."
+            }
+          ]
+        },
+        {
+          "id": "polish_writing",
+          "name": "Polish writing",
+          "icon": "polish",
+          "description": "Take a rough draft to finished text: clearer, shorter, more confident and free of errors.",
+          "takeaway": "Clear, short, confident and correct, in that order. Compare the final version with your draft to see what changed, and reuse those habits.",
+          "steps": [
+            {
+              "prompt": 13,
+              "why": "Makes the draft clear and natural first, since the other steps polish what's there.",
+              "check": "Is your meaning exactly the same? Fix anything the rewrite changed before step 2."
+            },
+            {
+              "prompt": 17,
+              "input": "the rewritten text from your previous answer.",
+              "why": "Cuts filler and repetition, so every sentence earns its place.",
+              "check": "Did any important detail get cut? Ask the AI to put it back."
+            },
+            {
+              "prompt": 33,
+              "input": "the shorter version from your previous answer.",
+              "why": "Removes hedging so you sound sure of what you're saying.",
+              "check": "Does it still sound like you, and not pushy? Ask for a softer version if needed."
+            },
+            {
+              "prompt": 11,
+              "input": "the confident version from your previous answer.",
+              "why": "A final proofread, done last so no later change adds new mistakes.",
+              "check": "Read it out loud once. That catches what both you and the AI missed."
+            }
+          ]
+        },
+        {
+          "id": "apply_for_job",
+          "name": "Apply for a job",
+          "icon": "career",
+          "description": "Research a company, write a cover letter that shows it, then prepare for the interview.",
+          "takeaway": "Your application and interview prep are built on real research. Use the 3 talking points from step 1 in both.",
+          "steps": [
+            {
+              "prompt": 230,
+              "why": "Learns about the company first, so everything you write is specific to them.",
+              "check": "Check any recent news it mentions on the company's own site. Don't repeat anything you can't confirm."
+            },
+            {
+              "prompt": 224,
+              "input": "Use the company research above to make the hook specific to this company.",
+              "why": "Writes a cover letter that shows you did your homework.",
+              "check": "Is every claim about you true? Does the hook mention something real about the company?"
+            },
+            {
+              "prompt": 225,
+              "input": "Also use the company research above, especially the talking points.",
+              "why": "Prepares answers and questions that tie your experience to this company.",
+              "check": "Practice your answers out loud. Rewrite any that don't sound like you."
+            }
+          ]
+        }
+      ]
     };
   </script>
 
@@ -4114,6 +4808,7 @@
       categoryNav: document.getElementById("categoryNav"),
       sectionEyebrow: document.getElementById("sectionEyebrow"),
       packTip: document.getElementById("packTip"),
+      workflowView: document.getElementById("workflowView"),
       searchInput: document.getElementById("searchInput"),
       clearSearch: document.getElementById("clearSearch"),
       resultCount: document.getElementById("resultCount"),
@@ -4220,6 +4915,19 @@
       return packs().includes(group);
     }
 
+    // workflows reuse existing prompts by id, so they add no prompts of their own
+    function workflows() {
+      return state.library.workflows || [];
+    }
+
+    function isWorkflow(group) {
+      return workflows().includes(group);
+    }
+
+    function groupSize(group) {
+      return (group.steps || group.prompts).length;
+    }
+
     function allPrompts() {
       return allGroups().flatMap(category =>
         category.prompts.map((prompt, index) => ({ ...prompt, category, step: index + 1 }))
@@ -4227,7 +4935,7 @@
     }
 
     function getCategory(categoryId) {
-      return allGroups().find(category => category.id === categoryId) || null;
+      return [...allGroups(), ...workflows()].find(category => category.id === categoryId) || null;
     }
 
     function promptById(id) {
@@ -4289,6 +4997,7 @@
     }
 
     function recordRecent(item) {
+      if (!promptById(item.id)) return;
       const id = String(item.id);
       recentIds = [id, ...recentIds.filter(other => other !== id)].slice(0, RECENT_LIMIT);
       saveIds(RECENT_KEY, recentIds);
@@ -4459,6 +5168,7 @@
       try {
         await copyText(text);
         recordRecent(fillItem);
+        fillItem.onCopied?.();
         showCopiedToast(text);
       } catch (error) {
         console.error(error);
@@ -4535,12 +5245,12 @@
       const toButton = group => ({
         id: group.id,
         name: groupLabel(group),
-        count: group.prompts.length,
+        count: groupSize(group),
         icon: groupIcon(group),
         series: isPack(group)
       });
       const allButton = { id: "all", name: "All Prompts", count: allPrompts().length, icon: "spark" };
-      const buttons = [allButton, ...allGroups().map(toButton)];
+      const buttons = [allButton, ...allGroups().map(toButton), ...workflows().map(toButton)];
 
       const buttonHtml = item => `
     <button
@@ -4576,7 +5286,12 @@
       <span>${escapeHtml(domain.name)}</span>
       <span class="count-pill">${domain.groups.reduce((sum, group) => sum + group.prompts.length, 0)}</span>
     </div>
-    ${domain.groups.map(group => buttonHtml(toButton(group))).join("")}`).join("");
+    ${domain.groups.map(group => buttonHtml(toButton(group))).join("")}`).join("") + (workflows().length ? `
+    <div class="sidebar-heading domain-heading">
+      <span>Workflows</span>
+      <span class="count-pill">${workflows().length}</span>
+    </div>
+    ${workflows().map(group => buttonHtml(toButton(group))).join("")}` : "");
 
       const active = [...personalButtons, ...buttons].find(item => item.id === state.activeCategory) || buttons[0];
       els.catToggleLabel.textContent = active.name;
@@ -4588,20 +5303,23 @@
       const activeCategory = getCategory(state.activeCategory);
       const view = personalView(state.activeCategory);
       const title = view ? view.name : activeCategory ? groupLabel(activeCategory) : "All Prompts";
-      const categoryTotal = activeCategory ? activeCategory.prompts.length : allPrompts().length;
+      const categoryTotal = activeCategory ? groupSize(activeCategory) : allPrompts().length;
       const searchApplied = Boolean(state.searchTerm.trim());
 
       const pack = activeCategory && isPack(activeCategory);
+      const workflow = activeCategory && isWorkflow(activeCategory);
 
       els.sectionTitle.textContent = title;
       els.resultCategory.textContent = title;
-      els.sectionEyebrow.textContent = pack
-        ? `Prompt pack · ${categoryTotal} prompt${categoryTotal === 1 ? "" : "s"}`
-        : "Prompt collection";
-      els.packTip.hidden = !pack;
-      if (pack) els.packTip.textContent = activeCategory.description;
+      els.sectionEyebrow.textContent = workflow
+        ? `Workflow · ${categoryTotal} steps`
+        : pack
+          ? `Prompt pack · ${categoryTotal} prompt${categoryTotal === 1 ? "" : "s"}`
+          : "Prompt collection";
+      els.packTip.hidden = !(pack || workflow);
+      if (pack || workflow) els.packTip.textContent = activeCategory.description;
 
-      if (pack && !searchApplied) {
+      if ((pack || workflow) && !searchApplied) {
         els.sectionDescription.textContent = activeCategory.description;
       } else if (searchApplied) {
         els.sectionDescription.textContent =
@@ -4617,7 +5335,147 @@
       }
     }
 
+    // one step: the original prompt, and from step 2 on its input points at the answers already in the chat
+    const LABEL_LINE = /\n\n([A-Z][A-Za-z ]{0,30}):$/;
+
+    function workflowStep(workflow, index) {
+      const ref = workflow.steps[index];
+      const source = promptById(ref.prompt);
+      let text = source.prompt;
+      const swaps = [];
+      if (index > 0) {
+        Object.entries(ref.fill || {}).forEach(([blank, value]) => {
+          text = text.replaceAll(`[${blank}]`, value);
+          swaps.push(value);
+        });
+        const label = text.match(LABEL_LINE);
+        const input = ref.input || (label ? `the original ${label[1].toLowerCase()} and your previous answers above.` : "");
+        if (label) {
+          swaps.push(`${label[1]}: ${input}`);
+          text = text.replace(LABEL_LINE, `\n\n${label[1]}: ${input}`);
+        } else if (input) {
+          swaps.push(input);
+          text = `${text}\n\n${input}`;
+        }
+      }
+      return { ref, source, text, swaps, label: (source.prompt.match(LABEL_LINE) || [])[1] };
+    }
+
+    // the quick version: every step in one prompt, with the first step's input at the end
+    function workflowCombined(workflow) {
+      const first = workflowStep(workflow, 0);
+      const parts = workflow.steps.map((ref, index) => {
+        const step = workflowStep(workflow, index);
+        const body = index === 0 && first.label ? step.text.replace(LABEL_LINE, "") : step.text;
+        return `Step ${index + 1}, ${step.source.name}:\n${body}`;
+      });
+      const original = first.label ? `, and "the original ${first.label.toLowerCase()}" means what I give at the end` : "";
+      return `Work through these ${workflow.steps.length} steps in order. Put each step's result under its own heading before you start the next one. In each step, "your previous answer" means your result from the step before${original}.\n\n${parts.join("\n\n")}${first.label ? `\n\n${first.label}:` : ""}`;
+    }
+
+    function workflowTextHtml(text, swaps = []) {
+      return text.split(/(\[[^\]]+\])/).map((piece, index) => {
+        if (index % 2) return `<mark class="prompt-blank">${escapeHtml(piece)}</mark>`;
+        let html = escapeHtml(piece);
+        swaps.forEach(swap => {
+          html = html.split(escapeHtml(swap)).join(`<mark class="wf-swap">${escapeHtml(swap)}</mark>`);
+        });
+        return html;
+      }).join("");
+    }
+
+    // progress and the open tab last until the page is reloaded
+    const workflowProgress = new Map();
+    const workflowTabs = new Map();
+
+    function workflowDone(id) {
+      if (!workflowProgress.has(id)) workflowProgress.set(id, new Set());
+      return workflowProgress.get(id);
+    }
+
+    function renderWorkflow(workflow) {
+      renderContentHeader([]);
+      els.resultCount.textContent = String(workflow.steps.length);
+      els.clearSearch.hidden = true;
+      els.promptGrid.hidden = true;
+      els.promptGrid.innerHTML = "";
+      els.emptyState.hidden = true;
+      els.workflowView.hidden = false;
+
+      const done = workflowDone(workflow.id);
+      const total = workflow.steps.length;
+      const quick = workflowTabs.get(workflow.id) === "quick";
+      const next = workflow.steps.findIndex((_, index) => !done.has(index));
+
+      const chips = workflow.steps.map((ref, index) =>
+        `<span class="wf-chip">${index + 1}. ${escapeHtml(promptById(ref.prompt).name)}</span>`).join('<span class="wf-arrow" aria-hidden="true">→</span>');
+
+      const stepHtml = (ref, index) => {
+        const step = workflowStep(workflow, index);
+        const isDone = done.has(index);
+        const isNext = index === next;
+        const blanks = blanksIn(step.text).length > 0;
+        const hint = index === 0
+          ? step.label ? `Add your ${step.label.toLowerCase()} after "${step.label}:", then send.` : "Fill in the blanks, then send."
+          : blanks ? "Fill in the blanks, then paste it into the same chat." : "Paste it into the same chat, right after the previous answer.";
+        return `
+      <li class="wf-step${isDone ? " is-done" : ""}${isNext ? " is-next" : ""}">
+        <span class="wf-num" aria-hidden="true">${isDone ? iconSvg("check", "") : index + 1}</span>
+        <div class="wf-box">
+          <div class="wf-step-top">
+            <span class="prompt-chip" aria-hidden="true">${iconSvg(getPromptIcon(step.source), "prompt-svg")}</span>
+            <div class="wf-step-heading">
+              <h3>${escapeHtml(step.source.name)}</h3>
+              <button type="button" class="wf-source" data-open-prompt="${escapeHtml(step.source.id)}">Uses <span>${escapeHtml(groupLabel(step.source.category))} · #${escapeHtml(step.source.id)}</span></button>
+            </div>
+            <button type="button" class="wf-copy${isDone ? " is-done" : isNext ? " is-next" : ""}" data-wf-copy="${index}">${isDone ? "Copied" : `Copy step ${index + 1}`}</button>
+          </div>
+          <p class="wf-why"><strong>Why this step:</strong> ${escapeHtml(ref.why)}</p>
+          <p class="wf-text">${workflowTextHtml(step.text, step.swaps)}</p>
+          <p class="wf-hint">${escapeHtml(hint)}</p>
+          <div class="wf-check"><strong>Check before you continue</strong>${escapeHtml(ref.check)}</div>
+        </div>
+      </li>`;
+      };
+
+      const stepsPanel = `
+      <p class="wf-note">Most accurate. Copy step 1, add your input and send. Read and check the answer, then copy the next step into the same chat. Steps 2 onward use the answers already in the chat (highlighted in green).</p>
+      <div class="wf-progress">
+        <div class="wf-bar"><i style="width: ${(done.size / total) * 100}%"></i></div>
+        <span class="wf-progress-text">${done.size} of ${total} steps copied</span>
+        <button type="button" class="wf-reset" data-wf-reset>Start over</button>
+      </div>
+      <ol class="wf-steps">${workflow.steps.map(stepHtml).join("")}</ol>
+      ${done.size === total ? `<div class="wf-done"><strong>Workflow done.</strong> ${escapeHtml(workflow.takeaway)}</div>` : ""}`;
+
+      const quickPanel = `
+      <div class="wf-warn"><strong>Faster, but less detailed.</strong> The AI does all ${total} steps in one reply, so later steps get less depth and you can't fix a mistake midway. Use it for short inputs or a quick first look. For anything important, use Step by step.</div>
+      <p class="wf-text">${workflowTextHtml(workflowCombined(workflow))}</p>
+      <div class="wf-quick-actions"><button type="button" class="wf-copy is-next" data-wf-copy="quick">Copy as one prompt</button></div>`;
+
+      els.workflowView.innerHTML = `
+      <div class="wf-chips">${chips}</div>
+      <div class="wf-tabs" role="tablist" aria-label="How to run this workflow">
+        <button type="button" role="tab" data-wf-tab="steps" aria-selected="${!quick}">Step by step <span class="wf-badge">Recommended</span></button>
+        <button type="button" role="tab" data-wf-tab="quick" aria-selected="${quick}">Quick (all in one)</button>
+      </div>
+      ${quick ? quickPanel : stepsPanel}`;
+    }
+
     function renderPrompts() {
+      const active = getCategory(state.activeCategory);
+      if (active && isWorkflow(active)) {
+        // a search from a workflow looks through every prompt
+        if (state.searchTerm.trim()) {
+          state.activeCategory = "all";
+          renderCategories();
+        } else {
+          renderWorkflow(active);
+          return;
+        }
+      }
+      els.workflowView.hidden = true;
+
       const filtered = getFilteredPrompts();
       renderContentHeader(filtered);
 
@@ -4904,10 +5762,11 @@
         <button type="button" data-open-library="${escapeHtml(group.id)}">
           <span class="category-icon">${iconSvg(groupIcon(group), "category-svg")}</span>
           <span class="welcome-task-name">${escapeHtml(groupLabel(group))}</span>
-          <span>${group.prompts.length}</span>
+          <span>${groupSize(group)}</span>
         </button>`).join("");
       document.getElementById("welcomeCategories").innerHTML = buttons(state.library.categories);
       document.getElementById("welcomePacks").innerHTML = buttons(packs());
+      document.getElementById("welcomeWorkflows").innerHTML = buttons(workflows());
       renderWelcomeRecent();
     }
 
@@ -5174,6 +6033,58 @@
         card.querySelector(".prompt-expand").setAttribute("aria-expanded", String(expanded));
       }
 
+      els.workflowView.addEventListener("click", async event => {
+        const workflow = getCategory(state.activeCategory);
+        if (!workflow || !isWorkflow(workflow)) return;
+
+        const tab = event.target.closest("[data-wf-tab]");
+        if (tab) {
+          workflowTabs.set(workflow.id, tab.dataset.wfTab);
+          renderWorkflow(workflow);
+          return;
+        }
+
+        if (event.target.closest("[data-wf-reset]")) {
+          workflowDone(workflow.id).clear();
+          renderWorkflow(workflow);
+          return;
+        }
+
+        const button = event.target.closest("[data-wf-copy]");
+        if (!button) return;
+        const quick = button.dataset.wfCopy === "quick";
+        const index = Number(button.dataset.wfCopy);
+        const step = quick ? null : workflowStep(workflow, index);
+        const text = quick ? workflowCombined(workflow) : step.text;
+        const markDone = () => {
+          if (quick) return;
+          workflowDone(workflow.id).add(index);
+          if (getCategory(state.activeCategory) === workflow) renderWorkflow(workflow);
+        };
+        // the recent list keeps the original prompt each step uses
+        const item = {
+          id: quick ? workflow.id : step.source.id,
+          name: quick ? `${workflow.name}, all in one` : `Step ${index + 1}: ${step.source.name}`,
+          prompt: text,
+          category: workflow,
+          icon: quick ? workflow.icon : step.source.icon,
+          onCopied: markDone
+        };
+        if (blanksIn(text).length) {
+          openFill(item);
+          return;
+        }
+        try {
+          await copyText(text);
+          recordRecent(item);
+          markDone();
+          showCopiedToast(text);
+        } catch (error) {
+          console.error(error);
+          showToast("Could not copy prompt");
+        }
+      });
+
       els.promptGrid.addEventListener("click", event => {
         const card = event.target.closest(".prompt-card");
         if (!card) return;
@@ -5239,6 +6150,7 @@
         els.fillDialog.close();
         if (event.target.closest(".ai-share")) shareText(filled, fillItem);
         else copyAndOpen(event, filled, fillItem);
+        fillItem.onCopied?.();
       });
       els.fillDialog.addEventListener("click", event => {
         if (event.target === els.fillDialog) els.fillDialog.close();
@@ -5349,6 +6261,7 @@
       els.libraryMeta.textContent =
         `${total} prompts · ${state.library.categories.length} categories` +
         (packCount ? ` · ${packCount} pack${packCount === 1 ? "" : "s"}` : "") +
+        (workflows().length ? ` · ${workflows().length} workflows` : "") +
         ` · v${state.library.version}`;
       els.heroCtaCount.textContent = String(total);
       if (els.heroDescCount) els.heroDescCount.textContent = String(total);
