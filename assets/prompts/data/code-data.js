@@ -263,5 +263,47 @@ PROMPT_LIBRARY.addTopic("Code & data", [
         "icon": "contacts"
       }
     ]
+  },
+  {
+    "id": "ui_design_review",
+    "name": "UI design review",
+    "tier": 20,
+    "prompts": [
+      {
+        "id": 231,
+        "name": "Hierarchy Check",
+        "purpose": "What the eye sees first, what it should see, and what is fighting for attention",
+        "prompt": "Review the design I've attached like a strict visual hierarchy expert. No compliments. Tell me:\n1. What the eye sees 1st, 2nd and 3rd.\n2. What it should see first, given this screen's goal.\n3. Every element fighting for attention.\n4. One exact fix for each, ranked by impact.\n\nGoal of this screen: [what the screen is for and who uses it]\nDesign: [attach your screenshot]",
+        "icon": "priority"
+      },
+      {
+        "id": 232,
+        "name": "Type Teardown",
+        "purpose": "A senior type designer's verdict on pairing, scale, spacing and weight",
+        "prompt": "Audit the typography in the design I've attached like a senior type designer. Give a verdict and a fix for each:\n- Pairing: do the fonts have separate jobs?\n- Scale: is there enough contrast between H1, H2 and body text?\n- Spacing: is the line height right for reading, with 45 to 75 characters per line?\n- Weight: is primary vs secondary text clear at a glance?\n\nFinish with exact sizes, weights and line heights.\n\nGoal of this screen: [what the screen is for and who uses it]\nDesign: [attach your screenshot]",
+        "icon": "text"
+      },
+      {
+        "id": 233,
+        "name": "Space Stress Test",
+        "purpose": "Checks section gaps, padding and breathing room against an 8pt rhythm",
+        "prompt": "Stress-test the spacing in the design I've attached. Check:\n- Sections: are they clearly separated?\n- Rhythm: is there one consistent 8pt rhythm?\n- Components: is the padding even, and is there room around icons?\n- Breathing room: what needs more space to matter?\n\nGive exact pixel values for every fix.\n\nGoal of this screen: [what the screen is for and who uses it]\nDesign: [attach your screenshot]",
+        "icon": "expand"
+      },
+      {
+        "id": 234,
+        "name": "Color Audit",
+        "purpose": "Palette, mood and contrast check, with text that fails WCAG AA flagged",
+        "prompt": "Run a color and contrast audit on the design I've attached. Check:\n- Palette: is there a clear main, secondary and accent color?\n- Mood: does the feeling fit the product?\n- Contrast: flag any text below WCAG AA (4.5:1) and give the ratio.\n- Accent: is it overused? What should be muted?\n\nGive an exact fix for each problem, with color values.\n\nGoal of this screen: [what the screen is for and who uses it]\nDesign: [attach your screenshot]",
+        "icon": "palette"
+      },
+      {
+        "id": 235,
+        "name": "Why Does It Look Cheap?",
+        "purpose": "A blunt diagnosis of what makes a design look cheap and the one fix that helps most",
+        "prompt": "Be brutally honest about the design I've attached. Skip the compliments. Tell me:\n1. 3 reasons it looks cheap, and the signal behind each.\n2. The root cause: type, space, color or layout?\n3. The ONE fix that changes the most.\n4. 3 changes that would make it look 10x more expensive.\n5. One thing that already works, so I keep it.\n\nGoal of this screen: [what the screen is for and who uses it]\nDesign: [attach your screenshot]",
+        "icon": "weakness"
+      }
+    ]
   }
 ]);
