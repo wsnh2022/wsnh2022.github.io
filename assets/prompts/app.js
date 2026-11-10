@@ -658,6 +658,8 @@
     // progress and the open tab last until the page is reloaded
     const workflowProgress = new Map();
     const workflowTabs = new Map();
+    // which step's pill is open; without a pick, the step you are up to
+    const workflowPicked = new Map();
 
     function workflowDone(id) {
       if (!workflowProgress.has(id)) workflowProgress.set(id, new Set());
@@ -679,8 +681,18 @@
       const quick = workflowTabs.get(workflow.id) === "quick";
       const next = workflow.steps.findIndex((_, index) => !done.has(index));
 
-      const chips = workflow.steps.map((ref, index) =>
-        `<span class="wf-chip">${index + 1}. ${escapeHtml(promptById(ref.prompt).name)}</span>`).join('<span class="wf-arrow" aria-hidden="true">→</span>');
+      const picked = workflowPicked.get(workflow.id) ?? (next === -1 ? total - 1 : next);
+
+      // each pill shows its step when clicked; in the quick tab there is only one prompt, so they are plain labels
+      const chips = workflow.steps.map((ref, index) => {
+        const name = promptById(ref.prompt).name;
+        const label = `${index + 1}. ${escapeHtml(name)}`;
+        if (quick) return `<span class="wf-chip">${label}</span>`;
+        const isDone = done.has(index);
+        const isNext = index === next;
+        const status = isDone ? "copied" : isNext ? "up next" : "locked";
+        return `<button type="button" class="wf-chip ${isDone ? "is-done" : isNext ? "is-next" : "is-locked"}" data-wf-pick="${index}" aria-pressed="${index === picked}" aria-label="Step ${index + 1}: ${escapeHtml(name)}, ${status}">${isDone ? iconSvg("check", "wf-chip-svg") : ""}${label}</button>`;
+      }).join('<span class="wf-arrow" aria-hidden="true">→</span>');
 
       const stepHtml = (ref, index) => {
         const step = workflowStep(workflow, index);
@@ -724,7 +736,7 @@
         <span class="wf-progress-text">${done.size} of ${total} steps copied</span>
         <button type="button" class="wf-reset" data-wf-reset>Start over</button>
       </div>
-      <ol class="wf-steps">${workflow.steps.map(stepHtml).join("")}</ol>
+      <ol class="wf-steps">${stepHtml(workflow.steps[picked], picked)}</ol>
       ${done.size === total ? `<div class="wf-done"><strong>Workflow done.</strong> ${escapeHtml(workflow.takeaway)}</div>` : ""}`;
 
       const quickPanel = `
@@ -1369,8 +1381,18 @@
           return;
         }
 
+        const pill = event.target.closest("[data-wf-pick]");
+        if (pill) {
+          workflowPicked.set(workflow.id, Number(pill.dataset.wfPick));
+          renderWorkflow(workflow);
+          // the page was redrawn, so give the keyboard focus back to the same pill
+          els.workflowView.querySelector(`[data-wf-pick="${pill.dataset.wfPick}"]`)?.focus();
+          return;
+        }
+
         if (event.target.closest("[data-wf-reset]")) {
           workflowDone(workflow.id).clear();
+          workflowPicked.delete(workflow.id);
           renderWorkflow(workflow);
           return;
         }
@@ -1388,6 +1410,11 @@
         const markDone = () => {
           if (quick) return;
           workflowDone(workflow.id).add(index);
+          // copying the step you were up to moves on to the next pill; copying an old step again stays put
+          if (index === next) {
+            const following = workflow.steps.findIndex((_, i) => !workflowDone(workflow.id).has(i));
+            if (following !== -1) workflowPicked.set(workflow.id, following);
+          }
           if (getCategory(state.activeCategory) === workflow) renderWorkflow(workflow);
         };
         // the recent list keeps the original prompt each step uses
