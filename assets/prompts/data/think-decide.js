@@ -188,6 +188,18 @@ PROMPT_LIBRARY.addTopic("Think & decide", [
         "name": "Second Opinion",
         "prompt": "Give me an independent assessment of the reasoning and conclusion below. Keep your opinion clearly separate from the facts stated in the text.\n\nText:",
         "icon": "second-opinion"
+      },
+      {
+        "id": 236,
+        "name": "First Principles",
+        "prompt": "Act like a world-class startup founder. Break down the problem below using first-principles thinking. Challenge every assumption, identify the root problem, and suggest the simplest possible solution. Say which assumptions you are questioning.\n\nProblem:",
+        "icon": "root-cause"
+      },
+      {
+        "id": 237,
+        "name": "Co-founder Check",
+        "prompt": "Act as my startup co-founder. Analyze the decision below: the risks, opportunities, tradeoffs and long-term consequences. Don't just agree with me. Challenge my thinking, and say what you are assuming.\n\nDecision:",
+        "icon": "handshake"
       }
     ]
   },

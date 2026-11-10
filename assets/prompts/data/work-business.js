@@ -183,6 +183,24 @@ PROMPT_LIBRARY.addTopic("Work & business", [
         "name": "Customer Persona",
         "prompt": "Build a short customer persona from the information below: who they are, what they need, what motivates them, and what worries them. Label anything you are assuming.\n\nInformation:",
         "icon": "persona"
+      },
+      {
+        "id": 238,
+        "name": "Untapped Opportunities",
+        "prompt": "Think like a successful entrepreneur. Identify 10 untapped business opportunities in the industry or niche below. Focus on real customer problems, market demand, low competition and potential profitability. Don't invent market data, and mark which claims are guesses.\n\nIndustry or niche:",
+        "icon": "target"
+      },
+      {
+        "id": 239,
+        "name": "10x Growth",
+        "prompt": "Think like a founder who wants to build a $10M business. Analyze the business model below. Identify bottlenecks, growth opportunities and scalable systems, then name the highest-impact actions I should prioritize first. Don't invent numbers I haven't given you.\n\nMy business:",
+        "icon": "sales"
+      },
+      {
+        "id": 240,
+        "name": "Brutally Honest Idea Review",
+        "prompt": "Act as a brutally honest startup advisor. Evaluate the idea below. Tell me what I'm overlooking, why it might fail, which assumptions need validation, and what I should do differently. Prioritize truth over motivation, but don't invent flaws.\n\nIdea:",
+        "icon": "risk"
       }
     ]
   },

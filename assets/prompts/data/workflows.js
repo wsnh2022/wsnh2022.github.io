@@ -355,5 +355,37 @@ PROMPT_LIBRARY.workflows = [
         "check": "Practice your answers out loud. Rewrite any that don't sound like you."
       }
     ]
+  },
+  {
+    "id": "founder_mode",
+    "name": "Founder mode",
+    "icon": "target",
+    "description": "Take a business idea from nothing to tested: find openings in a niche, break the best one down to its root problem, decide whether to chase it, then have it torn apart before you commit.",
+    "takeaway": "You found an idea, stripped it to its root problem, made a call on it and stress-tested it. If it survived step 4, your next move is to test it with real customers.",
+    "steps": [
+      {
+        "prompt": 238,
+        "why": "Starts wide: surfaces openings in your niche so you pick an idea instead of defaulting to the first one you thought of.",
+        "check": "Is each idea tied to a real customer problem? Treat any market claim as a guess until you can check it. Pick one idea to take forward."
+      },
+      {
+        "prompt": 236,
+        "input": "the idea you picked from the list above.",
+        "why": "Strips your chosen idea down to the root problem and the simplest way to solve it.",
+        "check": "Does the root problem sound like something people already pay to fix? If not, say so before step 3."
+      },
+      {
+        "prompt": 237,
+        "input": "whether to pursue the idea above, using the breakdown from your previous answer.",
+        "why": "Weighs risks and long-term consequences with a partner that is told not to just agree with you.",
+        "check": "Did it push back anywhere? If it only agreed, ask it to argue the opposite."
+      },
+      {
+        "prompt": 240,
+        "input": "the idea above, with your breakdown and decision from the previous answers.",
+        "why": "A last stress test, done after you have committed to a direction so the flaws it finds are about the real plan.",
+        "check": "Pick the one assumption it flags that would hurt most if wrong, and plan a cheap way to test it this week."
+      }
+    ]
   }
 ];
