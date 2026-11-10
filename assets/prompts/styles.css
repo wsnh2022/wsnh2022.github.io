@@ -2251,7 +2251,8 @@ body:has(.fill-dialog[open]) {
   stroke-linejoin: round;
 }
 
-.welcome-recent {
+.welcome-recent,
+.welcome-starters {
   margin-bottom: 20px;
 }
 

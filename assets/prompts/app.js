@@ -1079,7 +1079,20 @@
       document.getElementById("welcomeCategories").innerHTML = buttons(state.library.categories);
       document.getElementById("welcomePacks").innerHTML = buttons(packs());
       document.getElementById("welcomeWorkflows").innerHTML = buttons(workflows());
+      renderWelcomeStarters();
       renderWelcomeRecent();
+    }
+
+    // hand-picked first prompts for new visitors: Summarize, Reply, Rewrite, Fix Code, What Should I Do?, Brutally Honest Idea Review
+    const STARTER_IDS = [3, 81, 13, 93, 143, 240];
+
+    function renderWelcomeStarters() {
+      const items = STARTER_IDS.map(promptById).filter(Boolean);
+      document.getElementById("welcomeStarters").hidden = items.length === 0;
+      document.getElementById("welcomeStartersList").innerHTML = items.map(item => `
+        <button type="button" data-open-prompt="${escapeHtml(item.id)}">
+          ${iconSvg(item.icon || "sparkles", "category-svg")}<span>${escapeHtml(item.name)}</span>
+        </button>`).join("");
     }
 
     function renderWelcomeRecent() {
@@ -1600,6 +1613,11 @@
         if (seen.has(String(item.id))) console.warn(`Prompt id ${item.id} is used more than once`);
         seen.add(String(item.id));
       });
+      // the description tags are typed by hand, so warn when their count no longer matches the library
+      const typedCount = (document.querySelector('meta[name="description"]')?.content.match(/^\d+/) || [])[0];
+      if (typedCount && Number(typedCount) !== seen.size) {
+        console.warn(`The description tags say ${typedCount} prompts but the library has ${seen.size}. Update them in prompts.html, manifest.json and assets/hub.js.`);
+      }
       const groupIds = [...allGroups(), ...workflows()].map(group => group.id);
       groupIds.filter((id, index) => groupIds.indexOf(id) !== index).forEach(id => console.warn(`Group id "${id}" is used more than once`));
       workflows().forEach(flow => (flow.steps || []).forEach((step, index) => {
