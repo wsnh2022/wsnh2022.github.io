@@ -3,7 +3,7 @@
 PROMPT_LIBRARY.workflows = [
   {
     "id": "critical_read",
-    "name": "Critical read",
+    "name": "Pick apart an argument",
     "icon": "analysis",
     "description": "Pull an article, report or argument apart: what it claims, what it assumes, where it's weak, and whether the facts hold up.",
     "takeaway": "You went from claims to assumptions to weak points to a fact check. Next time you read something important, ask those four questions yourself.",
@@ -32,7 +32,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "study_topic",
-    "name": "Study a topic",
+    "name": "Learn a topic and quiz yourself",
     "icon": "book",
     "description": "Learn a new concept from scratch, turn it into notes and flashcards, then test yourself on it.",
     "takeaway": "You learned it, wrote it down, drilled it and tested it. Come back to the quiz in a few days to make it stick.",
@@ -64,7 +64,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "meeting_to_action",
-    "name": "Meeting to action",
+    "name": "Turn a meeting into action items",
     "icon": "action",
     "description": "Turn a messy transcript or rough notes into clean meeting notes, a task list and a status update you can send.",
     "takeaway": "Raw notes became a record, a task list and an update. Send the update and keep the task list where your team will see it.",
@@ -88,7 +88,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "tough_email",
-    "name": "Tough email",
+    "name": "Calm down a heated email",
     "icon": "shield",
     "description": "Turn a heated draft into a calm, tactful and short message that still makes your point.",
     "takeaway": "Your point stayed the same, only the heat went out of it. Wait a few minutes and reread it before you hit send.",
@@ -114,7 +114,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "make_decision",
-    "name": "Make a decision",
+    "name": "Work through a hard choice",
     "icon": "decision",
     "description": "Work through a hard choice: see your real options, weigh the tradeoffs, hear the case against, then write it up.",
     "takeaway": "You looked at every option, the real costs and the strongest case against. Whatever you choose, you'll know why.",
@@ -146,7 +146,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "debug_it",
-    "name": "Debug it",
+    "name": "Fix a bug with tests",
     "icon": "bug",
     "description": "Go from an error message to fixed code with tests, one careful step at a time.",
     "takeaway": "You understood the error before fixing it, then locked the fix in with tests. Run the tests now, and again after every change.",
@@ -174,7 +174,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "ship_ready_code",
-    "name": "Ship-ready code",
+    "name": "Review code before merging",
     "icon": "review",
     "description": "Check code before you merge it: a general review, a security pass, edge cases, then documentation.",
     "takeaway": "Your code got four different kinds of review. Fix what matters, then run the workflow again on the new version.",
@@ -204,7 +204,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "solve_problem",
-    "name": "Solve a problem",
+    "name": "Find the cause and plan the fix",
     "icon": "root-cause",
     "description": "Find what's really causing a problem, explore different fixes, stress-test the best one, then plan it.",
     "takeaway": "You went after the cause, not the symptom, and tested the plan before acting on it. Check back after the first step to see if it's working.",
@@ -236,7 +236,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "launch_copy",
-    "name": "Launch copy",
+    "name": "Write marketing copy from scratch",
     "icon": "megaphone",
     "description": "Write marketing copy from scratch: understand the customer, sharpen the value, then write headlines and a social post.",
     "takeaway": "Your copy started from the customer, not the product. Try two headlines and keep the one that gets more clicks.",
@@ -268,7 +268,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "read_contract",
-    "name": "Read a contract",
+    "name": "Understand a contract",
     "icon": "legal",
     "description": "Understand a contract or policy: plain English first, then what you must do, the key dates, and what deserves a closer look.",
     "takeaway": "You know what it says, what you must do, by when, and what to question. This isn't legal advice, so check anything important with a professional.",
@@ -300,7 +300,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "polish_writing",
-    "name": "Polish writing",
+    "name": "Take a draft to final text",
     "icon": "polish",
     "description": "Take a rough draft to finished text: clearer, shorter, more confident and free of errors.",
     "takeaway": "Clear, short, confident and correct, in that order. Compare the final version with your draft to see what changed, and reuse those habits.",
@@ -332,7 +332,7 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "apply_for_job",
-    "name": "Apply for a job",
+    "name": "Prepare a job application",
     "icon": "career",
     "description": "Research a company, write a cover letter that shows it, then prepare for the interview.",
     "takeaway": "Your application and interview prep are built on real research. Use the 3 talking points from step 1 in both.",
@@ -358,9 +358,9 @@ PROMPT_LIBRARY.workflows = [
   },
   {
     "id": "founder_mode",
-    "name": "Founder mode",
+    "name": "Validate a business idea",
     "icon": "target",
-    "description": "Take a business idea from nothing to tested: find openings in a niche, break the best one down to its root problem, decide whether to chase it, then have it torn apart before you commit.",
+    "description": "Founder mode for a new business idea, from nothing to tested: find openings in a niche, break the best one down to its root problem, decide whether to chase it, then have it torn apart before you commit.",
     "takeaway": "You found an idea, stripped it to its root problem, made a call on it and stress-tested it. If it survived step 4, your next move is to test it with real customers.",
     "steps": [
       {
