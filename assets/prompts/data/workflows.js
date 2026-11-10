@@ -387,5 +387,156 @@ PROMPT_LIBRARY.workflows = [
         "check": "Pick the one assumption it flags that would hurt most if wrong, and plan a cheap way to test it this week."
       }
     ]
+  },
+  {
+    "id": "double_check_ai",
+    "name": "Double-check an AI answer",
+    "icon": "second-opinion",
+    "description": "Don't take an AI answer on trust. Paste it in a fresh chat and check its facts, find its weak spots, then get an independent view.",
+    "takeaway": "You checked the facts, found the gaps and got a separate opinion. For anything important, open the sources it names before you rely on the answer.",
+    "steps": [
+      {
+        "prompt": 61,
+        "why": "Checks each claim first, so you know what is solid before judging the reasoning.",
+        "check": "Did it say where its facts come from? Open any source it names. Don't trust one you can't find."
+      },
+      {
+        "prompt": 50,
+        "input": "the original AI answer, plus the fact check above.",
+        "why": "Finds gaps and shaky reasoning that a fact check alone won't catch.",
+        "check": "Is each weak point specific and explained? Push back on any that are just opinion."
+      },
+      {
+        "prompt": 152,
+        "input": "the original AI answer, with the fact check and weak points above.",
+        "why": "Gives a separate overall view, kept apart from the facts, now that you know where the answer is strong and weak.",
+        "check": "Does its verdict agree with what you saw in steps 1 and 2? If it ignores a problem you found, ask it why."
+      }
+    ]
+  },
+  {
+    "id": "overwhelm_to_plan",
+    "name": "Turn overwhelm into a 30-minute plan",
+    "icon": "clock",
+    "description": "Dump everything on your mind, rank it, break the top item into small steps, then pick what you can finish in the next 30 minutes.",
+    "takeaway": "You went from a pile of tasks to one clear next move. Start the 30-minute plan now, before you open the list again.",
+    "steps": [
+      {
+        "prompt": 154,
+        "why": "Sorts the pile by importance and urgency, so you stop treating everything as equal.",
+        "check": "Does the top of the list match what you actually feel is most pressing? Ask it to re-rank if not."
+      },
+      {
+        "prompt": 156,
+        "input": "the top priority from the ranking above.",
+        "why": "Turns one big item into small steps, so starting feels easy.",
+        "check": "Is each step small enough to start without thinking? Split any that are still vague."
+      },
+      {
+        "prompt": 155,
+        "input": "the steps above, plus the time and energy I really have today.",
+        "why": "Picks only what fits in the next half hour, so the plan is realistic.",
+        "check": "Add your real limits before you send this, such as meetings or low energy. Then start on the first action."
+      }
+    ]
+  },
+  {
+    "id": "scope_project",
+    "name": "Scope a project before you start",
+    "icon": "requirements",
+    "description": "Turn a client message or rough idea into a brief, requirements, ways to tell it is done, and the risks, before any work begins.",
+    "takeaway": "You have a brief, a requirements list, clear finish lines and a list of risks. Send the brief and requirements to the client or team to confirm before you start.",
+    "steps": [
+      {
+        "prompt": 73,
+        "why": "Boils a messy request down to what matters, so everyone starts from the same page.",
+        "check": "Does the brief say what the client actually asked for? Fix anything that is guessed."
+      },
+      {
+        "prompt": 76,
+        "input": "the brief above.",
+        "why": "Lists what the project must do, and separates what was stated from what the AI assumed.",
+        "check": "Look at the assumed items first. Confirm or remove each one with the client."
+      },
+      {
+        "prompt": 77,
+        "input": "the requirements above.",
+        "why": "Turns each requirement into something you can test, so there is no argument later about whether it is done.",
+        "check": "Could someone else check each one with a simple yes or no? Reword any that are fuzzy."
+      },
+      {
+        "prompt": 78,
+        "input": "the brief, requirements and acceptance criteria above.",
+        "why": "Looks for risks last, once the full scope is on the table.",
+        "check": "Pick the two risks that worry you most and decide how you will handle each before you start."
+      }
+    ]
+  },
+  {
+    "id": "review_ui_design",
+    "name": "Review a UI design",
+    "icon": "palette",
+    "description": "Get a tough review of a screen from four angles: what the eye sees first, the type, the colors, and why it looks cheap. Needs an AI that can read images.",
+    "takeaway": "You checked hierarchy, type, color and polish on one screen. Apply the fixes in the order of impact, then run the review again on the new version.",
+    "steps": [
+      {
+        "prompt": 231,
+        "why": "Starts with the biggest issue: what people notice first and what is fighting for attention.",
+        "check": "Attach your screenshot and fill in the goal. Does what the AI says the eye sees first match what you see?"
+      },
+      {
+        "prompt": 232,
+        "fill": {
+          "what the screen is for and who uses it": "the same as in step 1",
+          "attach your screenshot": "the same screenshot as in step 1"
+        },
+        "why": "Reviews the type once the layout order is clear.",
+        "check": "Are the sizes and weights it suggests actually different enough to see? Try them on the screen."
+      },
+      {
+        "prompt": 234,
+        "fill": {
+          "what the screen is for and who uses it": "the same as in step 1",
+          "attach your screenshot": "the same screenshot as in step 1"
+        },
+        "why": "Checks the colors and contrast, including text that is too faint to read.",
+        "check": "Check any contrast ratio it gives with a contrast checker before you change colors."
+      },
+      {
+        "prompt": 235,
+        "fill": {
+          "what the screen is for and who uses it": "the same as in step 1",
+          "attach your screenshot": "the same screenshot as in step 1"
+        },
+        "why": "Ends with an honest overall verdict and the one change that helps most.",
+        "check": "Does its top fix match the biggest issues from steps 1 to 3? Start with that one."
+      }
+    ]
+  },
+  {
+    "id": "post_mortem",
+    "name": "Run a post-mortem",
+    "icon": "failure",
+    "description": "Work out why something went wrong, how to stop it happening again, and who does what next, without blaming anyone.",
+    "takeaway": "You found the likely cause, planned how not to repeat it and listed the actions. Share the action list with everyone involved this week.",
+    "steps": [
+      {
+        "prompt": 188,
+        "why": "Looks for the underlying cause first, so you fix the real problem and not just the symptom.",
+        "check": "Does it separate likely causes from confirmed ones? Treat the likely ones as guesses until you check."
+      },
+      {
+        "prompt": 197,
+        "input": "the approach I plan to use next time, fixed for the causes above.",
+        "why": "Tests your next-time plan for the ways it could fail the same way again.",
+        "check": "Does each risk have a realistic way to prevent it? Drop any prevention that would cost more than the problem."
+      },
+      {
+        "prompt": 71,
+        "input": "the causes and prevention steps above.",
+        "why": "Turns the lessons into tasks with owners and dates, so they actually happen.",
+        "check": "Where it says \"not stated\", decide the owner or deadline yourself before sharing."
+      }
+    ]
   }
 ];
