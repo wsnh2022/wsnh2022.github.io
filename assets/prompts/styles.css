@@ -679,6 +679,168 @@ svg {
   background: var(--surface-hover);
 }
 
+/* welcome screen: one card per workflow, its steps as pills */
+.wc-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 10px;
+  align-items: start;
+}
+
+.wc-card {
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: linear-gradient(145deg, var(--surface), var(--surface-raised));
+}
+
+.wc-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.wc-head .category-icon {
+  flex: none;
+}
+
+.wc-name {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.wc-name:hover {
+  text-decoration: underline;
+}
+
+.wc-count {
+  flex: none;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.wc-chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.wc-pill {
+  min-height: 28px;
+  padding: 4px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.wc-pill.is-first {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+  color: var(--text);
+}
+
+.wc-pill:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.wc-pill.is-open {
+  border-color: transparent;
+  background: var(--accent-grad);
+  color: var(--accent-contrast);
+}
+
+.wc-pill:focus-visible,
+.wc-name:focus-visible,
+.wc-open:focus-visible,
+.wc-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.wc-box {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+}
+
+.wc-box[hidden] {
+  display: none;
+}
+
+.wc-box-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13.5px;
+}
+
+.wc-close {
+  flex: none;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.wc-close:hover {
+  color: var(--text);
+}
+
+.wc-box .wf-text {
+  background: var(--surface);
+}
+
+.wc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.wc-actions .wf-hint {
+  margin-top: 0;
+}
+
+.wc-open {
+  padding: 6px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.wc-open:hover {
+  background: var(--surface-hover);
+}
+
 .toolbar {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

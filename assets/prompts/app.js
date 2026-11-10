@@ -1090,9 +1090,63 @@
         </button>`).join("");
       document.getElementById("welcomeCategories").innerHTML = buttons(state.library.categories);
       document.getElementById("welcomePacks").innerHTML = buttons(packs());
-      document.getElementById("welcomeWorkflows").innerHTML = buttons(workflows());
+      document.getElementById("welcomeWorkflows").innerHTML = workflowCardsHtml();
       renderWelcomeStarters();
       renderWelcomeRecent();
+    }
+
+    // one card per workflow: its chain as pills, and a pill opens that step's prompt under the card
+    function workflowCardsHtml() {
+      return workflows().map(flow => {
+        const pills = flow.steps.map((ref, index) =>
+          `<button type="button" class="wc-pill${index === 0 ? " is-first" : ""}" data-wc-pill="${index}" aria-expanded="false">${index + 1}. ${escapeHtml(promptById(ref.prompt).name)}</button>`
+        ).join('<span class="wf-arrow" aria-hidden="true">→</span>');
+        return `
+      <div class="wc-card" data-wc="${escapeHtml(flow.id)}">
+        <div class="wc-head">
+          <span class="category-icon">${iconSvg(groupIcon(flow), "category-svg")}</span>
+          <button type="button" class="wc-name" data-wc-open>${escapeHtml(groupLabel(flow))}</button>
+          <span class="wc-count">${flow.steps.length} steps</span>
+        </div>
+        <div class="wc-chain">${pills}</div>
+        <div class="wc-box" hidden></div>
+      </div>`;
+      }).join("");
+    }
+
+    function toggleWelcomeStep(pill) {
+      const card = pill.closest(".wc-card");
+      const index = Number(pill.dataset.wcPill);
+      const wasOpen = card.dataset.open === String(index);
+      card.querySelectorAll("[data-wc-pill]").forEach(button => {
+        const on = !wasOpen && button === pill;
+        button.classList.toggle("is-open", on);
+        button.setAttribute("aria-expanded", String(on));
+      });
+      const box = card.querySelector(".wc-box");
+      if (wasOpen) {
+        delete card.dataset.open;
+        box.hidden = true;
+        return;
+      }
+      card.dataset.open = String(index);
+      const flow = getCategory(card.dataset.wc);
+      const step = workflowStep(flow, index);
+      const hint = index === 0
+        ? (step.label ? `Add your ${step.label.toLowerCase()} after "${step.label}:".` : "Fill in the blanks.")
+        : "This step builds on your earlier answers in the same chat.";
+      box.innerHTML = `
+        <div class="wc-box-top">
+          <strong>Step ${index + 1} of ${flow.steps.length}: ${escapeHtml(step.source.name)}</strong>
+          <button type="button" class="wc-close" data-wc-close aria-label="Close this step">×</button>
+        </div>
+        <p class="wf-why"><strong>Why this step:</strong> ${escapeHtml(step.ref.why)}</p>
+        <p class="wf-text">${workflowTextHtml(step.text, step.swaps)}</p>
+        <div class="wc-actions">
+          <button type="button" class="wc-open" data-wc-open="${index}">Open workflow at step ${index + 1}</button>
+          <span class="wf-hint">${escapeHtml(hint)}</span>
+        </div>`;
+      box.hidden = false;
     }
 
     // hand-picked first prompts for new visitors: Summarize, Reply, Rewrite, Fix Code, What Should I Do?, Brutally Honest Idea Review
@@ -1187,6 +1241,29 @@
 
     function bindEvents() {
       els.pageContent.addEventListener("click", async event => {
+        // the workflow cards on the welcome screen
+        const wcPill = event.target.closest("[data-wc-pill]");
+        if (wcPill) {
+          toggleWelcomeStep(wcPill);
+          return;
+        }
+        const wcClose = event.target.closest("[data-wc-close]");
+        if (wcClose) {
+          const openPill = wcClose.closest(".wc-card").querySelector("[data-wc-pill].is-open");
+          toggleWelcomeStep(openPill);
+          openPill.focus();
+          return;
+        }
+        const wcOpen = event.target.closest("[data-wc-open]");
+        if (wcOpen) {
+          const flowId = wcOpen.closest(".wc-card").dataset.wc;
+          // the name opens at the step you are up to; the box button opens at the step it shows
+          if (wcOpen.dataset.wcOpen === "") workflowPicked.delete(flowId);
+          else workflowPicked.set(flowId, Number(wcOpen.dataset.wcOpen));
+          openLibrary(flowId);
+          return;
+        }
+
         const button = event.target.closest("[data-open-library]");
         if (button) openLibrary(button.dataset.openLibrary, button.dataset.search);
 
