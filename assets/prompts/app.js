@@ -283,19 +283,22 @@
         index % 2 ? `<mark class="search-hit">${escapeHtml(part)}</mark>` : escapeHtml(part)).join("");
     }
 
-    // shows blanks and search matches; a match past this many characters could fall outside the one-line preview
-    const PREVIEW_CHARS = 30;
-
+    // shows blanks and search matches
     function promptTextHtml(text, pattern) {
-      const marked = part => part.split(/(\[[^\]]+\])/).map((piece, index) =>
+      return text.split(/(\[[^\]]+\])/).map((piece, index) =>
         index % 2 ? `<mark class="prompt-blank">${hitHtml(piece, pattern)}</mark>` : hitHtml(piece, pattern)).join("");
-      const first = pattern ? text.search(pattern) : -1;
-      if (first < PREVIEW_CHARS) return marked(text);
+    }
 
-      let start = text.lastIndexOf(" ", first - 20) + 1;
-      // never cut a blank in two
-      if (text.lastIndexOf("[", start) > text.lastIndexOf("]", start)) start = text.lastIndexOf("[", start);
-      return `<span class="prompt-lead">${marked(text.slice(0, start))}</span><span class="prompt-ellipsis">... </span>${marked(text.slice(start))}`;
+    // a closed button shows a short excerpt when a search matched the purpose or prompt but not the name
+    function searchSnippet(item, pattern) {
+      if (!pattern || item.name.search(pattern) !== -1) return "";
+      const source = [item.purpose || "", item.prompt].find(text => text.search(pattern) !== -1);
+      if (!source) return "";
+      const flat = source.replace(/\s+/g, " ");
+      const first = flat.search(pattern);
+      // start just before the match so a narrow button still shows it
+      const start = first > 12 ? flat.lastIndexOf(" ", first - 8) + 1 : 0;
+      return `<p class="prompt-snippet">${start ? "... " : ""}${hitHtml(flat.slice(start, start + 90), pattern)}</p>`;
     }
 
     // "28 words · 173 chars"; chars include spaces, "user's" is one word, a lone "/" is none
@@ -833,20 +836,25 @@
       }
 
       const hits = searchHitPattern();
+      // lists that mix categories keep a small category line on each closed button
+      els.promptGrid.classList.toggle("mixed",
+        state.activeCategory === "all" || Boolean(personalView(state.activeCategory)) || searchWords(state.searchTerm).length > 0);
       els.promptGrid.innerHTML = filtered.map(item => {
         const pack = isPack(item.category);
         const blanks = blanksIn(item.prompt);
         // a pack with a single prompt has no steps to number
-        const number = !pack ? `· #${escapeHtml(item.id)}` : item.category.prompts.length > 1 ? `· Step ${item.step}` : "";
+        const number = !pack ? `#${escapeHtml(item.id)}` : item.category.prompts.length > 1 ? `Step ${item.step}` : "";
         const starred = favoriteIds.includes(String(item.id));
         return `
-    <article class="prompt-card${pack ? " pack-card" : ""}" data-copy-id="${escapeHtml(item.id)}" tabindex="0">
+    <article class="prompt-card${pack ? " pack-card" : ""}${starred ? " starred" : ""}" data-copy-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-expanded="false">
+      <span class="prompt-fav" aria-hidden="true">${iconSvg("star", "copy-svg")}</span>
       <div class="prompt-card-main">
         <div class="prompt-card-header">
           <span class="prompt-chip" aria-hidden="true">${iconSvg(getPromptIcon(item), "prompt-svg")}</span>
           <div class="prompt-heading">
-            <span class="prompt-category">${hitHtml(groupLabel(item.category), hits)} <span class="prompt-number">${number}</span> <span class="prompt-stats">${promptStats(item.prompt)}</span></span>
-            <h3>${hitHtml(item.name, hits)}</h3>
+            <span class="prompt-category"><span class="prompt-group">${hitHtml(groupLabel(item.category), hits)}</span> <span class="prompt-number${pack ? "" : " is-id"}">${number}</span> <span class="prompt-stats">${promptStats(item.prompt)}</span></span>
+            <h3 title="${escapeHtml(item.name)}">${hitHtml(item.name, hits)}</h3>
+            ${searchSnippet(item, hits)}
             ${item.purpose ? `<p class="prompt-purpose">${hitHtml(item.purpose, hits)}</p>` : ""}
           </div>
 
@@ -861,40 +869,132 @@
             ${iconSvg("copy", "copy-svg")}
           </button>
 
-          <button type="button" class="prompt-expand" aria-expanded="false" aria-label="Show full ${escapeHtml(item.name)} prompt">
+          <button type="button" class="prompt-expand" aria-expanded="false" aria-label="Close ${escapeHtml(item.name)}">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="m8 10 4 4 4-4" />
             </svg>
           </button>
         </div>
 
-        ${blanks.length ? `<div class="prompt-blanks">${blanks.map(blank =>
-          `<span class="blank-tag">Fill in: ${escapeHtml(blank)}</span>`).join("")}</div>` : ""}
-        <p class="prompt-text">${promptTextHtml(item.prompt, hits)}</p>
-        ${blanks.length ? "" : `<div class="prompt-actions-row"><span>Copy and open in</span>${aiToolLinks(item.prompt)}</div>`}
+        <div class="prompt-more">
+          <div class="prompt-more-in">
+            ${blanks.length ? `<div class="prompt-blanks">${blanks.map(blank =>
+              `<span class="blank-tag">Fill in: ${escapeHtml(blank)}</span>`).join("")}</div>` : ""}
+            <p class="prompt-text">${promptTextHtml(item.prompt, hits)}</p>
+            ${blanks.length ? "" : `<div class="prompt-actions-row"><span>Copy and open in</span>${aiToolLinks(item.prompt)}</div>`}
+          </div>
+        </div>
       </div>
     </article>
   `;
       }).join("");
-
-      markClampedCards();
     }
 
-    function markClampedCards() {
-      els.promptGrid.querySelectorAll(".prompt-card").forEach(card => {
-        const text = card.querySelector(".prompt-text");
-        const btn = card.querySelector(".prompt-expand");
-        text.classList.remove("expanded");
-        const overflows = text.scrollWidth - text.clientWidth > 1;
-        card.classList.toggle("has-more", overflows || Boolean(text.querySelector(".prompt-lead")));
-        btn.setAttribute("aria-expanded", "false");
-      });
-
-      // counts that wrapped get a line of their own without the leading dot
-      const stats = [...els.promptGrid.querySelectorAll(".prompt-stats")];
+    // counts that wrapped get a line of their own without the leading dot (only opened cards show counts)
+    function fitStats() {
+      const stats = [...els.promptGrid.querySelectorAll(".prompt-card.open .prompt-stats")];
       stats.forEach(stat => stat.classList.remove("own-line"));
       stats.filter(stat => stat.getBoundingClientRect().top - stat.previousElementSibling.getBoundingClientRect().top > 2)
         .forEach(stat => stat.classList.add("own-line"));
+    }
+
+    // opening and closing glide: the details unfold, and the other prompts slide to their new places
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const FOLD_MS = 280;
+    const flying = new Set();
+
+    function flipGrid(change, skip) {
+      if (reduceMotion.matches) {
+        change();
+        return;
+      }
+      const cards = [...els.promptGrid.querySelectorAll(".prompt-card")].filter(card => card !== skip);
+      const before = cards.map(card => card.getBoundingClientRect());
+      // prompts still gliding from an earlier click carry on from where they are
+      flying.forEach(card => {
+        card.style.transition = "";
+        card.style.transform = "";
+      });
+      flying.clear();
+      change();
+      const view = window.innerHeight;
+      const moved = [];
+      cards.forEach((card, i) => {
+        const after = card.getBoundingClientRect();
+        const dx = before[i].left - after.left;
+        const dy = before[i].top - after.top;
+        if (!dx && !dy) return;
+        // prompts far off screen just move
+        if (Math.max(before[i].bottom, after.bottom) < -view || Math.min(before[i].top, after.top) > view * 2) return;
+        card.style.transition = "none";
+        card.style.transform = `translate(${dx}px, ${dy}px)`;
+        moved.push(card);
+      });
+      if (!moved.length) return;
+      els.promptGrid.offsetHeight;
+      moved.forEach(card => {
+        card.style.transition = "transform .34s cubic-bezier(.2, .8, .2, 1)";
+        card.style.transform = "";
+        flying.add(card);
+        setTimeout(() => {
+          if (!flying.has(card)) return;
+          card.style.transition = "";
+          flying.delete(card);
+        }, 360);
+      });
+    }
+
+    // a closed card acts as one button; an open card holds real buttons of its own
+    function syncCardAria(card) {
+      const shown = card.classList.contains("shown");
+      card.querySelector(".prompt-expand").setAttribute("aria-expanded", String(shown));
+      if (shown) {
+        card.removeAttribute("role");
+        card.removeAttribute("aria-expanded");
+      } else {
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-expanded", "false");
+      }
+    }
+
+    // changes classes without any animation
+    function withoutMotion(card, change) {
+      card.classList.add("no-anim");
+      change();
+      card.offsetHeight;
+      card.classList.remove("no-anim");
+    }
+
+    // "open" is the full-row layout, "shown" is the unfolded details; a closing card keeps "open" until it has folded
+    function collapseNow(card) {
+      clearTimeout(card._fold);
+      withoutMotion(card, () => card.classList.remove("open", "shown"));
+      syncCardAria(card);
+    }
+
+    // one card is open at a time; it spans the whole row and the other prompts stay as buttons
+    function setCardOpen(card, open, animate = false) {
+      clearTimeout(card._fold);
+      const glide = animate && !reduceMotion.matches;
+      if (open) {
+        const apply = () => {
+          els.promptGrid.querySelectorAll(".prompt-card.open").forEach(other => {
+            if (other !== card) collapseNow(other);
+          });
+          const show = () => card.classList.add("open", "shown");
+          if (glide) show();
+          else withoutMotion(card, show);
+          syncCardAria(card);
+          fitStats();
+        };
+        if (glide) flipGrid(apply, card);
+        else apply();
+      } else {
+        card.classList.remove("shown");
+        syncCardAria(card);
+        if (!glide) collapseNow(card);
+        else card._fold = setTimeout(() => flipGrid(() => card.classList.remove("open"), card), FOLD_MS);
+      }
     }
 
     async function copyText(text) {
@@ -1202,10 +1302,7 @@
       const card = els.promptGrid.querySelector(`[data-copy-id="${CSS.escape(id)}"]`);
       if (!card) return;
       card.classList.add("linked");
-      if (card.classList.contains("has-more")) {
-        card.querySelector(".prompt-text").classList.add("expanded");
-        card.querySelector(".prompt-expand").setAttribute("aria-expanded", "true");
-      }
+      setCardOpen(card, true);
       card.scrollIntoView({ block: "center" });
       card.focus({ preventScroll: true });
     }
@@ -1216,7 +1313,7 @@
       state.activeCategory = getCategory(category) || personalView(category) ? category : "all";
       state.searchTerm = params.get("q") || "";
       els.searchInput.value = state.searchTerm;
-      // show the list before drawing it: hidden cards measure as zero, which hides their expand arrows
+      // show the list before drawing it: a hidden list measures as zero, which breaks the wrapped counts
       els.pageContent.classList.toggle("show-library", params.has("category"));
       renderCategories();
       renderPrompts();
@@ -1228,7 +1325,7 @@
       state.activeCategory = categoryId;
       state.searchTerm = searchTerm;
       els.searchInput.value = searchTerm;
-      // show the list before drawing it: hidden cards measure as zero, which hides their expand arrows
+      // show the list before drawing it: a hidden list measures as zero, which breaks the wrapped counts
       els.pageContent.classList.add("show-library");
       renderCategories();
       renderPrompts();
@@ -1398,7 +1495,7 @@
         if (window.innerWidth === lastWidth) return;
         lastWidth = window.innerWidth;
         clearTimeout(clampTimer);
-        clampTimer = setTimeout(markClampedCards, 150);
+        clampTimer = setTimeout(fitStats, 150);
       });
 
       els.searchInput.addEventListener("input", event => {
@@ -1442,9 +1539,19 @@
       }
 
       function toggleCard(card) {
-        if (!card.classList.contains("has-more")) return;
-        const expanded = card.querySelector(".prompt-text").classList.toggle("expanded");
-        card.querySelector(".prompt-expand").setAttribute("aria-expanded", String(expanded));
+        const opening = !card.classList.contains("shown");
+        setCardOpen(card, opening, true);
+        if (opening) {
+          // wait for the details to unfold so the whole card can be brought into view
+          const reveal = () => {
+            if (card.classList.contains("shown")) card.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          };
+          if (reduceMotion.matches) reveal();
+          else setTimeout(reveal, FOLD_MS + 40);
+        } else {
+          // the button that was clicked is hidden once the card closes, so focus moves to the card
+          card.focus({ preventScroll: true });
+        }
       }
 
       els.workflowView.addEventListener("click", async event => {
@@ -1536,6 +1643,7 @@
         if (starBtn) {
           const adding = toggleFavorite(card.dataset.copyId);
           starBtn.setAttribute("aria-pressed", String(adding));
+          card.classList.toggle("starred", adding);
           showToast(adding ? "Added to My prompts" : "Removed from My prompts");
           if (state.activeCategory === "favorites") renderPrompts();
           return;
@@ -1553,7 +1661,7 @@
         }
 
         // an opened prompt's text stays selectable instead of closing
-        if (event.target.closest(".prompt-text.expanded, .prompt-actions-row")) return;
+        if (event.target.closest(".prompt-card.open .prompt-text, .prompt-actions-row")) return;
         if (String(window.getSelection())) return;
         toggleCard(card);
       });
@@ -1562,6 +1670,10 @@
         if ((event.key === "Enter" || event.key === " ") && event.target.matches(".prompt-card")) {
           event.preventDefault();
           toggleCard(event.target);
+        }
+        if (event.key === "Escape") {
+          const open = event.target.closest(".prompt-card.shown");
+          if (open) toggleCard(open);
         }
       });
 
