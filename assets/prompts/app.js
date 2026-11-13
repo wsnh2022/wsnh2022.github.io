@@ -903,12 +903,12 @@
     const FOLD_MS = 280;
     const flying = new Set();
 
-    function flipGrid(change, skip) {
+    function flipGrid(change, skip, root = els.promptGrid, selector = ".prompt-card") {
       if (reduceMotion.matches) {
         change();
         return;
       }
-      const cards = [...els.promptGrid.querySelectorAll(".prompt-card")].filter(card => card !== skip);
+      const cards = [...root.querySelectorAll(selector)].filter(card => card !== skip);
       const before = cards.map(card => card.getBoundingClientRect());
       // prompts still gliding from an earlier click carry on from where they are
       flying.forEach(card => {
@@ -931,7 +931,7 @@
         moved.push(card);
       });
       if (!moved.length) return;
-      els.promptGrid.offsetHeight;
+      root.offsetHeight;
       moved.forEach(card => {
         card.style.transition = "transform .34s cubic-bezier(.2, .8, .2, 1)";
         card.style.transform = "";
@@ -1195,7 +1195,7 @@
       renderWelcomeRecent();
     }
 
-    // one card per workflow: its chain as pills, and a pill opens that step's prompt under the card
+    // one name button per workflow; it opens into a full-row card with its chain as pills, and a pill shows that step under the chain
     function workflowCardsHtml() {
       return workflows().map(flow => {
         const pills = flow.steps.map((ref, index) =>
@@ -1203,15 +1203,84 @@
         ).join('<span class="wf-arrow" aria-hidden="true">→</span>');
         return `
       <div class="wc-card" data-wc="${escapeHtml(flow.id)}">
-        <div class="wc-head">
+        <button type="button" class="wc-toggle" data-wc-toggle aria-expanded="false">
           <span class="category-icon">${iconSvg(groupIcon(flow), "category-svg")}</span>
-          <button type="button" class="wc-name" data-wc-open>${escapeHtml(groupLabel(flow))}</button>
+          <span class="wc-name">${escapeHtml(groupLabel(flow))}</span>
           <span class="wc-count">${flow.steps.length} steps</span>
+          <svg class="wc-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4" /></svg>
+        </button>
+        <div class="wc-more">
+          <div class="wc-more-clip">
+            <div class="wc-more-body">
+              <p class="wc-desc">${escapeHtml(flow.description)}</p>
+              <div class="wc-chain">${pills}</div>
+              <div class="wc-box" hidden></div>
+              <div class="wc-open-row"><button type="button" class="wc-open" data-wc-open>Open full workflow</button></div>
+            </div>
+          </div>
         </div>
-        <div class="wc-chain">${pills}</div>
-        <div class="wc-box" hidden></div>
       </div>`;
       }).join("");
+    }
+
+    // open and close work like the prompt cards: one open at a time, details fold, the others glide
+    function syncWorkflowCard(card) {
+      card.querySelector("[data-wc-toggle]").setAttribute("aria-expanded", String(card.classList.contains("shown")));
+    }
+
+    function resetWorkflowStep(card) {
+      delete card.dataset.open;
+      card.querySelectorAll("[data-wc-pill]").forEach(button => {
+        button.classList.remove("is-open");
+        button.setAttribute("aria-expanded", "false");
+      });
+      card.querySelector(".wc-box").hidden = true;
+    }
+
+    function collapseWorkflowCard(card) {
+      clearTimeout(card._fold);
+      withoutMotion(card, () => card.classList.remove("open", "shown"));
+      resetWorkflowStep(card);
+      syncWorkflowCard(card);
+    }
+
+    function setWorkflowCardOpen(card, open, animate = false) {
+      clearTimeout(card._fold);
+      const glide = animate && !reduceMotion.matches;
+      const list = card.parentElement;
+      if (open) {
+        const apply = () => {
+          list.querySelectorAll(".wc-card.open").forEach(other => {
+            if (other !== card) collapseWorkflowCard(other);
+          });
+          const show = () => card.classList.add("open", "shown");
+          if (glide) show();
+          else withoutMotion(card, show);
+          syncWorkflowCard(card);
+        };
+        if (glide) flipGrid(apply, card, list, ".wc-card");
+        else apply();
+      } else {
+        card.classList.remove("shown");
+        syncWorkflowCard(card);
+        if (!glide) collapseWorkflowCard(card);
+        else card._fold = setTimeout(() => flipGrid(() => {
+          card.classList.remove("open");
+          resetWorkflowStep(card);
+        }, card, list, ".wc-card"), FOLD_MS);
+      }
+    }
+
+    function toggleWorkflowCard(card) {
+      const opening = !card.classList.contains("shown");
+      setWorkflowCardOpen(card, opening, true);
+      if (!opening) return;
+      // wait for the chain to unfold so the whole card can be brought into view
+      const reveal = () => {
+        if (card.classList.contains("shown")) card.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      };
+      if (reduceMotion.matches) reveal();
+      else setTimeout(reveal, FOLD_MS + 40);
     }
 
     function toggleWelcomeStep(pill) {
@@ -1339,6 +1408,11 @@
     function bindEvents() {
       els.pageContent.addEventListener("click", async event => {
         // the workflow cards on the welcome screen
+        const wcToggle = event.target.closest("[data-wc-toggle]");
+        if (wcToggle) {
+          toggleWorkflowCard(wcToggle.closest(".wc-card"));
+          return;
+        }
         const wcPill = event.target.closest("[data-wc-pill]");
         if (wcPill) {
           toggleWelcomeStep(wcPill);
@@ -1664,6 +1738,14 @@
         if (event.target.closest(".prompt-card.open .prompt-text, .prompt-actions-row")) return;
         if (String(window.getSelection())) return;
         toggleCard(card);
+      });
+
+      document.getElementById("welcomeWorkflows").addEventListener("keydown", event => {
+        if (event.key !== "Escape") return;
+        const card = event.target.closest(".wc-card.shown");
+        if (!card) return;
+        toggleWorkflowCard(card);
+        card.querySelector("[data-wc-toggle]").focus();
       });
 
       els.promptGrid.addEventListener("keydown", event => {
