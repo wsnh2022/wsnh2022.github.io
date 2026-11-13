@@ -27,6 +27,9 @@ Standalone tools (each fully self-contained, 80-180 KB of inline CSS/JS): `vibec
 ### Adding a file to assets/prompts/
 Add its tag to `prompts.html` in the right load order and its path to `FILES` in `sw.js`, then bump `CACHE` in `sw.js`. A new topic file needs nothing else: its heading comes from its `addTopic()` call.
 
+### Tags
+`PROMPT_LIBRARY.tags` in `assets/prompts/data/library.js` maps each tag (`debug`, `brainstorm`, `dev`, `review`, `rewrite`, `extract`, `plan`, `learn`) to the prompt ids that carry it, in the order the filter chips show. A prompt can sit in several tags or none. `app.js` builds the chips, the filter and tag search from it, and warns in the console about an id that does not exist. When you add a prompt, add its id to the tags it fits. Packs and workflows carry no tags.
+
 ### Adding prompts
 A single prompt, even a long fill-in one, goes into the category that matches its topic, in that topic's file in `assets/prompts/data/` (a `purpose` line is optional there). Do not make a one-prompt pack. Prompt ids are numbers shared by every data file; a new prompt takes the highest id plus one (`grep -ho '"id": [0-9]*' assets/prompts/data/*.js | sort -t' ' -k2 -n | tail -1`).
 

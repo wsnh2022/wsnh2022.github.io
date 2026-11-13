@@ -2,6 +2,7 @@
     const state = {
       library: window.PROMPT_LIBRARY || null,
       activeCategory: "all",
+      activeTag: "",
       searchTerm: ""
     };
 
@@ -40,6 +41,7 @@
       categoryNav: document.getElementById("categoryNav"),
       sectionEyebrow: document.getElementById("sectionEyebrow"),
       packTip: document.getElementById("packTip"),
+      tagBar: document.getElementById("tagBar"),
       workflowView: document.getElementById("workflowView"),
       workflowResults: document.getElementById("workflowResults"),
       searchInput: document.getElementById("searchInput"),
@@ -208,6 +210,16 @@
 
     function promptById(id) {
       return allPrompts().find(item => String(item.id) === String(id)) || null;
+    }
+
+    // tags cut across categories: PROMPT_LIBRARY.tags lists the prompt ids for each tag, in display order
+    const TAG_NAMES = Object.keys((state.library && state.library.tags) || {});
+    const TAGS_BY_ID = new Map();
+    TAG_NAMES.forEach(tag => state.library.tags[tag].forEach(id =>
+      TAGS_BY_ID.set(String(id), [...(TAGS_BY_ID.get(String(id)) || []), tag])));
+
+    function tagsOf(id) {
+      return TAGS_BY_ID.get(String(id)) || [];
     }
 
     // favorites and recently used live in this browser only, newest first
@@ -491,6 +503,12 @@
       return ` ${text}`.includes(` ${searchStem(word)}`);
     }
 
+    // packs and workflows carry no tags, so a tag filter does not apply inside them
+    function tagApplies(categoryId = state.activeCategory) {
+      const group = getCategory(categoryId);
+      return Boolean(state.activeTag) && !(group && (isPack(group) || isWorkflow(group)));
+    }
+
     function getFilteredPrompts(categoryId = state.activeCategory) {
       const view = personalView(categoryId);
       let prompts = view ? personalPrompts(view) : allPrompts();
@@ -499,11 +517,15 @@
         prompts = prompts.filter(item => item.category.id === categoryId);
       }
 
+      if (tagApplies(categoryId)) {
+        prompts = prompts.filter(item => tagsOf(item.id).includes(state.activeTag));
+      }
+
       const words = searchWords(state.searchTerm);
       if (words.length) {
         const matches = text => words.every(word => textHasWord(text.toLowerCase(), word));
         prompts = prompts.filter(item =>
-          matches(`${item.name} ${item.purpose || ""} ${item.prompt} ${item.category.name}`));
+          matches(`${item.name} ${item.purpose || ""} ${item.prompt} ${item.category.name} ${tagsOf(item.id).join(" ")}`));
         // prompts named after the search come first
         const inName = item => matches(item.name);
         prompts = [...prompts.filter(inName), ...prompts.filter(item => !inName(item))];
@@ -569,6 +591,35 @@
       els.catToggleLabel.textContent = active.name;
       els.catToggle.setAttribute("aria-label", `Choose category (current: ${active.name})`);
       els.catToggleCount.textContent = String(active.count);
+      renderTagBar();
+    }
+
+    // quick-use shortcuts and tag filters above the list; packs and workflows have no tags, so they hide it
+    function renderTagBar() {
+      const group = getCategory(state.activeCategory);
+      const hidden = !TAG_NAMES.length || Boolean(group && (isPack(group) || isWorkflow(group)));
+      els.tagBar.hidden = hidden;
+      if (hidden) return;
+      const shortcut = (id, icon, label, count) => `
+        <button type="button" class="tag-pill${state.activeCategory === id ? " active" : ""}" data-view="${id}" aria-pressed="${state.activeCategory === id}">
+          ${iconSvg(icon, "category-svg")}<span>${label}</span>${count === undefined ? "" : `<span class="tag-count">${count}</span>`}
+        </button>`;
+      els.tagBar.innerHTML = `
+        <div class="tag-shortcuts" role="group" aria-label="Shortcuts">
+          ${shortcut("favorites", "star", "My prompts",personalPrompts(PERSONAL_VIEWS.favorites).length)}
+          ${shortcut("recent", "clock", "Recently used")}
+          ${shortcut("all", "spark", "All prompts")}
+        </div>
+        <div class="tag-filter" role="group" aria-label="Filter by tag">
+          ${TAG_NAMES.map(tag => `<button type="button" class="tag-chip${state.activeTag === tag ? " active" : ""}" data-tag="${escapeHtml(tag)}" aria-pressed="${state.activeTag === tag}">#${escapeHtml(tag)}</button>`).join("")}
+        </div>`;
+    }
+
+    // the bar is redrawn on every change, so give keyboard focus back to the control that was used
+    function toggleTag(tag) {
+      state.activeTag = state.activeTag === tag ? "" : tag;
+      renderPrompts();
+      els.tagBar.querySelector(`[data-tag="${CSS.escape(tag)}"]`)?.focus({ preventScroll: true });
     }
 
     function renderContentHeader(filtered, workflowMatches = 0) {
@@ -597,7 +648,12 @@
       } else if (searchApplied) {
         els.sectionDescription.textContent =
           `${filtered.length} matching prompt${filtered.length === 1 ? "" : "s"} within ${title}` +
+          (tagApplies() ? ` tagged #${state.activeTag}` : "") +
           (workflowMatches ? `, plus ${workflowMatches} workflow${workflowMatches === 1 ? "" : "s"}.` : ".");
+      } else if (tagApplies()) {
+        els.sectionDescription.textContent =
+          `${filtered.length} prompt${filtered.length === 1 ? "" : "s"} tagged #${state.activeTag}` +
+          (view || activeCategory ? ` in ${title}.` : ".");
       } else if (view) {
         els.sectionDescription.textContent = view.description;
       } else if (activeCategory) {
@@ -795,6 +851,7 @@
     }
 
     function renderPrompts() {
+      renderTagBar();
       const active = getCategory(state.activeCategory);
       if (active && isWorkflow(active)) {
         // a search from a workflow looks through every prompt
@@ -823,9 +880,11 @@
         const searching = searchWords(state.searchTerm).length > 0;
         const view = personalView(state.activeCategory);
         const elsewhere = !searching || state.activeCategory === "all" ? 0 : getFilteredPrompts("all").length;
-        els.emptyTitle.textContent = view && !searching ? view.emptyTitle : "No prompts found";
-        els.emptyHint.textContent = view && !searching
+        els.emptyTitle.textContent = view && !searching && !tagApplies() ? view.emptyTitle : "No prompts found";
+        els.emptyHint.textContent = view && !searching && !tagApplies()
           ? view.emptyHint
+          : tagApplies() && !searching
+            ? "No prompts with this tag here. Pick another category, or tap the tag again to clear it."
           : elsewhere
             ? "Nothing here matches, but other prompts do."
             : "Try a different search term or select another category.";
@@ -856,6 +915,8 @@
             <h3 title="${escapeHtml(item.name)}">${hitHtml(item.name, hits)}</h3>
             ${searchSnippet(item, hits)}
             ${item.purpose ? `<p class="prompt-purpose">${hitHtml(item.purpose, hits)}</p>` : ""}
+            ${tagsOf(item.id).length ? `<span class="prompt-tags">${tagsOf(item.id).map(tag =>
+              `<button type="button" class="tag-chip small${state.activeTag === tag ? " active" : ""}" data-tag="${escapeHtml(tag)}" aria-pressed="${state.activeTag === tag}">#${escapeHtml(tag)}</button>`).join("")}</span>` : ""}
           </div>
 
           <button type="button" class="prompt-action prompt-share" aria-label="Copy link to ${escapeHtml(item.name)}" data-tooltip="Copy link">
@@ -1380,6 +1441,8 @@
       const params = new URLSearchParams(location.hash.slice(1));
       const category = params.get("category");
       state.activeCategory = getCategory(category) || personalView(category) ? category : "all";
+      // a link or Back never carries a tag, so a leftover one must not hide the prompt it points at
+      state.activeTag = "";
       state.searchTerm = params.get("q") || "";
       els.searchInput.value = state.searchTerm;
       // show the list before drawing it: a hidden list measures as zero, which breaks the wrapped counts
@@ -1392,6 +1455,7 @@
     function openLibrary(categoryId, searchTerm = "") {
       const alreadyOpen = libraryShowing();
       state.activeCategory = categoryId;
+      state.activeTag = "";
       state.searchTerm = searchTerm;
       els.searchInput.value = searchTerm;
       // show the list before drawing it: a hidden list measures as zero, which breaks the wrapped counts
@@ -1473,6 +1537,7 @@
         if (!button) return;
 
         state.activeCategory = button.dataset.categoryId;
+        state.activeTag = "";
         renderCategories();
         renderPrompts();
         pushLibraryUrl();
@@ -1699,6 +1764,22 @@
         }
       });
 
+      els.tagBar.addEventListener("click", event => {
+        const tagButton = event.target.closest("[data-tag]");
+        if (tagButton) {
+          toggleTag(tagButton.dataset.tag);
+          return;
+        }
+        const viewButton = event.target.closest("[data-view]");
+        if (!viewButton) return;
+        state.activeCategory = viewButton.dataset.view;
+        state.activeTag = "";
+        renderCategories();
+        renderPrompts();
+        pushLibraryUrl();
+        els.tagBar.querySelector(`[data-view="${CSS.escape(viewButton.dataset.view)}"]`)?.focus({ preventScroll: true });
+      });
+
       els.promptGrid.addEventListener("click", event => {
         const card = event.target.closest(".prompt-card");
         if (!card) return;
@@ -1710,6 +1791,12 @@
 
         if (event.target.closest(".ai-share")) {
           shareText(promptById(card.dataset.copyId).prompt, promptById(card.dataset.copyId));
+          return;
+        }
+
+        const tagBtn = event.target.closest(".tag-chip");
+        if (tagBtn) {
+          toggleTag(tagBtn.dataset.tag);
           return;
         }
 
@@ -1918,6 +2005,9 @@
       }
       const groupIds = [...allGroups(), ...workflows()].map(group => group.id);
       groupIds.filter((id, index) => groupIds.indexOf(id) !== index).forEach(id => console.warn(`Group id "${id}" is used more than once`));
+      TAG_NAMES.forEach(tag => state.library.tags[tag].forEach(id => {
+        if (!seen.has(String(id))) console.warn(`Tag "${tag}" names prompt ${id}, which does not exist`);
+      }));
       workflows().forEach(flow => (flow.steps || []).forEach((step, index) => {
         if (!seen.has(String(step.prompt))) console.warn(`Workflow "${flow.id}" step ${index + 1} names prompt ${step.prompt}, which does not exist`);
       }));

@@ -121,6 +121,41 @@ PROMPT_LIBRARY.addTopic("Code & data", [
         "purpose": "What a repo does, how it works, its rivals, and whether it's worth your time",
         "prompt": "Repo: [GitHub repo URL]\nMy goal: [your goal] (pick one: just understand it, use it, build on it, contribute, build a competitor. If none is picked, assume just understand it.)\n\nOpen and read the repo before answering: the README, the dependency files (package.json, requirements.txt, Cargo.toml, etc.), the folder structure, and the commit history. If you can't access it, say so and stop. Don't guess from the repo name.\n\n1. What it is: In 2-3 sentences, what problem it solves and who it's for.\n\n2. Tech stack: Languages, frameworks, databases, AI models or APIs, hosting, and key libraries. Name the file where you found each one.\n\n3. How it works: The main parts of the project and what each does, how a typical request or action flows through them, and the 3-5 files to read first to understand the code.\n\n4. Competitors: The closest existing tools with the same core features. Split them into paid products and free/open-source projects. For each, give a link and one line on how it compares. Only list tools you're confident exist.\n\n5. Real product or vibe-coded prototype: Judge it on evidence, not impressions. Check:\n- Tests and automated checks\n- Commit history (steady work over time, or a few big dumps)\n- Number of contributors and issue activity\n- Error handling, security basics (no secrets in the code), and docs\n- License (can it be used commercially?)\n- Whether there's a live demo, real users, or a paid plan\nThen label it: Production-ready / Solid prototype / Early prototype / Abandoned. Explain the label in 2-3 lines.\n\n6. Edge: What does it do that the free alternatives don't? If nothing, say so plainly.\n\n7. Verdict for my goal: If my goal is just to understand it, tell me what's well built and worth learning from, and what's weak or worth avoiding. Otherwise, pick one: Worth pursuing / Use an existing tool instead / Fork and improve / Learn from it only / Skip. Give the top 3 reasons. If it's worth pursuing, list the 3 most valuable improvements.\n\nStart with a one-line verdict, then the sections. Mark anything you're inferring rather than reading from the repo.",
         "icon": "review"
+      },
+      {
+        "id": 241,
+        "name": "Legacy Code Map",
+        "purpose": "Understand old code before you touch it",
+        "prompt": "Help me understand the legacy code below before I change it. Explain what it does in plain terms, what goes in and comes out, what it changes outside itself (files, storage, network, globals), and what other code probably depends on it. List the parts that look risky to touch and why. Mark anything you are guessing as a guess.\n\nCode:",
+        "icon": "architecture"
+      },
+      {
+        "id": 242,
+        "name": "Characterization Tests",
+        "purpose": "Lock in what the code does today before you refactor",
+        "prompt": "Write tests that lock in what the code below does today, even where that looks wrong, so I can refactor without changing behavior. Base every expected value on what the code actually returns, not on what it should return. List separately any behavior that looks like a bug. Match its language and test framework.\n\nCode:",
+        "icon": "test"
+      },
+      {
+        "id": 243,
+        "name": "Safe Legacy Refactor",
+        "purpose": "Small steps that each keep behavior the same",
+        "prompt": "Plan a safe refactor of the legacy code below as a series of small steps, each one keeping behavior the same. For each step say what changes, which test or check to run afterward, and how to undo it. Put the lowest-risk steps first. Say what you would not touch yet and why.\n\nCode:",
+        "icon": "convert"
+      },
+      {
+        "id": 244,
+        "name": "Edge Cases by Input",
+        "purpose": "Edge cases grouped by kind of input, with what happens now and what should",
+        "prompt": "List the edge cases for the code below, grouped by kind of input: empty or missing, smallest and largest values, one off from a limit, malformed, unusual encoding or characters (such as a byte order mark or non-English text), duplicates, wrong order, very large, and failures of anything it depends on. For each, say what the code does today and what it should do. Skip cases that cannot happen.\n\nCode:",
+        "icon": "risk"
+      },
+      {
+        "id": 245,
+        "name": "Debug from Reproduction",
+        "purpose": "Ranked causes, the quickest check for each, and the exact line to change",
+        "prompt": "Help me find the cause of the bug below. Rank the most likely causes, and for each give the quickest check that would confirm or rule it out. Then point to the exact line you would change and why. Separate what the code shows from what you are guessing. Don't suggest a rewrite.\n\nWhat I expected:\nWhat happened instead:\nHow to reproduce:\nCode:",
+        "icon": "bug"
       }
     ]
   },

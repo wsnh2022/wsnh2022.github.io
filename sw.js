@@ -1,4 +1,4 @@
-const CACHE = 'ai-prompts-v14';
+const CACHE = 'ai-prompts-v15';
 const SHELL = './prompts.html';
 // everything prompts.html needs to work offline; a new file in assets/prompts/ goes here too
 const FILES = [
